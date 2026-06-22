@@ -1,0 +1,2 @@
+# AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-
+AQARION-ARITHMETIC researches finite dynamical systems, observable quotients, semiconjugacy, trace equivalence, coalgebraic refinement, and certified computation The repository develops exact Kaprekar dynamics  quotient geometry nilpotency-depth structure reproducible verification, and auditable mathematical infrastructure for finite-state research
