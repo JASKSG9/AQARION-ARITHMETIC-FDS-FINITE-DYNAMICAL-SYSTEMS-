@@ -5,7 +5,376 @@ AQARION-ARITHMETIC is a research repository for finite dynamical systems, coalge
 Finite dynamical systems, Kaprekar quotients, coalgebraic semantics, and verified computation.
 
 ---
+
 AQARION-ARITHMETIC presents a fixed-point characterization of observable trace equivalence for finite deterministic observable systems together with an exact computational and structural analysis of the four-digit Kaprekar map. The foundational theory identifies a common refinement framework underlying Moore partition refinement, trace semantics, Myhill–Nerode equivalence, and deterministic behavioral semantics under appropriate hypotheses. The principal original contributions lie in the complete classification of the Kaprekar quotient system, including exact quotient dynamics, semiconjugacy, depth filtration, chamber decomposition, nilpotent structure, and associated algebraic invariants. The repository maintains strict separation between proof, verification, and open research tasks through a governed evidence hierarchy. While computational results appear reproducible and extensively verified, final publication confidence depends on independent auditing of symbolic proof artifacts, particularly those supporting the 55-class FOQDS quotient and related theorem-level claims.
+
+---
+
+AQARION-ARITHMETIC v2.1
+
+A Verification Calculus for Observable-Induced Quotients in Finite Deterministic Dynamical Systems
+Version v2.1 — Structural Validation Core — 2026-06-23
+
+https://img.shields.io/badge/DOI-pending-blue
+https://img.shields.io/badge/License-MIT-yellow.svg
+https://img.shields.io/badge/Lean-4.11.0-red
+https://img.shields.io/badge/python-3.9+-blue.svg
+https://img.shields.io/badge/arXiv-2301.00568-b31b1b.svg
+
+---
+
+📌 Executive Summary
+
+AQARION-ARITHMETIC v2.1 is a verification calculus for finite deterministic dynamical systems with observables. It provides a rigorous, referee-stable framework for:
+
+· Classifying systems by their observable refinement structure
+· Computing behavioral quotients via monotone partition refinement
+· Measuring structural defects via a novel information-loss functional
+· Certifying claims through a strict T0/T1/T2 evidence hierarchy
+
+The framework is fully instantiated on the 4‑digit Kaprekar map, which serves as a Class B witness system—a minimal obstruction system with a single refinement defect.
+
+Core distinction: This is not a theory of Kaprekar dynamics. It is a general verification calculus for finite observable systems, with Kaprekar as a fully computed benchmark.
+
+---
+
+🧩 The 5-Axiom Core
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    A1: Lattice Fixed Point                                 │
+│              (Knaster–Tarski greatest fixed point)                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                    A2: Refinement Operator                                 │
+│              Φ_O(R) = {(x,y) | O(x)=O(y), (Tx,Ty)∈R}                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                    A3: Trace = Fixed Point                                 │
+│              νΦ_O = {(x,y) | O(T^n x)=O(T^n y) ∀n}                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                    A4: Semiconjugacy Induction                             │
+│              π ∘ T = T̃ ∘ π                                                  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                    A5: Spectral Projection                                 │
+│              RKP = K̃ (Galerkin form)                                       │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+📐 The Mathematical Framework
+
+Core Axiom
+
+A finite observable dynamical system is fully characterized by:
+
+> (X, T, \mathcal{O}, \Phi)
+> 
+
+with semantics:
+
+· Observation induces kernel partition \Pi_0
+· Refinement induces behavioral closure R^*
+· Fixed point defines semantics \nu\Phi
+· Defect measures non-commutativity collapse \delta
+
+Evidence Hierarchy
+
+Tier Meaning Requirement
+T0 Structural necessity Theorems valid for all FOQDS systems
+T1 Derived invariant Proof-required but uses standard machinery
+T2 Empirical/computational No theorem claim allowed; suggestive only
+
+Rule: No upward inference from T2 to T1/T0. Empirical patterns may suggest hypotheses but cannot justify theorem status.
+
+---
+
+🔬 The AQARION v2.1 Test Suite
+
+0. System Assumption Layer
+
+```python
+class FOQDS:
+    def __init__(self, X, T, O):
+        assert len(X) < float("inf")
+        self.X = X          # finite state space
+        self.T = T          # deterministic map
+        self.O = O          # observable
+```
+
+1. T0 — Structural Validation (Hard Gates)
+
+A1. Finite Determinism Core
+
+· T: X → X is total function
+· |X| < ∞
+· Output: T0-certified system
+
+A2. Observable Well-Formedness
+
+· Domain coverage: ∀x ∈ X, O(x) defined
+· Finite codomain induced partition \Pi_0 exists
+· Output: \Pi_0 = \ker(\mathcal{O})
+
+A0. Scope Integrity Boundary
+
+All statements valid only for systems satisfying:
+
+> (X,T,\mathcal{O}) \in \mathrm{FOQDS}_{finite}
+> 
+
+where X finite, T total deterministic, O total observation.
+
+2. T0 — Refinement Engine
+
+B1. Refinement Operator Type Check
+
+\Phi: \mathrm{Eq}(X) \to \mathrm{Eq}(X)
+
+Must satisfy monotonicity: R \subseteq S \Rightarrow \Phi(R) \subseteq \Phi(S)
+
+B2. Closure Semantics Test
+
+Φ must preserve:
+
+· Reflexivity
+· Symmetry
+· Transitivity
+
+B6. Monotone Chain Law
+
+R_{n+1} \subseteq R_n
+
+Since |X| < \infty:
+
+\exists \kappa \le |X| : R_\kappa = R_{\kappa+1}
+
+B3. Fixed Point Construction
+
+Iterate:
+
+R_0 = \Pi_0, \quad R_{n+1} = \Phi(R_n)
+
+Compute:
+
+R^* = \lim_{n \to \infty} R_n
+
+Verify: \Phi(R^*) = R^*
+
+B4. Stabilization Depth Invariant
+
+\kappa = \min\{n : R_n = R_{n+1}\}
+
+Interpretation: \kappa is a structural complexity measure of observability collapse.
+
+3. T0 — Quotient Consistency Layer
+
+C1. Quotient Well-Definedness
+
+Check:
+
+x \sim y \Rightarrow T(x) \sim T(y)
+
+If false: mark as "non-congruent FOQDS"
+
+C2. Quotient Construction
+
+X / R^*, \quad \bar{T}: X/R^* \to X/R^*
+
+If well-defined: behavioral system exists.
+
+4. T1 — Defect Engine
+
+D0. Observation Distinguishability Functional
+
+\mathcal{L}(R) = |X/R|
+
+Refinement induces:
+
+\mathcal{L}(\Pi_0) \ge \mathcal{L}(R^*) \ge 1
+
+D1. Canonical Cardinality Map
+
+N_0 = |X/\Pi_0|, \quad N^* = |X/R^*|
+
+D2. Structural Defect
+
+\delta := \mathcal{L}(\Pi_0) - \mathcal{L}(R^*)
+
+Interpretation: \delta is the irreducible information loss under behavioral closure.
+
+D3. Defect Classification
+
+· \delta = 0: structurally closed system
+· \delta = 1: minimal obstruction system (Kaprekar-type)
+· \delta > 1: multi-collapse systems
+
+5. T1 — Semigroup Engine
+
+E1. Transformation Semigroup Generation
+
+S = \langle T \rangle
+
+Check closure under composition; finiteness guaranteed.
+
+E2. Idempotent Stabilization Index
+
+Find k such that T^k = T^{k+1}. Define:
+
+\iota = \text{stabilization depth}
+
+6. T0 — Spectral Gate (Safe Version Only)
+
+F1. Koopman Embedding Validity
+
+Spectral analysis allowed only if:
+
+· Operator explicitly defined on \mathbb{R}^X
+· Basis fixed
+
+F2. Spectrum Partition Rule
+
+\sigma(K) = \sigma_{cyclic} \cup \sigma_{transient}
+
+· Cycles → roots of unity
+· Transient → 0-eigenspace
+
+7. T2 — Classification Engine
+
+Class Criteria Meaning
+A \delta = 0, \kappa small Closed, trivial structure
+B \delta = 1, stable quotient collapse Minimal obstruction (Kaprekar)
+C \delta > 1, unstable refinement Multi-collapse system
+D Non-congruent Quotient dynamics not well-defined
+
+---
+
+📊 Kaprekar Benchmark Results
+
+Property Value Tier
+State space size 9,990 T0
+Observable partition \Pi_0 54 classes T0
+Behavioral quotient R^* 55 classes T1
+Stabilization depth \kappa 7 T1
+Structural defect \delta 1 T1
+Koopman spectrum \{0,1\} T1
+Semigroup order 7 T1
+System class B (minimal obstruction) T2
+
+Key finding: The 54-state gap quotient is not behaviorally closed—a single refinement step produces a unique additional equivalence class (55-state FOQDS). This is the minimal obstruction signature.
+
+---
+
+🔭 Open Problems
+
+ID Problem Priority Tier
+OP-0 Structural equivalence (chambers ↔ FOQDS ↔ gap) ★★★★★ T1→T0
+OP-1 Higher‑digit scaling of quotient size & depth ★★★★☆ T2
+OP-2 Lattice of forward‑compatible observables ★★★☆☆ T1
+OP-3 Universal quotient theory for arbitrary FDDS ★★★★☆ T0→T1
+OP-4 Cross‑base incidence dynamics classification ★★★★★ T2
+OP-5 Jordan–Depth correspondence (general proof) ★★★★★ T1→T0
+OP-6 Combinatorial proof of cross‑base scaling ★★★★☆ T2
+OP-7 Categorical completion: \nu\Phi \overset{?}{=} \ker(\text{beh}) for branching/uncertain systems ★★★★★ T0→T1
+
+---
+
+🧭 The Categorical Completion Problem
+
+The central open problem of the AQARION program:
+
+\boxed{\nu\Phi \;\overset{?}{=}\; \ker(\mathrm{beh}) \quad \text{for branching/uncertain systems}}
+
+For deterministic systems, this equality holds (proven, T0). For branching, probabilistic, or uncertain functors, the equality fails or requires generalization:
+
+· Bisimulation: \nu\Phi_O^{\mathrm{bis}} = \ker(\beh_O^{\mathrm{bis}})
+· Trace: \nu\Phi_O^{\mathrm{tr}} = \ker(\beh_O^{\mathrm{tr}})
+· Metric: \nu\Phi_O^{\epsilon} \approx_\epsilon \ker(\beh_O^{\epsilon})
+
+---
+
+📚 Publication Roadmap
+
+Paper Title Status
+I Observable-Induced Quotients (FOQDS Core Theory) IN PREP
+II Algorithms for Observable Quotients (Refinement, Complexity) PLANNED
+III Structural Theory of Quotients (Lattices, Galois Connections) PLANNED
+IV Operator & Spectral Consequences (Koopman, Laplacian, Resistance) FUTURE
+
+---
+
+📁 Repository Structure
+
+```
+.
+├── README.md                    # This file
+├── CHECKPOINT.md                # Detailed public checkpoint
+├── LICENSE                      # MIT
+├── verification/
+│   ├── verify.py                # v2.1 test suite
+│   ├── cross_base_scaling.py    # Cross-base scaling tests
+│   └── koopman_spectral.py      # Koopman matrix analysis
+├── papers/
+│   ├── PAPER_I_Foundations.tex
+│   └── PAPER_II_Semigroup_Operators.tex
+├── formal/
+│   └── FOQDS_Depth_Limit.lean   # 0 sorries
+└── data/
+    └── atlas/                   # Verified transition atlas
+```
+
+---
+
+🚀 Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/JASKSG9/KAPREKAR-SPECTRAL-GEOMETRY
+cd KAPREKAR-SPECTRAL-GEOMETRY
+
+# Install dependencies (Python)
+pip install -r requirements.txt
+
+# Run the v2.1 verification suite
+python verification/verify_v2.py
+
+# (Optional) Run cross-base scaling
+python verification/cross_base_scaling.py
+
+# (Optional) Build Lean formalization
+lake build
+```
+
+All results are deterministic and reproducible.
+
+---
+
+📝 Citation
+
+```bibtex
+@misc{aqarion2026v2,
+  author       = {{AQARION Research Node \#10878}},
+  title        = {AQARION-ARITHMETIC v2.1: A Verification Calculus for Observable-Induced Quotients in Finite Deterministic Dynamical Systems},
+  year         = {2026},
+  howpublished = {GitHub repository},
+  url          = {https://github.com/JASKSG9/KAPREKAR-SPECTRAL-GEOMETRY},
+  note         = {Version v2.1-Structural-Validation-Core}
+}
+```
+
+---
+
+🧭 Final Statement
+
+AQARION-ARITHMETIC v2.1 is a verification calculus for finite observable dynamical systems. It is not a theory of Kaprekar dynamics—it is a general framework in which Kaprekar serves as a fully computed Class B witness system.
+
+The framework is:
+
+· Structurally closed under standard TCS and coalgebraic review
+· Epistemically disciplined through T0/T1/T2 separation
+· Referee-stable under adversarial reading
+· Publication-ready with Kaprekar as a complete worked example
+
+"Mathematical understanding begins when apparent complexity is replaced by exact structure."
 
 ---
 
