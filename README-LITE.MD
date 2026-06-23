@@ -1,3 +1,669 @@
+AQARION-ARITHMETIC-FDS
+
+
+Observable Closure and Verification for Finite Deterministic Systems
+
+
+Status
+
+
+Version: v17.0 (Repository Freeze Candidate)
+
+
+Research Status:
+
+
+
+
+Mathematical Core: Verified within stated domains
+
+
+Computational Certification: Exhaustively tested where reported
+
+
+Lean Formalization: Scaffold Stage
+
+
+Conjectural Extensions: Clearly separated
+
+
+
+
+
+Overview
+
+
+AQARION-ARITHMETIC-FDS is a research repository devoted to the study of observable closure in finite deterministic dynamical systems and the computational certification of such closure through operator-theoretic methods.
+
+
+The repository contains two distinct components:
+
+
+Mathematics Layer
+
+
+Focuses on:
+
+
+
+
+Observable closure
+
+
+Semiconjugacy
+
+
+Factor dynamics
+
+
+Finite deterministic systems
+
+
+Kaprekar benchmark dynamics
+
+
+
+
+Verification Layer
+
+
+Focuses on:
+
+
+
+
+AQARION Verification Suite (AVS)
+
+
+Operator-based certification
+
+
+Counterexample search
+
+
+Metamorphic testing
+
+
+Reproducibility workflows
+
+
+
+
+These layers are intentionally separated.
+
+
+AQARION does not introduce a new equivalence relation, bisimulation theory, or semantic framework.
+
+
+Its purpose is to study and certify when a prescribed observable evolves autonomously under a deterministic dynamics.
+
+
+
+Central Problem
+
+
+Let
+
+
+[
+T : X \rightarrow X
+]
+
+
+be a finite deterministic dynamical system.
+
+
+Given an observable
+
+
+[
+\pi : X \rightarrow Y
+]
+
+
+determine whether there exists a map
+
+
+[
+\widetilde T : Y \rightarrow Y
+]
+
+
+such that
+
+
+[
+\pi \circ T
+
+
+\widetilde T \circ \pi.
+]
+
+
+When such a map exists, the observable is said to be exactly closed.
+
+
+
+Observable Closure
+
+
+Definition
+
+
+An observable
+
+
+[
+\pi : X \rightarrow Y
+]
+
+
+is exactly closed if there exists
+
+
+[
+\widetilde T : Y \rightarrow Y
+]
+
+
+satisfying
+
+
+[
+\pi \circ T
+
+
+\widetilde T \circ \pi.
+]
+
+
+This is the standard semiconjugacy condition.
+
+
+
+Consequences
+
+
+Exact closure implies:
+
+
+
+
+Forward congruence of observable fibers
+
+
+Existence of factor dynamics
+
+
+Uniqueness of induced observable evolution
+
+
+Computability of the observable system
+
+
+
+
+The logical chain is
+
+
+[
+\text{Observable Closure}
+\Rightarrow
+\text{Forward Congruence}
+\Rightarrow
+\text{Factor Dynamics}
+\Rightarrow
+\text{Quotient Structure}
+]
+
+
+
+AQARION Verification Suite (AVS)
+
+
+Purpose
+
+
+AVS provides a computational certification procedure for testing observable closure.
+
+
+It does not construct observables.
+
+
+It does not refine partitions.
+
+
+It does not generate equivalence relations.
+
+
+It tests whether a prescribed observable is compatible with the dynamics.
+
+
+
+Obstruction Operator
+
+
+For a Koopman operator K and projection P_\Pi,
+
+
+[
+D_\Pi
+
+
+(I-P_\Pi)KP_\Pi.
+]
+
+
+Interpretation:
+
+
+
+
+Apply observable projection
+
+
+Evolve under Koopman dynamics
+
+
+Measure escape from the observable subspace
+
+
+
+
+
+Certification Principle
+
+
+Under the AVS projection construction:
+
+
+[
+D_\Pi = 0
+]
+
+
+is equivalent to invariance of the observable subspace.
+
+
+Consequently, the observable induces a well-defined factor dynamics.
+
+
+This statement is specific to the AVS projection framework and should not be interpreted as a category-independent theorem.
+
+
+
+Diagnostic Metrics
+
+
+Rank
+
+
+[
+\mathrm{rank}(D_\Pi)
+]
+
+
+Measures the dimension of incompatibility.
+
+
+Singular Values
+
+
+[
+\sigma_i(D_\Pi)
+]
+
+
+Quantify directional failure modes.
+
+
+Frobenius Norm
+
+
+[
+|D_\Pi|_F
+]
+
+
+Measures total incompatibility magnitude.
+
+
+These metrics are diagnostic only.
+
+
+No thermodynamic, phase-transition, or physical interpretation is claimed.
+
+
+
+Kaprekar Benchmark System
+
+
+System
+
+
+Classical four-digit Kaprekar transformation:
+
+
+
+
+Sort digits descending
+
+
+Sort digits ascending
+
+
+Subtract
+
+
+Repeat
+
+
+
+
+Repdigits excluded.
+
+
+
+Verified Results
+
+
+State Counts
+
+
+
+
+Raw sorted states: 705
+
+
+Gap fibers: 54
+
+
+Reachable observable states: 54
+
+
+
+
+Closure
+
+
+Verified observable:
+
+
+[
+\pi(a,b,c,d)
+
+
+(a-d,; b-c)
+]
+
+
+satisfies
+
+
+[
+\pi \circ K
+
+
+\widetilde K \circ \pi.
+]
+
+
+No violations detected during exhaustive verification.
+
+
+
+Factor Dynamics
+
+
+Verified:
+
+
+
+
+Exact induced dynamics
+
+
+Unique fixed point corresponding to 6174
+
+
+Maximum transient depth: 6
+
+
+
+
+
+Support-Collapse Filtration
+
+
+The observable factor exhibits the support sequence
+
+
+[
+54
+\rightarrow
+30
+\rightarrow
+17
+\rightarrow
+12
+\rightarrow
+8
+\rightarrow
+5
+\rightarrow
+2
+\rightarrow
+1.
+]
+
+
+This sequence is a directly computable invariant of the factor dynamics.
+
+
+It is currently considered more significant than spectral interpretations.
+
+
+
+Repository Structure
+
+
+AQARION-ARITHMETIC-FDS/
+
+├── mathematics/
+│   ├── observable_closure/
+│   ├── semiconjugacy/
+│   ├── factor_dynamics/
+│   └── kaprekar/
+│
+├── avs/
+│   ├── obstruction_operator/
+│   ├── certification/
+│   ├── metamorphic_tests/
+│   ├── adversarial_tests/
+│   └── counterexample_oracle/
+│
+├── lean/
+│   ├── foundations/
+│   └── scaffolds/
+│
+├── benchmarks/
+│   ├── kaprekar/
+│   ├── cycle_graphs/
+│   └── random_systems/
+│
+└── docs/
+
+
+
+
+Current Formalization Status
+
+
+Verified
+
+
+
+
+Computational closure checks
+
+
+Factor construction
+
+
+State counts
+
+
+Transition tables
+
+
+Support-collapse sequence
+
+
+
+
+Partial
+
+
+
+
+Lean theorem scaffolds
+
+
+Formal proof automation
+
+
+
+
+Not Yet Formalized
+
+
+
+
+Complete machine-checked certification theorem
+
+
+Full observable-closure classification theory
+
+
+
+
+
+Open Research Program
+
+
+Observable Closure Classification
+
+
+Define
+
+
+[
+\mathcal C(T)
+
+
+{
+\pi :
+\pi\circ T
+
+
+\widetilde T\circ\pi
+}.
+]
+
+
+Questions:
+
+
+
+
+Characterize all exactly closed observables.
+
+
+Determine lattice structure of \mathcal C(T).
+
+
+Study minimal generating observables.
+
+
+Relate closure classes to invariant subspaces.
+
+
+Relate closure classes to forward congruences.
+
+
+
+
+
+Cross-Base Dynamics
+
+
+Future work investigates observable closure across bases
+
+
+[
+b=5,6,8,10,12,15,\ldots
+]
+
+
+with emphasis on:
+
+
+
+
+factor size scaling
+
+
+support-collapse geometry
+
+
+automorphism structure
+
+
+congruence structure
+
+
+
+
+
+Scope Statement
+
+
+AQARION does not claim:
+
+
+
+
+a new equivalence theory
+
+
+a new semantic framework
+
+
+a new coalgebraic construction
+
+
+a new partition-refinement theory
+
+
+
+
+AQARION studies observable closure in finite deterministic systems and provides computational tools for certifying compatibility between prescribed observables and dynamical evolution.
+
+
+
+Citation Summary
+
+
+If referencing this repository, cite:
+
+
+
+
+Exact observable closure of the digit-gap observable in the four-digit Kaprekar system, together with operator-theoretic certification via the AQARION Verification Suite.
+
+
+---
+
 AQARION is now a symmetry-reduced spectral invariant engine that classifies finite dynamical systems by the geometry of Koopman-observable commutator spectra.
 
 ~~~
