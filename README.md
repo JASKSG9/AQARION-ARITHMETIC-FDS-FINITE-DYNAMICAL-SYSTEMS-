@@ -1,6 +1,5 @@
-🌉AQARION⚖️ARITHMETIC🧮
+🌉 AQARION⚖️ARITHMETIC 🧮
 
-```
 # AQARION: Behavioral Quotient Certification via Operator Obstruction
 
 [![ArXiv](https://img.shields.io/badge/arXiv-2606.XXXXX-blue)](https://arxiv.org/abs/2606.XXXXX)
