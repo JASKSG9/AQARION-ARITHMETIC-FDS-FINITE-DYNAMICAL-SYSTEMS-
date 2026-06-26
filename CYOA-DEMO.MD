@@ -1,4 +1,377 @@
-AQARION-CYOA-DEMO.md
+ #AQARION-CYOA-DEMO.md
+
+
+KAPREKAR-KOOPMAN-CYOA.MD
+
+
+KAPREKAR–KOOPMAN: The Quotient Labyrinth
+
+
+A five-minute interactive thought experiment inspired by Kaprekar dynamics, Koopman operators, and observable-induced quotients.
+
+
+
+Experimental Outreach
+
+
+This document is not a research paper, proof, or formal theorem.
+
+
+It is an outreach experiment designed to answer one question:
+
+
+
+
+Can someone develop intuition for invariant partitions and dynamical systems by playing a tiny interactive story?
+
+
+
+
+If the answer is yes, the project may evolve into a browser-based demonstration. If not, it remains a lightweight educational artifact.
+
+
+
+The Premise
+
+
+You awaken inside a strange machine.
+
+
+Every room contains a number.
+
+
+Every door transforms that number.
+
+
+No matter where you begin, the machine insists that every path eventually settles into a repeating pattern.
+
+
+An old terminal flickers to life.
+
+
+
+
+KOOPMAN
+
+
+"Welcome, Observer."
+
+
+"Most travelers study numbers."
+
+
+"You will study observations."
+
+
+"Escape requires more than following arrows."
+
+
+"You must learn how to see."
+
+
+
+
+
+Mission
+
+
+Reach the Sacred Quotient.
+
+
+To do so, you must choose how the world should be partitioned.
+
+
+Your choices determine whether the machine admits an exact quotient.
+
+
+
+The Rules
+
+
+Every room belongs to a finite deterministic graph.
+
+
+Every room has exactly one successor.
+
+
+Before each checkpoint you may declare which rooms are considered equivalent.
+
+
+The Oracle immediately tests your partition.
+
+
+Possible outcomes:
+
+
+
+
+✅ Exact descent
+
+
+⚠ Invariant but not reducing
+
+
+❌ Obstruction detected
+
+
+
+
+Only exact descent unlocks the true ending.
+
+
+
+The Oracle
+
+
+Whenever you press Verify, Koopman computes
+
+
+
+
+"Does your observation survive the dynamics?"
+
+
+
+
+Internally the engine evaluates the obstruction operator.
+
+
+Players never need to know the mathematics immediately.
+
+
+Instead they receive narrative feedback.
+
+
+Example:
+
+
+
+
+"Interesting."
+
+
+
+
+
+
+"You merged two rooms whose futures disagree."
+
+
+
+
+
+
+"Your observation leaks."
+
+
+
+
+
+
+"I can show you a witness."
+
+
+
+
+
+The Witness
+
+
+The Oracle highlights one transition responsible for the obstruction.
+
+
+Rather than displaying only a matrix rank, the game explains:
+
+
+
+
+which rooms were merged,
+
+
+where the dynamics separate them,
+
+
+why the quotient fails.
+
+
+
+
+The mathematics remains exact.
+
+
+The presentation remains visual.
+
+
+
+Kaprekar Mode
+
+
+After completing the tutorial world, players unlock Kaprekar Mode.
+
+
+Instead of six rooms, the labyrinth becomes the Kaprekar dynamical system.
+
+
+Objectives include:
+
+
+
+
+Discover attractors.
+
+
+Explore transient trees.
+
+
+Experiment with observable partitions.
+
+
+Find exact quotients.
+
+
+Compare different observation strategies.
+
+
+
+
+No prior knowledge of operator theory is required.
+
+
+
+Endings
+
+
+Sacred Quotient
+
+
+The obstruction vanishes.
+
+
+The commutator vanishes.
+
+
+The quotient descends exactly.
+
+
+Koopman smiles.
+
+
+
+
+"Observation and dynamics now agree."
+
+
+
+
+
+Stable Approximation
+
+
+The obstruction disappears.
+
+
+The commutator remains.
+
+
+The quotient exists, but information is still hidden.
+
+
+
+
+"A useful model."
+
+
+
+
+
+
+"Not yet a perfect one."
+
+
+
+
+
+Obstruction
+
+
+Information leaks across your partition.
+
+
+The Oracle identifies a witness.
+
+
+You may revise your observation and try again.
+
+
+
+Design Philosophy
+
+
+The game is intentionally small.
+
+
+Its purpose is not entertainment alone.
+
+
+Its purpose is to let players experience one mathematical idea:
+
+
+
+
+A good quotient is not chosen because it is simple.
+
+
+
+
+
+
+It is chosen because the dynamics respect it.
+
+
+
+
+
+Future Possibilities
+
+
+
+
+Browser version using HTML and JavaScript.
+
+
+Interactive graph editor.
+
+
+Live partition editor.
+
+
+Kaprekar 54-state challenge.
+
+
+Community-created finite dynamical systems.
+
+
+Automatic obstruction visualization.
+
+
+Exportable verification certificates.
+
+
+
+
+
+Closing Note
+
+
+If this experiment helps even a few people understand why an invariant partition matters before they ever read the formal mathematics, then it has succeeded.
+
+
+The equations remain unchanged.
+
+
+Only the doorway into them becomes more inviting.
+
+---
 
 I’ll be honest: this isn’t a research product—it’s an experiment in community engagement. The goal is to see whether the ideas inside AQARION can be made playful enough that someone who doesn’t know operator theory still walks away thinking, “that was weird and interesting.” That’s the whole point.
 
