@@ -1,11 +1,382 @@
-🌉 AQARION⚖️ARITHMETIC 🧮
+🧮 AQARION🌉ARITHMETIC 🧮
 
-# AQARION: Behavioral Quotient Certification via Operator Obstruction
+## Behavioral Quotient Certification via Operator Obstruction
 
-[![ArXiv](https://img.shields.io/badge/arXiv-2606.XXXXX-blue)](https://arxiv.org/abs/2606.XXXXX)
-[![Lean](https://img.shields.io/badge/Lean-4.14.0-blue)](https://leanprover.github.io/)
-[![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
-[![CI](https://github.com/JASKSG9/AQARION/actions/workflows/verify.yml/badge.svg)](https://github.com/JASKSG9/AQARION/actions/workflows/verify.yml)
+<p align="center">
+
+![AQARION](https://img.shields.io/badge/AQARION-v38%20Hardening-blueviolet)
+![Status](https://img.shields.io/badge/status-submission--ready-success)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![Lean](https://img.shields.io/badge/Lean-4.14.0-blue)
+![CI](https://github.com/JASKSG9/AQARION/actions/workflows/verify.yml/badge.svg)
+![Reproducible](https://img.shields.io/badge/reproducibility-make%20verify-orange)
+![Artifacts](https://img.shields.io/badge/artifacts-hash--verified-brightgreen)
+
+</p>
+
+> A formal and reproducible framework for certifying exact observable quotients in finite deterministic dynamical systems.
+
+---
+
+# Overview
+
+AQARION studies the question:
+
+> Given a finite dynamical system and an observable partition, does the partition admit an exact quotient dynamics?
+
+The core idea is a projection-residual obstruction operator:
+
+\[
+D_\Pi=(I-P_\Pi)K^T P_\Pi
+\]
+
+where:
+
+- \(K^T\) is the Koopman pullback operator
+- \(P_\Pi\) is projection onto partition-constant observables
+- \(D_\Pi\) measures failure of observable closure
+
+The central certification principle:
+
+\[
+D_\Pi=0
+\iff
+K^T(V_\Pi)\subseteq V_\Pi
+\]
+
+meaning the observable subspace is invariant.
+
+---
+
+# Research Scope
+
+AQARION connects:
+
+| Domain | Role |
+|-|-|
+| Coalgebraic refinement | Behavioral quotient detection |
+| Koopman theory | Observable invariant subspaces |
+| Operator theory | Projection residuals |
+| Finite dynamics | Exact computational validation |
+
+---
+
+# Key Results
+
+## T1 — Descent Characterization
+
+\[
+D_\Pi=0
+\iff
+K^T(V_\Pi)\subseteq V_\Pi
+\]
+
+Status:
+
+✅ Formal theorem
+
+Evidence:
+
+- Lean 4 formalization
+- Linear operator proof
+
+---
+
+## T2 — Quotient Certification
+
+Under observable separation assumptions:
+
+\[
+D_\Pi=0
+\Rightarrow
+\exists\bar T:
+\pi T=\bar T\pi
+\]
+
+Status:
+
+⚠ Conditional theorem
+
+---
+
+## T3 — Reduction Hierarchy
+
+Define:
+
+\[
+C_\Pi=[P_\Pi,K^T]
+\]
+
+Then:
+
+\[
+C_\Pi=0\Rightarrow D_\Pi=0
+\]
+
+Status:
+
+✅ Proven
+
+---
+
+# Experimental Validation
+
+## Finite Census
+
+AQARION computes logical profiles:
+
+\[
+(Q,B,D,C)
+\]
+
+over finite deterministic systems.
+
+Validated:
+
+- implication structure
+- counterexamples
+- obstruction classes
+
+Scope:
+
+
+
+
+n ≤ 7 finite systems
+
+
+
+---
+
+# Kaprekar 54-State Benchmark
+
+AQARION derives the transient block from the actual quotient graph.
+
+Verified:
+
+
+
+
+States:                 54
+Transient states:       53
+Recurrent states:       1
+
+
+Nilpotency index:       6
+
+
+Q^6 = 0
+Q^5 ≠ 0
+
+
+
+Fundamental matrix:
+
+\[
+N=(I-Q)^{-1}
+=
+\sum_{i=0}^{5}Q^i
+\]
+
+Image filtration:
+
+\[
+53\rightarrow19\rightarrow13\rightarrow9
+\rightarrow6\rightarrow3\rightarrow0
+\]
+
+---
+
+# Repository
+
+
+
+
+AQARION/
+│
+├── core/
+│   ├── Projection.lean
+│   ├── Koopman.lean
+│   ├── Obstruction.lean
+│   └── Quotient.lean
+│
+├── scripts/
+│   ├── generate_census.py
+│   ├── derive_transient_block.py
+│   ├── verify_hashes.py
+│   └── audit_claims.py
+│
+├── output/
+│   ├── finite_census.json
+│   ├── implication_graph.json
+│   ├── transient_block.json
+│   └── claim_provenance.yaml
+│
+├── papers/
+│   └── paper1/
+│
+└── Makefile
+
+
+
+---
+
+# Verification
+
+One command:
+
+```bash
+make clean verify
+
+
+
+Pipeline:
+
+
+✓ regenerate artifacts
+✓ compile Lean proofs
+✓ generate figures
+✓ verify hashes
+✓ audit claims
+
+
+
+Expected:
+
+
+Definitions        PASS
+Theorems           PASS
+Experiments        PASS
+Artifacts          PASS
+Claim Audit        PASS
+
+
+
+
+Claim Provenance
+
+
+Every public claim is typed:
+
+
+
+
+Type
+Meaning
+
+
+
+
+Proven
+Mathematical proof
+
+
+Validated
+Proof under explicit assumptions
+
+
+Computed
+Reproducible experiment
+
+
+Conditional
+Scope-limited theorem
+
+
+
+
+Artifacts contain:
+
+
+
+
+evidence source
+
+
+script
+
+
+scope
+
+
+verification status
+
+
+
+
+
+Development Status
+
+
+
+
+Component
+Status
+
+
+
+
+Mathematical core
+✅
+
+
+Operator formulation
+✅
+
+
+Computational pipeline
+✅
+
+
+Kaprekar derivation
+✅
+
+
+Claim audit
+✅
+
+
+Lean completion
+🔄
+
+
+Paper release
+🔄
+
+
+
+
+
+Citation
+
+
+@misc{aqarion2026,
+  title={AQARION: Behavioral Quotient Certification via Operator Obstruction},
+  author={AQARION Team},
+  year={2026},
+  archivePrefix={arXiv},
+  primaryClass={math.DS}
+}
+
+
+
+
+License
+
+
+MIT License
+
+
+
+AQARION v38
+
+
+Formal.
+Reproducible.
+Claim-traceable.
+
+---
 
 **AQARION** (pronounced *a‑kwa‑ree‑on*) is a formal, reproducible framework for certifying exact observable quotients in finite deterministic dynamical systems. It unifies **coalgebraic partition refinement**, **Koopman invariant subspace theory**, and **projection‑residual operator geometry** through a single canonical obstruction operator:
 
