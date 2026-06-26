@@ -1394,4 +1394,8 @@ stateDiagram-v2
 "Mathematical understanding begins when apparent complexity is replaced by exact structure."
 
 AQARION Research Node #10878
-AQARION-CYOA-DEMO.md · v0.1.0 · 2026-06-25
+AQARION-CYOA-DEMO.md · v0.1.0 · 2026-6-25
+
+---
+
+https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-/blob/main/KAPREKAR_KOOPMAN-CYOA.MD
