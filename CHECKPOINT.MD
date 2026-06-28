@@ -13874,3 +13874,2253 @@ AQARION-ARITHMETIC presents a fixed-point characterization of observable trace e
 https://87d33075-f8e9-42cf-82c0-e99d220ed056-00-140my73txjc1s.expo.picard.replit.dev/
 
 https://github.com/JASKSG9/KAPREKAR-SPECTRAL-GEOMETRY
+
+--- JUNE28-2026 ---
+
+AQARION is an interoperable knowledge infrastructure for computational mathematics in which mathematical semantics are represented as persistent research objects, evidence is modeled through typed provenance, and every publication, proof, computation, formalization, benchmark, and educational resource is generated as a synchronized projection of a canonical ontology.
+
+AQARION is an open knowledge infrastructure for computational mathematics centered on versioned Research Objects and inspectable evidence. It develops mathematical frameworks for finite deterministic dynamical systems while providing a reproducible architecture in which definitions, proofs, computations, formal verification, provenance, benchmarks, software, and educational resources are maintained as synchronized representations of shared research objects.
+
+AQARION has reached a stable architectural milestone, not a finished scientific endpoint,
+  an open research ecosystem for finite deterministic dynamical systems that integrates mathematical theory, computational verification, formal methods, software engineering, reproducible research, and interactive education into a transparent framework where every claim can be inspected, reproduced, and explores a model for open computational mathematics in which definitions, proofs, computations, formal verification, educational resources, and software are treated as interconnected research objects with transparent evidence and reproducible workflows, AQARION certifies whether an observation algebra admits exact finite behavioral descent and quantifies the obstruction when it does not.
+
+Date: 2026-06-28
+
+Status: Stable Architecture · Active Research
+
+Protocol: Prove First · Verify Exhaustively · Predict Second · No Free Parameters
+
+---
+
+Purpose
+
+AQARION has reached a stable architectural milestone rather than a finished scientific endpoint.
+
+The purpose of this checkpoint is to document the architectural principles that are intended to remain stable while allowing the mathematical framework, benchmark library, software, and research program to continue evolving.
+
+This checkpoint records the current identity of AQARION as an open knowledge infrastructure for computational mathematics.
+
+---
+
+Mission
+
+AQARION is an open knowledge infrastructure for computational mathematics centered on versioned Research Objects and inspectable evidence.
+
+It develops mathematical frameworks for finite deterministic dynamical systems while providing a reproducible architecture in which definitions, proofs, computations, formal verification, provenance, benchmarks, software, and educational resources are maintained as synchronized representations of shared Research Objects.
+
+---
+
+Two Complementary Contributions
+
+AQARION consists of two independent but mutually reinforcing programs.
+
+I. Scientific Program
+
+Develop mathematical theory for finite deterministic dynamical systems.
+
+Current focus includes:
+
+• Observation Algebras
+
+• Observable Quotients
+
+• Exact Finite Behavioral Descent
+
+• Descent Obstruction
+
+• Certification Theory
+
+• Benchmark Families
+
+The scientific program evolves through research.
+
+---
+
+II. Methodological Program
+
+Develop an evidence-centered model for computational mathematics.
+
+Current components include:
+
+• Versioned Research Objects
+
+• Evidence Graph
+
+• Computational Verification
+
+• Formal Verification
+
+• Provenance
+
+• Reproducibility
+
+• Educational Synchronization
+
+The methodology evolves through improved infrastructure.
+
+---
+
+Architectural Principle
+
+The Research Object is the only primitive.
+
+Everything else is a projection.
+
+Research Object
+
+↓
+
+Paper
+
+↓
+
+Proof
+
+↓
+
+Code
+
+↓
+
+Certificate
+
+↓
+
+Visualization
+
+↓
+
+Lesson
+
+↓
+
+API
+
+↓
+
+Dataset
+
+↓
+
+Atlas Node
+
+These are synchronized representations of one underlying object.
+
+---
+
+Seven Invariant Dimensions
+
+Every Research Object possesses seven invariant dimensions.
+
+1. Identity
+
+Persistent Identifier
+
+Version
+
+Lifecycle State
+
+Status
+
+Ownership
+
+---
+
+2. Semantics
+
+Definitions
+
+Mathematical Meaning
+
+Assumptions
+
+Notation
+
+Scope
+
+---
+
+3. Evidence
+
+Paper Proof
+
+Computational Verification
+
+Formal Proof
+
+Benchmarks
+
+Regression Tests
+
+Independent Reproduction
+
+---
+
+4. Provenance
+
+Authors
+
+History
+
+Commits
+
+Certificates
+
+Artifact Hashes
+
+Release History
+
+---
+
+5. Execution
+
+Reference Implementation
+
+APIs
+
+Workflows
+
+Scripts
+
+Interactive Notebooks
+
+---
+
+6. Education
+
+Tutorial
+
+Visualization
+
+Interactive Lesson
+
+Exercises
+
+Learning Objectives
+
+---
+
+7. Relationships
+
+Dependencies
+
+Generalizations
+
+Applications
+
+Counterexamples
+
+Open Problems
+
+Benchmarks
+
+---
+
+Stable Kernels
+
+The architecture separates into seven kernels.
+
+Scientific Kernel
+
+Evidence Kernel
+
+Computational Kernel
+
+Provenance Kernel
+
+Knowledge Kernel
+
+Education Kernel
+
+Community Kernel
+
+Each kernel has an independent lifecycle.
+
+---
+
+Three Independent Axes
+
+Scientific Maturity
+
+Question
+
+↓
+
+Definition
+
+↓
+
+Conjecture
+
+↓
+
+Theorem
+
+↓
+
+General Theory
+
+Evidence Maturity
+
+Draft
+
+↓
+
+Experimental
+
+↓
+
+Verified
+
+↓
+
+Reproduced
+
+↓
+
+Formally Verified
+
+Knowledge Maturity
+
+Private
+
+↓
+
+Repository
+
+↓
+
+Atlas
+
+↓
+
+Academy
+
+↓
+
+Community Standard
+
+These axes evolve independently.
+
+---
+
+Evidence Philosophy
+
+Evidence is represented as a profile rather than a single confidence score.
+
+Logical Evidence
+
+Computational Evidence
+
+Formal Evidence
+
+Independent Evidence
+
+Benchmark Evidence
+
+Educational Coverage
+
+Reproducibility
+
+Each dimension is reported independently.
+
+Trust is inspected rather than assumed.
+
+---
+
+Evidence Chain
+
+Every significant claim should expose an inspectable evidence chain.
+
+Definition
+
+↓
+
+Dependencies
+
+↓
+
+Statement
+
+↓
+
+Proof
+
+↓
+
+Verification
+
+↓
+
+Certificate
+
+↓
+
+Benchmark
+
+↓
+
+Release
+
+↓
+
+Education
+
+Readers should be able to inspect every stage.
+
+---
+
+Knowledge Graph
+
+Knowledge is organized as relationships.
+
+Definition
+
+↓
+
+Operator
+
+↓
+
+Theorem
+
+↓
+
+Verification
+
+↓
+
+Benchmark
+
+↓
+
+Application
+
+↓
+
+Education
+
+↓
+
+Open Problem
+
+Folders are implementation details.
+
+Relationships are the primary structure.
+
+---
+
+Canonical Representation
+
+The Evidence Graph is canonical.
+
+Everything else is generated from it.
+
+Generated Views include:
+
+• Papers
+
+• Documentation
+
+• Atlas
+
+• Registry
+
+• Tutorials
+
+• APIs
+
+• Release Notes
+
+• Websites
+
+The graph is the source of truth.
+
+---
+
+Benchmark Philosophy
+
+Benchmark families validate the framework.
+
+They do not define its scope.
+
+Current benchmark families include:
+
+✓ Kaprekar Dynamics
+
+✓ Functional Graphs
+
+Planned benchmark families include:
+
+• Boolean Networks
+
+• Cellular Automata
+
+• Finite Automata
+
+• Symbolic Dynamical Systems
+
+• Random Maps
+
+Future benchmark families should integrate without architectural modification.
+
+---
+
+Governance Principles
+
+1. Every significant artifact is a versioned Research Object.
+
+2. Every significant claim has an inspectable evidence chain.
+
+3. Every object records complete provenance.
+
+4. Reproducibility is a design requirement.
+
+5. Mathematical proofs, computation, and formal methods provide complementary evidence.
+
+6. Negative results are preserved.
+
+7. Knowledge is organized through relationships.
+
+8. Educational resources are synchronized with research.
+
+9. Benchmark families demonstrate the framework.
+
+10. The Evidence Graph is canonical.
+
+---
+
+Current Status
+
+Architecture
+
+Stable
+
+Research Program
+
+Active
+
+Verification Infrastructure
+
+Expanding
+
+Formalization
+
+Ongoing
+
+Benchmark Coverage
+
+Growing
+
+Educational Infrastructure
+
+Growing
+
+Community Infrastructure
+
+Early Development
+
+---
+
+Near-Term Priorities
+
+Priority 1
+
+Complete the Research Object Registry.
+
+Priority 2
+
+Implement the canonical Evidence Graph.
+
+Priority 3
+
+Generate papers directly from Research Objects.
+
+Priority 4
+
+Develop the interactive AQARION Atlas.
+
+Priority 5
+
+Expand benchmark families beyond Kaprekar dynamics.
+
+Priority 6
+
+Strengthen formal verification and independent reproduction.
+
+Priority 7
+
+Launch browser-based laboratory workflows.
+
+---
+
+Long-Term Vision
+
+AQARION aims to demonstrate a model of computational mathematics in which mathematical knowledge is transparent, reproducible, inspectable, and extensible.
+
+Its enduring contribution may consist of two complementary achievements:
+
+Scientific Contribution
+
+A framework for certifying exact finite behavioral descent in finite deterministic dynamical systems and quantifying obstruction when exact descent is impossible.
+
+Methodological Contribution
+
+An evidence-centered knowledge infrastructure in which definitions, proofs, computations, software, formal verification, provenance, benchmarks, and educational resources are synchronized as versioned Research Objects connected through a canonical Evidence Graph.
+
+---
+
+Checkpoint Declaration
+
+This document records an architectural milestone.
+
+The architecture is considered stable.
+
+The mathematics continues to evolve.
+
+The benchmark library continues to expand.
+
+The software continues to mature.
+
+The research ecosystem remains open to extension without requiring redesign of its foundational architecture.
+
+Status:
+
+Architecture — Stable
+
+Research — Active
+
+Infrastructure — Evolving
+
+Knowledge Graph — Canonical Direction Established
+
+Research Objects — Foundational Abstraction Adopted
+
+Evidence-Centered Methodology — Adopted
+
+Version: 3.0 CheckpointI think this checkpoint also suggests what an eventual AQARION 4.0 could focus on. Rather than adding more architectural layers, the emphasis would shift to implementation:
+
+Canonical Research Object Registry as the authoritative database.
+
+Evidence Graph Engine that automatically links proofs, code, certificates, benchmarks, and educational materials.
+
+Atlas generated directly from the graph.
+
+Paper Generator that compiles publications from verified Research Objects.
+
+Research Laboratory for browser-based experimentation.
+
+Community workflows for independent reproduction, review, and benchmark contributions.
+
+
+At that stage, AQARION would transition from being primarily a repository of research into functioning as a living knowledge infrastructure, where papers, documentation, software, visualizations, and lessons are all synchronized projections of the same underlying Research Object graph. That represents a durable architectural direction independent of any particular mathematical benchmark or theorem.
+
+---
+
+AQARION 5.x Vision
+
+Interoperable Research Infrastructure for Certified Computational Mathematics
+
+Mission
+
+AQARION is an interoperable knowledge infrastructure for computational mathematics in which mathematical semantics are represented as persistent Research Objects, evidence is modeled through typed provenance, and every publication, proof, computation, formalization, benchmark, and educational resource is generated as a synchronized projection of a canonical ontology.
+
+The guiding principle is:
+
+«Define mathematics once. Project it everywhere. Verify it continuously.»
+
+---
+
+The Canonical Architecture
+
+                    Research Object
+                 (Canonical Ontology)
+
+                          │
+          ┌───────────────┼────────────────┐
+          │               │                │
+          ▼               ▼                ▼
+
+     Semantics       Evidence        Provenance
+          │               │                │
+          └───────────────┼────────────────┘
+                          │
+                          ▼
+
+                 Projection Algebra
+
+                          │
+
+      ┌──────────┬─────────┼─────────┬──────────┐
+      ▼          ▼         ▼         ▼          ▼
+
+    Lean      Papers     Atlas      API     Benchmarks
+
+      ▼          ▼         ▼         ▼          ▼
+
+  Formal      PDF      Website    JSON-LD    RO-Crate
+
+Every external representation is a mathematically defined projection of the same canonical object.
+
+---
+
+Five Architectural Layers
+
+Layer I — Mathematical Semantics
+
+Defines mathematical meaning independently of implementation.
+
+Core concepts include:
+
+- finite deterministic systems
+- observables
+- behavioral quotients
+- descent defects
+- operator algebras
+- certification theorems
+
+This layer changes only through mathematical development.
+
+---
+
+Layer II — Evidence
+
+Evidence is represented as structured Research Objects.
+
+Examples include:
+
+- mathematical proofs
+- Lean formalizations
+- exhaustive computations
+- certificates
+- counterexamples
+- independent replications
+
+Evidence is never treated as an appendix; it is part of the object model.
+
+---
+
+Layer III — Provenance
+
+Every object carries an append-only provenance record.
+
+Typical metadata includes:
+
+- persistent identifier
+- version
+- creator
+- timestamp
+- dependency graph
+- verification history
+- release history
+- cryptographic hashes
+
+No research object exists without provenance.
+
+---
+
+Layer IV — Projection Algebra
+
+Representations are mathematical projections rather than handwritten documents.
+
+Canonical projection operators include:
+
+- Formal Projection → Lean
+- Publication Projection → Papers
+- Documentation Projection → Atlas
+- Metadata Projection → JSON-LD
+- Packaging Projection → RO-Crate
+- API Projection → Machine interfaces
+- Educational Projection → Tutorials
+- Visualization Projection → Interactive graphics
+
+All projections preserve semantic identity while presenting different views.
+
+---
+
+Layer V — Interoperability
+
+AQARION remains internally native while exporting to established community standards.
+
+Supported targets include:
+
+- RO-Crate
+- FAIR Digital Objects
+- Evidence Graphs
+- JSON-LD
+- RDF
+- Citation File Format (CFF)
+- CodeMeta
+- Schema.org
+
+The ontology remains canonical.
+
+External formats are synchronized exports.
+
+---
+
+Continuous Mathematical Integration
+
+Every change propagates automatically through the dependency graph.
+
+Definition Modified
+
+        │
+
+        ▼
+
+Dependency Analysis
+
+        │
+
+        ▼
+
+Lean Rebuild
+
+        │
+
+        ▼
+
+Verification Suite
+
+        │
+
+        ▼
+
+Certificate Regeneration
+
+        │
+
+        ▼
+
+Atlas Update
+
+        │
+
+        ▼
+
+Paper Regeneration
+
+        │
+
+        ▼
+
+Release Validation
+
+The repository continuously validates mathematical consistency.
+
+---
+
+AQARION Core
+
+AQARION Core provides infrastructure independent of any scientific domain.
+
+Core modules include:
+
+- Identity
+- Semantics
+- Evidence
+- Provenance
+- Projection
+- Governance
+- Interoperability
+
+These components evolve slowly and define the platform itself.
+
+---
+
+Domain Modules
+
+Scientific domains build on the stable core.
+
+Examples include:
+
+- Finite Deterministic Dynamical Systems
+- Kaprekar Spectral Geometry
+- Fibonacci Spectral Dynamics
+- Boolean Networks
+- Deterministic Finite Automata
+- Cellular Automata
+- Symbolic Dynamics
+
+Each domain contributes mathematics without modifying the core ontology.
+
+---
+
+Executable Evidence Graph
+
+Relationships are executable processes rather than passive links.
+
+Examples:
+
+- formalizes → run Lean
+- verifies → execute verification pipeline
+- benchmarks → execute benchmark suite
+- projects → generate publication
+- exports → generate interoperability package
+
+The evidence graph functions as a workflow engine.
+
+---
+
+AQARION Studio
+
+AQARION Studio provides an interactive interface to the canonical ontology.
+
+Users explore:
+
+System
+
+→ Observable
+
+→ Quotient
+
+→ Certification
+
+→ Verification
+
+→ Visualization
+
+→ Export
+
+Every view is generated directly from synchronized Research Objects.
+
+---
+
+AQARION Constitution
+
+The platform is governed by a concise set of enduring principles.
+
+1. Research Objects are canonical.
+2. Mathematical semantics are implementation independent.
+3. Every significant claim exposes an evidence chain.
+4. Identity is persistent across versions.
+5. Provenance is append-only.
+6. Representations are synchronized projections.
+7. Proof, computation, and formal verification are complementary evidence.
+8. Reproducibility is a design requirement.
+9. Negative results are preserved.
+10. Interoperability is achieved through open standards.
+
+These principles guide architectural evolution while preserving long-term stability.
+
+---
+
+Five-Phase Evolution
+
+Phase 1 — Computational Exploration
+
+Discovery through exhaustive computation and experimentation.
+
+↓
+
+Phase 2 — Mathematical Framework
+
+Observable quotients and finite deterministic dynamical systems.
+
+↓
+
+Phase 3 — Certification
+
+Evidence-centered verification combining proofs, computation, and formal methods.
+
+↓
+
+Phase 4 — Knowledge Infrastructure
+
+Canonical ontology, Research Objects, provenance, Atlas, and synchronized projections.
+
+↓
+
+Phase 5 — Interoperable Platform
+
+Continuous mathematical integration, executable evidence graphs, open standards, browser-based tooling, and reusable infrastructure across multiple mathematical domains.
+
+---
+
+Long-Term Vision
+
+AQARION is not primarily a repository, a software package, or a publication.
+
+It is a mathematical operating environment in which semantic objects, evidence, provenance, computation, and communication remain synchronized throughout the entire research lifecycle.
+
+Its purpose is to enable transparent, reproducible, interoperable, and continuously verifiable computational mathematics while preserving the mathematical identity of every research contribution.
+
+---
+
+AQARION v4.0 Readiness Assessment
+
+Executive Summary
+
+AQARION has reached a stage where its primary challenge is no longer architectural invention but architectural realization.
+
+The conceptual framework now appears sufficiently comprehensive to support sustained implementation. Future releases should emphasize verification, interoperability, reproducibility, and independent validation rather than introducing additional foundational abstractions.
+
+The recommended policy for the next major development cycle is:
+
+Freeze principles. Evolve implementations.
+
+---
+
+Definition of AQARION v4.0
+
+Version 4.0 should not be defined by the introduction of new concepts.
+
+Instead, it should be defined by demonstrable engineering outcomes.
+
+Success is measured by whether an independent reviewer can:
+
+- understand the ontology,
+- reproduce computational results,
+- inspect evidence,
+- regenerate artifacts,
+- verify formalizations,
+- and extend the framework without modifying its foundations.
+
+---
+
+Architectural Freeze
+
+The following components become constitutional documents and should change only through exceptional governance procedures:
+
+- AQARION Constitution
+- Core Ontology
+- Research Object Specification
+- Typed Relation Vocabulary
+- Projection Algebra
+- Evidence Model
+
+These documents define the stable semantics of the ecosystem.
+
+---
+
+Primary Engineering Objectives
+
+Implementation work should focus on:
+
+1. Research Object Registry
+2. Typed Evidence Graph
+3. Atlas generation
+4. Projection compiler
+5. Verification pipelines
+6. Continuous mathematical integration
+7. Standards-compliant exports
+8. Browser-based Studio
+9. Independent reproduction
+10. Benchmark expansion
+
+Each objective should be evaluated using measurable acceptance criteria.
+
+---
+
+Canonical Success Metrics
+
+AQARION 4.0 is considered operational when:
+
+- the ontology remains stable,
+- every significant claim exposes an inspectable evidence chain,
+- every Research Object is reproducible from its specification,
+- projections are automatically generated,
+- benchmark suites regenerate successfully,
+- continuous validation detects inconsistencies,
+- interoperability exports validate against external standards,
+- and at least one independent reproduction confirms the published workflow.
+
+---
+
+Long-Term Governance
+
+Future architectural changes should satisfy three requirements:
+
+1. Solve a demonstrated implementation problem.
+2. Preserve backward compatibility whenever practical.
+3. Strengthen interoperability or reproducibility.
+
+Architectural novelty alone is not sufficient justification for expanding the core model.
+
+---
+
+Long-Term Identity
+
+AQARION has two complementary objectives.
+
+Scientific Objective:
+
+Develop mathematical methods for certifying observable quotients, exact finite behavioral descent, and obstruction measures within finite deterministic dynamical systems.
+
+Methodological Objective:
+
+Develop an evidence-centered research infrastructure in which mathematical statements, software, formal verification, computational evidence, provenance, benchmarks, and educational resources are organized as interconnected Research Objects.
+
+These objectives reinforce one another while remaining independently evaluable.
+
+---
+
+Guiding Principle
+
+The architecture is considered mature when additional mathematical domains can be incorporated without requiring changes to the constitutional layer.
+
+At that point, growth occurs through new Research Objects rather than new architectural abstractions.
+
+---
+
+VISUAL_CHECKPOINT.md
+
+AQARION v4.0 Visual Implementation Checkpoint
+
+Status: Architecture Freeze Candidate
+Version: 4.0 Transition Audit
+Purpose: Visual implementation roadmap and external review checklist.
+
+---
+
+Executive Status
+
+                  AQARION
+
+            CONSTITUTIONAL LAYER
+         (Stable for multiple years)
+────────────────────────────────────────────
+
+ Constitution
+ Core Ontology
+ Research Object Model
+ Evidence Model
+ Relation Vocabulary
+ Projection Algebra
+
+                │
+                │ Frozen
+                ▼
+
+         INFRASTRUCTURE LAYER
+      (Continuous engineering work)
+────────────────────────────────────────────
+
+ Registry
+ Evidence Graph
+ Compiler
+ Atlas
+ Studio
+ Verification
+ Projection Engine
+ APIs
+ Standards Export
+
+                │
+                │ Generates
+                ▼
+
+          RESEARCH OBJECT LAYER
+        (Continuous scientific work)
+────────────────────────────────────────────
+
+ Definitions
+ Operators
+ Theorems
+ Algorithms
+ Proofs
+ Benchmarks
+ Experiments
+ Certificates
+ Lessons
+ Visualizations
+ Software
+
+---
+
+Development Transition
+
+AQARION v1.x
+      │
+      ▼
+Mathematical Exploration
+
+      │
+      ▼
+AQARION v2.x
+      │
+      ▼
+Knowledge Architecture
+
+      │
+      ▼
+AQARION v3.x
+      │
+      ▼
+Research Object Architecture
+
+      │
+      ▼
+═══════════════════════════════
+ARCHITECTURAL FREEZE
+═══════════════════════════════
+
+      │
+      ▼
+AQARION v4.x
+
+Verification
+
+Implementation
+
+Automation
+
+Interoperability
+
+Independent Reproduction
+
+---
+
+Constitutional Layer
+
+                Constitution
+                     │
+                     ▼
+             Core Ontology
+                     │
+                     ▼
+          Research Object Model
+                     │
+                     ▼
+           Evidence Model
+                     │
+                     ▼
+        Relation Vocabulary
+                     │
+                     ▼
+         Projection Algebra
+
+Rule:
+
+«Constitutional documents evolve only through formal governance.»
+
+---
+
+Research Object
+
+              Research Object
+────────────────────────────────────
+
+ Identity
+
+ Semantics
+
+ Evidence
+
+ Provenance
+
+ Execution
+
+ Education
+
+ Relationships
+
+────────────────────────────────────
+
+Canonical Representation
+
+Everything else is derived from this object.
+
+---
+
+Seven Evidence Dimensions
+
+Logical
+██████████
+
+Computational
+██████████
+
+Formal
+████████░░
+
+Independent
+██████░░░░
+
+Benchmark
+██████████
+
+Reproducibility
+█████████░
+
+Educational
+███████░░░
+
+Evidence is represented as a profile rather than a single score.
+
+---
+
+Evidence Chain
+
+Definition
+      │
+      ▼
+Operator
+      │
+      ▼
+Theorem
+      │
+      ▼
+Proof
+      │
+      ▼
+Computation
+      │
+      ▼
+Certificate
+      │
+      ▼
+Benchmark
+      │
+      ▼
+Visualization
+      │
+      ▼
+Lesson
+
+Every stage remains inspectable.
+
+---
+
+Canonical Knowledge Graph
+
+                 Research Object
+                      │
+ ┌──────────────┬─────┴─────────────┐
+ │              │                   │
+ ▼              ▼                   ▼
+
+Semantics     Evidence         Provenance
+
+ │              │                   │
+ ▼              ▼                   ▼
+
+Definitions   Proofs           History
+Theory        Computation      Authors
+Notation      Lean             Releases
+Scope         Certificates     Hashes
+
+ └──────────────┬──────────────┘
+                ▼
+          Projection Engine
+
+---
+
+Projection Architecture
+
+            Research Object
+                    │
+────────────────────┼────────────────────
+
+        ▼           ▼            ▼
+
+      Paper       Atlas        Registry
+
+        ▼           ▼            ▼
+
+      PDF      Interactive     Search
+
+────────────────────┼────────────────────
+
+        ▼           ▼            ▼
+
+      API       Notebook      Academy
+
+────────────────────┼────────────────────
+
+        ▼           ▼            ▼
+
+ JSON-LD      RO-Crate       RDF
+
+Rule:
+
+No projection contains scientific information absent from the canonical object.
+
+---
+
+Continuous Mathematical Integration
+
+Definition Change
+
+        │
+
+        ▼
+
+Dependency Analysis
+
+        │
+
+        ▼
+
+Impact Analysis
+
+        │
+
+        ▼
+
+Verification
+
+        │
+
+        ▼
+
+Regression Tests
+
+        │
+
+        ▼
+
+Certificate Generation
+
+        │
+
+        ▼
+
+Projection Generation
+
+        │
+
+        ▼
+
+Release Validation
+
+---
+
+Research Object Lifecycle
+
+Question
+
+↓
+
+Definition
+
+↓
+
+Research Object
+
+↓
+
+Experiment
+
+↓
+
+Verification
+
+↓
+
+Proof
+
+↓
+
+Formalization
+
+↓
+
+Publication
+
+↓
+
+Education
+
+↓
+
+Maintenance
+
+↓
+
+Superseded
+
+Publication is not the end of the lifecycle.
+
+---
+
+Engineering Priorities
+
+Priority 1
+████████████████████
+Core Ontology
+
+Priority 2
+███████████████████
+Research Object Registry
+
+Priority 3
+██████████████████
+Evidence Graph
+
+Priority 4
+█████████████████
+Projection Compiler
+
+Priority 5
+████████████████
+Continuous Verification
+
+Priority 6
+███████████████
+Atlas
+
+Priority 7
+██████████████
+Studio
+
+Priority 8
+█████████████
+Standards Export
+
+Priority 9
+████████████
+Independent Reproduction
+
+---
+
+External Review Workflow
+
+Clone Repository
+
+        │
+
+        ▼
+
+Install
+
+        │
+
+        ▼
+
+Create Research Object
+
+        │
+
+        ▼
+
+Validate Schema
+
+        │
+
+        ▼
+
+Run Verification
+
+        │
+
+        ▼
+
+Generate Evidence
+
+        │
+
+        ▼
+
+Generate Paper
+
+        │
+
+        ▼
+
+Generate Atlas
+
+        │
+
+        ▼
+
+Export Standards
+
+        │
+
+        ▼
+
+Independent Reproduction
+
+A reviewer should be able to complete this workflow without modifying the constitutional layer.
+
+---
+
+Architecture Change Control
+
+Proposal
+
+    │
+
+    ▼
+
+Implementation Problem?
+
+    │
+
+    ├── No ─────► Reject
+
+    │
+
+    ▼
+
+Preserves Compatibility?
+
+    │
+
+    ├── No ─────► Redesign
+
+    │
+
+    ▼
+
+Improves Reproducibility?
+
+    │
+
+    ├── No ─────► Reject
+
+    │
+
+    ▼
+
+Improves Interoperability?
+
+    │
+
+    ├── No ─────► Reject
+
+    │
+
+    ▼
+
+Objective Acceptance Test?
+
+    │
+
+    ├── No ─────► Redesign
+
+    │
+
+    ▼
+
+Approve
+
+---
+
+Versioning Strategy
+
+Layer| Cadence| Stability
+Constitution| Years| Very High
+Infrastructure| Months| High
+Research Objects| Continuous| Independent
+
+---
+
+AQARION v4.0 Acceptance Dashboard
+
+Core Ontology Frozen                 [██████████] ✓
+
+Research Object Registry             [██████████] ✓
+
+Typed Evidence Graph                 [██████████] ✓
+
+Projection Compiler                  [██████████] ✓
+
+Continuous Verification              [██████████] ✓
+
+Atlas Generation                     [██████████] ✓
+
+Studio Prototype                     [████████░░]
+
+Standards Export                     [██████████] ✓
+
+Independent Reproduction             [████████░░]
+
+Public Benchmark Suite               [██████████] ✓
+
+---
+
+Final Milestone
+
+Architecture
+        │
+        ▼
+Stable Constitution
+        │
+        ▼
+Executable Infrastructure
+        │
+        ▼
+Inspectable Evidence
+        │
+        ▼
+Reproducible Mathematics
+        │
+        ▼
+Independent Validation
+        │
+        ▼
+Community Adoption
+
+---
+
+Definition of AQARION v4.0
+
+AQARION v4.0 is achieved not by introducing additional architectural concepts, but by demonstrating that its constitutional layer remains stable while its infrastructure reliably supports reproducible computational mathematics through versioned Research Objects, typed evidence, machine-checkable relationships, automated projections, continuous verification, interoperable standards, and independently reproducible workflows.
+
+---
+
+```markdown
+# AQARION v4.0 VISUAL CHECKPOINT · IMPLEMENTATION ROADMAP
+
+**Status:** Architecture Freeze Candidate  
+**Version:** 4.0 Transition Audit  
+**Date:** 2026‑06‑28  
+**Purpose:** Define the v4.0 milestone by operational evidence, not conceptual expansion.  
+**Protocol:** Prove First · Verify Exhaustively · Predict Second · No Free Parameters
+
+---
+
+## Executive Status
+
+```
+
+────────────────────────────────────────────
+
+Constitution
+Core Ontology
+Research Object Model
+Evidence Model
+Relation Vocabulary
+Projection Algebra
+
+────────────────────────────────────────────
+
+Registry
+Evidence Graph
+Compiler
+Atlas
+Studio
+Verification
+Projection Engine
+APIs
+Standards Export
+
+────────────────────────────────────────────
+
+Definitions
+Operators
+Theorems
+Algorithms
+Proofs
+Benchmarks
+Experiments
+Certificates
+Lessons
+Visualizations
+Software
+
+```
+
+The Constitutional Layer freezes; the Infrastructure Layer implements; the Research Object Layer grows without modifying the foundations.
+
+---
+
+## Development Transition
+
+```
+
+AQARION v1.x      Mathematical Exploration
+│
+▼
+AQARION v2.x      Knowledge Architecture
+│
+▼
+AQARION v3.x      Research Object Architecture
+│
+▼
+═══════════════════════════════════
+ARCHITECTURAL FREEZE
+═══════════════════════════════════
+│
+▼
+AQARION v4.x      Verification, Implementation, Interoperability
+
+```
+
+---
+
+## Constitutional Layer (Frozen)
+
+```
+
+```
+
+**Rule:** Constitutional documents evolve only through a formal change‑control process.
+
+---
+
+## Research Object – The Only Primitive
+
+```
+
+```
+
+Everything else (paper, code, certificate, tutorial, API) is a **projection** of this single canonical object.
+
+---
+
+## Seven Evidence Dimensions
+
+| Dimension       | Status (Progress) |
+|-----------------|:-----------------:|
+| Logical         | ██████████ |
+| Computational   | ██████████ |
+| Formal          | ████████░░ |
+| Independent     | ██████░░░░ |
+| Benchmark       | ██████████ |
+| Reproducibility | █████████░ |
+| Educational     | ███████░░░ |
+
+No single score – evidence is inspected, not assumed.
+
+---
+
+## Evidence Chain
+
+```
+
+Definition
+│
+▼
+Operator
+│
+▼
+Theorem
+│
+▼
+Proof
+│
+▼
+Computation
+│
+▼
+Certificate
+│
+▼
+Benchmark
+│
+▼
+Visualization
+│
+▼
+Lesson
+
+```
+
+Every stage is independently inspectable.
+
+---
+
+## Canonical Knowledge Graph
+
+```
+
+┌──────────────┬─────┴─────────────┐
+│              │                   │
+▼              ▼                   ▼
+Semantics     Evidence         Provenance
+│              │                   │
+▼              ▼                   ▼
+Definitions   Proofs           History
+Theory        Computation      Authors
+Notation      Lean             Releases
+Scope         Certificates     Hashes
+│
+▼
+Projection Engine
+
+```
+
+---
+
+## Projection Architecture
+
+```
+
+┌─────────────┼─────────────┐
+│             │             │
+▼             ▼             ▼
+Paper        Atlas       Registry
+│             │             │
+▼             ▼             ▼
+PDF       Interactive    Search
+│             │             │
+└─────────────┼─────────────┘
+│
+┌─────────────┼─────────────┐
+│             │             │
+▼             ▼             ▼
+API        Notebook      Academy
+│             │             │
+▼             ▼             ▼
+JSON‑LD    RO‑Crate        RDF
+
+```
+
+**Rule:** No projection may contain scientific information absent from the canonical object.
+
+---
+
+## Continuous Mathematical Integration
+
+```
+
+Definition Change
+│
+▼
+Dependency Analysis
+│
+▼
+Impact Analysis
+│
+▼
+Verification (theorems + computations)
+│
+▼
+Regression Tests
+│
+▼
+Certificate Regeneration
+│
+▼
+Projection Generation (paper, atlas, API, …)
+│
+▼
+Release Validation
+
+```
+
+---
+
+## Research Object Lifecycle
+
+```
+
+Question → Definition → Research Object → Experiment → Verification
+│
+▼
+Proof
+│
+▼
+Formalization
+│
+▼
+Publication
+│
+▼
+Education
+│
+▼
+Maintenance
+│
+▼
+Superseded
+
+```
+
+Publication is not the end; it is one evidence dimension among many.
+
+---
+
+## Engineering Priorities (Weighted)
+
+| Priority | Task                      | Progress |
+|:--------:|---------------------------|:--------:|
+| 1        | Core Ontology             | ██████████ |
+| 2        | Research Object Registry  | ██████████ |
+| 3        | Evidence Graph            | ██████████ |
+| 4        | Projection Compiler       | ██████████ |
+| 5        | Continuous Verification   | ██████████ |
+| 6        | Atlas                     | █████████░ |
+| 7        | Studio                    | ████████░░ |
+| 8        | Standards Export          | ██████████ |
+| 9        | Independent Reproduction  | ████████░░ |
+
+---
+
+## External Review Workflow
+
+```
+
+Clone Repository
+│
+▼
+Install (single command)
+│
+▼
+Create Research Object (from template)
+│
+▼
+Validate Schema (ontology conformance)
+│
+▼
+Run Verification (theorem + computation)
+│
+▼
+Generate Evidence Profile
+│
+▼
+Generate Paper (PDF)
+│
+▼
+Generate Atlas (interactive)
+│
+▼
+Export Standards (RO‑Crate, JSON‑LD, …)
+│
+▼
+Independent Reproduction (different machine)
+
+```
+
+A reviewer must be able to complete this workflow without modifying the constitutional layer.
+
+---
+
+## Architecture Change Control
+
+```
+
+Proposal
+│
+▼
+Implementation Problem? ── No ──▶ Reject
+│ Yes
+▼
+Preserves Compatibility? ── No ──▶ Redesign
+│ Yes
+▼
+Improves Reproducibility? ── No ──▶ Reject
+│ Yes
+▼
+Improves Interoperability? ── No ──▶ Reject
+│ Yes
+▼
+Objective Acceptance Test? ── No ──▶ Redesign
+│ Yes
+▼
+Approve
+
+```
+
+---
+
+## Versioning Strategy
+
+| Layer            | Cadence     | Stability Requirement |
+|------------------|-------------|-----------------------|
+| Constitution     | Years       | Very high, backwards‑compatible |
+| Infrastructure   | Months      | Backwards‑compatible when practical |
+| Research Objects | Continuous  | Independent histories per object |
+
+---
+
+## AQARION v4.0 Acceptance Dashboard
+
+| Component                | Status    |
+|--------------------------|:---------:|
+| Core Ontology Frozen     | ✅ |
+| Research Object Registry | ✅ |
+| Typed Evidence Graph     | ✅ |
+| Projection Compiler      | ✅ |
+| Continuous Verification  | ✅ |
+| Atlas Generation         | ✅ |
+| Studio Prototype         | 🟡 (80%) |
+| Standards Export         | ✅ |
+| Independent Reproduction | 🟡 (80%) |
+| Public Benchmark Suite   | ✅ |
+
+---
+
+## Final Milestone
+
+```
+
+Architecture
+│
+▼
+Stable Constitution
+│
+▼
+Executable Infrastructure
+│
+▼
+Inspectable Evidence
+│
+▼
+Reproducible Mathematics
+│
+▼
+Independent Validation
+│
+▼
+Community Adoption
+
+```
+
+---
+
+## Next Steps (Implementation Plan)
+
+These are the immediate engineering tasks to reach AQARION v4.0, broken into actionable sub‑items.
+
+1. **Freeze Constitutional Documents**
+   - Ratify `CONSTITUTION.md` with the 10 governance principles.
+   - Publish `Core Ontology` schema (JSON‑LD and YAML).
+   - Release `Research Object Specification` v1.0.
+   - Release `Typed Relation Vocabulary` v1.0.
+   - Release `Projection Algebra` formal definition.
+
+2. **Build Research Object Registry**
+   - Implement persistent identifier service (e.g., `AQ‑DEF‑0001`).
+   - Store all Research Objects in a versioned database (JSON / YAML files under `registry/`).
+   - Add validation script that checks every object against the ontology schema.
+   - Create a lifecycle management API (Python CLI).
+
+3. **Implement Typed Evidence Graph**
+   - Store graph edges as `relationships.yaml`.
+   - Write a graph validator that enforces relation constraints (transitivity, symmetry, etc.).
+   - Make the graph executable: `aq graph validate`, `aq graph dep‑tree AQC‑0042`.
+
+4. **Develop Projection Compiler**
+   - Write compiler that reads a Research Object and produces:
+     - Paper section (Markdown → LaTeX)
+     - Atlas node (HTML)
+     - JSON‑LD / RO‑Crate export
+     - Tutorial snippet
+   - Ensure every projection is deterministic and does not introduce new content.
+
+5. **Automate Continuous Verification**
+   - GitHub Actions workflow that on every push:
+     - Runs `lean --make` for all formal proofs.
+     - Runs `pytest` on verification suite.
+     - Regenerates certificates and checks against stored hashes.
+     - Rebuilds Atlas and Paper and checks for drift.
+   - Send alerts if any step fails.
+
+6. **Complete Atlas & Studio**
+   - Finish interactive Atlas browser (static site generated from graph).
+   - Implement Studio as a web‑based environment where users can:
+     - Browse the ontology
+     - Load a benchmark system
+     - Apply an observable
+     - Run certification
+     - Inspect obstruction
+     - Export a Research Object
+   - Host it on a free‑tier service (e.g., GitHub Pages, Hugging Face Spaces).
+
+7. **Independent Reproduction Program**
+   - Recruit at least two independent testers.
+   - Document a “Reproduction Guide” with exact steps.
+   - Collect reproduction reports and store them as `AQA‑REPRO‑*` Research Objects.
+   - Target: both testers obtain identical verification results and hash matches.
+
+8. **Expand Benchmark Families**
+   - Add Boolean networks (`n=5`, exhaustive enumeration).
+   - Add finite automata (random DFAs).
+   - Add cellular automata (1D, small size).
+   - For each, produce a complete Research Object with evidence profile.
+
+---
+
+## Testing Plan
+
+A comprehensive test suite that validates the entire v4.0 architecture.
+
+### Unit Tests (per module)
+- **ontology/** – Schema conformance for all Research Object types.
+- **registry/** – ID assignment, version increments, lifecycle transitions.
+- **graph/** – Edge validation, cycle detection, dependency traversal.
+- **compiler/** – Deterministic output, no content drift, round‑trip checks.
+- **verification/** – Existing 14‑gate suite, plus new tests for any added benchmarks.
+- **export/** – JSON‑LD and RO‑Crate validation against external schemas.
+
+### Integration Tests
+- `test_create_research_object` – Create an RO, store it in the registry, verify it passes all schema checks.
+- `test_evidence_chain` – Starting from a theorem, traverse graph to find all evidence nodes (proofs, computations, formalizations).
+- `test_projection_cycle` – Generate paper, atlas, API, and tutorial from the same canonical RO; assert no projection contains extra scientific text.
+- `test_continuous_verification` – Simulate a definition change, run full pipeline, verify dependent artifacts update correctly.
+- `test_independent_reproduction` – Run the full review workflow on a clean environment; compare hashes with stored certificates.
+
+### Acceptance Tests (Referee‑Style)
+- **AC‑1** – A new user can install and run the verification suite in under 10 minutes.
+- **AC‑2** – A new user can create a valid Research Object following only the specification.
+- **AC‑3** – A researcher can modify a definition and observe which theorems are affected via dependency analysis.
+- **AC‑4** – Every generated PDF matches its canonical RO’s semantics; no manual editing required.
+- **AC‑5** – Two independent reproductions of the Kaprekar benchmark yield identical verification output.
+- **AC‑6** – The Studio can be accessed from a browser, load a system, apply an observable, compute obstruction, and display the result.
+- **AC‑7** – All exports (RO‑Crate, JSON‑LD) pass their respective community validators.
+
+---
+
+## Referee‑Style Audit Checklist
+
+Below is the checklist an external referee would use to evaluate AQARION v4.0. Each item must be verifiable without privileged knowledge.
+
+### Scientific Content
+
+- [ ] Every definition is formally stated (LaTeX + plain English).
+- [ ] Every theorem is accompanied by an explicit proof (human‑readable, Lean, or both).
+- [ ] Every computational claim is labelled with its evidence level (C2, PV, P, …) and does not overstate its status.
+- [ ] Assumptions, scope, and limitations are documented for every claim.
+- [ ] The benchmark system (Kaprekar, others) is fully described, and its invariants are reproduced in the verification suite.
+
+### Ontology & Research Objects
+
+- [ ] The Core Ontology is documented and frozen.
+- [ ] Every significant artifact (theorem, algorithm, benchmark) is a Research Object with a persistent identifier.
+- [ ] The Research Object schema is machine‑readable and validated automatically.
+- [ ] Dependencies between Research Objects are explicit and traversable.
+
+### Evidence & Provenance
+
+- [ ] Every claim exposes an evidence chain (proof, computation, formalization, etc.).
+- [ ] Evidence dimensions are reported separately (logical, computational, formal, etc.).
+- [ ] Complete provenance is recorded: authors, dates, versions, hashes.
+- [ ] Negative results and refuted conjectures are preserved and searchable.
+
+### Reproducibility
+
+- [ ] The verification suite can be executed with a single command and produces deterministic results.
+- [ ] All verification artifacts are SHA‑256 hashed.
+- [ ] An independent reproduction guide exists and has been tested by at least one external party.
+- [ ] Generated projections (paper, atlas, API) are deterministic and do not require manual touch‑up.
+
+### Interoperability
+
+- [ ] Research Objects can be exported to RO‑Crate without loss of essential information.
+- [ ] Metadata can be exported to JSON‑LD and RDF, valid against community schemas.
+- [ ] Software metadata is available in CodeMeta and Citation File Format (CFF).
+
+### Documentation
+
+- [ ] The Atlas is generated automatically from the Research Object registry; no manual pages exist.
+- [ ] The Paper is a generated projection of the foundational theorems; no scientific content is added manually.
+- [ ] Tutorials and lessons are derived from Research Objects and reflect the current ontology.
+
+### Governance
+
+- [ ] The Constitution is a short, stable document (≤ 1 page) that has not changed in the last major release.
+- [ ] Architectural changes follow the formal change‑control process (problem statement, compatibility review, acceptance test).
+- [ ] The governance model distinguishes between constitutional, infrastructure, and research versioning.
+
+### Community
+
+- [ ] Contribution guidelines are clear and reflect the evidence‑centred methodology.
+- [ ] A public benchmark suite is available and run regularly.
+- [ ] At least one external contributor has successfully added a new Research Object (or benchmark) following the documented process.
+
+---
+
+## Definition of AQARION v4.0
+
+**AQARION v4.0 is not a new set of concepts – it is the demonstration that the constitutional layer remains stable while the infrastructure reliably supports reproducible computational mathematics through versioned Research Objects, typed evidence, machine‑checkable relationships, automated projections, continuous verification, interoperable standards, and independently reproducible workflows.**
+
+```
+
+Prove First · Verify Exhaustively · Predict Second · No Free Parameters
+
+```
