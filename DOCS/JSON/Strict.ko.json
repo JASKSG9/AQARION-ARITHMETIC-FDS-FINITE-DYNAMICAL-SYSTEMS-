@@ -1,0 +1,15 @@
+{
+  "id": "AQARION::KO-041",
+  "type": "Theorem",
+  "title": "Positive Obstruction Bound",
+  "status": "M4 (Formal Verified)",
+  "evidence": [
+    {"type": "Lean", "link": "docs/LC4_OBSTRUCTIONBOUND.LEAN", "hash": "sha256:..."},
+    {"type": "Python", "link": "scripts/verify_obstruction.py", "hash": "sha256:..."}
+  ],
+  "provenance": {
+    "epoch": "v19.1",
+    "generated_by": "AQARION-REPO-BOOTSTRAP.SH",
+    "data_lake_ref": "JUNE-DATA_LAKE_5.MD#section-4"
+  }
+}
