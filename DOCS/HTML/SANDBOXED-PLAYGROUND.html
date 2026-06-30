@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AQARION Playground</title>
+  <style>body{font-family:sans-serif;display:flex;flex-direction:column;align-items:center;padding:2rem}</style>
+</head>
+<body>
+  <h1>🔬 AQARION Playground</h1>
+  <p style="max-width:600px;text-align:center">Select a benchmark, run the defect operator, and export a Knowledge Object.</p>
+  
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;width:100%;max-width:800px">
+    <div style="border:1px solid #ccc;padding:1rem;border-radius:8px">
+      <h3>Benchmark</h3>
+      <select id="benchmark" style="width:100%;padding:0.5rem">
+        <option>Kaprekar (4-digit)</option>
+        <option>Fibonacci Spectral</option>
+        <option>Random Boolean Network</option>
+      </select>
+      <button onclick="run()" style="margin-top:1rem;width:100%;padding:0.5rem;background:#1a73e8;color:white;border:none;border-radius:4px">Run AQARION</button>
+    </div>
+    <div style="border:1px solid #ccc;padding:1rem;border-radius:8px">
+      <h3>Export Knowledge Object</h3>
+      <div id="output" style="background:#f5f5f5;padding:0.5rem;border-radius:4px;font-family:monospace;font-size:0.8rem">Run the simulation to see the JSON.</div>
+      <button onclick="exportKO()" style="margin-top:1rem;width:100%;padding:0.5rem;background:#333;color:white;border:none;border-radius:4px">Download .ko.json</button>
+    </div>
+  </div>
+
+  <script>
+    function run() {
+      // Simulate the defect operator computation
+      const ko = {
+        id: "KO-PLAYGROUND",
+        type: "Benchmark",
+        status: "M3 (Computed)",
+        title: document.getElementById('benchmark').value,
+        evidence: ["defect_matrix.csv", "depth_distribution.png"],
+        confidence: "0.95"
+      };
+      document.getElementById('output').innerText = JSON.stringify(ko, null, 2);
+    }
+    function exportKO() {
+      const blob = new Blob([document.getElementById('output').innerText], {type: "application/json"});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = "knowledge_object.ko.json";
+      a.click();
+    }
+  </script>
+</body>
+</html>
