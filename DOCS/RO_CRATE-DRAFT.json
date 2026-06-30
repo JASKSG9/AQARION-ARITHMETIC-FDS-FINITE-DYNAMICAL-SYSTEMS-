@@ -1,0 +1,27 @@
+{
+  "@context": "https://w3id.org/ro/crate/1.2-DRAFT",
+  "@graph": [
+    {
+      "@id": "./",
+      "@type": "Dataset",
+      "name": "KO-041: Positive Obstruction Bound",
+      "aqarion:type": "Theorem",
+      "aqarion:status": "Verified",
+      "aqarion:maturity": 4,
+      "aqarion:confidence": {
+        "mathematical": 5,
+        "computational": 5,
+        "formal": 2,
+        "independent": 1,
+        "historical": 4
+      },
+      "hasPart": [
+        {"@id": "proof/lean/"},
+        {"@id": "proof/python/"},
+        {"@id": "evidence/dataset/"},
+        {"@id": "visualization/"},
+        {"@id": "history/revisions.json"}
+      ]
+    }
+  ]
+}
