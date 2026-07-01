@@ -1,0 +1,14 @@
+{
+  "matrix_version": "1.0",
+  "dimensions": ["claim", "evidence", "method", "verifier", "status", "timestamp"],
+  "entries": [
+    {
+      "claim": "Quotient cardinality = 55",
+      "evidence": "len(fibers) == 55",
+      "method": "exhaustive enumeration",
+      "verifier": "certify_gap_class_count",
+      "status": "PASS",
+      "timestamp": "2026-07-01"
+    }
+  ]
+}
