@@ -216,3 +216,135 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+#June30-2026
+
+
+# [1] .gitignore
+gitignore = """# AQARION .gitignore
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Verification reports (generated)
+verification/reports/*.json
+verification/reports/*.txt
+verification/reports/*.html
+
+# Reference data (large binaries — use git-lfs or HuggingFace)
+*.npy
+*.npz
+*.h5
+*.pkl
+
+# Lean build artifacts
+lean/build/
+*.olean
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Temporary counterexample archives
+verification/counterexamples/archive/
+"""
+
+with open(ROOT / ".gitignore", "w") as f:
+    f.write(gitignore)
+
+# [2] pyproject.toml
+pyproject = """[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aqarion"
+version = "30.2.0"
+description = "Certification theory for finite observable dynamical systems"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "AQARION Research Group"}
+]
+keywords = ["dynamical-systems", "koopman-operator", "verification", "finite-systems"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "networkx>=3.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-json-report>=1.5",
+    "pytest-xdist>=3.0",
+    "hypothesis>=6.0",
+]
+lean = [
+    "pylev>=0.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/aqarion/aqarion"
+Documentation = "https://aqarion.readthedocs.io"
+Repository = "https://github.com/aqarion/aqarion"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["verification/tests"]
+markers = [
+    "core: Stage 1 core linear algebra tests",
+    "theorem: Stage 2 theorem verification",
+    "counterexample: Stage 3 counterexample reproduction",
+    "random: Stage 4 randomized testing",
+    "lean: Stage 5 Lean formalization sync",
+    "hash: Stage 6 reference data hash verification",
+    "xfail: Expected failure — known limitation",
+    "cj: Active conjecture — not yet proven",
+]
+"""
+
+with open(ROOT / "pyproject.toml", "w") as f:
+    f.write(pyproject)
+
+print("✅ .gitignore")
+print("✅ pyproject.toml")
