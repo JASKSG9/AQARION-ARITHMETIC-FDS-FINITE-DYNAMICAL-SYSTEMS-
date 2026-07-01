@@ -1,0 +1,5 @@
+- id: N001
+  claim: "Defect monotonicity under refinement"
+  status: "REFUTED"
+  witness: "example_17"
+  verifier: "verify_counterexample_001"
