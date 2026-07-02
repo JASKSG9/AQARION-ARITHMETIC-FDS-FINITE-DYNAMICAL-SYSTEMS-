@@ -14,3 +14,9 @@ python ARTIFACTS/PSEUDOSPECTRAL_d.py
 # Plots ε‑pseudospectrum of the integer defect matrix.
 # Breakthrough: if pseudospectral abscissa > spectral radius, the defect is highly non‑normal,
 # implying large transient error amplification under partition perturbation.
+
+---
+
+python DOCS/PYTHON/EXAMPLES/SMT-COUNTER-EXAMPLE.py
+python DOCS/PYTHON/LAPLACIAN.py
+python ARTIFACTS/PSEUDOSPECTRAL_d.py
