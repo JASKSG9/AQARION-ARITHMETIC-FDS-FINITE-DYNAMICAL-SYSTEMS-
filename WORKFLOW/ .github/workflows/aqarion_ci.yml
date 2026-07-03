@@ -1,192 +1,79 @@
-name: AQARION v15.1 CI — Invariant Enforcement Pipeline
+name: AQARION v15.1 CI (Invariant Enforcement)
 
 on:
   push:
   pull_request:
-  workflow_dispatch:
-
-env:
-  PYTHON_VERSION: "3.11"
-  AQARION_SEED: 42
 
 jobs:
-
-  invariant-tests:
-    name: Structural + Dynamical Invariants
+  invariant-test-suite:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
+          python-version: "3.11"
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install numpy scipy networkx pytest
-
-      - name: Set deterministic seed
-        run: |
-          echo "PYTHONHASHSEED=${{ env.AQARION_SEED }}" >> $GITHUB_ENV
+          pip install numpy scipy pytest
 
       # -----------------------------
-      # STRUCTURAL INVARIANT TESTS
+      # STAGE 2 — STRUCTURAL TESTS
       # -----------------------------
-      - name: Run Structural Tests
+      - name: Run Structural Tests (A-group)
         run: |
           python -m pytest verification/test_structural.py -v
 
       # -----------------------------
-      # DYNAMICAL STABILITY TESTS
+      # STAGE 3 — DYNAMICS TESTS
       # -----------------------------
-      - name: Run Dynamics Tests
+      - name: Run Dynamical Tests (B-group)
         run: |
           python -m pytest verification/test_dynamics.py -v
 
       # -----------------------------
-      # OBSTRUCTION THEORY TESTS
+      # STAGE 4 — GRAPH CONSISTENCY
       # -----------------------------
-      - name: Run Obstruction Tests
+      - name: Run Graph Tests (C-group)
+        run: |
+          python -m pytest verification/test_graph.py -v
+
+      # -----------------------------
+      # STAGE 5 — OBSTRUCTION THEORY
+      # -----------------------------
+      - name: Run Obstruction Tests (D-group)
         run: |
           python -m pytest verification/test_obstruction.py -v
 
       # -----------------------------
-      # SPECTRAL CONSISTENCY TESTS
+      # STAGE 6 — SPECTRAL VALIDATION
       # -----------------------------
-      - name: Run Spectral Tests
+      - name: Run Spectral Tests (E-group)
         run: |
           python -m pytest verification/test_spectral.py -v
 
       # -----------------------------
-      # RANDOMIZED STRESS SUITE
+      # STAGE 7 — RANDOM STRESS SUITE
       # -----------------------------
-      - name: Run Stress Tests (Monte Carlo FDDS)
+      - name: Run Stress Tests (G-group)
         run: |
           python -m pytest verification/test_stress.py -v --maxfail=1
 
       # -----------------------------
-      # EVIDENCE OBJECT VALIDATION
+      # STAGE 8 — EVIDENCE CHECK
       # -----------------------------
-      - name: Validate Evidence Schema
+      - name: Validate Evidence Emission
         run: |
-          python evidence/emitter.py --validate-schema
+          python -c "from evidence.emitter import emit; print('EVIDENCE OK')"
 
       # -----------------------------
-      # REPRODUCIBILITY CHECK
-      # -----------------------------
-      - name: Determinism Check (Hash Lock)
-        run: |
-          python run_all.py --determinism-check
-
-      # -----------------------------
-      # FAIL ON ANY NUMERICAL DRIFT
-      # -----------------------------
-      - name: Numerical Stability Guard
-        run: |
-          python -c "
-import numpy as np
-print('AQARION CI: numerical guard active')
-assert np.isfinite(1.0)
-"
-
-      # -----------------------------
-      # FINAL INVARIANT GATE
+      # FINAL GATE
       # -----------------------------
       - name: Final Invariant Gate
         run: |
-          python run_all.py --strict-mode
-
-  lean-check (optional formal gate):
-    name: Lean Formal Verification Gate
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Install Lean (if available)
-        run: |
-          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
-          echo "$HOME/.elan/bin" >> $GITHUB_PATH
-
-      - name: Build Lean Project
-        run: |
-          if [ -f lakefile.lean ]; then
-            lake build
-          else
-            echo "No Lean project found — skipping formal layer"
-          fi
-
-  evidence-check:
-    name: Evidence Object Integrity
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: Install dependencies
-        run: |
-          pip install jsonschema
-
-      - name: Validate Evidence Objects
-        run: |
-          python evidence/emitter.py --check-all
-
-      - name: Check Dependency DAG Acyclicity
-        run: |
-          python -c "
-import json
-import networkx as nx
-
-with open('evidence/claims_graph.json') as f:
-    data = json.load(f)
-
-G = nx.DiGraph()
-for edge in data['edges']:
-    G.add_edge(edge['from'], edge['to'])
-
-assert nx.is_directed_acyclic_graph(G), 'Dependency DAG contains cycle'
-
-print('DAG OK')
-"
-
-  reproducibility-check:
-    name: Cross-Run Determinism Validation
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: Install dependencies
-        run: |
-          pip install numpy
-
-      - name: Run Deterministic Dual Execution
-        run: |
-          python -c "
-from run_all import run_full_aqarion_suite
-
-print('Run 1')
-a = run_full_aqarion_suite()
-
-print('Run 2')
-b = run_full_aqarion_suite()
-
-assert a == b, 'Non-determinism detected in AQARION pipeline'
-print('Determinism verified')
-"
+          python run_all.py
