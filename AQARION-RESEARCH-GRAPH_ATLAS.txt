@@ -3577,19 +3577,815 @@ Adversarial Graph	Mutation operators on the graph itself
 Publication Replay	Deterministic reconstruction from clean repository	
 Self-Explanation	Auto-answer "Why is X trusted?" with complete chain	
 
-Files
-
-- [aqarion/research_graph/core.py](sandbox:///mnt/agents/output/aqarion/research_graph/core.py) — Layer 1: Canonical Graph
-- [aqarion/evidence_engine/core.py](sandbox:///mnt/agents/output/aqarion/evidence_engine/core.py) — Layer 2: Evidence
-- [aqarion/governance/core.py](sandbox:///mnt/agents/output/aqarion/governance/core.py) — Layer 3: Governance
-- [aqarion/projections/core.py](sandbox:///mnt/agents/output/aqarion/projections/core.py) — Layer 4: Projections
-- [verification/graph/test_graph_invariants.py](sandbox:///mnt/agents/output/verification/graph/test_graph_invariants.py) — G11-G20
-- [projections/](sandbox:///mnt/agents/output/projections/) — Generated artifacts
-- [verification/results/architecture_report.json](sandbox:///mnt/agents/output/verification/results/architecture_report.json) — Architecture report
-
 ---
 
+```
+================================================================================
+AQARION-RESEARCH-GRAPH_ATLAS.txt
+================================================================================
+AQARION Research Graph Atlas v2.0
+Date: 2026-07-04
 Maintainer: AQARION Node #10878
-Repository: github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-
-Status: ✅ CLOSED · ✅ HARDENED · ✅ CERTIFIED · ✅ RELEASE-READY
-Next Milestone: v18.0 Publication Freeze — July 2026
+Repository: https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-
+License: CC-BY-4.0 / Apache 2.0
+Status: GOVERNANCE_SPECIFICATION (not certified mathematics)
+
+This document defines the Research Graph – the canonical representation of
+all AQARION research objects and their relationships. The graph is the single
+source of truth from which claims registries, evidence manifests, dependency
+analyses, release decisions, and publication artifacts are derived.
+
+The core principle: every research object (definition, theorem, implementation,
+evidence, publication) is a node in a typed, versioned graph. Every meaningful
+relationship between objects is an edge. The graph is the research state.
+
+================================================================================
+
+1. EXECUTIVE SUMMARY
+
+The AQARION Research Graph is a knowledge representation framework for
+computational mathematics research. It models:
+
+- Mathematical objects (definitions, theorems, lemmas, conjectures)
+- Computational artifacts (implementations, oracles, datasets)
+- Evidence objects (witnesses, benchmark results, formal proofs)
+- Governance objects (claims, policies, releases)
+- Publication objects (papers, documentation)
+- Historical objects (counterexamples, refutations, retractions)
+
+The graph is typed, dependency-aware, versioned, and designed to support
+automated certification, reproducibility, and semantic audit. Every node
+has a lifecycle, and every edge represents a typed relationship that can
+be used for dependency analysis, impact assessment, and maturity computation.
+
+The graph is projected into user-facing artifacts: claims ledger, README,
+paper tables, CI reports, release bundles, and the AQARION website.
+
+================================================================================
+
+2. CORE PRINCIPLES
+
+2.1. The Research Graph is the canonical state.
+    All other artifacts are derived projections.
+
+2.2. Nodes are immutable once finalized.
+    Changes create new nodes, not mutations.
+
+2.3. Edges carry semantic meaning.
+    They are not just dependencies; they encode how objects relate.
+
+2.4. Lifecycles are explicit and machine-checkable.
+    Every node and edge has a lifecycle state.
+
+2.5. Evidence is immutable.
+    Evidence objects are cryptographically hashed and archived.
+
+2.6. Governance is computed from the graph.
+    Maturity, release readiness, and publication status are derived, not
+    manually assigned.
+
+2.7. Negative knowledge is first-class.
+    Counterexamples, failed proofs, and refuted conjectures are preserved.
+
+2.8. The graph is versioned as a whole.
+    Research transactions capture the evolution of the entire graph.
+
+================================================================================
+
+3. NODE ONTOLOGY
+
+Each node has a unique ID (e.g., AQ-DEF-001, AQ-THM-003), a type, a lifecycle
+state, and a set of typed attributes depending on the type. Nodes are stored
+in canonical JSON format and hashed.
+
+3.1. Mathematical Nodes
+
+These nodes represent the mathematical content of the project.
+
+Type: Definition (AQ-DEF-*)
+  Fields:
+    - id: string
+    - label: string (human-readable name)
+    - statement: string (mathematical statement in LaTeX)
+    - dependencies: list of node IDs
+    - status: lifecycle state
+    - created: timestamp
+    - last_modified: timestamp
+  Example:
+    AQ-DEF-001: "Finite Deterministic Dynamical System"
+
+Type: Notation (AQ-NOT-*)
+  Fields:
+    - id: string
+    - symbol: string
+    - meaning: string
+    - context: list of definitions it relies on
+    - status: lifecycle state
+
+Type: Lemma (AQ-LEM-*)
+  Fields:
+    - id: string
+    - statement: string
+    - proof: reference to proof node or text
+    - dependencies: list of nodes (definitions, lemmas, theorems)
+    - status: lifecycle state
+    - evidence: list of evidence object IDs
+
+Type: Theorem (AQ-THM-*)
+  Fields:
+    - id: string
+    - statement: string
+    - proof: reference to proof node or text
+    - dependencies: list of nodes
+    - corollaries: list of node IDs
+    - status: lifecycle state
+    - evidence: list of evidence object IDs
+    - formalizations: list of Lean proof node IDs
+
+Type: Corollary (AQ-COR-*)
+  Fields:
+    - id: string
+    - statement: string
+    - parent_theorem: AQ-THM-*
+    - status: lifecycle state
+    - evidence: list of evidence object IDs
+
+Type: Conjecture (AQ-CON-*)
+  Fields:
+    - id: string
+    - statement: string
+    - rationale: string
+    - status: lifecycle state (DRAFT, PROPOSED, REFUTED, PROVEN)
+    - refutation: reference to counterexample node if refuted
+
+Type: Axiom (AQ-AXI-*)
+  Fields:
+    - id: string
+    - statement: string
+    - status: lifecycle state
+
+Type: Assumption (AQ-ASM-*)
+  Fields:
+    - id: string
+    - statement: string
+    - context: list of nodes that depend on this assumption
+    - status: lifecycle state
+
+Type: Counterexample (AQ-CEX-*)
+  Fields:
+    - id: string
+    - refutes: node ID (conjecture or theorem)
+    - witness: reference to witness object
+    - description: string
+    - created: timestamp
+    - status: lifecycle state
+
+3.2. Computational Nodes
+
+These nodes represent software and data artifacts.
+
+Type: Implementation (AQ-IMP-*)
+  Fields:
+    - id: string
+    - language: string (Python, C++, Rust, etc.)
+    - version: string
+    - source_hash: SHA-256 of source code
+    - dependencies: list of implementation IDs
+    - status: lifecycle state
+
+Type: Oracle (AQ-ORC-*)
+  Fields:
+    - id: string
+    - language: string
+    - version: string
+    - source_hash: SHA-256
+    - benchmarks: list of dataset IDs
+    - output_hashes: list of SHA-256 output hashes
+    - status: lifecycle state
+
+Type: Dataset (AQ-DAT-*)
+  Fields:
+    - id: string
+    - description: string
+    - source: URL or path
+    - checksum: SHA-256
+    - generated_by: reference to implementation or oracle
+    - status: lifecycle state
+
+Type: Benchmark (AQ-BEN-*)
+  Fields:
+    - id: string
+    - dataset: reference to dataset ID
+    - method: string (e.g., "exhaustive enumeration")
+    - parameters: dict
+    - result_hash: SHA-256 of results
+    - status: lifecycle state
+
+Type: Regression Run (AQ-RUN-*)
+  Fields:
+    - id: string
+    - implementation: reference to implementation ID
+    - test_suite: list of test IDs
+    - passed: int
+    - failed: int
+    - duration: float
+    - environment: dict
+    - timestamp: timestamp
+    - status: lifecycle state
+
+3.3. Evidence Nodes
+
+These nodes are immutable evidence objects.
+
+Type: Witness (AQ-WIT-*)
+  Fields:
+    - id: string
+    - claim: reference to node ID
+    - statement: string
+    - input: description
+    - output: description
+    - expected: description
+    - actual: description
+    - reason: string
+    - generator: reference to implementation or oracle
+    - generator_version: string
+    - environment: dict
+    - timestamp: timestamp
+    - sha256: SHA-256 of the witness content
+    - status: lifecycle state
+
+Type: Formal Proof (AQ-PRF-*)
+  Fields:
+    - id: string
+    - theorem: reference to theorem node
+    - lean_file: path to Lean file
+    - lean_hash: SHA-256 of the Lean source
+    - proof_obligations: list of strings
+    - status: lifecycle state (DRAFT, COMPLETE, VERIFIED)
+
+Type: Evidence Bundle (AQ-EVI-*)
+  Fields:
+    - id: string
+    - claims_supported: list of node IDs
+    - artifacts: list of artifact IDs (witnesses, proofs, runs)
+    - synthesis: summary of evidence
+    - sha256: SHA-256 of the bundle
+    - status: lifecycle state
+
+3.4. Governance Nodes
+
+Type: Claim (AQ-CLM-*)
+  Fields:
+    - id: string
+    - statement: string
+    - node: reference to mathematical node (theorem, lemma, etc.)
+    - evidence_required: list of evidence types
+    - dependencies: list of claim IDs
+    - effective_maturity: computed from dependencies
+    - status: lifecycle state
+    - status_detail: computed from maturity
+
+Type: Policy (AQ-POL-*)
+  Fields:
+    - id: string
+    - description: string
+    - rules: list of logic rules
+    - applies_to: list of node types
+    - status: lifecycle state
+
+Type: Release (AQ-REL-*)
+  Fields:
+    - id: string
+    - version: string
+    - includes: list of node IDs
+    - evidence_gates: list of gate IDs
+    - gates_passed: bool
+    - manifest_hash: SHA-256 of release bundle
+    - status: lifecycle state
+
+Type: Publication (AQ-PUB-*)
+  Fields:
+    - id: string
+    - title: string
+    - authors: list of strings
+    - venue: string
+    - nodes: list of node IDs
+    - generated_from: reference to graph version
+    - sha256: SHA-256 of the publication artifact
+    - status: lifecycle state
+
+3.5. Historical Nodes
+
+Type: Retraction (AQ-RET-*)
+  Fields:
+    - id: string
+    - retracts: node ID
+    - reason: string
+    - date: timestamp
+    - status: lifecycle state
+
+Type: Abandoned Direction (AQ-ABD-*)
+  Fields:
+    - id: string
+    - description: string
+    - reason: string
+    - date: timestamp
+    - status: lifecycle state
+
+================================================================================
+
+4. EDGE ONTOLOGY
+
+Edges are typed relationships between nodes. Each edge has a source, target,
+type, and optional attributes.
+
+Edge types are categorized by domain.
+
+4.1. Mathematical Dependencies
+
+  depends_on
+    - Source: any mathematical node
+    - Target: any mathematical node
+    - Meaning: The source logically depends on the target (e.g., theorem uses a lemma).
+
+  proves
+    - Source: theorem, lemma
+    - Target: theorem
+    - Meaning: The source proves the target.
+
+  refutes
+    - Source: counterexample
+    - Target: conjecture or theorem
+    - Meaning: The source provides a counterexample to the target.
+
+  generalizes
+    - Source: theorem, lemma
+    - Target: theorem, lemma
+    - Meaning: The source is a generalization of the target.
+
+  specializes
+    - Source: theorem, lemma
+    - Target: theorem, lemma
+    - Meaning: The source is a special case of the target.
+
+  equivalent_to
+    - Source: any mathematical node
+    - Target: any mathematical node
+    - Meaning: The two nodes are mathematically equivalent.
+
+4.2. Computational Dependencies
+
+  implements
+    - Source: implementation
+    - Target: definition, theorem, or algorithm
+    - Meaning: The implementation realizes the mathematical object.
+
+  verifies
+    - Source: oracle, benchmark, regression run
+    - Target: implementation, theorem, claim
+    - Meaning: The computational artifact verifies the target.
+
+  uses
+    - Source: implementation, oracle
+    - Target: dataset
+    - Meaning: The computational artifact uses the dataset.
+
+4.3. Evidence Edges
+
+  supports
+    - Source: evidence object (witness, proof, bundle)
+    - Target: claim, theorem, lemma
+    - Meaning: The evidence supports the target.
+
+  contradicts
+    - Source: counterexample, failed test
+    - Target: claim, theorem
+    - Meaning: The evidence contradicts the target.
+
+  reproduces
+    - Source: oracle, independent implementation
+    - Target: implementation, evidence
+    - Meaning: The source independently reproduces the target's results.
+
+4.4. Governance Edges
+
+  depends_on (also used for governance)
+    - Source: claim, policy, release, publication
+    - Target: any node
+    - Meaning: The governance object depends on the target.
+
+  satisfies
+    - Source: evidence bundle, release
+    - Target: gate, policy
+    - Meaning: The source satisfies the requirement.
+
+  derived_from
+    - Source: projection (README, paper, etc.)
+    - Target: research graph version
+    - Meaning: The projection is derived from that graph version.
+
+4.5. Historical Edges
+
+  supersedes
+    - Source: node (newer version)
+    - Target: node (older version)
+    - Meaning: The source replaces the target.
+
+  retracts
+    - Source: retraction node
+    - Target: node
+    - Meaning: The node is retracted.
+
+  abandoned_by
+    - Source: abandoned direction node
+    - Target: nodes in that direction
+    - Meaning: Those nodes are no longer pursued.
+
+================================================================================
+
+5. LIFECYCLE STATES
+
+Every node and edge has a lifecycle state. The states form a progression,
+with transitions defined by policies.
+
+5.1. Standard Lifecycle (for most nodes)
+
+DRAFT → PROPOSED → IMPLEMENTED → VERIFIED → PUBLISHED → ARCHIVED
+
+  DRAFT: Initial creation, under development.
+  PROPOSED: Ready for review and implementation.
+  IMPLEMENTED: Code or formalization exists (for computational nodes).
+  VERIFIED: Evidence supports the node (tests pass, proofs complete).
+  PUBLISHED: The node is part of a release or publication.
+  ARCHIVED: Superseded or deprecated, but kept for historical reference.
+
+5.2. Special States
+
+  REFUTED: Only for conjectures / theorems that have been disproven.
+  RETRACTED: For nodes that have been explicitly retracted.
+  STALE: Evidence is outdated (e.g., dependencies changed).
+  BLOCKED: Cannot progress due to dependency failure.
+
+5.3. Transition Rules
+
+  DRAFT -> PROPOSED: After internal review.
+  PROPOSED -> IMPLEMENTED: Code/Lean proof exists and passes basic checks.
+  IMPLEMENTED -> VERIFIED: All required evidence gates pass.
+  VERIFIED -> PUBLISHED: Included in an official release.
+  PUBLISHED -> ARCHIVED: Superseded by newer version.
+
+  REFUTED is terminal for conjectures.
+  RETRACTED is terminal for publications.
+
+5.4. Evidence-Driven Transitions
+
+A node can only move to VERIFIED if all its evidence dependencies are at least
+VERIFIED and all required gates have been evaluated.
+
+================================================================================
+
+6. EVIDENCE OBJECTS
+
+Evidence objects are immutable artifacts that substantiate claims. They are
+generated by runs of implementations, oracles, or formal proofs.
+
+6.1. Structure of an Evidence Object
+
+Every evidence object has:
+
+  - ID: AQ-EVI-XXXXXX (or AQ-WIT-XXXXXX for witnesses)
+  - Claim supported: reference to node ID
+  - Generator: reference to implementation/oracle/proof node
+  - Generator version: string
+  - Inputs: description or checksums of input data
+  - Outputs: description or checksums of output data
+  - Environment: dict of OS, compiler, Python version, etc.
+  - Timestamp: ISO 8601
+  - SHA-256: hash of the canonical JSON representation
+
+6.2. Witness Generation
+
+Witnesses are produced when a test fails or a counterexample is found.
+They contain:
+
+  - The claim being tested.
+  - The input state.
+  - The expected output.
+  - The actual output.
+  - The reason for failure (e.g., partition not invariant).
+  - The generator that produced the witness.
+  - A reproducible seed or environment.
+  - A SHA-256 hash.
+
+Witnesses are archived in the evidence archive under a path like:
+  evidence_archive/AQ-WIT-XXXXXX.json
+
+6.3. Evidence Archive
+
+The evidence archive is a directory containing all immutable evidence objects.
+Each object is stored as a JSON file with a SHA-256 checksum. The archive
+is versioned together with the research graph.
+
+6.4. Evidence Synthesis
+
+Evidence synthesis aggregates multiple evidence objects to produce a
+consolidated view. It answers:
+
+  - Which evidence agrees?
+  - Which evidence conflicts?
+  - What is the confidence level?
+  - Is the evidence stale?
+
+The synthesis layer produces an Evidence Summary for each claim, which is
+then used by governance to compute maturity and release readiness.
+
+================================================================================
+
+7. GOVERNANCE AND MATURITY
+
+7.1. Claims Ledger
+
+The claims ledger is a projection of the research graph filtered to claim nodes.
+It lists every claim, its dependencies, its evidence, and its computed maturity.
+The ledger is machine-readable (YAML/JSON) and is the source for paper tables
+and documentation.
+
+7.2. Maturity Computation
+
+Maturity is computed for each claim from its dependencies and evidence.
+
+The formula is:
+
+  maturity(claim) = min(
+      mathematics_maturity,
+      implementation_maturity,
+      oracle_maturity,
+      formalization_maturity,
+      reproducibility_maturity
+  )
+
+Where each dimension is evaluated from the corresponding evidence:
+  mathematics_maturity: based on proof status (DRAFT, PROPOSED, PROVEN)
+  implementation_maturity: based on implementation lifecycle and test coverage
+  oracle_maturity: based on independent oracle agreement
+  formalization_maturity: based on Lean proof status
+  reproducibility_maturity: based on clean clone reproducibility
+
+The overall maturity of a theorem is the minimum across all dimensions.
+This ensures that a theorem cannot claim higher maturity than its weakest link.
+
+7.3. Release Gates
+
+Release gates are policies that must be satisfied before a release is made.
+Gates are defined as logical predicates over the research graph.
+
+Gate E1: No scaffolds in certification path.
+Gate E2: Independent oracle produces matching hashes.
+Gate E3: Lean formalization has no essential sorry.
+Gate E4: Evidence archive is populated.
+Gate E5: Publication freeze checks pass.
+Gate E6: Semantic faithfulness audit passes.
+
+Each gate is evaluated against the graph and evidence synthesis. The result
+is PASS/FAIL/BLOCKED/PENDING. A release can only be made when all required
+gates PASS.
+
+7.4. Dependency-Aware Blocking
+
+If a dependency is BLOCKED or FAILED, all dependents become BLOCKED.
+This ensures that upstream issues are not hidden.
+
+================================================================================
+
+8. IMPACT ANALYSIS AND SHOCKWAVES
+
+8.1. Dependency Shockwave
+
+When a node is modified (added, changed, deprecated, retracted), the graph
+computes the impact set via transitive closure. The impact set includes
+all nodes that directly or indirectly depend on the modified node.
+
+8.2. Impact Classification
+
+For each node in the impact set, the graph classifies the impact:
+
+  - STRENGTHENED: The modification improves the node (e.g., a proof becomes more general).
+  - WEAKENED: The modification reduces the node's scope or confidence.
+  - INVALIDATED: The node's evidence or proof no longer applies.
+  - BLOCKED: The node cannot progress until the dependency is resolved.
+  - UNAFFECTED: The node is not impacted.
+
+8.3. Shockwave Report
+
+The impact analysis generates a report that lists affected nodes, their
+new statuses, and the required actions (re-run tests, update Lean proofs,
+regenerate evidence, etc.).
+
+8.4. Semantic Diff
+
+The semantic diff compares two versions of the research graph and reports
+changes in mathematical meaning, not just file changes.
+
+Changes that affect the semantic hash (e.g., modifications to a theorem
+statement, assumptions, or dependencies) are flagged. Changes that affect
+only formatting or metadata are ignored.
+
+================================================================================
+
+9. PROJECTIONS
+
+Projections are generated artifacts derived from the research graph.
+They are automatically regenerated when the graph changes, ensuring
+consistency.
+
+9.1. Claims Ledger (claims.yaml)
+  - Projection of all claim nodes with their computed maturity.
+  - Used for internal governance and paper tables.
+
+9.2. README.md
+  - Generated from graph metadata: overview, key theorems, status badges.
+  - Automatically updated on release.
+
+9.3. Paper Tables (LaTeX)
+  - Theorems and evidence tables are generated from the graph.
+  - Tables include theorem statements, dependencies, evidence levels, and maturity.
+
+9.4. CI Reports
+  - Certification runs produce reports that are linked to the graph nodes.
+  - Each CI run creates a node (Run) that records test results, environment, and hashes.
+
+9.5. Release Bundles
+  - A release bundle includes the graph snapshot, evidence archive, and a manifest.
+  - The manifest contains hashes of all artifacts.
+
+9.6. Website Documentation
+  - The AQARION website is generated from the graph, providing an interactive view.
+
+================================================================================
+
+10. RESEARCH TRANSACTIONS
+
+Rather than treating the repository as a file system, the graph is versioned
+as a sequence of research transactions.
+
+10.1. Transaction Structure
+
+Each transaction records:
+  - Transaction ID
+  - Timestamp
+  - Author
+  - Description of changes
+  - Added nodes (list of IDs)
+  - Modified nodes (list of IDs with change summaries)
+  - Deprecated nodes (list of IDs)
+  - Invalidated nodes (list of IDs)
+  - Impact summary (number of nodes affected, by type)
+
+10.2. Transaction Benefits
+
+  - Provides a clear history of how the research evolved.
+  - Enables time-travel queries (show graph as of transaction X).
+  - Supports reproducible releases (release bundle includes a specific transaction).
+
+10.3. Time-Travel Audit
+
+A researcher can query the graph as it existed at any transaction ID,
+allowing them to verify historical claims and reproducibility.
+
+================================================================================
+
+11. SEMANTIC VERSUS STRUCTURAL FINGERPRINTS
+
+11.1. Structural Hash
+  - Changes when the file or node serialization changes.
+  - Used for detecting file modifications.
+
+11.2. Semantic Hash
+  - Changes only when the mathematical meaning changes.
+  - Includes: theorem statement, dependencies, hypotheses, conclusions.
+  - Excludes: formatting, whitespace, comments, metadata.
+
+11.3. Proof Hash
+  - Changes when the proof structure changes (e.g., different proof strategy).
+  - Independent of the theorem statement.
+
+These hashes allow the system to detect whether a change is substantive or
+merely cosmetic.
+
+================================================================================
+
+12. NEGATIVE KNOWLEDGE AND REFUTATIONS
+
+Negative knowledge is treated as first-class nodes.
+
+12.1. Counterexample Node
+  - Contains the counterexample and the claim it refutes.
+  - Referenced by the refuted claim as a dependency.
+  - Prevents accidental rediscovery.
+
+12.2. Failed Proof Node
+  - Records a failed proof attempt, including the attempted strategy and why it failed.
+  - Helps others avoid dead ends.
+
+12.3. Refuted Conjecture
+  - A conjecture that has been refuted by a counterexample is moved to the
+    REFUTED lifecycle state.
+  - The refutation edge points to the counterexample.
+
+12.4. Retraction Node
+  - Used to retract a publication or theorem that was later found to be
+    incorrect or superseded.
+  - The retraction is itself an immutable object.
+
+================================================================================
+
+13. RELATIONSHIP TO AQARION COMPONENTS
+
+13.1. Certification Pipeline (verification/verify_all.py)
+  - The pipeline executes tests and generates evidence objects.
+  - It creates Run nodes and Witness nodes in the graph.
+
+13.2. Evidence Archive (evidence_archive/)
+  - Stores immutable evidence objects (JSON files with SHA-256).
+  - The graph references these objects by ID and hash.
+
+13.3. Claims Registry (claims.yaml)
+  - Projection of claim nodes in the graph.
+  - Used for internal governance and paper generation.
+
+13.4. Lean Formalization (formal/)
+  - Lean proof nodes are connected to theorem nodes.
+  - Proof status is tracked in the graph.
+
+13.5. Independent Oracle (oracle/)
+  - Oracle runs create Oracle nodes that verify implementations.
+  - Agreement is tracked via edge types.
+
+13.6. Release Manager (release/)
+  - Reads graph status to determine release readiness.
+  - Produces release bundles with manifests and evidence bundles.
+
+================================================================================
+
+14. APPENDICES
+
+14.1. Example Node JSON
+
+{
+  "id": "AQ-THM-003",
+  "type": "Theorem",
+  "label": "Master Equivalence Theorem",
+  "statement": "For a finite deterministic system ... six conditions are equivalent",
+  "dependencies": ["AQ-DEF-001", "AQ-DEF-002", "AQ-LEM-001"],
+  "lifecycle": "VERIFIED",
+  "evidence": ["AQ-EVI-007"],
+  "formalizations": ["AQ-PRF-002"]
+}
+
+14.2. Example Edge JSON
+
+{
+  "source": "AQ-THM-003",
+  "target": "AQ-LEM-001",
+  "type": "depends_on",
+  "attributes": {"certainty": "strict"}
+}
+
+14.3. Example Transaction
+
+{
+  "id": "TX-042",
+  "timestamp": "2026-07-04T12:34:56Z",
+  "author": "node10878",
+  "description": "Proved master equivalence forward direction",
+  "added": ["AQ-PRF-002"],
+  "modified": ["AQ-THM-003"],
+  "deprecated": [],
+  "invalidated": ["AQ-EVI-005"],
+  "impact_summary": {"nodes_affected": 12, "edges_affected": 18}
+}
+
+14.4. References
+
+- Research Graph concept inspired by knowledge graphs and dependency management.
+- Evidence objects inspired by provenance and reproducible research systems.
+- Lifecycle states inspired by formal verification and software engineering.
+
+================================================================================
+
+15. CLOSING
+
+The AQARION Research Graph is the canonical representation of the project's
+research state. It is used for automated certification, governance, and
+publication. All human-facing artifacts are projections derived from the graph.
+This design ensures consistency, reproducibility, and auditability.
+
+The graph is extensible: new node types and edge types can be added as the
+project evolves. The governance policies are also extensible and can be
+adjusted without changing the underlying graph.
+
+================================================================================
+
+End of AQARION-RESEARCH-GRAPH_ATLAS.txt
+================================================================================
+```
