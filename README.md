@@ -4,7 +4,7 @@
 
 <p align="center">
 
-![AQARION](https://img.shields.io/badge/AQARIONHardening-blueviolet)
+![AQARION](https://img.shields.io/badge/AQARION-Hardening-blueviolet)
 ![Status](https://img.shields.io/badge/status-submission--ready-success)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.10%2B-blue)
