@@ -77,3 +77,13 @@ jobs:
       - name: Final Invariant Gate
         run: |
           python run_all.py
+
+      - name: Deploy to Hugging Face Space (on main branch only)
+  if: github.ref == 'refs/heads/main' && success()
+  run: |
+    git clone https://huggingface.co/spaces/Quantarion9/Quantarion-FDS
+    cp -r verification/evidence/* Quantarion-FDS/evidence/
+    cd Quantarion-FDS
+    git add .
+    git commit -m "Auto-deploy v19.0 Evidence $(date -I)"
+    git push
