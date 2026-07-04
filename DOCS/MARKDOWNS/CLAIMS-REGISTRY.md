@@ -2204,7 +2204,158 @@ Execute the generation of the registry.
 
 ---
 
+# AQARION KILLED CLAIMS REGISTER
+## Louisville Node #1 · Paper A8 · Kaprekar Spectral Geometry
+## Updated: M21 2026
+## Status: 14 claims killed
+
+> A killed claim is one found to be false, methodologically flawed, unsupported by the evidence, or conflated with a distinct correct claim. All kills are permanent and documented. Killed claims may not be revived without a new verification pipeline from scratch.
+
+---
+
+## K-01 · d=5 Critical Dimension Claim
+**Killed claim:** d=5 is the true critical dimension for negabase entropy  
+**Original stated evidence:** SPD-CCS sampling sweep showed H_norm≈0.99 at d=5 for bases -6 to -16  
+**Kill reason:** Sampling artifact. Batch_size was insufficient relative to state space size at d=5. Exhaustive exact census (not sampling) shows d=2 peak universally for all bases tested.  
+**Correct result:** Peak entropy at d=2 for ALL bases in exact census  
+**Severity:** HIGH  
+**Affects:** Any document claiming d=5 as "critical", "true entropy peak", or "maximum entropy dimension"  
+**Replacement:** AQ-THM-010 supplementary phase diagram (exact census)
+
+---
+
+## K-02 · 3:2:1 τ=2 Gateway Ratio in Domain A
+**Killed claim:** The ratio 3:2:1 at τ=2 holds in Domain A  
+**Kill reason:** This ratio holds only in Domain B (padded strings 0000–9999). Domain A (integers 1000–9999) excludes leading-zero states and has a different τ-distribution.  
+**Severity:** HIGH  
+**Replacement:** State explicitly which domain any ratio claim applies to. Domain B N_τ = [383, 576, 2400, 1272, 1518, 1656, 2184].
+
+---
+
+## K-03 · Domain A/B Labeling Error (Multiple Artifacts)
+**Killed claim:** Pre-M20 labeling of Domain A and Domain B across documents, tables, and figures  
+**Kill reason:** Labels were systematically reversed. A=integers 1000–9999 (no leading zeros). B=padded strings 0000–9999.  
+**Severity:** HIGH — affects all pre-M20 cross-domain comparison tables  
+**Corrected:** M20 checkpoint. All post-M20 documents use corrected labeling.  
+**Fiedler cut correction:** Cut at τ=4→5 (not τ=3→4 as stated in some pre-M20 documents)
+
+---
+
+## K-04 · β≈2 Mandelbrot Analogy as Verified Result
+**Killed claim:** The power-law exponent β≈2 constitutes a verified Mandelbrot-class result  
+**Kill reason:** Methodologically flawed fit. Goodness-of-fit not rigorously established; alternative fits not excluded; analogy is metaphorical not structural.  
+**Severity:** MEDIUM  
+**Status:** May be reopened as [CONJECTURE] with rigorous statistical methodology.
+
+---
+
+## K-05 · NHSE Analogy as Verified Result
+**Killed claim:** The non-Hermitian skin effect (NHSE) analogy constitutes a verified structural correspondence  
+**Kill reason:** Only 1 of 3 required mathematical conditions for NHSE were met in analysis.  
+**Severity:** MEDIUM  
+**Replacement:** AQ-CONJ (unnumbered) — NHSE analogy as conjecture, noting 1/3 conditions met
+
+---
+
+## K-06 · R²≈0.95 as Strong Spectral Predictor
+**Killed claim:** R²≈0.95 demonstrates strong predictive power of the spectral approach  
+**Kill reason:** Baseline model accounts for the majority of variance; the spectral features contribute approximately 10% explanatory power above baseline. R² is misleading as headline figure.  
+**Severity:** MEDIUM
+
+---
+
+## K-07 · κ_c Condensation as Proven Theorem
+**Killed claim:** The condensation of ρ(τ) at d=3 is proven via κ≫κ_c  
+**Kill reason:** No explicit κ_c(d,B) formula has been derived. V(τ;d,B) is unspecified. The entire free energy framework is HEURISTIC at present.  
+**Severity:** HIGH  
+**Required to revive:** Explicit computation of V(τ;d,B) from N_τ data → explicit κ_c(d,B) → analytic condensation argument  
+**Replacement:** AQ-CONJ-003
+
+---
+
+## K-08 · Transfer Operator ℒ as Derived Result
+**Killed claim:** The transfer operator ℒ for the Kaprekar system has been derived  
+**Kill reason:** Only a template/structural form was written. ℒ has not been computed as an actual matrix operator from the state space.  
+**Severity:** HIGH  
+**Replacement:** TARGET-03 (compute ℒ as matrix, show spectral gap = Fiedler μ₁)
+
+---
+
+## K-09 · Phase Transition Condition as Proven Theorem
+**Killed claim:** The spectral gap collapse λ_max(ℒ)→0 constitutes a proven phase transition condition  
+**Kill reason:** Spectral gap collapse has been asserted but not derived from the system's dynamics.  
+**Severity:** HIGH  
+**Depends on:** K-07, K-08 both still killed
+
+---
+
+## K-10 · d=5 H_norm=0.99 Universal Claim
+**Killed claim:** All negative bases at d=5 exhibit H_norm≈0.99 (near-maximal entropy)  
+**Kill reason:** Two counterexamples in exact census:  
+- b=−12, d=5: H_norm=0.0955 (attr=3, dom=98.1%) — anomalous partial collapse  
+- b=−10, d=4: H_norm=0.0000 (attr=1) — secondary full collapse (not at d=3)  
+**Severity:** HIGH  
+**Open issue:** b=−12, d=5 mechanism unknown — TARGET-05
+
+---
+
+## K-11 · Moiré GNN as Part of Kaprekar Codex
+**Killed claim:** Moiré lattice GNN research is part of the Kaprekar AQARION codex  
+**Kill reason:** Unrelated research thread. No mathematical connection established.  
+**Severity:** LOW — organizational/scope issue  
+**Action:** Thread separated from KSD project
+
+---
+
+## K-12 · PCB AD633 Chain as Codex Output
+**Killed claim:** PCB AD633 multiplier chain design is a codex output  
+**Kill reason:** Unrelated hardware thread. No connection to Kaprekar spectral geometry.  
+**Severity:** LOW — organizational/scope issue  
+**Action:** Thread separated
+
+---
+
+## K-13 · Banach Fixed-Point Theorem Citation for d=3 Proof
+**Killed claim:** The Banach Fixed-Point Theorem is the appropriate proof method for d=3 uniqueness  
+**Kill reason:** On a finite metric space, the Banach FPT is structurally overpowered and adds unnecessary complexity. A direct argument showing the 1D map F(δ) has a unique fixed point on {1,...,B-1} is both sufficient and simpler. The Banach citation also obscures the explicit construction.  
+**Severity:** LOW — proof style issue, not mathematical error  
+**Replacement:** Direct fixed-point verification: compute F(δ) for all δ∈{1,...,B-1}, show unique cycle of length 1.
+
+---
+
+## K-14 · Odd-B Fixed Point Arithmetic Fully Verified
+**Killed claim:** The fixed-point formula x*=((B-1)/2, B-1, (B+1)/2) for odd B has been fully verified including digit reconstruction  
+**Kill reason:** The reconstruction arithmetic showing that K(x*) returns x* for odd B has not been completely checked. The even-B case is verified; odd-B remains an open computation target.  
+**Severity:** MEDIUM  
+**Required to close:** TARGET-01 (explicit F(δ) on {1,...,B-1}, complete odd-B reconstruction check, verification script with exact arithmetic)
+
+---
+
+## SUMMARY TABLE
+
+| ID  | Claim (short)              | Severity | Status |
+|-----|---------------------------|----------|--------|
+| K-01 | d=5 critical dimension   | HIGH     | KILLED |
+| K-02 | 3:2:1 ratio in Domain A  | HIGH     | KILLED |
+| K-03 | A/B labeling (pre-M20)   | HIGH     | KILLED |
+| K-04 | β≈2 Mandelbrot           | MEDIUM   | KILLED |
+| K-05 | NHSE as verified         | MEDIUM   | KILLED |
+| K-06 | R²≈0.95 strong predictor | MEDIUM   | KILLED |
+| K-07 | κ_c as proven theorem    | HIGH     | KILLED |
+| K-08 | ℒ as derived result      | HIGH     | KILLED |
+| K-09 | Phase transition proven  | HIGH     | KILLED |
+| K-10 | d=5 H≈0.99 universal    | HIGH     | KILLED |
+| K-11 | Moiré GNN in codex       | LOW      | KILLED |
+| K-12 | PCB AD633 in codex       | LOW      | KILLED |
+| K-13 | Banach FPT method        | LOW      | KILLED |
+| K-14 | Odd-B FP arithmetic      | MEDIUM   | KILLED |
+
+**Total: 14 kills (7 HIGH, 3 MEDIUM, 4 LOW)**
+
+---
+
 *AQARION principle: Zero ghosts. Every quantitative claim requires exhaustive computational verification before being stated.*
+
 
 ---
 
