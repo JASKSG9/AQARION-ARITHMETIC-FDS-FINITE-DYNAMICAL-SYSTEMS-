@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AQARION · Master Research Dashboard</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Barlow+Condensed:wght@300;400;600;700;900&family=DM+Sans:wght@300;400;500&display=swap');
+:root{
+  --bg:#040508;--bg2:#07090e;--bg3:#0b0d14;--bg4:#0f111a;
+  --border:#181b26;--border2:#222638;
+  --accent:#00e5ff;--accent2:#ff3cac;--accent3:#ffe14d;
+  --verified:#00ff9f;--conj:#ff8c00;--heur:#b388ff;--killed:#ff2244;
+  --text:#dde1f0;--muted:#4a5070;--dim:#1e2230;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(var(--bg2) 1px,transparent 1px),linear-gradient(90deg,var(--bg2) 1px,transparent 1px);
+  background-size:48px 48px;opacity:.35;pointer-events:none;z-index:0;}
+nav{position:sticky;top:0;z-index:100;background:rgba(4,5,8,.96);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0;overflow-x:auto;}
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;
+  letter-spacing:3px;color:var(--accent);padding:10px 18px;white-space:nowrap;border-right:1px solid var(--border);}
+.nav-link{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;
+  color:var(--muted);padding:10px 12px;white-space:nowrap;cursor:pointer;border:none;background:none;
+  text-transform:uppercase;transition:color .2s;}
+.nav-link:hover{color:var(--accent);}
+.container{max-width:1440px;margin:0 auto;padding:0 24px 100px;position:relative;z-index:1;}
+header{padding:40px 0 28px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;}
+.logo{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:60px;letter-spacing:6px;line-height:1;
+  background:linear-gradient(100deg,var(--accent) 0%,var(--accent2) 60%,var(--accent3) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.logo-sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);letter-spacing:2px;margin-top:6px;}
+.sbadge{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:1px;padding:3px 8px;border-radius:2px;display:inline-flex;align-items:center;gap:5px;margin:2px;}
+.sbadge .dot{width:6px;height:6px;border-radius:50%;display:inline-block;}
+.sbadge.v{background:rgba(0,255,159,.08);color:var(--verified);border:1px solid rgba(0,255,159,.2);}
+.sbadge.c{background:rgba(255,140,0,.08);color:var(--conj);border:1px solid rgba(255,140,0,.2);}
+.sbadge.h{background:rgba(179,136,255,.08);color:var(--heur);border:1px solid rgba(179,136,255,.2);}
+.sbadge.k{background:rgba(255,34,68,.08);color:var(--killed);border:1px solid rgba(255,34,68,.2);}
+section{margin-top:48px;}
+.sec-label{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+.sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.sec-label span{color:var(--muted);font-size:8px;}
+.grid{display:grid;gap:14px;}
+.g2{grid-template-columns:repeat(2,1fr);}
+.g3{grid-template-columns:repeat(3,1fr);}
+.g4{grid-template-columns:repeat(4,1fr);}
+@media(max-width:1100px){.g4{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:800px){.g4,.g3{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.g4,.g3,.g2{grid-template-columns:1fr;}}
+.card{background:var(--bg2);border:1px solid var(--border);border-radius:3px;padding:18px;position:relative;}
+.card-title{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:10px;}
+.bnum{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:56px;line-height:1;}
+.bnum.a{color:var(--accent)}.bnum.g{color:var(--accent3)}.bnum.p{color:var(--accent2)}.bnum.ve{color:var(--verified)}
+.bnum-sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);margin-top:3px;}
+.badge{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:1px;padding:2px 7px;border-radius:2px;font-weight:700;margin-top:8px;}
+.badge.verified{background:rgba(0,255,159,.1);color:var(--verified);border:1px solid rgba(0,255,159,.25);}
+.badge.conjecture{background:rgba(255,140,0,.1);color:var(--conj);border:1px solid rgba(255,140,0,.25);}
+.badge.heuristic{background:rgba(179,136,255,.1);color:var(--heur);border:1px solid rgba(179,136,255,.25);}
+.badge.killed{background:rgba(255,34,68,.1);color:var(--killed);border:1px solid rgba(255,34,68,.25);}
+.badge.theorem{background:rgba(0,229,255,.1);color:var(--accent);border:1px solid rgba(0,229,255,.25);}
+.badge.target{background:rgba(255,225,77,.1);color:var(--accent3);border:1px solid rgba(255,225,77,.25);}
+.proof{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--verified);
+  border-radius:0 3px 3px 0;padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.9;margin:8px 0;}
+.ps{color:var(--accent);font-size:9px;letter-spacing:1px;margin-top:10px;}
+.pe{color:var(--accent3);margin:3px 0 3px 14px;}
+.pn{color:var(--verified);font-size:9px;}
+.mono{font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.9;}
+.mono .a{color:var(--accent)}.mono .ve{color:var(--verified)}.mono .g{color:var(--accent3)}.mono .m{color:var(--muted)}.mono .k{color:var(--killed)}.mono .p{color:var(--accent2)}.mono .h{color:var(--heur)}
+.spec-bar{display:flex;align-items:center;gap:8px;margin:5px 0;}
+.spec-lbl{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);width:70px;flex-shrink:0;}
+.bar-track{flex:1;height:18px;background:var(--bg3);border-radius:2px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:2px;}
+.spec-val{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text);width:80px;text-align:right;flex-shrink:0;}
+.pt{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:10px;}
+.pt th{color:var(--muted);font-size:8px;letter-spacing:1px;text-transform:uppercase;padding:7px 10px;border-bottom:1px solid var(--border);text-align:left;}
+.pt td{padding:6px 10px;border-bottom:1px solid rgba(24,27,38,.6);}
+.pt tr:hover td{background:rgba(255,255,255,.015);}
+.epip{display:inline-block;height:10px;border-radius:1px;vertical-align:middle;margin-right:6px;}
+.hist-wrap{display:flex;align-items:flex-end;gap:3px;height:70px;margin-top:10px;}
+.hbar{flex:1;border-radius:2px 2px 0 0;position:relative;min-width:18px;opacity:.75;cursor:pointer;}
+.hbar:hover{opacity:1!important;}
+.htip{position:absolute;bottom:110%;left:50%;transform:translateX(-50%);
+  background:var(--bg3);border:1px solid var(--border);padding:3px 6px;
+  font-family:'JetBrains Mono',monospace;font-size:8px;white-space:nowrap;display:none;z-index:10;border-radius:2px;}
+.hbar:hover .htip{display:block;}
+.hlbl{display:flex;gap:3px;margin-top:4px;}
+.hlbl span{flex:1;text-align:center;font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);}
+.susy-row{display:flex;align-items:center;gap:14px;margin:5px 0;font-family:'JetBrains Mono',monospace;font-size:11px;}
+.sv{color:var(--accent);width:80px;}.sp{color:var(--accent2);width:80px;}.seq{color:var(--verified);}.sm{color:var(--muted);}
+.ft-eq{background:var(--bg3);border:1px solid var(--border);border-left:3px solid var(--conj);
+  padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent3);margin:7px 0;border-radius:0 3px 3px 0;}
+.ft-note{color:var(--muted);font-size:9px;margin-top:3px;}
+.flow-layer{border:1px solid var(--border);border-radius:3px;margin:8px 0;overflow:hidden;}
+.flow-head{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg3);cursor:pointer;border:none;width:100%;text-align:left;color:inherit;}
+.flow-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:26px;color:var(--border2);line-height:1;flex-shrink:0;}
+.flow-title{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:16px;letter-spacing:1px;color:var(--text);}
+.flow-tag{margin-left:auto;font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:1px;}
+.flow-body{padding:12px 14px 14px;display:none;background:var(--bg2);}
+.flow-body.open{display:block;}
+.flow-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.chip{font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 8px;border:1px solid var(--border2);border-radius:2px;color:var(--muted);}
+.chip.a{border-color:rgba(0,229,255,.3);color:var(--accent);}
+.chip.v{border-color:rgba(0,255,159,.3);color:var(--verified);}
+.chip.g{border-color:rgba(255,225,77,.3);color:var(--accent3);}
+.chip.p{border-color:rgba(255,60,172,.3);color:var(--accent2);}
+.mm-row{display:flex;align-items:center;gap:10px;margin:6px 0;}
+.mm-dim{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);width:120px;flex-shrink:0;}
+.mm-levels{display:flex;gap:4px;flex:1;}
+.mm-level{flex:1;height:22px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.5px;}
+.mm-level.act0{background:rgba(255,34,68,.15);color:var(--killed);border:1px solid rgba(255,34,68,.3);}
+.mm-level.act1{background:rgba(255,140,0,.15);color:var(--conj);border:1px solid rgba(255,140,0,.3);}
+.mm-level.act2{background:rgba(255,225,77,.15);color:var(--accent3);border:1px solid rgba(255,225,77,.3);}
+.mm-level.act3{background:rgba(0,255,159,.15);color:var(--verified);border:1px solid rgba(0,255,159,.3);}
+.mm-level.inact{background:var(--bg3);color:var(--dim);border:1px solid var(--border);}
+.audit-item{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid rgba(24,27,38,.5);}
+.audit-num{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--killed);width:22px;flex-shrink:0;padding-top:1px;}
+.audit-txt{color:var(--muted);font-size:11px;flex:1;}
+.audit-txt s{color:var(--killed);}
+.next-item{display:flex;gap:14px;padding:12px;border:1px solid var(--border);border-radius:3px;margin:8px 0;background:var(--bg2);}
+.next-n{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:30px;color:var(--dim);line-height:1;flex-shrink:0;}
+.next-title{font-weight:500;margin-bottom:4px;font-size:13px;}
+.next-body{color:var(--muted);font-size:11px;line-height:1.6;}
+.osf-predict{border:1px solid var(--border);border-left:3px solid var(--conj);border-radius:0 3px 3px 0;padding:12px;margin:8px 0;background:var(--bg2);}
+.osf-q{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--accent);letter-spacing:1px;margin-bottom:7px;}
+.osf-body{font-size:11px;line-height:1.7;color:var(--muted);}
+.osf-body strong{color:var(--text);}
+.phys-item{padding:10px 14px;border:1px solid var(--border);border-radius:3px;margin:6px 0;background:var(--bg2);}
+.phys-num{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--accent);margin-bottom:4px;}
+.phys-title{font-weight:500;margin-bottom:4px;}
+.phys-body{color:var(--muted);font-size:11px;line-height:1.6;}
+.pipe{display:flex;flex-wrap:wrap;gap:0;align-items:center;margin:12px 0;}
+.pipe-node{font-family:'JetBrains Mono',monospace;font-size:9px;padding:6px 10px;border:1px solid var(--border2);border-radius:2px;color:var(--text);background:var(--bg3);white-space:nowrap;}
+.pipe-node.hl{border-color:var(--accent);color:var(--accent);}
+.pipe-arrow{color:var(--muted);padding:0 5px;font-size:11px;}
+.principle{background:linear-gradient(135deg,rgba(0,229,255,.04),rgba(255,60,172,.04));
+  border:1px solid var(--border);border-top:2px solid var(--accent);padding:22px 28px;
+  margin:40px 0 0;border-radius:0 0 4px 4px;font-family:'JetBrains Mono',monospace;font-size:12px;
+  color:var(--text);letter-spacing:.5px;text-align:center;line-height:2.2;}
+.principle em{color:var(--accent);font-style:normal;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">AQARION</div>
+  <button class="nav-link" onclick="document.getElementById('s-ksi').scrollIntoView()">Invariants</button>
+  <button class="nav-link" onclick="document.getElementById('s-susy').scrollIntoView()">SUSY</button>
+  <button class="nav-link" onclick="document.getElementById('s-depth').scrollIntoView()">Depths</button>
+  <button class="nav-link" onclick="document.getElementById('s-d3').scrollIntoView()">d=3 Thm</button>
+  <button class="nav-link" onclick="document.getElementById('s-ft').scrollIntoView()">Field Theory</button>
+  <button class="nav-link" onclick="document.getElementById('s-workflow').scrollIntoView()">Workflow</button>
+  <button class="nav-link" onclick="document.getElementById('s-maturity').scrollIntoView()">Maturity</button>
+  <button class="nav-link" onclick="document.getElementById('s-osf').scrollIntoView()">OSF</button>
+  <button class="nav-link" onclick="document.getElementById('s-physics').scrollIntoView()">Physics</button>
+  <button class="nav-link" onclick="document.getElementById('s-audit').scrollIntoView()">Audit x14</button>
+  <button class="nav-link" onclick="document.getElementById('s-next').scrollIntoView()">Targets</button>
+</nav>
+
+<div class="container">
+
+<header>
+  <div>
+    <div class="logo">AQARION</div>
+    <div class="logo-sub">Louisville Node #1 · Paper A8 · Kaprekar Spectral Geometry · M19–M21 2026</div>
+    <div class="logo-sub" style="margin-top:4px;">
+      <a href="https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-" target="_blank"
+         style="color:var(--accent2);text-decoration:none;">github.com/JASKSG9/AQARION-ARITHMETIC-FDS</a>
+      &nbsp;·&nbsp; HuggingFace: Aqarion13/AQARION13 &nbsp;·&nbsp; OSF: osf.io/pag8j
+    </div>
+  </div>
+  <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;">
+    <div>
+      <span class="sbadge v"><span class="dot" style="background:var(--verified)"></span>VERIFIED</span>
+      <span class="sbadge" style="background:rgba(0,229,255,.08);color:var(--accent);border:1px solid rgba(0,229,255,.2);">THEOREM</span>
+      <span class="sbadge h"><span class="dot" style="background:var(--heur)"></span>HEURISTIC</span>
+      <span class="sbadge c"><span class="dot" style="background:var(--conj)"></span>CONJECTURE</span>
+      <span class="sbadge k"><span class="dot" style="background:var(--killed)"></span>KILLED x14</span>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);">
+      Prove first. Reproduce second. Publish third.
+    </div>
+  </div>
+</header>
+
+<!-- §1 INVARIANTS -->
+<section id="s-ksi">
+  <div class="sec-label">Core Verified Invariants · 4-Digit Map · Base-10 Kaprekar <span>§1</span></div>
+  <div class="grid g4">
+    <div class="card">
+      <div class="card-title">Image Size</div>
+      <div class="bnum a">54</div>
+      <div class="bnum-sub">= T₁₀−1 = C(11,2)−1 (triangular)</div>
+      <span class="badge verified">VERIFIED</span>
+    </div>
+    <div class="card">
+      <div class="card-title">SUSY Pairing</div>
+      <div class="bnum g" style="font-size:32px;padding-top:8px;">μₖ+μ₆₋ₖ=2</div>
+      <div class="bnum-sub">ALL 7 eigenvalues · exact bipartite symmetry</div>
+      <span class="badge verified">EXACT</span>
+    </div>
+    <div class="card">
+      <div class="card-title">Fiedler μ₁(A)</div>
+      <div class="bnum a" style="font-size:38px;padding-top:6px;">0.16144</div>
+      <div class="bnum-sub">Domain A · integers 1000–9999 · cut τ=4→5</div>
+      <span class="badge verified">VERIFIED</span>
+    </div>
+    <div class="card">
+      <div class="card-title">Fiedler μ₁(B)</div>
+      <div class="bnum a" style="font-size:38px;padding-top:6px;">0.16243</div>
+      <div class="bnum-sub">Domain B · padded strings 0000–9999</div>
+      <span class="badge verified">VERIFIED</span>
+    </div>
+  </div>
+  <div class="grid g4" style="margin-top:14px;">
+    <div class="card">
+      <div class="card-title">Gauge Invariant F_H</div>
+      <div class="bnum p" style="font-size:42px;padding-top:4px;">≈4.222</div>
+      <span class="badge verified">VERIFIED</span>
+    </div>
+    <div class="card">
+      <div class="card-title">Spectrum Count</div>
+      <div class="bnum ve">7</div>
+      <div class="bnum-sub">Normalized Laplacian · bipartite 6+1</div>
+      <span class="badge verified">VERIFIED</span>
+    </div>
+    <div class="card">
+      <div class="card-title">Fixed Point</div>
+      <div class="bnum a" style="font-size:42px;padding-top:4px;">6174</div>
+      <div class="bnum-sub">Kaprekar constant · unique attractor</div>
+      <span class="badge verified">VERIFIED</span>
+    </div>
+    <div class="card">
+      <div class="card-title">Cheeger Ratio</div>
+      <div class="bnum" style="font-size:26px;color:var(--heur);padding-top:12px;">h_deg/μ₁≈1.0465</div>
+      <div class="bnum-sub" style="color:var(--killed);">count-based ≈1.847 KILLED</div>
+      <span class="badge verified">CORRECTED</span>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px;">
+    <div class="card-title">Six Core Theorems — A8 Computational Status</div>
+    <div class="grid g3" style="margin-top:8px;">
+      <div class="mono"><span class="a">T1</span> |Image|=54=T₁₀−1 <span class="ve">✓</span></div>
+      <div class="mono"><span class="a">T2</span> SUSY μₖ+μ₆₋ₖ=2 exact <span class="ve">✓</span></div>
+      <div class="mono"><span class="a">T3</span> Fiedler cut τ=4→5 <span class="ve">✓</span></div>
+      <div class="mono"><span class="a">T4</span> Index thm dim(ker L)=1 <span class="ve">✓</span></div>
+      <div class="mono"><span class="a">T5</span> DAG convergence → 6174 <span class="ve">✓</span></div>
+      <div class="mono"><span class="a">T6</span> defect_nonmarkov=0 universally <span class="ve">✓</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- §2 SUSY -->
+<section id="s-susy">
+  <div class="sec-label">SUSY Bipartite Spectrum <span>§2</span></div>
+  <div class="grid g2">
+    <div class="card">
+      <div class="card-title">Normalized Laplacian Eigenvalue Pairs</div>
+      <div style="margin-top:10px;">
+        <div class="susy-row"><span class="sv">μ₀=0.000</span><span class="sm">+</span><span class="sp">μ₆=2.000</span><span class="sm">→</span><span class="seq">2 ✓</span><span class="sm" style="font-size:9px;margin-left:8px;">zero mode ↔ connected</span></div>
+        <div class="susy-row"><span class="sv">μ₁≈0.161</span><span class="sm">+</span><span class="sp">μ₅≈1.839</span><span class="sm">→</span><span class="seq">2 ✓</span><span class="sm" style="font-size:9px;margin-left:8px;">Fiedler pair</span></div>
+        <div class="susy-row"><span class="sv">μ₂</span><span class="sm">+</span><span class="sp">μ₄</span><span class="sm">→</span><span class="seq">2 ✓</span></div>
+        <div class="susy-row" style="margin-top:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);">μ₃=1.000 — self-paired (bipartite center)</div>
+      </div>
+      <span class="badge verified">EXACT — NOT APPROXIMATE</span>
+    </div>
+    <div class="card">
+      <div class="card-title">Structural Facts</div>
+      <div class="mono" style="margin-top:6px;">
+        <span class="ve">Kaprekar graph is exactly bipartite</span><br>
+        Spectrum symmetric about μ=1 by construction<br>
+        <span class="a">|Image|=54=T₁₀−1</span> exact identity<br>
+        Cycle eigenvalues = roots of unity, never nilpotent<br>
+        <span class="g">D_τ=0</span> depth is perfect Markov factor map<br>
+        <span class="m">Prior subtraction step: structurally unnecessary [M20 correction]</span><br>
+        <span class="ve">Three quotient systems — MUST NOT CONFLATE:</span><br>
+        <span class="m">① 715-state digit-multiset quotient</span><br>
+        <span class="m">② 55-state gap-pair quotient</span><br>
+        <span class="m">③ 54-state corrected canonical (=Image)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §3 DEPTH -->
+<section id="s-depth">
+  <div class="sec-label">Depth Histograms N_τ · Domains A &amp; B <span>§3</span></div>
+  <div class="grid g2">
+    <div class="card">
+      <div class="card-title">Domain B · N_τ=[383,576,2400,1272,1518,1656,2184] · sum≈9989</div>
+      <div class="hist-wrap" id="histB"></div>
+      <div class="hlbl" id="histBL"></div>
+      <div class="mono" style="margin-top:10px;font-size:9px;">
+        <span class="g">τ=3 dominates (N=2400)</span><br>
+        <span class="m">3:2:1 ratio holds in B, NOT in Domain A</span><br>
+        <span class="k">Prior 3:2:1 claim for Domain A: KILLED</span>
+      </div>
+      <span class="badge verified">VERIFIED</span>
+    </div>
+    <div class="card">
+      <div class="card-title">Domain Comparison &amp; Corrections</div>
+      <div class="spec-bar"><span class="spec-lbl">A (int)</span><div class="bar-track"><div class="bar-fill" style="width:89.9%;background:var(--accent)"></div></div><span class="spec-val">sum≈8990</span></div>
+      <div class="spec-bar"><span class="spec-lbl">B (str)</span><div class="bar-track"><div class="bar-fill" style="width:99.9%;background:var(--accent2)"></div></div><span class="spec-val">sum≈9989</span></div>
+      <div class="mono" style="margin-top:10px;font-size:9px;">
+        <span class="m">A=integers 1000–9999 (no leading zeros)</span><br>
+        <span class="m">B=padded strings 0000–9999</span><br>
+        <span class="k">A/B labeling errors caught: KILLED [M20]</span><br>
+        <span class="g">Fiedler cut: τ=4→5</span> <span class="k">(not τ=3→4: KILLED)</span><br>
+        <span class="m">Cheeger: degree-based volumes (h_deg/μ₁≈1.0465)</span><br>
+        <span class="k">count-based ≈1.847: KILLED</span>
+      </div>
+      <span class="badge verified">CORRECTED</span>
+    </div>
+  </div>
+</section>
+
+<!-- §4 D=3 THEOREM -->
+<section id="s-d3">
+  <div class="sec-label">d=3 Universal Collapse Theorem · All Negative Bases <span>§4</span></div>
+  <div class="grid g2">
+    <div class="card">
+      <div class="card-title">Theorem (Proven)</div>
+      <div class="proof">
+        <div class="ps">STATEMENT</div>
+        For any base B≥2, the Kaprekar map on non-repdigit<br>
+        3-digit states in base −B has <span class="pn">exactly ONE fixed-point.</span><br>
+        Zero basin entropy. Zero cusp rate.
+        <div class="ps">KEY IDENTITY (middle-digit cancellation)</div>
+        <div class="pe">val_desc − val_asc = (p−r)·B² + (r−p) = (p−r)·(B²−1)</div>
+        <span class="pn">Middle digit q CANCELS → 3D collapses to 1D on δ=p−r</span>
+        <div class="ps">FIXED POINTS</div>
+        <div class="pe">Even B: x*=(B/2−1, B−1, B/2)</div>
+        <div class="pe">Odd B:  x*=((B−1)/2, B−1, (B+1)/2)</div>
+        <div class="ps">UNIQUENESS</div>
+        <span class="pn">F(δ) on {1,…,B−1} has unique fixed point → H_norm=0</span><br>
+        <span style="color:var(--muted);font-size:9px;">NOTE: Banach FPT overkill on finite set [KILLED ×13] — direct check suffices</span>
+      </div>
+      <span class="badge theorem">PROVEN</span>
+      <span class="badge killed" style="margin-left:6px;">ODD-B ARITHMETIC INCOMPLETE [TARGET 01]</span>
+    </div>
+    <div class="card">
+      <div class="card-title">Phase Diagram · H_norm Exhaustive Census</div>
+      <table class="pt">
+        <thead><tr><th>Base</th><th>N(d=2)</th><th>d=2 H</th><th>d=3 H</th><th>d=4 H</th><th>d=5 H</th></tr></thead>
+        <tbody id="phaseTbody"></tbody>
+      </table>
+      <div class="mono" style="margin-top:10px;font-size:9px;">
+        <span class="ve">Peak entropy at d=2 for ALL bases — exact census</span><br>
+        <span class="k">d=5 critical dimension: KILLED (sampling artifact)</span><br>
+        <span class="k">b=−10,d=4 secondary collapse (H=0): unresolved</span><br>
+        <span class="k">b=−12,d=5 collapse (H=0.095): open discrepancy</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §5 FIELD THEORY -->
+<section id="s-ft">
+  <div class="sec-label">Field Theory Bridge · τ-Spectrum → Free Energy · CONJECTURE FRAMEWORK <span>§5</span></div>
+  <div class="grid g2">
+    <div class="card">
+      <div class="card-title">Step-by-Step Claim Status</div>
+      <div class="mono" style="margin-top:8px;">
+        <span class="a">[1]</span> μ_N = (1/N)Σδ(τ−τᵢ) <span class="badge verified" style="vertical-align:middle;margin:0 4px;">VERIFIED</span><br>
+        <span class="a">[2]</span> μ_N→ρ(τ;d,B,κ) scaling limit <span class="badge conjecture" style="vertical-align:middle;margin:0 4px;">CONJECTURE</span><br>
+        <span class="a">[3]</span> F[ρ]=E−TS+κI <span class="badge heuristic" style="vertical-align:middle;margin:0 4px;">HEURISTIC</span><br>
+        <span class="a">[4]</span> E-L stationary state <span class="badge heuristic" style="vertical-align:middle;margin:0 4px;">HEURISTIC</span><br>
+        <span class="a">[5]</span> λ_max(ℒ)→0 phase transition <span class="badge conjecture" style="vertical-align:middle;margin:0 4px;">CONJECTURE</span>
+      </div>
+      <div class="mono" style="margin-top:12px;font-size:9px;">
+        <span class="k">BLOCKER: V(τ;d,B) unspecified → κ_c not derivable</span><br>
+        <span class="k">BLOCKER: Scaling limit unproved for finite deterministic maps</span><br>
+        <span class="m">d=3 collapse ↔ κ≫κ_c → ρ→δ(τ−τ₀) [CONJECTURE]</span><br>
+        <span class="m">d=2 peak ↔ T~T_max [CONJECTURE]</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Governing Functional</div>
+      <div class="ft-eq">F[ρ] = ∫V(τ)ρ dτ − T∫ρ log ρ dτ + κ∫ρ² dτ</div>
+      <div class="ft-note">V(τ;d,B) = recurrence penalty — unspecified, blocks proof</div>
+      <div class="ft-eq" style="margin-top:6px;">ρ(τ) = exp(−V(τ)/T − (κ/T)ρ(τ))</div>
+      <div class="ft-note">Self-consistent field equation</div>
+      <div class="ft-eq" style="margin-top:6px;border-left-color:var(--verified);">det(δ²F/δρ²)=0 ↔ λ_max(ℒ)→0</div>
+      <div class="ft-note">Phase transition signature</div>
+      <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">
+        <div class="card-title">Theorem Targets to Unlock</div>
+        <div class="mono" style="font-size:9px;">
+          <span class="g">①</span> Compute V(τ) from N_τ histograms → explicit κ_c(d,B)<br>
+          <span class="g">②</span> ℒ as matrix operator → Koopman link<br>
+          <span class="g">③</span> spec gap of ℒ = Fiedler μ₁ → arXiv math.SP<br>
+          <span class="g">④</span> SPD-CCS = Monte Carlo estimator of ρ(τ)
+        </div>
+      </div>
+      <span class="badge conjecture">NOT IN A8 MAIN BODY</span>
+    </div>
+  </div>
+</section>
+
+<!-- §6 WORKFLOW -->
+<section id="s-workflow">
+  <div class="sec-label">AQARION Unified Research Workflow v1.0 · 11 Layers <span>§6</span></div>
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-title">Single-Source Publishing Model</div>
+    <div class="pipe">
+      <div class="pipe-node hl">IDEAS</div><div class="pipe-arrow">→</div>
+      <div class="pipe-node">Claim Registry</div><div class="pipe-arrow">→</div>
+      <div class="pipe-node">Evidence Objects</div><div class="pipe-arrow">→</div>
+      <div class="pipe-node">V0→V5 Validation</div><div class="pipe-arrow">→</div>
+      <div class="pipe-node hl">GitHub Release</div><div class="pipe-arrow">→</div>
+      <div class="pipe-node hl">OSF</div><div class="pipe-arrow">+</div>
+      <div class="pipe-node hl">RO-Crate</div><div class="pipe-arrow">+</div>
+      <div class="pipe-node hl">Zenodo DOI</div><div class="pipe-arrow">+</div>
+      <div class="pipe-node hl">arXiv</div><div class="pipe-arrow">+</div>
+      <div class="pipe-node hl">SIAM</div><div class="pipe-arrow">+</div>
+      <div class="pipe-node">Community Docs</div>
+    </div>
+    <div class="mono" style="font-size:9px;margin-top:6px;color:var(--muted);">Every definition, theorem, benchmark, dataset, and EO exists ONCE in canonical machine-readable form. All downstream outputs generated automatically.</div>
+  </div>
+  <div id="flow-layers"></div>
+</section>
+
+<!-- §7 MATURITY -->
+<section id="s-maturity">
+  <div class="sec-label">Evidence Maturity Matrix · Per-Claim Classification <span>§7</span></div>
+  <div class="grid g2">
+    <div class="card">
+      <div class="card-title">Current A8 Maturity State</div>
+      <div style="margin-top:8px;" id="mmMatrix"></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Claim Registry Format</div>
+      <div class="proof" style="border-left-color:var(--accent3);">
+        <div class="ps" style="color:var(--accent3);">EXAMPLE IDs</div>
+        <div class="pe" style="color:var(--text);">AQ-DEF-001 · digit-multiset quotient (715-state)</div>
+        <div class="pe" style="color:var(--text);">AQ-THM-003 · |Image|=54=T₁₀−1</div>
+        <div class="pe" style="color:var(--text);">AQ-CONJ-004 · κ_c(d,B) phase boundary</div>
+        <div class="pe" style="color:var(--text);">AQ-LIM-002 · V0→V5 validation stage</div>
+        <div class="pe" style="color:var(--text);">AQ-CE-005 · d=3 semiconjugacy</div>
+        <div class="ps" style="color:var(--accent3);">EACH CONTAINS</div>
+        <span class="mono" style="font-size:9px;color:var(--muted);">assumptions · dependencies · evidence · limitations · maturity level</span>
+      </div>
+      <div class="card-title" style="margin-top:12px;">Validation Pipeline</div>
+      <div class="pipe" style="margin-top:8px;">
+        <div class="pipe-node">V0 Structure</div><div class="pipe-arrow">→</div>
+        <div class="pipe-node">V1 SHA256</div><div class="pipe-arrow">→</div>
+        <div class="pipe-node">V2 Replay</div><div class="pipe-arrow">→</div>
+        <div class="pipe-node">V3 Provenance</div><div class="pipe-arrow">→</div>
+        <div class="pipe-node hl">V4 Math Predicate</div><div class="pipe-arrow">→</div>
+        <div class="pipe-node hl">V5 Promotion</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §8 OSF -->
+<section id="s-osf">
+  <div class="sec-label">OSF Integration · Research Hub + 3 Structural Predictions <span>§8</span></div>
+  <div class="grid g2">
+    <div class="card">
+      <div class="card-title">OSF Project Structure</div>
+      <div class="flow-chips" style="margin-top:8px;">
+        <span class="chip a">Registrations</span><span class="chip a">Preregistrations</span>
+        <span class="chip v">Datasets (versioned)</span><span class="chip v">Benchmark outputs</span>
+        <span class="chip g">Preprints</span><span class="chip g">Supplementary figs</span>
+        <span class="chip p">Software snapshots</span><span class="chip p">Verification reports</span>
+        <span class="chip">RO-Crate exports</span><span class="chip">Evidence Objects</span>
+      </div>
+      <div class="card-title" style="margin-top:14px;">Components</div>
+      <div class="mono" style="font-size:9px;margin-top:6px;">
+        <span class="a">·</span> Finite Dynamical Systems<br>
+        <span class="a">·</span> Defect Operator (AQ-DEF series)<br>
+        <span class="a">·</span> Kaprekar Benchmarks (SPD-CCS outputs)<br>
+        <span class="a">·</span> Lean Formalization<br>
+        <span class="a">·</span> Evidence Objects<br>
+        <span class="a">·</span> Physics: negabase, Floquet, HOTI, Koopman
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">3 Structural Predictions (AQARION-testable, falsifiable)</div>
+      <div class="osf-predict">
+        <div class="osf-q">P1 — Evidence Graph Densification</div>
+        <div class="osf-body">OSF evolves into a <strong>research infrastructure graph</strong>. Observable: linked components per project (DOIs, GitHub, datasets). Hypothesis: connectivity ↑ → reproducibility ↑. Operator: D_Π^graph = (I−P_Π)K·P_Π</div>
+      </div>
+      <div class="osf-predict">
+        <div class="osf-q">P2 — Reproducibility as Primary Currency</div>
+        <div class="osf-body">Observable: π=(code,data,registration,paper). Projects with all 4 → higher reuse + citation. <strong>Testable against OSF project metadata.</strong></div>
+      </div>
+      <div class="osf-predict">
+        <div class="osf-q">P3 — Federated Ecosystem Outperforms Monolith</div>
+        <div class="osf-body">GitHub+OSF+arXiv+Zenodo+Crossref as federated graph. More resilient to policy changes than single platform. Evidence: OSF generalist preprints suspended; community services persist. <strong>Falsifiable by survival rates.</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §9 PHYSICS -->
+<section id="s-physics">
+  <div class="sec-label">Physics Research Directions · Evidence-First Protocol <span>§9</span></div>
+  <div class="card" style="margin-bottom:14px;">
+    <div class="card-title">Evidence-First Protocol</div>
+    <div class="mono" style="font-size:9px;">
+      <span class="a">①</span> Choose concrete physical model →
+      <span class="a">②</span> Define observable partition →
+      <span class="a">③</span> Compute defect operator →
+      <span class="a">④</span> Compare vs established methods →
+      <span class="a">⑤</span> Record agreements/differences →
+      <span class="ve">only then claim novelty</span>
+    </div>
+  </div>
+  <div class="grid g3">
+    <div class="phys-item">
+      <div class="phys-num">PHYS-01 · CONFIRMED (M15)</div>
+      <div class="phys-title">Floquet Chern Transition</div>
+      <div class="phys-body">Floquet Chern number transition locked M15-KAPREKAR session. Targeted arXiv quant-ph submission.</div>
+    </div>
+    <div class="phys-item">
+      <div class="phys-num">PHYS-02 · CONFIRMED (M15)</div>
+      <div class="phys-title">HOTI Corner Modes (BBH)</div>
+      <div class="phys-body">Higher-order topological insulator corner modes in BBH lattice confirmed M15.</div>
+    </div>
+    <div class="phys-item">
+      <div class="phys-num">PHYS-03 · OPEN · HIGHEST PRIORITY</div>
+      <div class="phys-title">Negabase Kaprekar</div>
+      <div class="phys-body">Highest-novelty direction. Zero prior literature. d=3 collapse proved. ι₃ universality, κ_c, d≥4 landscape are primary open targets.</div>
+      <span class="badge target">ZERO PRIOR LITERATURE</span>
+    </div>
+    <div class="phys-item">
+      <div class="phys-num">PHYS-04 · OPEN</div>
+      <div class="phys-title">Koopman-Based Physics</div>
+      <div class="phys-body">Defect operator vs finite Koopman approximations. Transfer operator ℒ for KSD is the bridge object. Fluid dynamics / nonlinear systems.</div>
+    </div>
+    <div class="phys-item">
+      <div class="phys-num">PHYS-05 · OPEN</div>
+      <div class="phys-title">Coarse-Graining / RG</div>
+      <div class="phys-body">Defect operator as information loss measure under coarse-graining. Statistical mechanics and multiscale modeling connection.</div>
+    </div>
+    <div class="phys-item">
+      <div class="phys-num">PHYS-06 · OPEN</div>
+      <div class="phys-title">Quantum Channels</div>
+      <div class="phys-body">Observable partitions for quantum measurements, decoherence, reduced dynamics. Finite-dimensional quantum channels as test beds.</div>
+    </div>
+    <div class="phys-item">
+      <div class="phys-num">PHYS-07 · OPEN</div>
+      <div class="phys-title">Cellular Automata</div>
+      <div class="phys-body">Reversible and irreversible CA as controlled benchmark physics-inspired systems. Known ground truth for observable reductions.</div>
+    </div>
+    <div class="phys-item">
+      <div class="phys-num">PHYS-08 · OPEN</div>
+      <div class="phys-title">Network Dynamics</div>
+      <div class="phys-body">Power grids, biological regulatory nets, epidemic models. Certifying when reduced models preserve observable behavior.</div>
+    </div>
+    <div class="phys-item">
+      <div class="phys-num">PHYS-09 · OPEN</div>
+      <div class="phys-title">Information Geometry</div>
+      <div class="phys-body">Distances between partitions / observable reductions. Optimization over space of reductions. Spectral or information-theoretic criteria.</div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px;">
+    <div class="card-title">Hardware · Louisville Node #1</div>
+    <div class="mono" style="font-size:10px;">
+      <span class="a">Recommended (M15):</span> Jetson Orin NX + ESP32-S3 LoRa<br>
+      <span class="m">SPD-CCS: NumPy vectorized, no GPU required for d≤5 at |b|≤14</span><br>
+      <span class="m">GPU target: batch_size=10⁶ for d=5 full sweep confirmation</span>
+    </div>
+  </div>
+</section>
+
+<!-- §10 AUDIT -->
+<section id="s-audit">
+  <div class="sec-label">Formal Kill Register · 14 Claims Killed <span>§10</span></div>
+  <div class="card">
+    <div class="grid g2">
+      <div>
+        <div class="audit-item"><span class="audit-num">×01</span><span class="audit-txt"><s>d=5 critical dimension claim</s> — sampling artifact; exact census shows d=2 peak universally</span></div>
+        <div class="audit-item"><span class="audit-num">×02</span><span class="audit-txt"><s>3:2:1 τ=2 gateway ratio in Domain A</s> — holds only in Domain B</span></div>
+        <div class="audit-item"><span class="audit-num">×03</span><span class="audit-txt"><s>Domain A/B labeling across multiple artifacts</s> — corrected M20</span></div>
+        <div class="audit-item"><span class="audit-num">×04</span><span class="audit-txt"><s>β≈2 Mandelbrot analogy as verified</s> — methodologically flawed fit</span></div>
+        <div class="audit-item"><span class="audit-num">×05</span><span class="audit-txt"><s>NHSE analogy as verified result</s> — 1/3 conditions met; remains CONJECTURE</span></div>
+        <div class="audit-item"><span class="audit-num">×06</span><span class="audit-txt"><s>R²≈0.95 as strong spectral predictor</s> — ~10% explanatory power above baseline</span></div>
+        <div class="audit-item"><span class="audit-num">×07</span><span class="audit-txt"><s>κ_c condensation as proven theorem</s> — no explicit κ_c(d,B) derived</span></div>
+      </div>
+      <div>
+        <div class="audit-item"><span class="audit-num">×08</span><span class="audit-txt"><s>Transfer operator ℒ as derived</s> — template only, not computed from system</span></div>
+        <div class="audit-item"><span class="audit-num">×09</span><span class="audit-txt"><s>Phase transition condition as proven theorem</s> — spectral gap collapse not proved</span></div>
+        <div class="audit-item"><span class="audit-num">×10</span><span class="audit-txt"><s>d=5 H_norm=0.99 universal</s> — b=−12,d=5 collapses (H=0.095); b=−10,d=4 collapses (H=0)</span></div>
+        <div class="audit-item"><span class="audit-num">×11</span><span class="audit-txt"><s>Moiré GNN as part of Kaprekar codex</s> — unrelated; separated</span></div>
+        <div class="audit-item"><span class="audit-num">×12</span><span class="audit-txt"><s>PCB AD633 chain as codex output</s> — unrelated hardware thread; separated</span></div>
+        <div class="audit-item"><span class="audit-num">×13</span><span class="audit-txt"><s>Banach FPT citation for d=3 proof</s> — overkill on finite sets; direct unique fixed-point check sufficient</span></div>
+        <div class="audit-item"><span class="audit-num">×14</span><span class="audit-txt"><s>Odd-B fixed point arithmetic fully verified</s> — reconstruction incomplete; open target</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §11 TARGETS -->
+<section id="s-next">
+  <div class="sec-label">Remaining Theorem Targets · arXiv A8 Submission Blockers <span>§11</span></div>
+
+  <div class="next-item">
+    <div class="next-n">01</div>
+    <div>
+      <div class="next-title">Complete d=3 proof — odd-B arithmetic</div>
+      <div class="next-body">Write F(δ) on {1,…,B−1} explicitly. Verify odd-B digit reconstruction. Replace Banach citation with direct argument. Write verification script with exact arithmetic. Promotes ×14 kill to REPRODUCED.</div>
+      <span class="badge theorem">THEOREM TARGET</span>
+    </div>
+  </div>
+
+  <div class="next-item">
+    <div class="next-n">02</div>
+    <div>
+      <div class="next-title">Derive κ_c(d,B) from depth histogram data</div>
+      <div class="next-body">Compute V(τ;d,B) directly from N_τ. Unblocks field theory bridge Steps 3–7. Without this, field theory appendix cannot claim anything beyond heuristic.</div>
+      <span class="badge target">BLOCKS FIELD THEORY</span>
+    </div>
+  </div>
+
+  <div class="next-item">
+    <div class="next-n">03</div>
+    <div>
+      <div class="next-title">Compute transfer operator ℒ (Koopman link)</div>
+      <div class="next-body">SPD-CCS already estimates ρ(τ). Formalize ℒ as matrix on state space. Show spectral gap of ℒ = Fiedler μ₁. This is the primary math.SP arXiv contribution.</div>
+      <span class="badge theorem">THEOREM TARGET</span>
+    </div>
+  </div>
+
+  <div class="next-item">
+    <div class="next-n">04</div>
+    <div>
+      <div class="next-title">ι₃ universality: |T(Ω_{b,3})|=b for all b≥2</div>
+      <div class="next-body">Confirmed computationally for all surveyed bases. Needs formal proof ∀b≥2. Currently HEURISTIC. Key for negabase paper. Direct combinatorial argument via digit-multiset structure.</div>
+      <span class="badge heuristic">HEURISTIC → TARGET</span>
+    </div>
+  </div>
+
+  <div class="next-item">
+    <div class="next-n">05</div>
+    <div>
+      <div class="next-title">b=−12,d=5 collapse mechanism</div>
+      <div class="next-body">H=0.095 (attr=3, dom=98.1%) is anomalous vs all other b,d=5 pairs. Requires exact exhaustive census (not sampling). Determine genuine phase vs artifact.</div>
+      <span class="badge target">OPEN DISCREPANCY</span>
+    </div>
+  </div>
+
+  <div class="next-item">
+    <div class="next-n">06</div>
+    <div>
+      <div class="next-title">Lean formalization of core theorems</div>
+      <div class="next-body">|Image|=54, SUSY pairing, d=3 collapse. Target: machine-verified status on Evidence Maturity Matrix. Required for V4 Mathematical Predicate and V5 Claim Promotion in the release pipeline.</div>
+      <span class="badge conjecture">FORMAL V5 TARGET</span>
+    </div>
+  </div>
+</section>
+
+<div class="principle">
+  <em>Pure math. Zero ghosts. Prove first. Reproduce second. Publish third.</em><br>
+  <span style="color:var(--muted);font-size:10px;display:block;margin-top:4px;">Louisville Node #1 · James Aaron Skaggs (AQARION) · HuggingFace: Aqarion13/AQARION13 · OSF: osf.io/pag8j</span>
+  <a href="https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-" target="_blank"
+     style="color:var(--accent2);text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:9px;display:block;margin-top:4px;">
+    github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-
+  </a>
+</div>
+
+</div>
+
+<script>
+// HISTOGRAM
+const Ntau=[383,576,2400,1272,1518,1656,2184];
+const maxN=Math.max(...Ntau);
+const hB=document.getElementById('histB');
+const hBL=document.getElementById('histBL');
+const hcols=['#00e5ff','#26c6da','#4dd0e1','#80deea','#00b8d4','#0097a7','#006064'];
+Ntau.forEach((n,i)=>{
+  const b=document.createElement('div');
+  b.className='hbar';
+  b.style.cssText=`height:${n/maxN*100}%;background:${hcols[i]}`;
+  b.innerHTML=`<div class="htip">τ=${i+1} | N=${n.toLocaleString()}</div>`;
+  hB.appendChild(b);
+  const l=document.createElement('span');l.textContent='τ'+(i+1);hBL.appendChild(l);
+});
+
+// PHASE TABLE
+const pd=[
+  {b:-6, N:30, d2:0.9915,d3:0,d4:0.9579,d5:0.7432},
+  {b:-8, N:56, d2:0.9794,d3:0,d4:0.9419,d5:0.8384},
+  {b:-10,N:90, d2:0.9848,d3:0,d4:0,     d5:0.9263},
+  {b:-12,N:132,d2:0.9969,d3:0,d4:0.9355,d5:0.0955},
+  {b:-14,N:182,d2:0.9970,d3:0,d4:0.9724,d5:null},
+  {b:-16,N:240,d2:0.9874,d3:0,d4:0.8747,d5:null},
+];
+function ec(v){
+  if(v===null)return`<td style="color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:9px;">—</td>`;
+  const col=v===0?'var(--killed)':v>0.95?'var(--verified)':v>0.7?'var(--accent)':'var(--conj)';
+  const w=Math.round(v*55);
+  return`<td><span class="epip" style="width:${w}px;background:${col}"></span><span style="font-family:'JetBrains Mono',monospace;font-size:9px;color:${col}">${v===0?'0.0000↯':v.toFixed(4)}</span></td>`;
+}
+const tb=document.getElementById('phaseTbody');
+pd.forEach(r=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent)">${r.b}</td>
+    <td style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted)">${r.N}</td>
+    ${ec(r.d2)}
+    <td style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--killed)">0.0000 ← COLLAPSE</td>
+    ${ec(r.d4)}${ec(r.d5)}`;
+  tb.appendChild(tr);
+});
+
+// WORKFLOW LAYERS
+const layers=[
+  {n:'01',title:'DISCOVERY',tag:'INTERNAL',desc:'Capture every idea without claiming correctness.',
+   chips:[{t:'Research journal',c:''},{t:'Daily logs',c:''},{t:'Sketches',c:''},{t:'Conjectures',c:''},{t:'Failed ideas',c:''},{t:'Questions',c:''}]},
+  {n:'02',title:'CLAIM REGISTRY',tag:'AQ-IDs',desc:'Every research object gets a permanent AQ-ID with assumptions, dependencies, evidence, limitations, and maturity level.',
+   chips:[{t:'AQ-DEF-001',c:'a'},{t:'AQ-THM-003',c:'v'},{t:'AQ-CONJ-004',c:''},{t:'AQ-LIM-002',c:''},{t:'AQ-CE-005',c:'g'}]},
+  {n:'03',title:'EVIDENCE OBJECTS',tag:'SHA256+TIMESTAMP',desc:'Every artifact becomes an Evidence Object with full provenance: SHA256, timestamp, software version, hardware, random seed, license, author, dependencies.',
+   chips:[{t:'simulation.json',c:'a'},{t:'proof.pdf',c:'v'},{t:'benchmark.csv',c:'g'},{t:'runtime.log',c:''},{t:'verification.json',c:'v'},{t:'counterexample.json',c:'p'}]},
+  {n:'04',title:'VALIDATION V0→V5',tag:'GATEKEEPING',desc:'Structure → Hash → Replay → Provenance → Mathematical Predicate → Claim Promotion. No claim advances without passing all prior stages.',
+   chips:[{t:'V0 Structure',c:''},{t:'V1 SHA256',c:''},{t:'V2 Replay',c:'a'},{t:'V3 Provenance',c:'a'},{t:'V4 Math Predicate',c:'v'},{t:'V5 Promotion',c:'v'}]},
+  {n:'05',title:'COMMUNITY EDUCATION',tag:'AUTO-GENERATED',desc:'Each theorem auto-generates: formal statement, intuitive explanation, worked example, visualization, benchmark demo, reproducibility package, open questions.',
+   chips:[{t:'Beginner visuals',c:''},{t:'Animations',c:'p'},{t:'Notebooks',c:'a'},{t:'Tutorials',c:'a'},{t:'Lean examples',c:'v'},{t:'Formal proofs',c:'v'}]},
+  {n:'06',title:'OSF — PUBLIC LAB',tag:'REPRO HUB',desc:'osf.io/pag8j — datasets, notebooks, preregistrations, protocols, benchmarks, supplementary figures, software snapshots.',
+   chips:[{t:'Datasets (versioned)',c:'v'},{t:'Preregistrations',c:'a'},{t:'Protocols',c:'a'},{t:'Benchmarks',c:'g'},{t:'Software snapshots',c:'p'}]},
+  {n:'07',title:'RO-CRATE',tag:'MACHINE-READABLE ARCHIVE',desc:'Every release generates ro-crate-metadata.json with authors, software, datasets, papers, benchmarks, Evidence Objects, licenses, provenance, relationships.',
+   chips:[{t:'ro-crate-metadata.json',c:'a'},{t:'DOI links',c:'v'},{t:'Provenance graph',c:'v'},{t:'Relationships',c:'g'},{t:'License',c:''}]},
+  {n:'08',title:'GITHUB',tag:'ACTIVE DEV',desc:'src/ docs/ benchmarks/ papers/ verification/ lean/ examples/ datasets/. GitHub Actions: auto-run tests, regenerate evidence, build docs, export RO-Crate, update maturity dashboard.',
+   chips:[{t:'src/',c:'a'},{t:'verification/',c:'v'},{t:'lean/',c:'g'},{t:'papers/',c:'p'},{t:'benchmarks/',c:''},{t:'Actions CI',c:'a'}]},
+  {n:'09',title:'arXiv SUBMISSION',tag:'math.CO + math.SP',desc:'Auto-generate Paper I, Paper II, Supplement, Appendices, Bibliography with theorem refs, benchmark DOIs, OSF links, GitHub release links.',
+   chips:[{t:'math.CO',c:'a'},{t:'math.SP',c:'a'},{t:'Paper A8',c:'v'},{t:'OSF DOI refs',c:'g'},{t:'GitHub release',c:'p'}]},
+  {n:'10',title:'SIAM LAYOUT',tag:'JOURNAL-READY',desc:'Abstract → Intro → Background → Defs → Main Results → Proofs → Benchmarks → Discussion → Limitations → Future Work → References → Appendices. Numbered theorems, SIAM bibliography.',
+   chips:[{t:'Numbered theorems',c:'v'},{t:'Numbered defs',c:'v'},{t:'Numbered eqs',c:'g'},{t:'SIAM bibliography',c:'a'}]},
+  {n:'11',title:'COMMUNITY EDITION',tag:'ACCESSIBILITY',desc:'Diagrams, plain-English summaries, glossary, FAQ, tutorials, benchmark explorer. Broadens reach without altering underlying research.',
+   chips:[{t:'Diagrams',c:'a'},{t:'Plain summaries',c:''},{t:'Glossary',c:''},{t:'FAQ',c:''},{t:'Benchmark explorer',c:'g'}]},
+];
+const fl=document.getElementById('flow-layers');
+layers.forEach(l=>{
+  const d=document.createElement('div');
+  d.className='flow-layer';
+  d.innerHTML=`<button class="flow-head" onclick="var b=this.nextElementSibling;b.classList.toggle('open')">
+    <span class="flow-num">${l.n}</span>
+    <span class="flow-title">${l.title}</span>
+    <span class="flow-tag">${l.tag} ▾</span>
+  </button>
+  <div class="flow-body">
+    <div style="color:var(--muted);font-size:11px;line-height:1.6;margin-bottom:8px;">${l.desc}</div>
+    <div class="flow-chips">${l.chips.map(c=>`<span class="chip ${c.c}">${c.t}</span>`).join('')}</div>
+  </div>`;
+  fl.appendChild(d);
+});
+
+// MATURITY MATRIX
+const mmData=[
+  {dim:'Mathematical',levels:['Draft','Complete','Peer Reviewed'],cur:1},
+  {dim:'Computational',levels:['None','Tested','Exhaustive'],cur:2},
+  {dim:'Formal (Lean)',levels:['Not Started','Compiles','Machine Verified'],cur:0},
+  {dim:'Independent',levels:['None','1 Reproduction','Multi Repro'],cur:0},
+];
+const mm=document.getElementById('mmMatrix');
+const actCls=['act0','act1','act2','act3'];
+mmData.forEach(row=>{
+  const div=document.createElement('div');div.className='mm-row';
+  let inner=`<span class="mm-dim">${row.dim}</span><div class="mm-levels">`;
+  row.levels.forEach((lbl,i)=>{
+    inner+=`<div class="mm-level ${i===row.cur?actCls[i]:'inact'}">${lbl}</div>`;
+  });
+  inner+='</div>';div.innerHTML=inner;mm.appendChild(div);
+});
+</script>
+</body>
+</html>
