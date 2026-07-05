@@ -44,7 +44,7 @@ flowchart TD
 ├── verify_all.py                          # Master certification runner (68 tests)
 ├── defect_core.py                         # Defect Operator (exact Fraction)
 ├── test_defect.py                         # Category B full suite
-├── test_dihedral.py                       # Dihedral non-isomorphic test (NEW)
+├── test_dihedral.py                       # Dihedral non_isomorphic test (NEW)
 ├── probabilistic_profiling.py             # P4wn-style rare signature detection (NEW)
 ├── plasma_symmetry.py                     # Toroidal symmetry + irreps
 ├── plasma_defect_toroidal.py              # Defect per toroidal mode
