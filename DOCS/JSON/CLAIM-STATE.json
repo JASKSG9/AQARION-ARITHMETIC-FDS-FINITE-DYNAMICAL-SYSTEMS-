@@ -1,0 +1,25 @@
+{
+  "repository_hash": "...",
+  "closure": "OPEN",
+  "verification_version": "19",
+  "claims": {
+    "...": {
+      "status": "...",
+      "grade": "...",
+      "dependencies": [],
+      "classification": "...",
+      "root": false,
+      "killed": false
+    }
+  },
+  "paper_status": {
+    "paper1": {
+      "eligible": false,
+      "blocking_claims": [
+        "T-FOQDS-55",
+        "T-K55-MINPOLY",
+        "T-K54-MINPOLY"
+      ]
+    }
+  }
+}
