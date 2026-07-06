@@ -2354,6 +2354,52 @@ Execute the generation of the registry.
 
 ---
 
+# CLAIMS_REGISTER.md — single source of truth
+
+Every claim from CHECKPOINT.md v2.0.0, plus every new claim introduced in
+this package, with its evidence label (README.md policy) and the exact
+artifact that backs it.
+
+| ID | Claim | Label | Backing artifact |
+|---|---|---|---|
+| T0 | Exact quotient criterion (congruence ⟺ deterministic quotient exists) | `[P]` | PROOFS.md §T0 |
+| T1 | `K(n)=999(a-d)+90(b-c)` for sorted digits | `[P+CV]` | PROOFS.md §T1; `verify_report.json.T1_affine_lift_exhaustive_checks=715` |
+| T2 | Gap projection is a transition congruence | `[P]` | PROOFS.md §T2 |
+| T3 | `π∘K = T_G∘π` | `[P+CV]` | PROOFS.md §T3; `verify_report.json.T3_semiconjugacy_checks=158` |
+| T4 | `(G,T_G)` deterministic, closed | `[P+CV]` | PROOFS.md §T4 |
+| L1 | `ν(N)=D` (nilpotency = max transient depth) | `[P]` general fact; `[CV]` this instance (`D=ν(N)=6`) | PROOFS.md §L1 |
+| C1 | `\|G\|=54` | `[CV]` | `verify_report.json.C1_state_count=54` — **independently reproduced, exact match** |
+| C2 | Unique affine realization per chamber | `[CV]` | `verify_report.json.chambers.*` — all 9 non-singleton chambers fit exactly, residual `<1e-14` |
+| C3 | Branch matrices computed/verified | `[CV]` | OP0_CHAMBER_THEOREM.md table — **exact match to claimed det set `{0,±4}`** |
+| C4 | Image filtration `54→20→14→10→7→4→1` | `[CV]` | `verify_report.json.image_filtration_sequence` — **exact match, independently reproduced** |
+| C5 | Full Koopman: `σ(P)={1,0}`, `ν(N)=7` | not directly reproduced in this package | This package built only the 54-state gap-quotient graph, not the larger "full" raw-digit Koopman operator referenced by C5; no contradiction found, simply out of scope here — flagged for next session |
+| C6 | Quotient Koopman: `σ(P_G)={1,0}`, `ν(N_G)=6` | `[CV]` | `verify_report.json.koopman_spectrum_distinct`, `nilpotency_index_ie_L1_check=6` — **exact match** |
+| — | Unique fixed point `(6,2)` ↔ 6174 | `[CV]` | `verify_report.json.fixed_points=[[6,2]]`, no other fixed points or nontrivial cycles found |
+| — | No nontrivial cycles in `T_G` | `[CV]` | `verify_report.json.nontrivial_cycles=[]` |
+| **OP0a** | Borrow/no-borrow split on `g2=0` axis explains chambers 6/8 | `[P]` **(new this session)** | PROOFS.md §OP0a |
+| **OP0b** | All 10 chambers = box in `(g1,g2,g1+g2,g1-g2)` | `[CV]` **(new this session)** | OP0_CHAMBER_THEOREM.md, full table, `Σsize=54` check |
+| **T12-suff** | `f` constant on fibers ⟹ `[id,∼]≅∏Π(fiber)` | `[P]` **(new this session)** | PROOFS.md §T12-suff |
+| **T12-ce** | Fiber-respecting but non-constant `f` can break the product decomposition | `[P+CV-toy]` **(new this session)** | PROOFS.md §T12-counterexample, 4-state toy system, exhaustively enumerated |
+| **T12-app** | AQARION's own `π` satisfies T12-suff's hypothesis, so T12 holds for this project's central case | `[P]` **(new this session)** | PROOFS.md §"Consequence for AQARION" |
+| T13 | Observation-congruence interval characterization | `[undefined]` | Requires D13/D14 author confirmation (DEFINITIONS.md) before any label beyond `[O]` is meaningful |
+| T14 | Observation quotient maximality | `[undefined]` | same as T13 |
+| T15, T16 | Universal/functorial quotients | `[R]` (research program, not a claim) | — |
+
+## Net change from CHECKPOINT.md v2.0.0
+
+- **0 contradictions found.** Every independently-reproducible numeric claim
+  (C1, C2/C3's determinant set, C4, C6, the fixed point, the absence of
+  other cycles) matches exactly.
+- **1 claim out of scope this session** (C5's "full" Koopman operator — needs
+  the larger raw-digit state space, not built here).
+- **4 new results** contributed: OP0a (proved), OP0b (exhaustively verified
+  closed form), T12-suff (proved, general), T12-app (proved, this project).
+- **T12's original statement sharpened** from an undefined "fiber-constant"
+  predicate to a concrete, provably-sufficient condition, with a verified
+  minimal counterexample showing the condition is not vacuous.
+
+---
+
 *AQARION principle: Zero ghosts. Every quantitative claim requires exhaustive computational verification before being stated.*
 
 
