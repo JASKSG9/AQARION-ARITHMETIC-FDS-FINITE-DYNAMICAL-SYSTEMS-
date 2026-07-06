@@ -1,0 +1,82 @@
+graph TD
+    D1[D1: Kaprekar map K]
+    D2[D2: Gap vector pi]
+    T0["T0: Exact Quotient Criterion [P]"]
+    T1["T1: Affine Lift K=999g1+90g2 [P+CV]"]
+    T2["T2: Gap Projection Congruence [P]"]
+    T3["T3: Semiconjugacy pi.K=T_G.pi [P+CV]"]
+    T4["T4: Exact Quotient Dynamics [P+CV]"]
+    L1["L1: Nilpotency-Depth nu(N)=D [P]"]
+    C1["C1: |G|=54 [CV]"]
+    C2["C2: Affine Branch Atlas [CV]"]
+    C3["C3: Branch Matrices, det in {0,+-4} [CV]"]
+    C4["C4: Image Filtration 54..1 [CV]"]
+    C5["C5: Full Koopman nu=7 [out of scope]"]
+    C6["C6: Quotient Koopman nu_G=6 [CV]"]
+    FIX["Fixed point (6,2) <-> 6174 [CV]"]
+    OP0a["OP0a: g2=0 borrow split [P] (NEW)"]
+    OP0b["OP0b: 4-functional chamber boxes [CV] (NEW)"]
+    OP0["OP0: Admissible Order-Type Classification [O, partial]"]
+    T12suff["T12-suff: constant-on-fiber => product [P] (NEW)"]
+    T12ce["T12-ce: counterexample, non-constant fails [P+CV-toy] (NEW)"]
+    T12app["T12-app: holds for AQARION's own pi [P] (NEW)"]
+    T12["T12: Fiber Independence (general FNDS) [O, sharpened]"]
+    T13["T13: Observation-Congruence Interval [undefined]"]
+    T14["T14: Observation Quotient Maximality [undefined]"]
+    T15["T15: Universal Quotient Property [R]"]
+    T16["T16: Functorial Quotients [R]"]
+
+    D1 --> T1
+    D2 --> T2
+    T1 --> T2
+    T0 --> T3
+    T2 --> T3
+    T3 --> T4
+    T4 --> C1
+    T4 --> C2
+    C2 --> C3
+    T4 --> C4
+    T4 --> C6
+    T4 --> FIX
+    L1 --> C6
+    C1 --> OP0b
+    C3 --> OP0b
+    T1 --> OP0a
+    OP0a --> OP0
+    OP0b --> OP0
+    T0 --> T12suff
+    T12suff --> T12ce
+    T12suff --> T12app
+    T1 --> T12app
+    T12suff --> T12
+    T12ce --> T12
+    T12 --> T13
+    T13 --> T14
+    T12 -.-> T15
+    T14 -.-> T16
+    C5 -.no contradiction, untested.- C6
+
+    style T0 fill:#cde,stroke:#333
+    style T1 fill:#cde,stroke:#333
+    style T2 fill:#cde,stroke:#333
+    style T3 fill:#cde,stroke:#333
+    style T4 fill:#cde,stroke:#333
+    style L1 fill:#cde,stroke:#333
+    style C1 fill:#9d9,stroke:#333
+    style C2 fill:#9d9,stroke:#333
+    style C3 fill:#9d9,stroke:#333
+    style C4 fill:#9d9,stroke:#333
+    style C6 fill:#9d9,stroke:#333
+    style FIX fill:#9d9,stroke:#333
+    style C5 fill:#ddd,stroke:#333
+    style OP0a fill:#fd9,stroke:#333
+    style OP0b fill:#fd9,stroke:#333
+    style OP0 fill:#f99,stroke:#333
+    style T12suff fill:#fd9,stroke:#333
+    style T12ce fill:#fd9,stroke:#333
+    style T12app fill:#fd9,stroke:#333
+    style T12 fill:#f99,stroke:#333
+    style T13 fill:#fff,stroke:#333,stroke-dasharray: 5 5
+    style T14 fill:#fff,stroke:#333,stroke-dasharray: 5 5
+    style T15 fill:#fff,stroke:#333,stroke-dasharray: 5 5
+    style T16 fill:#fff,stroke:#333,stroke-dasharray: 5 5
