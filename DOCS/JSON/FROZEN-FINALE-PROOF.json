@@ -1,0 +1,6 @@
+{
+  "FDDS": "(X, T) with X finite, T: X→X",
+  "Koopman": "(Kf)(x) = f(T(x))",
+  "Projection": "P_Π = averaging projector onto block-constant functions",
+  "Defect": "D_Π = (I - P_Π) K P_Π"
+}
