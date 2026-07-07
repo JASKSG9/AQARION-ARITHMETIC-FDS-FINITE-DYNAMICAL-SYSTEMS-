@@ -1,0 +1,11 @@
+AQARION-ARITHMETIC MANIFEST v1.0
+Date: 2026-07-06
+Status: CORE THEOREMS PROVED — LEAN PARTIAL
+
+Key files:
+- PAPER1.json: theorem ledger
+- CLAIMS-MATRIX.py: automated claim verification
+- PROOFSTUBS.lean: Lean 4 formalisation (T1, T2 complete; T3 partial)
+- AAM_README.md: overview of the MANIFEST
+
+Next milestone: complete LEAN symmetry proof (T3).
