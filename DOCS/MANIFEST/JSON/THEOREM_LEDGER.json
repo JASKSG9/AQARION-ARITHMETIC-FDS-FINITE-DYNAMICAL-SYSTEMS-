@@ -1,0 +1,56 @@
+{
+  "paper": {
+    "title": "AQARION: Finite Observable Quotient Dynamics",
+    "version": "1.0",
+    "status": "DRAFT",
+    "last_updated": "2026-07-06"
+  },
+  "theorems": {
+    "T1": {
+      "name": "Projection Algebra",
+      "statement": "P_Π is idempotent (P_Π² = P_Π), self-adjoint, and has rank equal to the number of blocks.",
+      "status": "PROVED",
+      "evidence": ["symbolic proof", "exact arithmetic verification"],
+      "dependencies": ["definitions"]
+    },
+    "T2": {
+      "name": "Defect Operator Characterization",
+      "statement": "D_Π = (I - P_Π) K P_Π. D_Π = 0 iff K(V_Π) ⊆ V_Π.",
+      "status": "PROVED",
+      "evidence": ["symbolic proof", "exhaustive verification (n≤5)", "random stress tests"],
+      "dependencies": ["T1"]
+    },
+    "T3": {
+      "name": "Quotient Existence",
+      "statement": "If D_Π = 0, then there exists a unique deterministic quotient map T̄: X/Π → X/Π such that π ∘ T = T̄ ∘ π.",
+      "status": "PROVED",
+      "evidence": ["symbolic proof"],
+      "dependencies": ["T2"]
+    },
+    "T4": {
+      "name": "Commutator Fallacy",
+      "statement": "D_Π = 0 does not imply [P_Π, K] = 0. Minimal counterexamples exist.",
+      "status": "COMPUTATIONALLY CERTIFIED",
+      "evidence": ["exhaustive search", "counterexample catalog"],
+      "dependencies": ["T2"]
+    },
+    "T5": {
+      "name": "Kaprekar 55-State Quotient",
+      "statement": "The 4-digit Kaprekar map with gap observable has a 55-state exact quotient with characteristic polynomial λ⁵³(λ−1)² and Jordan blocks 28·J₁(0) ⊕ 2·J₂(0) ⊕ J₃(0) ⊕ 3·J₆(0) ⊕ 2·J₁(1).",
+      "status": "COMPUTATIONALLY CERTIFIED",
+      "evidence": ["exhaustive enumeration", "three-route cross-verification"],
+      "dependencies": ["T2", "T3"]
+    }
+  },
+  "assumptions": {
+    "A1": "X is finite",
+    "A2": "T is deterministic (total function)",
+    "A3": "Π is a partition of X",
+    "A4": "The projection P_Π is the orthogonal projection under the standard inner product"
+  },
+  "open_problems": [
+    "OGR-1: Does defect-guided refinement converge to behavioral equivalence for all finite systems?",
+    "OGR-2: Does the Jordan block structure undergo a phase transition as digit length increases?",
+    "OGR-3: Does D_Π^prob = 0 characterize exact lumpability for Markov chains?"
+  ]
+}
