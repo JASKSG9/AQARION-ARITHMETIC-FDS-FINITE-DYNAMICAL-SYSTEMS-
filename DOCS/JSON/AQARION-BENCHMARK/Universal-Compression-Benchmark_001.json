@@ -1,0 +1,14 @@
+{
+ "system": "Kaprekar_6174",
+ "domain": "finite_dynamics",
+ "state_space": 9990,
+ "representation": "gap_quotient",
+ "compression": {
+    "original_states": 9990,
+    "reduced_states":54,
+    "ratio":184.9
+ },
+ "spectral_signature": {},
+ "defect":0,
+ "evidence_level":"M6"
+}
