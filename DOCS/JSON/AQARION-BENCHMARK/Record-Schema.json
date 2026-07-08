@@ -1,0 +1,36 @@
+{
+  "system_id": "kaprekar_6174",
+  "domain": "finite_dynamics",
+
+  "state_space": {
+    "type": "finite",
+    "size": 705
+  },
+
+  "evolution_rule": {
+    "type": "deterministic_map",
+    "description": "Kaprekar transformation"
+  },
+
+  "observable": {
+    "mapping": "gap_quotient",
+    "dimension_original": 705,
+    "dimension_reduced": 54
+  },
+
+  "compression": {
+    "type": "exact",
+    "predictive_preservation": true,
+    "compression_ratio": 0.923
+  },
+
+  "signature": {
+    "dimension": null,
+    "spectrum": null,
+    "entropy": null,
+    "graph_features": null,
+    "topology": null
+  },
+
+  "evidence_level": "M6"
+}
