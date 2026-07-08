@@ -1,0 +1,19 @@
+CLAIM: rank(DΠ)=m(Π)
+
+STATUS:
+REJECTED
+
+REASON:
+Confuses first-order defect with full invariant closure.
+
+REPLACED BY:
+Escape Filtration Theorem
+
+rank(DΠ)=dim(E1)-dim(E0)
+
+m(Π)=dim(E∞)-dim(E0)
+
+rank(DΠ) ≤ m(Π)
+
+NEW OBJECT:
+Compression Horizon h(Π)
