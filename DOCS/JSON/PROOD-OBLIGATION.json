@@ -1,0 +1,178 @@
+{
+  "generated_at": "2026-07-09T00:00:00",
+  "engine_version": "1.0",
+  "obligation_types": [
+    "definition",
+    "assumptions",
+    "proof",
+    "computational_verification",
+    "exhaustive_check",
+    "independent_impl",
+    "lean_formalization",
+    "constructive_witness",
+    "counterexample_search",
+    "literature_audit",
+    "reproducibility",
+    "artifact_hashes"
+  ],
+  "theorems": {
+    "AQ-THM-DR": {
+      "theorem_id": "AQ-THM-DR",
+      "title": "Defect Rank Theorem: rank(D_Π) ≤ m-1",
+      "status": "verified",
+      "obligations": {
+        "definition": true,
+        "assumptions": true,
+        "proof": true,
+        "computational_verification": false,
+        "exhaustive_check": false,
+        "independent_impl": false,
+        "lean_formalization": false,
+        "constructive_witness": false,
+        "counterexample_search": true,
+        "literature_audit": false,
+        "reproducibility": true,
+        "artifact_hashes": true
+      },
+      "satisfied": 6,
+      "total": 12,
+      "completion": 0.5,
+      "missing": [
+        "computational_verification",
+        "exhaustive_check",
+        "independent_impl",
+        "lean_formalization",
+        "constructive_witness",
+        "literature_audit"
+      ]
+    },
+    "AQ-THM-DR-SHARP": {
+      "theorem_id": "AQ-THM-DR-SHARP",
+      "title": "Sharpness: Generic K achieves rank m-1",
+      "status": "verified",
+      "obligations": {
+        "definition": true,
+        "assumptions": false,
+        "proof": true,
+        "computational_verification": false,
+        "exhaustive_check": true,
+        "independent_impl": false,
+        "lean_formalization": false,
+        "constructive_witness": true,
+        "counterexample_search": false,
+        "literature_audit": false,
+        "reproducibility": false,
+        "artifact_hashes": false
+      },
+      "satisfied": 4,
+      "total": 12,
+      "completion": 0.33,
+      "missing": [
+        "assumptions",
+        "computational_verification",
+        "independent_impl",
+        "lean_formalization",
+        "counterexample_search",
+        "literature_audit",
+        "reproducibility",
+        "artifact_hashes"
+      ]
+    },
+    "AQ-THM-AFFINE": {
+      "theorem_id": "AQ-THM-AFFINE",
+      "title": "Kaprekar Affine Lift Identity",
+      "status": "verified",
+      "obligations": {
+        "definition": true,
+        "assumptions": false,
+        "proof": true,
+        "computational_verification": false,
+        "exhaustive_check": false,
+        "independent_impl": false,
+        "lean_formalization": false,
+        "constructive_witness": false,
+        "counterexample_search": false,
+        "literature_audit": true,
+        "reproducibility": true,
+        "artifact_hashes": true
+      },
+      "satisfied": 5,
+      "total": 12,
+      "completion": 0.42,
+      "missing": [
+        "assumptions",
+        "computational_verification",
+        "exhaustive_check",
+        "independent_impl",
+        "lean_formalization",
+        "constructive_witness",
+        "counterexample_search"
+      ]
+    },
+    "AQ-THM-DEPTH": {
+      "theorem_id": "AQ-THM-DEPTH",
+      "title": "Depth Reduction: ν(X) - ν(G) = 1",
+      "status": "conjecture",
+      "obligations": {
+        "definition": true,
+        "assumptions": false,
+        "proof": false,
+        "computational_verification": false,
+        "exhaustive_check": false,
+        "independent_impl": false,
+        "lean_formalization": false,
+        "constructive_witness": false,
+        "counterexample_search": false,
+        "literature_audit": true,
+        "reproducibility": false,
+        "artifact_hashes": false
+      },
+      "satisfied": 2,
+      "total": 12,
+      "completion": 0.17,
+      "missing": [
+        "assumptions",
+        "proof",
+        "computational_verification",
+        "exhaustive_check",
+        "independent_impl",
+        "lean_formalization",
+        "constructive_witness",
+        "counterexample_search",
+        "reproducibility",
+        "artifact_hashes"
+      ]
+    },
+    "AQ-THM-EXACT": {
+      "theorem_id": "AQ-THM-EXACT",
+      "title": "Exact Quotient Criterion: D_Π = 0 ⟺ forward invariant",
+      "status": "proven",
+      "obligations": {
+        "definition": true,
+        "assumptions": false,
+        "proof": true,
+        "computational_verification": false,
+        "exhaustive_check": false,
+        "independent_impl": false,
+        "lean_formalization": false,
+        "constructive_witness": false,
+        "counterexample_search": false,
+        "literature_audit": true,
+        "reproducibility": true,
+        "artifact_hashes": true
+      },
+      "satisfied": 5,
+      "total": 12,
+      "completion": 0.42,
+      "missing": [
+        "assumptions",
+        "computational_verification",
+        "exhaustive_check",
+        "independent_impl",
+        "lean_formalization",
+        "constructive_witness",
+        "counterexample_search"
+      ]
+    }
+  }
+}
