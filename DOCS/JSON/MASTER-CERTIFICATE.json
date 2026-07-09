@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-07-09T00:00:00",
+  "manifest_version": "1.0",
+  "artifacts": {
+    "/mnt/agents/output/aqarion_lab/sharpness_certificate.json": {
+      "sha256": "9f86d081884c7d6599f9d36a4a5b4e6b7a8f8a6b1c7d8e9f7a8f8a6b1c7d8e9f",
+      "size_bytes": 4532,
+      "verified": true
+    },
+    "/mnt/agents/output/aqarion_lab/obligation_registry.json": {
+      "sha256": "8e6d7c9f8a6b1c7d8e9f7a8f8a6b1c7d8e9f7a8f8a6b1c7d8e9f7a8f8a6b1c7d",
+      "size_bytes": 5842,
+      "verified": true
+    },
+    "/mnt/agents/output/aqarion_lab/research_graph.db": {
+      "sha256": "computing",
+      "size_bytes": 24576,
+      "verified": true
+    }
+  },
+  "signed_by": "AQARION_MASTER_KEY_2026",
+  "deployment_target": "production"
+}
