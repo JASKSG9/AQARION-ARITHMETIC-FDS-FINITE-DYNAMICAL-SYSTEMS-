@@ -16121,6 +16121,971 @@ Below is the checklist an external referee would use to evaluate AQARION v4.0. E
 
 ```
 
-Prove First · Verify Exhaustively · Predict Second · No Free Parameters
+AQARION-ARITHMETIC
 
-```
+
+Verification Framework for Exact Observable Quotients in Finite Deterministic Dynamical Systems
+
+
+Project Status: Active Research
+
+Checkpoint Version: July 2026
+
+Repository State: Public Checkpoint
+
+Mathematical Core: Frozen
+
+Verification Layer: Active
+
+Lean Layer: In Progress
+
+
+
+Public Checkpoint
+
+
+Core Status
+
+
+
+
+Component
+Status
+
+
+
+
+Mathematical specification
+Locked
+
+
+Classical framework
+Stable
+
+
+Computational verification
+Active
+
+
+Lean formalization
+In Progress
+
+
+Research infrastructure
+Active
+
+
+Public API
+Experimental
+
+
+
+
+
+Project Vision
+
+
+AQARION is a reproducible mathematical research framework centered on observable quotient dynamics.
+
+
+The project consists of two complementary components:
+
+
+
+
+
+
+A mathematical theory of observable quotients, defect operators, and exact reductions.
+
+
+
+
+
+
+A reproducible research operating system for theorem management, computational verification, dependency tracking, and formal proof integration.
+
+
+
+
+
+
+These components are intentionally separated.
+
+
+The mathematics is evaluated independently from the research infrastructure.
+
+
+
+Central Mathematical Principle
+
+
+Given
+
+
+[
+D=(I-P)KP
+]
+
+
+where
+
+
+
+
+K is the evolution operator,
+
+
+P is an observable projection,
+
+
+
+
+the vanishing condition
+
+
+[
+D=0
+]
+
+
+certifies
+
+
+
+
+forward invariance of the observable subspace,
+
+
+existence of an exact quotient,
+
+
+exact descent of dynamics.
+
+
+
+
+Importantly,
+
+
+[
+D=0
+]
+
+
+does not require
+
+
+[
+KP=PK.
+]
+
+
+This distinction forms the conceptual foundation of AQARION.
+
+
+
+Evidence Classification
+
+
+AQARION distinguishes mathematical evidence from project status.
+
+
+Evidence Tags
+
+
+
+
+Tag
+Meaning
+
+
+
+
+[P]
+Complete mathematical proof
+
+
+[F]
+Formal proof (Lean)
+
+
+[CV]
+Computational verification
+
+
+[IV]
+Independent implementation
+
+
+[CE]
+Counterexample established
+
+
+[EX]
+Worked example
+
+
+[H]
+Research hypothesis
+
+
+
+
+Project dashboards never replace mathematical evidence.
+
+
+
+Current Mathematical Results
+
+
+
+DEFECT-001
+
+
+Projection Defect Operator
+
+
+Status
+
+
+[P]
+
+
+Definition
+
+
+[
+D=(I-P)KP
+]
+
+
+Purpose
+
+
+Measures leakage from observable dynamics.
+
+
+
+THM-001
+
+
+Exact Descent Criterion
+
+
+Status
+
+
+[P]
+
+
+Statement
+
+
+[
+D=0
+]
+
+
+implies
+
+
+the observable dynamics descend exactly to the quotient system.
+
+
+
+THM-002
+
+
+Forward Invariance Criterion
+
+
+Status
+
+
+[P]
+
+
+Vanishing defect certifies forward invariance of the projected subspace.
+
+
+
+THM-003
+
+
+Nilpotency Result
+
+
+Status
+
+
+[P]
+
+
+The induced defect filtration stabilizes after finite depth for finite deterministic systems.
+
+
+
+DEFECT-THM-001
+
+
+Maximum Rank of the Defect Operator
+
+
+Current Status
+
+
+Row-Stochastic Operators
+
+
+Evidence
+
+
+[P] + [CV]
+
+
+Theorem
+
+
+For equal block partitions
+
+
+[
+K\mathbf1=\mathbf1
+]
+
+
+implies
+
+
+[
+\operatorname{rank}(D)\le m-1.
+]
+
+
+Proof
+
+
+Uses the identity
+
+
+[
+\sum_j De_j=0.
+]
+
+
+Sharpness
+
+
+Computationally achieved across tested families.
+
+
+
+Column-Stochastic Operators
+
+
+Evidence
+
+
+[CV]
+
+
+Observed
+
+
+[
+\max\operatorname{rank}(D)=m.
+]
+
+
+General symbolic proof remains open.
+
+
+
+Deterministic Operators
+
+
+Evidence
+
+
+[CV]
+
+
+Observed
+
+
+[
+\max\operatorname{rank}(D)=m.
+]
+
+
+General symbolic proof remains open.
+
+
+
+Retired Claims
+
+
+KC-001
+
+
+Former Claim
+
+
+[
+\max\operatorname{rank}(D)=m(k-1)
+]
+
+
+Status
+
+
+[CE]
+
+
+Retired.
+
+
+Reason
+
+
+Explicit counterexamples.
+
+
+Incorrect scaling factor.
+
+
+
+NUB Rank Bound
+
+
+Status
+
+
+[CE]
+
+
+Retired.
+
+
+Reason
+
+
+Large deterministic counterexample family.
+
+
+No valid universal upper bound.
+
+
+
+Kaprekar Framework
+
+
+AQARION uses Kaprekar dynamics as its motivating case study.
+
+
+Verified components include
+
+
+
+
+quotient construction
+
+
+observable reduction
+
+
+defect computation
+
+
+image filtration
+
+
+computational verification
+
+
+
+
+The abstract theory is independent of Kaprekar dynamics.
+
+
+
+Quantum Extension
+
+
+Current Status
+
+
+Research Layer
+
+
+The quantum framework extends the classical defect construction to quantum channels.
+
+
+Current components
+
+
+
+
+quantum defect operator
+
+
+dual defect
+
+
+escape filtration
+
+
+DFS interpretation
+
+
+
+
+Status
+
+
+Illustrative framework.
+
+
+General equivalence theorems remain under development.
+
+
+
+Research Operating System
+
+
+AQARION treats mathematical claims as build targets.
+
+
+Each theorem contains
+
+
+
+
+dependencies
+
+
+artifacts
+
+
+verification status
+
+
+formalization status
+
+
+computational certificates
+
+
+
+
+This infrastructure is separate from mathematical correctness.
+
+
+
+Planned Build System
+
+
+Future commands
+
+
+aq build AQ-THM-001
+
+
+
+aq verify
+
+
+
+aq doctor
+
+
+
+aq obligations
+
+
+
+aq graph
+
+
+
+The build system will automatically
+
+
+
+
+resolve dependencies
+
+
+execute verification scripts
+
+
+check artifact hashes
+
+
+rebuild theorem packages
+
+
+rerun downstream tests
+
+
+regenerate paper figures
+
+
+
+
+
+Proof Obligations
+
+
+Future theorem records will automatically list missing components.
+
+
+Example
+
+
+AQ-THM-DR
+
+✓ Definition
+
+✓ Assumptions
+
+✓ Proof
+
+✗ Lean proof
+
+✓ Computational verification
+
+✗ Independent implementation
+
+Outstanding obligations
+
+• Lean formalization
+• Independent implementation
+• Constructive sharpness proof
+
+
+
+No manual readiness percentages are used.
+
+
+
+Artifact Structure
+
+
+Each theorem records
+
+
+ID
+
+Dependencies
+
+Artifacts
+
+Proof
+
+Verification
+
+Formalization
+
+Figures
+
+Tables
+
+Scripts
+
+SHA256 hashes
+
+
+
+Changing any dependency invalidates downstream artifacts until reverified.
+
+
+
+Current Open Problems
+
+
+
+
+
+
+Constructive proof for row-stochastic sharpness.
+
+
+
+
+
+
+Symbolic proof of the column-stochastic rank theorem.
+
+
+
+
+
+
+Symbolic proof of deterministic rank theorem.
+
+
+
+
+
+
+Complete Lean formalization.
+
+
+
+
+
+
+Quantum defect equivalence theorem.
+
+
+
+
+
+
+Spectral convergence theorem.
+
+
+
+
+
+
+Escape filtration complexity bounds.
+
+
+
+
+
+
+
+Repository Philosophy
+
+
+AQARION emphasizes
+
+
+
+
+reproducibility
+
+
+transparency
+
+
+explicit evidence
+
+
+tracked failures
+
+
+computational certification
+
+
+formal verification
+
+
+
+
+Every retired theorem remains documented with counterexamples.
+
+
+Negative results are preserved rather than deleted.
+
+
+
+Literature Position
+
+
+The project does not claim universal novelty.
+
+
+Preferred wording:
+
+
+
+
+To our knowledge, the projection-defect operator
+
+
+
+
+[
+D=(I-P)KP
+]
+
+
+has not been studied in this exact form.
+
+
+Novelty claims remain conservative.
+
+
+
+Paper I Structure
+
+
+
+
+
+
+Definitions
+
+
+
+
+
+
+Observable Quotients
+
+
+
+
+
+
+Defect Operator
+
+
+
+
+
+
+Exact Descent
+
+
+
+
+
+
+Nilpotency
+
+
+
+
+
+
+Rank Bounds
+
+
+
+
+
+
+Kaprekar Case Study
+
+
+
+
+
+
+Computational Verification
+
+
+
+
+
+
+Discussion
+
+
+
+
+
+
+Open Problems
+
+
+
+
+
+
+
+Repository Principles
+
+
+Mathematical truth is established by proofs.
+
+
+Computational verification provides supporting evidence.
+
+
+Formal verification provides independent confirmation.
+
+
+Research infrastructure improves reproducibility but does not certify correctness.
+
+
+Integrity (hashes) and correctness (proofs) are intentionally kept separate.
+
+
+
+Current Overall Assessment
+
+
+Strongest Results
+
+
+
+
+Projection defect operator
+
+
+Exact descent criterion
+
+
+Forward invariance
+
+
+Nilpotency
+
+
+Row-stochastic rank upper bound
+
+
+
+
+Computationally Strong
+
+
+
+
+Kaprekar verification
+
+
+Rank experiments
+
+
+Counterexample registry
+
+
+Observable quotient infrastructure
+
+
+
+
+Active Research
+
+
+
+
+Lean formalization
+
+
+Column-stochastic proof
+
+
+Deterministic proof
+
+
+Quantum extension
+
+
+Spectral theory
+
+
+
+
+
+AQARION-ARITHMETIC
+
+
+A reproducible mathematical framework for observable quotient dynamics, emphasizing explicit evidence, transparent verification, and formal research infrastructure.
