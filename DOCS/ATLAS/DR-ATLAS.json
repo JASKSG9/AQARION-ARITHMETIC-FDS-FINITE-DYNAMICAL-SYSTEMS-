@@ -1,0 +1,69 @@
+{
+  "protocol": "DR-ATLAS Phase III",
+  "date": "2026-06-09",
+  "node": "#10878",
+  "tests_run": ["TEST_002", "TEST_003", "TEST_008"],
+
+  "TEST_002": {
+    "hypothesis": "rank(D_Pi) <= C_Pi(T)  (original crossing bound)",
+    "result": "REFUTED",
+    "counterexample": {
+      "n": 3,
+      "T_map": [0, 1, 1],
+      "blocks": [[0,1],[2]],
+      "note": "rank=1, crossing=0. T maps every block to itself but non-uniformly."
+    },
+    "root_cause": "Crossing number counts BOUNDARY CROSSINGS (source-block != target-block). It misses intra-block non-uniformity, which also creates defect.",
+    "replacement_bound": "rank(D_Pi) <= |{blocks B : T is not block-uniform on B}|",
+    "replacement_tested": "561,659 pairs, n=3..6. ZERO violations.",
+    "status": "CANDIDATE THEOREM — strongly supported, not yet proved"
+  },
+
+  "TEST_003": {
+    "hypothesis": "Sharp rank phase transition exists as eps: structured -> random",
+    "result": "NOT_OBSERVED (n=16, 2-block partition)",
+    "data": [
+      {"eps": 0.00, "rank": 1, "entropy": 0.000, "stable_rank": 1.000},
+      {"eps": 0.01, "rank": 2, "entropy": 0.004, "stable_rank": 1.000},
+      {"eps": 0.10, "rank": 2, "entropy": 0.196, "stable_rank": 1.031},
+      {"eps": 0.50, "rank": 2, "entropy": 0.993, "stable_rank": 1.826},
+      {"eps": 0.75, "rank": 2, "entropy": 0.937, "stable_rank": 1.547},
+      {"eps": 1.00, "rank": 2, "entropy": 0.926, "stable_rank": 1.518}
+    ],
+    "finding": "Rank saturates at min(k,n-k)=2 at eps=0.01. No sharp transition. Internal geometry (entropy, stable_rank) transitions smoothly. Entropy peaks near eps=0.5 then decreases (random matrix has structured singular spectrum).",
+    "open": "Phase transition may appear with larger k (more blocks) or larger n. Needs TEST_003 at n=64, k=8."
+  },
+
+  "TEST_008": {
+    "hypothesis": "Defect-guided refinement recovers Nerode quotient",
+    "result": "PARTIALLY_SUPPORTED",
+    "algorithm": "Start from initial partition. Repeatedly split each block by T-image-block membership. Stop when no splits occur.",
+    "results": [
+      {"system": "cycle n=8",    "init_k": 2, "final_k": 8,  "D_zero": true,  "steps": 4},
+      {"system": "cycle n=12",   "init_k": 2, "final_k": 12, "D_zero": true,  "steps": 6},
+      {"system": "constant n=8", "init_k": 2, "final_k": 2,  "D_zero": false, "steps": 1},
+      {"system": "random n=10",  "init_k": 2, "final_k": 3,  "D_zero": false, "steps": 2},
+      {"system": "Kaprekar G*",  "init_k": 54, "final_k": 54, "D_zero": true, "steps": 0,
+       "note": "54 singletons already stable -- confirms future-minimality"}
+    ],
+    "key_finding": "Algorithm achieves D=0 when refinement is possible. When T creates block merges (constant map), pure refinement cannot reach D=0. Starting from 1-block and refining recovers Nerode only with appropriate output observation.",
+    "candidate_theorem": "Defect-guided refinement from output-induced initial partition converges to Nerode quotient in <= depth(T) steps.",
+    "hopcroft_comparison": "Our algorithm is partition refinement without intelligent splitter ordering. Equivalent in correctness, O(n^3) vs Hopcroft O(n log n)."
+  },
+
+  "registry_updates": {
+    "new_candidates": [
+      "CAND-D1: rank(D_Pi) <= |non-block-uniform-source-blocks(Pi,T)|  [STRONGLY SUPPORTED]",
+      "CAND-D2: Defect-guided refinement terminates in O(depth(T)) steps  [SUPPORTED]",
+      "CAND-D3: rank(D) saturates at min(k,n-k) for any eps>0 interpolation  [OBSERVED n=16]"
+    ],
+    "killed_claims": [
+      "KILL-D1: rank(D_Pi) <= crossing_number  [REFUTED — counterexample n=3]"
+    ]
+  },
+
+  "quantum_channel_status": {
+    "note": "Document 9 quantum framework: correct quantum info primitives but trivial test cases (P=I). QV005 expected False but is True (basis states ARE DFS for dephasing). Substantive quantum tests require non-trivial subspace choices. No proven connection to classical AQARION/Kaprekar work yet.",
+    "action": "Defer quantum extension until OPEN-008 (D_Pi=0 characterization) is proved for classical FDDS."
+  }
+}
