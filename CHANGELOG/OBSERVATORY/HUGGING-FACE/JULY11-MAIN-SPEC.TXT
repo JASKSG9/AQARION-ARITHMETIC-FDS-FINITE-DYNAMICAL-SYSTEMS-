@@ -1,0 +1,564 @@
+################################################################################
+# AQARION / QUANTARION
+# MASTER SPECIFICATION
+#
+# Version: 2.1
+# Status: CORE FROZEN
+# Node: #10878
+#
+# Purpose:
+# Single canonical reference for mathematics,
+# architecture, certification, reproducibility,
+# observatory protocol and open problems.
+################################################################################
+
+
+===============================================================================
+TABLE OF CONTENTS
+===============================================================================
+
+1. Project Identity
+2. Mission
+3. Scope
+4. Mathematical Foundations
+5. Core Definitions (Frozen)
+6. Object Hierarchy
+7. Operator Architecture
+8. Layer Architecture (UPF / GPF)
+9. Theorem Ledger
+10. Dependency Graph
+11. Evidence Taxonomy
+12. Certification Standard
+13. Reproducibility Contract
+14. Fingerprint Standard
+15. Counterexample Archive
+16. Observatory Specification
+17. DR-ATLAS Campaigns
+18. Forgotten Halls Archive
+19. Open Problems
+20. Release Checklist
+21. Repository Manifest
+22. Future Roadmap
+
+===============================================================================
+1. PROJECT IDENTITY
+===============================================================================
+
+AQARION is a framework for measuring information loss under finite
+dynamical observation using exact operator methods.
+
+Core Principle
+
+Observation
+      ↓
+Projection
+      ↓
+Defect Operator
+      ↓
+Measurement
+      ↓
+Fingerprint
+      ↓
+Evidence
+
+Not
+
+Measurement
+      ↓
+Automatic theorem
+
+===============================================================================
+2. MISSION
+===============================================================================
+
+Primary Goal
+
+Construct exact observable operators for deterministic finite
+dynamical systems.
+
+Secondary Goal
+
+Produce reproducible mathematical measurements.
+
+Not a goal
+
+Automatic theorem discovery.
+
+===============================================================================
+3. MATHEMATICAL OBJECT HIERARCHY
+===============================================================================
+
+Finite Dynamical System
+
+        │
+
+Transition Map T
+
+        │
+
+Observation Partition Π
+
+        │
+
+Projection P
+
+        │
+
+Defect Operator
+
+D=(I−P)KP
+
+        │
+
+Defect Coupling Graph
+
+        │
+
+Spectral Measurements
+
+        │
+
+Fingerprint
+
+        │
+
+Certificate
+
+Invariant
+
+No downstream object defines an upstream object.
+
+===============================================================================
+4. CORE DEFINITIONS (FROZEN)
+===============================================================================
+
+Finite Dynamical System
+
+Transition Map
+
+Observation Partition
+
+Projection
+
+Uniform Partition
+
+General Partition
+
+Defect Operator
+
+Lumpability
+
+Exact Quotient
+
+Defect Coupling Graph
+
+Escape Matrix
+
+Fingerprint
+
+Certificate
+
+===============================================================================
+5. LAYER ARCHITECTURE
+===============================================================================
+
+AbstractPartition
+
+    │
+
+    ├──────────────► UniformPartition
+
+    │                  T1–T5
+
+    │                  Frozen theorem domain
+
+    │
+
+    └──────────────► GeneralPartition
+
+                       Active research domain
+
+Rules
+
+UPF cannot accept arbitrary partitions.
+
+GPF never assumes equal block sizes.
+
+===============================================================================
+6. THEOREM LEDGER
+===============================================================================
+
+T001
+
+Status
+PROVED
+
+Evidence
+PROVED
+
+Dependencies
+Definitions
+
+------------------------------------------------
+
+T002
+
+Status
+PROVED
+
+------------------------------------------------
+
+T003
+
+Canonical Defect Rank
+
+Status
+PROVED
+
+Evidence
+PROVED
+
+Computational Evidence
+Regression Tests
+
+------------------------------------------------
+
+T004
+
+Universal Rank Bound
+
+Status
+PROVED
+
+Corollary
+
+------------------------------------------------
+
+T005
+
+Block Matrix Representation
+
+Status
+PROVED
+
+------------------------------------------------
+
+T5
+
+Status
+OPEN
+
+Reason
+
+Awaiting independent confirmation following earlier
+implementation discrepancy.
+
+------------------------------------------------
+
+AQ001
+
+Realizability of Defect Blocks
+
+Status
+
+OPEN
+
+===============================================================================
+7. EVIDENCE TAXONOMY
+===============================================================================
+
+PROVED
+
+FORMALLY VERIFIED
+
+COMPUTATIONALLY VERIFIED
+
+EMPIRICALLY SUPPORTED
+
+OPEN
+
+REFUTED
+
+SUPERSEDED
+
+Rule
+
+Evidence never upgrades itself.
+
+===============================================================================
+8. CERTIFICATION
+===============================================================================
+
+Every release must contain
+
+certificate.json
+
+system.json
+
+partition.json
+
+fingerprint.json
+
+environment.txt
+
+SHA256
+
+Independent reproduction status
+
+===============================================================================
+9. REPRODUCIBILITY CONTRACT
+===============================================================================
+
+Same Input
+
+↓
+
+Same Measurement
+
+↓
+
+Same Fingerprint
+
+↓
+
+Same Certificate Hash
+
+===============================================================================
+10. FINGERPRINT STANDARD
+===============================================================================
+
+System Metadata
+
+Partition Metadata
+
+Operator Rank
+
+Nullity
+
+Stable Rank
+
+Singular Values
+
+Defect Components
+
+Escape Matrix Hash
+
+Automorphism Data
+
+Certificate Hash
+
+===============================================================================
+11. COUNTEREXAMPLE ARCHIVE
+===============================================================================
+
+Every failed theorem recorded.
+
+Fields
+
+ID
+
+Original Claim
+
+Counterexample
+
+Failure
+
+Replacement
+
+Status
+
+Nothing is deleted.
+
+===============================================================================
+12. OBSERVATORY
+===============================================================================
+
+Mission
+
+Measure.
+
+Not prove.
+
+Pipeline
+
+Experiment
+
+↓
+
+Measurement
+
+↓
+
+Fingerprint
+
+↓
+
+Observation
+
+↓
+
+Conjecture
+
+↓
+
+Proof
+
+===============================================================================
+13. DR-ATLAS CAMPAIGNS
+===============================================================================
+
+Tier 0
+
+Calibration
+
+Identity
+
+Permutation
+
+Tree
+
+Collapse
+
+Cycle
+
+------------------------------------------------
+
+Tier 1
+
+Kaprekar
+
+Random Functional Graphs
+
+Finite Automata
+
+Symbolic Dynamics
+
+------------------------------------------------
+
+Tier 2
+
+Partition Geometry
+
+Operator Families
+
+Benchmark Library
+
+===============================================================================
+14. FORGOTTEN HALLS
+===============================================================================
+
+Historical archive.
+
+Deprecated ideas remain accessible.
+
+Every record includes
+
+Reason
+
+Replacement
+
+Date
+
+Current status
+
+===============================================================================
+15. RELEASE CHECKLIST
+===============================================================================
+
+Definitions Frozen
+
+Theorems Audited
+
+Counterexamples Archived
+
+Certificates Generated
+
+Fingerprints Verified
+
+Independent Reproduction Complete
+
+Documentation Updated
+
+Repository Manifest Validated
+
+===============================================================================
+16. REPOSITORY MANIFEST
+===============================================================================
+
+README
+
+Quickstart
+
+Core
+
+Certification
+
+Observatory
+
+Experiments
+
+Definitions
+
+Theorem Ledger
+
+Architecture
+
+Counterexamples
+
+Release Notes
+
+Manifest
+
+===============================================================================
+17. ROADMAP
+===============================================================================
+
+Core v2.1
+
+↓
+
+Governance Freeze
+
+↓
+
+DR-ATLAS Calibration
+
+↓
+
+Partition Observatory
+
+↓
+
+Operator Classification
+
+↓
+
+Formal Verification
+
+↓
+
+v3.0 Observatory Expansion
+
+===============================================================================
+18. PROJECT PHILOSOPHY
+===============================================================================
+
+AQARION does not attempt to automatically discover mathematical truth.
+
+AQARION measures how deterministic dynamics deform under observation.
+
+Measurements generate evidence.
+
+Evidence motivates conjectures.
+
+Proof establishes mathematics.
+
+Certification establishes reproducibility.
+
+Formal verification establishes machine-checked correctness.
+
+These remain separate at every stage.
+
+################################################################################
+END OF MASTER SPECIFICATION
+################################################################################
