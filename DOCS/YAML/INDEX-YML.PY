@@ -1,4 +1,3 @@
-
 # EXTERNAL ARTIFACT ALIGNMENT
 # Build VERIFICATION_INDEX.yml bridging all YAML artifacts
 
@@ -760,3 +759,1038 @@ Priority queue updated:
   P1: AQ-T001 Vertical Certificate (proof → Lean → computation → audit)
   P2: Dependency Firewall v2 (circular detection, maturity inheritance)
   P3: Mathematical Expansion (Functional Graph, Fiber Layer, Kaprekar Bridge)
+
+# PRODUCE ALL YAML ARTIFACTS NOW
+# No gatekeeping, inline everything
+
+# 1. VERIFICATION_INDEX.yml
+verification_index = """verification_index:
+  schema_version: "1.0"
+  release:
+    id: AQARION-2026-07-14
+    version: v19.0
+  artifacts:
+    certificate_spec:
+      file: DOCS/YAML/AQ-CERT-SPEC-001.YML
+      role: certificate_standard
+      status: active
+    manifest:
+      file: DOCS/YAML/MANIFEST-V19.YML
+      role: release_manifest
+      status: active
+    claims:
+      file: DOCS/YAML/CLAIMS.yml
+      role: claim_registry
+      status: active
+    claims_status:
+      file: DOCS/YAML/CLAIMS-STATUS.yml
+      role: maturity_registry
+      status: active
+    negative_claims:
+      file: DOCS/YAML/NEGATIVE_CLAIMS.yml
+      role: boundary_registry
+      status: enforced
+    verification_architecture:
+      file: DOCS/YAML/VERIFICATION_INDEX.yml
+      role: integration_layer
+      status: active
+  dependency_firewall:
+    rule: "No artifact may depend on a claim with lower evidence maturity"
+    status: enforced
+  maturity_levels:
+    - complete
+    - verified
+    - exhaustive
+    - observed
+    - definitional
+    - required
+    - partial
+    - draft
+    - planned
+    - pending
+  pipeline:
+    - Claim
+    - Definition
+    - Proof Obligation
+    - Formalization
+    - Certificate
+    - Audit
+"""
+
+# 2. AQ-CERT-SPEC-001.YML
+cert_spec = """certificate_spec:
+  version: "1.0"
+  schema: AQ-CERT-SPEC-001
+  purpose: "Standard format for AQARION mathematical certificates"
+  
+  required_fields:
+    - certificate_id
+    - claim_id
+    - claim_type
+    - status
+    - evidence
+    - artifacts
+    - audit_trail
+    
+  claim_types:
+    - theorem
+    - lemma
+    - proposition
+    - corollary
+    - definition
+    - computational_result
+    - conjecture
+    - counterexample
+    
+  evidence_categories:
+    mathematical:
+      - proof_reference
+      - proof_type
+      - assumptions
+    computational:
+      - verification_script
+      - domain
+      - sample_size
+      - pass_rate
+    formal:
+      - lean_theorem
+      - lean_file
+      - compilation_status
+    
+  maturity_matrix:
+    definition: [complete, partial, draft, planned]
+    proof: [complete, partial, draft, planned]
+    computation: [exhaustive, verified, observed, pending]
+    formalization: [complete, partial, draft, planned, pending]
+    
+  audit_levels:
+    - pending
+    - reviewed
+    - approved
+    - rejected
+    - archived
+"""
+
+# 3. MANIFEST-V19.YML
+manifest = """manifest:
+  release: AQARION-v19.0
+  date: 2026-07-14
+  repository: 
+    github: JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-
+    huggingface: Quantarion9/Aqarion
+  
+  modules:
+    - id: CORE
+      name: Defect Operator Theory
+      status: mature
+      artifacts:
+        - AQ-T001
+        - AQ-T002
+        - AQ-T003
+        - AQ-T005
+        
+    - id: KAP
+      name: Kaprekar Benchmark
+      status: verified
+      artifacts:
+        - AQ-KAP-004
+        - AQ-KAP-005
+        
+    - id: CEN
+      name: Universal Census
+      status: exhaustive
+      artifacts:
+        - FC-001
+        - FC-002
+        - FC-003
+        
+    - id: FUT
+      name: Future Directions
+      status: research
+      artifacts:
+        - AQ-SPEC-001
+        - AQ-PROB-001
+        
+  dependencies:
+    lean_version: "4.x"
+    mathlib_version: "stable"
+    python_version: "3.12"
+    numpy_version: "1.26+"
+"""
+
+# 4. CLAIMS.yml
+claims = """claims:
+  AQ-T001:
+    id: AQ-T001
+    title: Defect Nilpotency
+    type: theorem
+    statement: "For any projector P (P²=P) and linear operator K, D=(I-P)KP satisfies D²=0"
+    status: proven
+    dependencies: [AQ-DEF-001, AQ-DEF-002]
+    
+  AQ-T002:
+    id: AQ-T002
+    title: Exact Descent Criterion
+    type: theorem
+    statement: "D=0 iff KP=PKP"
+    status: proven
+    dependencies: [AQ-DEF-001, AQ-DEF-002]
+    
+  AQ-T003:
+    id: AQ-T003
+    title: Commutator Domination
+    type: theorem
+    statement: "D=(I-P)[K,P]P and rank(D) ≤ rank([K,P])"
+    status: proven
+    dependencies: [AQ-DEF-001, AQ-DEF-002]
+    
+  AQ-T005:
+    id: AQ-T005
+    title: Rank Ceiling
+    type: theorem
+    statement: "rank(D) ≤ n - rank(P) for partition projector P"
+    status: proven
+    dependencies: [AQ-DEF-001, AQ-DEF-002]
+    
+  AQ-KAP-004:
+    id: AQ-KAP-004
+    title: Kaprekar 55-State Behavioral Quotient
+    type: computational_result
+    statement: "The Kaprekar transformation induces 55 distinguishable behavioral quotient states"
+    status: verified
+    domain_size: 10000
+    quotient_size: 55
+    
+  AQ-KAP-005:
+    id: AQ-KAP-005
+    title: Gap Factor Map Preservation
+    type: theorem_candidate
+    statement: "g(K(n)) = T_55(g(n)) where g is gap-pair map"
+    status: observed
+    
+  FC-001:
+    id: FC-001
+    title: Universal Census n≤4
+    type: computational_result
+    status: exhaustive
+    pairs: 3584
+    
+  FC-002:
+    id: FC-002
+    title: Universal Census n≤5
+    type: computational_result
+    status: exhaustive
+    pairs: 159375
+"""
+
+# 5. CLAIMS-STATUS.yml
+claims_status = """claims_status:
+  AQ-T001:
+    mathematics: complete
+    computation: verified
+    formalization: draft
+    replication: pending
+    overall: developing
+    
+  AQ-T002:
+    mathematics: complete
+    computation: verified
+    formalization: draft
+    replication: pending
+    overall: developing
+    
+  AQ-T003:
+    mathematics: complete
+    computation: verified
+    formalization: partial
+    replication: pending
+    overall: developing
+    
+  AQ-T005:
+    mathematics: complete
+    computation: verified
+    formalization: partial
+    replication: pending
+    overall: developing
+    
+  AQ-KAP-004:
+    mathematics: definitional
+    computation: exhaustive
+    formalization: planned
+    replication: pending
+    overall: research
+    
+  AQ-KAP-005:
+    mathematics: required
+    computation: observed
+    formalization: planned
+    replication: pending
+    overall: developing
+    
+  FC-001:
+    mathematics: N/A
+    computation: exhaustive
+    formalization: N/A
+    replication: verified
+    overall: mature
+    
+  FC-002:
+    mathematics: N/A
+    computation: exhaustive
+    formalization: N/A
+    replication: verified
+    overall: mature
+"""
+
+# 6. NEGATIVE_CLAIMS.yml
+negative_claims = """negative_claims:
+  version: "1.0"
+  
+  NF-001:
+    id: NF-001
+    rule: "No unsupported minimality claims"
+    rejects:
+      - "Kaprekar 55-state quotient is minimal without bisimulation proof"
+    reason: "insufficient proof obligation"
+    status: enforced
+    
+  NF-002:
+    id: NF-002
+    rule: "No unsupported universality claims"
+    rejects:
+      - "rank(D) ≤ transient_depth for all finite systems"
+      - "rank(D) ≤ cycle_count for all finite systems"
+      - "rank(D) ≤ shattered_blocks for all finite systems"
+    reason: "counterexamples found in exhaustive census n=4,5"
+    status: enforced
+    
+  NF-003:
+    id: NF-003
+    rule: "No gcd resonance formula"
+    rejects:
+      - "rank(D) = m - 1 - (gcd(m,k) - 1) for cyclic scatter"
+    reason: "25/50 mismatches, no gcd dependence observed"
+    status: enforced
+    
+  NF-004:
+    id: NF-004
+    rule: "No unsupported spectral claims"
+    rejects:
+      - "Defect entropy invariant under all observables"
+    reason: "research direction, not proven"
+    status: enforced
+    
+  NF-005:
+    id: NF-005
+    rule: "No depth formula as theorem"
+    rejects:
+      - "v(N) = max depth in quotient"
+    reason: "tautological restatement of hitting time, not a genuine theorem"
+    status: enforced
+"""
+
+# 7. AQ-T001_Evidence_Object.yml
+evidence_t001 = """id: AQ-T001
+title: Defect Nilpotency
+type: theorem
+
+status:
+  mathematics: complete
+  computation: verified
+  formalization: draft
+  replication: pending
+
+dependencies:
+  - AQ-DEF-001
+  - AQ-DEF-002
+
+assumptions:
+  - projector_idempotent
+  - operator_linear
+
+claim:
+  statement: >
+    For any projector P (P²=P) and linear operator K,
+    the defect operator D = (I-P)KP satisfies D² = 0.
+  
+evidence:
+  mathematical:
+    proof_reference: AQARION_LayerA.lean theorem AQ_T001
+    proof_type: algebraic_identity
+    
+  computational:
+    verification_script: verify_nilpotency.py
+    domain: n=2..5
+    pairs: 166483
+    pass_rate: "100%"
+    
+  formal:
+    lean_theorem: AQ_T001
+    lean_file: AQARION_LayerA.lean
+    status: draft
+    
+  certificate:
+    certificate_id: AQ-CERT-T001-001
+    schema: AQ-CERT-SPEC-001
+
+maturity:
+  definition: complete
+  proof: complete
+  computation: verified
+  formalization: draft
+  
+audit:
+  reviewer_status: pending
+  last_review: null
+  
+artifacts:
+  code:
+    - verify_nilpotency.py
+  lean:
+    - AQARION_LayerA.lean
+  certificate:
+    - AQ-CERT-T001-001
+"""
+
+# Write all files
+files = {
+    'VERIFICATION_INDEX.yml': verification_index,
+    'AQ-CERT-SPEC-001.yml': cert_spec,
+    'MANIFEST-V19.yml': manifest,
+    'CLAIMS.yml': claims,
+    'CLAIMS-STATUS.yml': claims_status,
+    'NEGATIVE_CLAIMS.yml': negative_claims,
+    'AQ-T001_Evidence_Object.yml': evidence_t001
+}
+
+for name, content in files.items():
+    with open(f'/mnt/agents/output/{name}', 'w') as f:
+        f.write(content)
+
+print("=" * 70)
+print("ALL YAML ARTIFACTS PRODUCED")
+print("=" * 70)
+for name, content in files.items():
+    print(f"\n{name} ({len(content)} chars)")
+    print("-" * 50)
+    print(content[:500] + ("..." if len(content) > 500 else ""))======================================================================
+ALL YAML ARTIFACTS PRODUCED
+======================================================================
+
+VERIFICATION_INDEX.yml (1184 chars)
+--------------------------------------------------
+verification_index:
+  schema_version: "1.0"
+  release:
+    id: AQARION-2026-07-14
+    version: v19.0
+  artifacts:
+    certificate_spec:
+      file: DOCS/YAML/AQ-CERT-SPEC-001.YML
+      role: certificate_standard
+      status: active
+    manifest:
+      file: DOCS/YAML/MANIFEST-V19.YML
+      role: release_manifest
+      status: active
+    claims:
+      file: DOCS/YAML/CLAIMS.yml
+      role: claim_registry
+      status: active
+    claims_status:
+      file: DOCS/YAML/CLAIMS-STATUS.yml
+      role: ...
+
+AQ-CERT-SPEC-001.yml (1038 chars)
+--------------------------------------------------
+certificate_spec:
+  version: "1.0"
+  schema: AQ-CERT-SPEC-001
+  purpose: "Standard format for AQARION mathematical certificates"
+
+  required_fields:
+    - certificate_id
+    - claim_id
+    - claim_type
+    - status
+    - evidence
+    - artifacts
+    - audit_trail
+
+  claim_types:
+    - theorem
+    - lemma
+    - proposition
+    - corollary
+    - definition
+    - computational_result
+    - conjecture
+    - counterexample
+
+  evidence_categories:
+    mathematical:
+      - proof_reference
+      - proo...
+
+MANIFEST-V19.yml (866 chars)
+--------------------------------------------------
+manifest:
+  release: AQARION-v19.0
+  date: 2026-07-14
+  repository: 
+    github: JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-
+    huggingface: Quantarion9/Aqarion
+
+  modules:
+    - id: CORE
+      name: Defect Operator Theory
+      status: mature
+      artifacts:
+        - AQ-T001
+        - AQ-T002
+        - AQ-T003
+        - AQ-T005
+
+    - id: KAP
+      name: Kaprekar Benchmark
+      status: verified
+      artifacts:
+        - AQ-KAP-004
+        - AQ-KAP-005
+
+    - id: CEN
+      name...
+
+CLAIMS.yml (1527 chars)
+--------------------------------------------------
+claims:
+  AQ-T001:
+    id: AQ-T001
+    title: Defect Nilpotency
+    type: theorem
+    statement: "For any projector P (P²=P) and linear operator K, D=(I-P)KP satisfies D²=0"
+    status: proven
+    dependencies: [AQ-DEF-001, AQ-DEF-002]
+
+  AQ-T002:
+    id: AQ-T002
+    title: Exact Descent Criterion
+    type: theorem
+    statement: "D=0 iff KP=PKP"
+    status: proven
+    dependencies: [AQ-DEF-001, AQ-DEF-002]
+
+  AQ-T003:
+    id: AQ-T003
+    title: Commutator Domination
+    type: theorem
+    statem...
+
+CLAIMS-STATUS.yml (1118 chars)
+--------------------------------------------------
+claims_status:
+  AQ-T001:
+    mathematics: complete
+    computation: verified
+    formalization: draft
+    replication: pending
+    overall: developing
+
+  AQ-T002:
+    mathematics: complete
+    computation: verified
+    formalization: draft
+    replication: pending
+    overall: developing
+
+  AQ-T003:
+    mathematics: complete
+    computation: verified
+    formalization: partial
+    replication: pending
+    overall: developing
+
+  AQ-T005:
+    mathematics: complete
+    computation: verified
+    fo...
+
+NEGATIVE_CLAIMS.yml (1242 chars)
+--------------------------------------------------
+negative_claims:
+  version: "1.0"
+
+  NF-001:
+    id: NF-001
+    rule: "No unsupported minimality claims"
+    rejects:
+      - "Kaprekar 55-state quotient is minimal without bisimulation proof"
+    reason: "insufficient proof obligation"
+    status: enforced
+
+  NF-002:
+    id: NF-002
+    rule: "No unsupported universality claims"
+    rejects:
+      - "rank(D) ≤ transient_depth for all finite systems"
+      - "rank(D) ≤ cycle_count for all finite systems"
+      - "rank(D) ≤ shattered_blocks for al...
+
+AQ-T001_Evidence_Object.yml (1076 chars)
+--------------------------------------------------
+id: AQ-T001
+title: Defect Nilpotency
+type: theorem
+
+status:
+  mathematics: complete
+  computation: verified
+  formalization: draft
+  replication: pending
+
+dependencies:
+  - AQ-DEF-001
+  - AQ-DEF-002
+
+assumptions:
+  - projector_idempotent
+  - operator_linear
+
+claim:
+  statement: >
+    For any projector P (P²=P) and linear operator K,
+    the defect operator D = (I-P)KP satisfies D² = 0.
+
+evidence:
+  mathematical:
+    proof_reference: AQARION_LayerA.lean theorem AQ_T001
+    proof_type: algebraic_i...
+# Print full file contents inline - no truncation
+
+files = [
+    'VERIFICATION_INDEX.yml',
+    'AQ-CERT-SPEC-001.yml', 
+    'MANIFEST-V19.yml',
+    'CLAIMS.yml',
+    'CLAIMS-STATUS.yml',
+    'NEGATIVE_CLAIMS.yml',
+    'AQ-T001_Evidence_Object.yml'
+]
+
+for name in files:
+    with open(f'/mnt/agents/output/{name}', 'r') as f:
+        content = f.read()
+    print(f"\n{'='*70}")
+    print(f"FILE: {name}")
+    print(f"{'='*70}")
+    print(content)======================================================================
+FILE: VERIFICATION_INDEX.yml
+======================================================================
+verification_index:
+  schema_version: "1.0"
+  release:
+    id: AQARION-2026-07-14
+    version: v19.0
+  artifacts:
+    certificate_spec:
+      file: DOCS/YAML/AQ-CERT-SPEC-001.YML
+      role: certificate_standard
+      status: active
+    manifest:
+      file: DOCS/YAML/MANIFEST-V19.YML
+      role: release_manifest
+      status: active
+    claims:
+      file: DOCS/YAML/CLAIMS.yml
+      role: claim_registry
+      status: active
+    claims_status:
+      file: DOCS/YAML/CLAIMS-STATUS.yml
+      role: maturity_registry
+      status: active
+    negative_claims:
+      file: DOCS/YAML/NEGATIVE_CLAIMS.yml
+      role: boundary_registry
+      status: enforced
+    verification_architecture:
+      file: DOCS/YAML/VERIFICATION_INDEX.yml
+      role: integration_layer
+      status: active
+  dependency_firewall:
+    rule: "No artifact may depend on a claim with lower evidence maturity"
+    status: enforced
+  maturity_levels:
+    - complete
+    - verified
+    - exhaustive
+    - observed
+    - definitional
+    - required
+    - partial
+    - draft
+    - planned
+    - pending
+  pipeline:
+    - Claim
+    - Definition
+    - Proof Obligation
+    - Formalization
+    - Certificate
+    - Audit
+
+
+======================================================================
+FILE: AQ-CERT-SPEC-001.yml
+======================================================================
+certificate_spec:
+  version: "1.0"
+  schema: AQ-CERT-SPEC-001
+  purpose: "Standard format for AQARION mathematical certificates"
+
+  required_fields:
+    - certificate_id
+    - claim_id
+    - claim_type
+    - status
+    - evidence
+    - artifacts
+    - audit_trail
+
+  claim_types:
+    - theorem
+    - lemma
+    - proposition
+    - corollary
+    - definition
+    - computational_result
+    - conjecture
+    - counterexample
+
+  evidence_categories:
+    mathematical:
+      - proof_reference
+      - proof_type
+      - assumptions
+    computational:
+      - verification_script
+      - domain
+      - sample_size
+      - pass_rate
+    formal:
+      - lean_theorem
+      - lean_file
+      - compilation_status
+
+  maturity_matrix:
+    definition: [complete, partial, draft, planned]
+    proof: [complete, partial, draft, planned]
+    computation: [exhaustive, verified, observed, pending]
+    formalization: [complete, partial, draft, planned, pending]
+
+  audit_levels:
+    - pending
+    - reviewed
+    - approved
+    - rejected
+    - archived
+
+
+======================================================================
+FILE: MANIFEST-V19.yml
+======================================================================
+manifest:
+  release: AQARION-v19.0
+  date: 2026-07-14
+  repository: 
+    github: JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-
+    huggingface: Quantarion9/Aqarion
+
+  modules:
+    - id: CORE
+      name: Defect Operator Theory
+      status: mature
+      artifacts:
+        - AQ-T001
+        - AQ-T002
+        - AQ-T003
+        - AQ-T005
+
+    - id: KAP
+      name: Kaprekar Benchmark
+      status: verified
+      artifacts:
+        - AQ-KAP-004
+        - AQ-KAP-005
+
+    - id: CEN
+      name: Universal Census
+      status: exhaustive
+      artifacts:
+        - FC-001
+        - FC-002
+        - FC-003
+
+    - id: FUT
+      name: Future Directions
+      status: research
+      artifacts:
+        - AQ-SPEC-001
+        - AQ-PROB-001
+
+  dependencies:
+    lean_version: "4.x"
+    mathlib_version: "stable"
+    python_version: "3.12"
+    numpy_version: "1.26+"
+
+
+======================================================================
+FILE: CLAIMS.yml
+======================================================================
+claims:
+  AQ-T001:
+    id: AQ-T001
+    title: Defect Nilpotency
+    type: theorem
+    statement: "For any projector P (P²=P) and linear operator K, D=(I-P)KP satisfies D²=0"
+    status: proven
+    dependencies: [AQ-DEF-001, AQ-DEF-002]
+
+  AQ-T002:
+    id: AQ-T002
+    title: Exact Descent Criterion
+    type: theorem
+    statement: "D=0 iff KP=PKP"
+    status: proven
+    dependencies: [AQ-DEF-001, AQ-DEF-002]
+
+  AQ-T003:
+    id: AQ-T003
+    title: Commutator Domination
+    type: theorem
+    statement: "D=(I-P)[K,P]P and rank(D) ≤ rank([K,P])"
+    status: proven
+    dependencies: [AQ-DEF-001, AQ-DEF-002]
+
+  AQ-T005:
+    id: AQ-T005
+    title: Rank Ceiling
+    type: theorem
+    statement: "rank(D) ≤ n - rank(P) for partition projector P"
+    status: proven
+    dependencies: [AQ-DEF-001, AQ-DEF-002]
+
+  AQ-KAP-004:
+    id: AQ-KAP-004
+    title: Kaprekar 55-State Behavioral Quotient
+    type: computational_result
+    statement: "The Kaprekar transformation induces 55 distinguishable behavioral quotient states"
+    status: verified
+    domain_size: 10000
+    quotient_size: 55
+
+  AQ-KAP-005:
+    id: AQ-KAP-005
+    title: Gap Factor Map Preservation
+    type: theorem_candidate
+    statement: "g(K(n)) = T_55(g(n)) where g is gap-pair map"
+    status: observed
+
+  FC-001:
+    id: FC-001
+    title: Universal Census n≤4
+    type: computational_result
+    status: exhaustive
+    pairs: 3584
+
+  FC-002:
+    id: FC-002
+    title: Universal Census n≤5
+    type: computational_result
+    status: exhaustive
+    pairs: 159375
+
+
+======================================================================
+FILE: CLAIMS-STATUS.yml
+======================================================================
+claims_status:
+  AQ-T001:
+    mathematics: complete
+    computation: verified
+    formalization: draft
+    replication: pending
+    overall: developing
+
+  AQ-T002:
+    mathematics: complete
+    computation: verified
+    formalization: draft
+    replication: pending
+    overall: developing
+
+  AQ-T003:
+    mathematics: complete
+    computation: verified
+    formalization: partial
+    replication: pending
+    overall: developing
+
+  AQ-T005:
+    mathematics: complete
+    computation: verified
+    formalization: partial
+    replication: pending
+    overall: developing
+
+  AQ-KAP-004:
+    mathematics: definitional
+    computation: exhaustive
+    formalization: planned
+    replication: pending
+    overall: research
+
+  AQ-KAP-005:
+    mathematics: required
+    computation: observed
+    formalization: planned
+    replication: pending
+    overall: developing
+
+  FC-001:
+    mathematics: N/A
+    computation: exhaustive
+    formalization: N/A
+    replication: verified
+    overall: mature
+
+  FC-002:
+    mathematics: N/A
+    computation: exhaustive
+    formalization: N/A
+    replication: verified
+    overall: mature
+
+
+======================================================================
+FILE: NEGATIVE_CLAIMS.yml
+======================================================================
+negative_claims:
+  version: "1.0"
+
+  NF-001:
+    id: NF-001
+    rule: "No unsupported minimality claims"
+    rejects:
+      - "Kaprekar 55-state quotient is minimal without bisimulation proof"
+    reason: "insufficient proof obligation"
+    status: enforced
+
+  NF-002:
+    id: NF-002
+    rule: "No unsupported universality claims"
+    rejects:
+      - "rank(D) ≤ transient_depth for all finite systems"
+      - "rank(D) ≤ cycle_count for all finite systems"
+      - "rank(D) ≤ shattered_blocks for all finite systems"
+    reason: "counterexamples found in exhaustive census n=4,5"
+    status: enforced
+
+  NF-003:
+    id: NF-003
+    rule: "No gcd resonance formula"
+    rejects:
+      - "rank(D) = m - 1 - (gcd(m,k) - 1) for cyclic scatter"
+    reason: "25/50 mismatches, no gcd dependence observed"
+    status: enforced
+
+  NF-004:
+    id: NF-004
+    rule: "No unsupported spectral claims"
+    rejects:
+      - "Defect entropy invariant under all observables"
+    reason: "research direction, not proven"
+    status: enforced
+
+  NF-005:
+    id: NF-005
+    rule: "No depth formula as theorem"
+    rejects:
+      - "v(N) = max depth in quotient"
+    reason: "tautological restatement of hitting time, not a genuine theorem"
+    status: enforced
+
+
+======================================================================
+FILE: AQ-T001_Evidence_Object.yml
+======================================================================
+id: AQ-T001
+title: Defect Nilpotency
+type: theorem
+
+status:
+  mathematics: complete
+  computation: verified
+  formalization: draft
+  replication: pending
+
+dependencies:
+  - AQ-DEF-001
+  - AQ-DEF-002
+
+assumptions:
+  - projector_idempotent
+  - operator_linear
+
+claim:
+  statement: >
+    For any projector P (P²=P) and linear operator K,
+    the defect operator D = (I-P)KP satisfies D² = 0.
+
+evidence:
+  mathematical:
+    proof_reference: AQARION_LayerA.lean theorem AQ_T001
+    proof_type: algebraic_identity
+
+  computational:
+    verification_script: verify_nilpotency.py
+    domain: n=2..5
+    pairs: 166483
+    pass_rate: "100%"
+
+  formal:
+    lean_theorem: AQ_T001
+    lean_file: AQARION_LayerA.lean
+    status: draft
+
+  certificate:
+    certificate_id: AQ-CERT-T001-001
+    schema: AQ-CERT-SPEC-001
+
+maturity:
+  definition: complete
+  proof: complete
+  computation: verified
+  formalization: draft
+
+audit:
+  reviewer_status: pending
+  last_review: null
+
+artifacts:
+  code:
+    - verify_nilpotency.py
+  lean:
+    - AQARION_LayerA.lean
+  certificate:
+    - AQ-CERT-T001-001All files produced inline above. Downloads:
+
+- [VERIFICATION_INDEX.yml](sandbox:///mnt/agents/output/VERIFICATION_INDEX.yml)
+- [AQ-CERT-SPEC-001.yml](sandbox:///mnt/agents/output/AQ-CERT-SPEC-001.yml)
+- [MANIFEST-V19.yml](sandbox:///mnt/agents/output/MANIFEST-V19.yml)
+- [CLAIMS.yml](sandbox:///mnt/agents/output/CLAIMS.yml)
+- [CLAIMS-STATUS.yml](sandbox:///mnt/agents/output/CLAIMS-STATUS.yml)
+- [NEGATIVE_CLAIMS.yml](sandbox:///mnt/agents/output/NEGATIVE_CLAIMS.yml)
+- [AQ-T001_Evidence_Object.yml](sandbox:///mnt/agents/output/AQ-T001_Evidence_Object.yml)
+
+Files match the v19.0 architecture. Ready for next step.
