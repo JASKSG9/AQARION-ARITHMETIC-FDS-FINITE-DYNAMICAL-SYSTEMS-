@@ -1,0 +1,40 @@
+certificate:
+  id: AQ-CERT-SPEC-001
+  schema_version: 1.0.0
+
+  claim:
+    id: AQ-T001
+    version: 1.0.0
+    statement: "Exact Observable Quotient Criterion"
+
+  classification:
+    type: theorem
+    status: proved
+
+  assumptions:
+    - A1: X is finite
+    - A2: T is deterministic
+    - A3: Functions are real-valued
+    - A4: Standard inner product
+    - A5: Partition blocks are nonempty
+    - A6: Partition covers X
+
+  evidence:
+    mathematical:
+      proof_reference: "proofs/symbolic/invariance_theorem.md"
+    computational:
+      script: "adversarial/exhaustive/verify_equivalence.py"
+      result: "0 mismatches across 125,000 systems"
+    formal:
+      prover: "Lean 4"
+      theorem: "obstruction_zero_iff_invariant"
+      status: "0 sorry"
+
+  integrity:
+    source_hash: "sha256:be7ff691..."
+    artifact_hash: "sha256:f53844fc..."
+
+  audit:
+    reviewer: "Louisville Node #1"
+    timestamp: "2026-07-14"
+    decision: "certified"
