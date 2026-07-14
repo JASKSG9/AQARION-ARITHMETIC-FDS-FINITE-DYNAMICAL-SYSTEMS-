@@ -1,0 +1,145 @@
+
+# ============================================================
+# 2. AQARION-ABSTRACT.TXT — Identity Document
+# ============================================================
+
+abstract = """================================================================================
+AQARION
+A Machine-Auditable Evidence Framework for Finite Mathematics
+================================================================================
+Version: 0.4.1-final
+Frozen: 2026-07-13
+Schema: 3.1.0
+Registry: 0.4.1-final
+================================================================================
+
+ABSTRACT
+--------
+
+Mathematical computation increasingly relies on large-scale software systems,
+numerical experiments, and automated search. However, computational results
+are rarely distributed with machine-checkable evidence that allows independent
+reproduction.
+
+AQARION addresses this problem by introducing an evidence pipeline for finite
+mathematical systems.
+
+THE CORE PRINCIPLE
+------------------
+
+    A mathematical claim should exist together with a portable,
+    verifiable certificate describing exactly what was computed,
+    how it was verified, and which definitions and assumptions
+    it depends upon.
+
+WHAT AQARION IS
+---------------
+
+    An evidence infrastructure for finite mathematics.
+    A system that transforms mathematical claims into reproducible,
+    machine-auditable verification artifacts.
+
+WHAT AQARION IS NOT
+-------------------
+
+    Not a theorem database.
+    Not a cloud judge.
+    Not a numerical experiment archive.
+    Not a replacement for Lean/Isabelle/Coq.
+    Not a finished formal verification system.
+
+THE EVIDENCE OBJECT (AEO)
+-------------------------
+
+    Mathematical Claim
+    + Computation
+    + Dependencies
+    + Verification Record
+    + Hash Identity
+    = AQARION Evidence Object
+
+TRUST ARCHITECTURE
+------------------
+
+    Layer 0: Human mathematical statement
+         |
+    Layer 1: Executable exact computation (Fractions, no floating point)
+         |
+    Layer 2: Independent reproduction (docker build → docker run)
+         |
+    Layer 3: Formal verification bridge (future: Lean export)
+         |
+    Layer 4: Community verification (distributed, transparent)
+
+DESIGN PRINCIPLES
+-----------------
+
+    Reproducibility over authority
+        No result depends on trusting a remote server.
+
+    Evidence over assertion
+        A claim without a verification artifact is incomplete.
+
+    Separation of generation and verification
+        The process that creates evidence should not be the only
+        process allowed to validate it.
+
+    Explicit mathematical provenance
+        Every theorem, definition, and computation receives a
+        persistent identity.
+
+    Failure is a first-class result
+        AQARION produces FAILED with counterexample, witness,
+        location, and dependency chain — not just VERIFIED.
+
+    Status from verifier only
+        Certificate files contain "UNVERIFIED".
+        Only independent verification grants "VALID" or "INVALID".
+
+CURRENT REFERENCE SYSTEM
+------------------------
+
+    AQARION v0.4.1 establishes the foundation:
+
+    Completed:
+        - Finite dynamical system kernel
+        - Claim registry with versioned dependencies
+        - Mathematical dependency graph
+        - Certificate schema v3.1
+        - Independent verification architecture
+        - Exact arithmetic support (Python Fractions)
+        - Canonical cycle labels (rotation-invariant)
+        - Sparse defect check (O(|X|) vs O(|X|³))
+
+    Reference milestone:
+        AQ-CERT-KAPREKAR-2D-001
+        Target: Complete machine-auditable verification certificate
+        for the 2-digit Kaprekar dynamical system.
+
+LONG-TERM VISION
+----------------
+
+    Continuous Integration for Mathematics
+
+    Software engineering:     Code → Tests → Build → Release
+    AQARION:                Claim → Definitions → Search →
+                              Exact Verification → Certificate → Release
+
+    The objective is not automated replacement of mathematics.
+    The objective is a permanent evidence layer where mathematical
+    results can be reproduced, audited, and extended.
+
+IDENTITY STATEMENT
+------------------
+
+    AQARION is an open evidence infrastructure where finite
+    mathematical claims become reproducible, machine-auditable
+    objects.
+
+================================================================================
+"""
+
+with open(os.path.join(output_dir, "AQARION-ABSTRACT.txt"), 'w') as f:
+    f.write(abstract)
+
+print("✅ AQARION-ABSTRACT.txt")
