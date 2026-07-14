@@ -1,0 +1,38 @@
+release:
+  id: AQARION-2026-07-14
+  version: v19.0
+  status: PUBLICATION_CANDIDATE
+
+registry:
+  snapshot: "registry/snapshot-2026-07-14.yaml"
+  hash: "sha256:be7ff691..."
+
+claims:
+  total: 53
+  proved: 28
+  verified: 16
+  certified: 9
+
+formalization:
+  lean_version: "4.11.0"
+  sorry_count: 0
+
+computation:
+  tests_total: 68
+  tests_passing: 68
+  certificate_hash: "sha256:f53844fc..."
+
+software:
+  repository: "github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-"
+  commit: "b7e9c5f3..."
+  tag: "v19.0"
+
+environment:
+  python_version: "3.11.11"
+  dependencies:
+    - "numpy==1.26.4"
+    - "scipy==1.13.1"
+
+audit:
+  reviewer: "Louisville Node #1"
+  status: "certified"
