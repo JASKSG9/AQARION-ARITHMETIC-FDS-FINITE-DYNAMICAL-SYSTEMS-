@@ -1,0 +1,57 @@
+
+# ============================================================
+# DOCKERFILE, REQUIREMENTS, README
+# ============================================================
+
+dockerfile = '''FROM python:3.11-slim
+
+WORKDIR /app
+COPY aqarion_kernel.py verify_certificate.py main.py ./
+COPY AQ-CERT-*.json ./
+
+CMD ["python", "main.py", "system"]
+'''
+
+requirements = '''numpy>=1.24.0
+'''
+
+readme = '''# AQARION v0.4.1-FINAL
+
+Finite Dynamical Systems — Exact Arithmetic, Kaprekar Dynamics, Observable Quotients
+
+## Files
+
+- `aqarion_kernel.py` — Core kernel (exact arithmetic, FDDS, Kaprekar, registry)
+- `verify_certificate.py` — Independent certificate verifier
+- `main.py` — CLI interface
+- `test_aqarion.py` — 25 unit tests
+- `Dockerfile` — Container build
+- `requirements.txt` — Dependencies
+
+## Quick Start
+
+```bash
+python main.py system
+python -m unittest test_aqarion -v
+python verify_certificate.py AQ-CERT-AQ-CLAIM-001-001.json
+```
+
+## Certificates
+
+All certificates carry `status: UNVERIFIED` by design. Independent verification required.
+
+## Version
+
+v0.4.1-final
+'''
+
+with open(os.path.join(output_dir, "Dockerfile"), 'w') as f:
+    f.write(dockerfile)
+with open(os.path.join(output_dir, "requirements.txt"), 'w') as f:
+    f.write(requirements)
+with open(os.path.join(output_dir, "README.md"), 'w') as f:
+    f.write(readme)
+
+print("✅ Dockerfile written")
+print("✅ requirements.txt written")
+print("✅ README.md written")
