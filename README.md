@@ -1,5 +1,25 @@
 ## AQARION develops a certified theory of observable representations. Its central mathematical object, the observable defect operator, measures the failure of an observable representation to remain dynamically closed under evolution. For finite deterministic systems, zero defect characterizes exact observable quotients. AQARION integrates exact mathematics, reproducible computation, and formal verification into a unified certification methodology, while providing a foundation for observable geometry and approximation theory in infinite dynamical systems.
 
+## Behavioral Quotient Certification via Operator Obstruction
+
+<p align="center">
+
+![AQARION](https://img.shields.io/badge/AQARION-Hardening-blueviolet)
+![Status](https://img.shields.io/badge/status-submission--ready-success)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue)
+![Lean](https://img.shields.io/badge/Lean-4.14.0-blue)
+![CI](https://github.com/JASKSG9/AQARION/actions/workflows/verify.yml/badge.svg)
+![Reproducible](https://img.shields.io/badge/reproducibility-make%20verify-orange)
+![Artifacts](https://img.shields.io/badge/artifacts-hash--verified-brightgreen)
+
+</p>
+
+> A formal and reproducible framework for certifying exact observable quotients in finite deterministic dynamical systems.
+
+---
+
+                   AQARION
 
       Certified Observable Dynamics
                     │
@@ -37,26 +57,9 @@ Dynamics      Reconstruction    Approximation
       Machine-Readable Claims
       Verified Research Artifacts
 
-## Behavioral Quotient Certification via Operator Obstruction
+  ~~~▪︎¤《●○●》¤▪︎~~~
 
-<p align="center">
-
-![AQARION](https://img.shields.io/badge/AQARION-Hardening-blueviolet)
-![Status](https://img.shields.io/badge/status-submission--ready-success)
-![License](https://img.shields.io/badge/license-MIT-green)
-![Python](https://img.shields.io/badge/python-3.10%2B-blue)
-![Lean](https://img.shields.io/badge/Lean-4.14.0-blue)
-![CI](https://github.com/JASKSG9/AQARION/actions/workflows/verify.yml/badge.svg)
-![Reproducible](https://img.shields.io/badge/reproducibility-make%20verify-orange)
-![Artifacts](https://img.shields.io/badge/artifacts-hash--verified-brightgreen)
-
-</p>
-
-> A formal and reproducible framework for certifying exact observable quotients in finite deterministic dynamical systems.
-
----
-
-# Overview
+     # Overview
 
 AQARION studies the question:
 
