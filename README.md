@@ -19,9 +19,10 @@
 
 ---
 
-                   AQARION
+> Defect operators certify failure of closure, but the meaning of closure depends on the operator category.
 
-      Certified Observable Dynamics
+                   AQARION
+ 
                     │
      ┌──────────────┼──────────────┐
      │              │              │
