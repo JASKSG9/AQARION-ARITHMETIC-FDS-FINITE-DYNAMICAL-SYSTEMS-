@@ -1,4 +1,41 @@
-🧮 AQARION🌉ARITHMETIC 🧮
+## AQARION develops a certified theory of observable representations. Its central mathematical object, the observable defect operator, measures the failure of an observable representation to remain dynamically closed under evolution. For finite deterministic systems, zero defect characterizes exact observable quotients. AQARION integrates exact mathematics, reproducible computation, and formal verification into a unified certification methodology, while providing a foundation for observable geometry and approximation theory in infinite dynamical systems.
+
+
+      Certified Observable Dynamics
+                    │
+     ┌──────────────┼──────────────┐
+     │              │              │
+     ▼              ▼              ▼
+
+Finite        Fiber Geometry    Infinite
+Dynamics      Reconstruction    Approximation
+
+     │              │              │
+     └──────────────┼──────────────┘
+                    │
+                    ▼
+
+         Observable Defect Operator
+
+      DΠ = (I − PΠ) U PΠ
+
+                    │
+      ┌─────────────┼─────────────┐
+      │                           │
+      ▼                           ▼
+
+ DΠ = 0                    DΠ ≠ 0
+
+ Exact Observable          Observable
+ Quotient                  Leakage
+
+                    │
+                    ▼
+
+      Certification • Reproducibility
+      Exact Arithmetic • Lean 4
+      Machine-Readable Claims
+      Verified Research Artifacts
 
 ## Behavioral Quotient Certification via Operator Obstruction
 
