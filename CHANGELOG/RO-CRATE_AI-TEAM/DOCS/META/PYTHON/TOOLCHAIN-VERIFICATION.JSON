@@ -1,0 +1,45 @@
+{
+  "all_pass": true,
+  "attacks": [
+    {
+      "attack": "timestamp_injection",
+      "expected": "timestamp excluded from hash",
+      "status": "pass"
+    },
+    {
+      "attack": "ordering_attack",
+      "description": "Claims sorted by id regardless of FS order",
+      "mitigation": "sorted() by id",
+      "status": "pass"
+    },
+    {
+      "attack": "duplicate_id_collision",
+      "description": "Duplicate AQ001 caught",
+      "mitigation": "duplicate detection",
+      "status": "pass"
+    },
+    {
+      "attack": "circular_dependency_injection",
+      "description": "A->B->C->A detected",
+      "mitigation": "cycle detection",
+      "status": "pass"
+    },
+    {
+      "attack": "missing_dependency_injection",
+      "description": "Nonexistent dep reported",
+      "mitigation": "missing_dependencies list",
+      "status": "pass"
+    },
+    {
+      "attack": "json_malleability",
+      "description": "Whitespace not affect hash",
+      "mitigation": "sort_keys True, separators ,:",
+      "status": "pass"
+    }
+  ],
+  "boundary": "Attack layer does not modify core",
+  "layer": "ZO-CPU attack",
+  "status": "pass",
+  "test_id": "AQTC-007",
+  "timestamp": "2026-07-16T00:00:00+00:00"
+}
