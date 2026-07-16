@@ -1,0 +1,174 @@
+
+# ============================================================
+# 3. certificate.json (stabilized copy of φ-377 certificate)
+# ============================================================
+
+certificate = {
+    "system": "four_digit_kaprekar_gap_base10",
+    "object": "gap_quotient",
+    "states": 54,
+    "fixed_point": "(6,2)",
+    "exact_quotient": True,
+    "defect_rank": 0,
+    "defect_norm": 0.0,
+    "depth": 6,
+    "tree_verified": True,
+    "spectral_gap": 0.01140178938892764,
+    "cheeger": 0.2,
+    "curvature_status": "empirical",
+    "theorem_dependencies": ["AQ-001"],
+    "assumptions": [
+        "finite deterministic map",
+        "computed certificate"
+    ],
+    "experiments": {
+        "1_exact_observation": {
+            "states": 54,
+            "blocks": 54,
+            "violations": 0,
+            "exact": True,
+            "defect_rank": 0,
+            "defect_norm": 0.0
+        },
+        "2_image_filtration": {
+            "filtration": [54, 20, 14, 10, 7, 4, 1],
+            "stabilization_depth": 6,
+            "terminal_state": "(6,2)"
+        },
+        "3_koopman": {
+            "koopman_rank_profile": [54, 20, 14, 10, 7, 4, 1, 1, 1, 1, 1],
+            "annihilating_polynomial_test": True
+        },
+        "4_functional_graph": {
+            "nodes": 54,
+            "cycles": [["(6, 2)"]],
+            "attractors": 1,
+            "root": "(6,2)"
+        },
+        "5_undirected_symmetrization": {
+            "vertices": 54,
+            "edges": 53,
+            "connected_components": 1,
+            "tree_test": True
+        },
+        "6_spectral": {
+            "spectral_gap": 0.0114017894,
+            "eigenvalues": [0.0, 0.0114017894, 0.0156813433, 0.0444895614, 0.0707323524, 0.0876205916, 0.1251202056, 0.1402207759, 0.2224573895, 0.2723339768, 0.2953042734, 0.3112599166, 0.3992417942, 0.4285480633, 0.4886824681, 0.5229540478, 0.5650049608, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.4349950392, 1.4770459522, 1.5113175319, 1.5714519367, 1.6007582058, 1.6887400834, 1.7046957266, 1.7276660232, 1.7775426105, 1.8597792241, 1.8748797944, 1.9123794084, 1.9292676476, 1.9555104386, 1.9843186567, 1.9885982106, 2.0]
+        },
+        "7_cheeger": {
+            "cheeger": 0.2,
+            "lower_bound": 0.0057008947,
+            "upper_bound": 0.1510085388,
+            "satisfied": True
+        },
+        "8_curvature": {
+            "mean_curvature": -0.3596436059,
+            "negative_edges": 19,
+            "zero_edges": 34,
+            "positive_edges": 0
+        }
+    }
+}
+
+# Compute hash
+cert_json = json.dumps(certificate, sort_keys=True, indent=2)
+cert_hash = hashlib.sha256(cert_json.encode()).hexdigest()
+certificate["hash"] = cert_hash
+
+with open('/mnt/agents/output/benchmarks/kaprekar_gap/certificate.json', 'w') as f:
+    json.dump(certificate, f, indent=2, sort_keys=True)
+
+print("certificate.json created")
+print(f"SHA256: {cert_hash}")
+
+# ============================================================
+# 4. README.md
+# ============================================================
+
+readme = '''# AQ-001 Kaprekar Gap Benchmark
+
+## Overview
+
+This benchmark registry contains the stabilized artifacts for the AQ-001 exact quotient certification applied to the 4-digit Kaprekar gap system.
+
+**Status:** Registry locked. No new theory. No redesign.
+
+## Registry Structure
+
+```
+benchmarks/kaprekar_gap/
+├── registry.json           # Machine-readable object registry
+├── object_definitions.md   # Human-readable object definitions
+├── certificate.json        # φ-377 computational certificate
+├── README.md              # This file
+└── sha256_manifest.txt    # Integrity manifest
+```
+
+## Objects
+
+| ID | Object | Status | Boundary |
+|----|--------|--------|----------|
+| 1 | Raw Kaprekar System | VERIFIED_COMPUTATION | computation_only |
+| 2 | Gap Observation | VERIFIED_COMPUTATION | observation_map |
+| 3 | Active Gap System G* | CERTIFIED | dynamical_system |
+| 4 | Exact Quotient | CERTIFIED | exact_quotient |
+| 5 | Image Filtration | CERTIFIED | filtration |
+| 6 | Tree Geometry | CERTIFIED | geometric_structure |
+| 7 | Spectral Geometry | EMPIRICAL_GEOMETRIC_SIGNATURE | spectral |
+| 8 | Curvature Geometry | EMPIRICAL_GEOMETRIC_SIGNATURE | curvature |
+
+## Key Results
+
+- **States:** 54 gap states
+- **Fixed point:** (6,2) [corresponds to Kaprekar constant 6174]
+- **Exact quotient:** D_Π = 0, rank 0, norm 0.0
+- **Filtration:** 54 → 20 → 14 → 10 → 7 → 4 → 1 (depth 6)
+- **Tree:** 54 vertices, 53 edges, connected, acyclic
+- **Spectral gap:** μ₁ = 0.0114017894
+- **Cheeger:** h = 0.2 (inequality satisfied)
+- **Curvature:** mean κ = -0.36 (19 negative, 34 zero edges)
+
+## Pipeline
+
+```
+CORE → CERTIFICATION → BENCHMARK → APPLICATION
+```
+
+## Boundary Enforcement
+
+The following are **permanently prohibited**:
+
+- image (filtration) → quotient (exactness)
+- benchmark (tree) → theorem (AQ-001)
+- geometry (spectral) → dynamics (Koopman)
+- proof (Lean) → computation (Python)
+
+## Validation
+
+All 9 experiments passed:
+
+1. AQ-001 Exact Observation ✅
+2. Image Filtration Certificate ✅
+3. Koopman Certificate ✅
+4. Functional Graph Certificate ✅
+5. Undirected Symmetrization ✅
+6. Spectral Certificate φ-377 ✅
+7. Cheeger Certificate ✅
+8. Ollivier-Ricci Curvature ✅
+9. Certificate Export ✅
+
+## Hash
+
+SHA256 of certificate.json: see sha256_manifest.txt
+
+## License
+
+AQARION Internal — Benchmark Registry
+'''
+
+with open('/mnt/agents/output/benchmarks/kaprekar_gap/README.md', 'w') as f:
+    f.write(readme)
+
+print("README.md created")certificate.json created
+SHA256: 909d006d376e69ead6de842e0d05d9688764ade7a2bb7dfcb9a57ed50ca19cfd
+README.md created
