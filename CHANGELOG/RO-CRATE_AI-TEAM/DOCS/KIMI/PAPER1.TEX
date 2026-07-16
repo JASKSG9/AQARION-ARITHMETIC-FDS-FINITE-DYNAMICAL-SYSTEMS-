@@ -232,3 +232,286 @@ print(f"Manifest artifacts: {len(manifest['artifacts'])}")AQARION_PAPER_I.tex cr
 aq_verify: PASS
 Total files: 35
 Manifest artifacts: 32
+
+---
+
+
+# ============================================================
+# Step 2: Tighten Paper I — Remove scope creep, focus on defect theorem
+# ============================================================
+
+paper_i_tight = r'''\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+
+\title{Observable Defect Geometry for Finite Dynamical Systems}
+\author{AQARION Project}
+\date{Version 21.0 — 2026-07-16}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+For a finite dynamical system $(X,T)$ and a partition $\Pi$ of $X$, we define the \emph{observable defect operator}
+\[
+D_\Pi \;:=\; (I-P_\Pi)\,U_T\,P_\Pi,
+\]
+where $U_T$ is the Koopman pullback and $P_\Pi$ is the orthogonal projection onto the observable subspace $V_\Pi$. We prove that $D_\Pi=0$ if and only if $U_T(V_\Pi)\subseteq V_\Pi$, equivalently if and only if the quotient dynamics on $X/\Pi$ is well-defined. This equivalence unifies finite dynamical systems, Koopman operator theory, and exact quotient construction. We report exhaustive computational verification for systems of size $n\le 6$ and explicit negative results, including disproved conjectures and spectral collisions. The 4-digit Kaprekar routine serves as a benchmark: its 55-class Nerode partition is an exact quotient with nilpotency index~$6$.
+\end{abstract}
+
+\section{Introduction}
+
+Finite dynamical systems $(X,T)$ with $T:X\to X$ are fundamental objects in combinatorics, computer science, and applied mathematics. Despite their apparent simplicity, complete structural invariants are scarce. The Koopman operator $U_T f = f\circ T$ linearizes the dynamics on the space of observables $\mathcal F(X)$, but the relationship between Koopman-invariant subspaces and the underlying combinatorics of $T$ is not fully understood.
+
+We introduce the \emph{observable defect operator} $D_\Pi$ as a quantitative measure of how much one-step observable evolution escapes a chosen observable representation. The central result is that $D_\Pi=0$ exactly characterizes exact quotients---a bridge between operator theory and combinatorial dynamics.
+
+\paragraph{Contributions.}
+\begin{enumerate}
+    \item We define $D_\Pi$ and prove the Defect Vanishing Theorem (Theorem~\ref{thm:vanish}).
+    \item We establish the Exact Quotient Theorem (Theorem~\ref{thm:quotient}) as a corollary.
+    \item We verify all claims computationally for $n\le 6$ and report negative results explicitly.
+    \item We provide a Lean~4 formalization of the Defect Vanishing Theorem.
+\end{enumerate}
+
+\section{Preliminaries}
+
+Let $X$ be a finite set and $T:X\to X$ an arbitrary map. Let $\mathcal F(X)=\{f:X\to\mathbb R\}$ with inner product $\langle f,g\rangle=\sum_{x\in X}f(x)g(x)$. The \emph{Koopman operator} $U_T:\mathcal F(X)\to\mathcal F(X)$ is defined by $(U_T f)(x)=f(T(x))$.
+
+For a partition $\Pi$ of $X$, the \emph{observable subspace} is
+\[
+V_\Pi \;=\; \{f\in\mathcal F(X): x\sim_\Pi y \Rightarrow f(x)=f(y)\}.
+\]
+Let $P_\Pi:\mathcal F(X)\to V_\Pi$ be the orthogonal projection.
+
+\begin{definition}[Observable Defect Operator]\label{def:defect}
+The \emph{observable defect operator} is
+\[
+D_\Pi \;:=\; (I-P_\Pi)\,U_T\,P_\Pi.
+\]
+\end{definition}
+
+The operator $D_\Pi$ maps $V_\Pi$ to $V_\Pi^\perp$; it measures the component of one-step observable evolution that escapes the observable representation.
+
+\section{Main Results}
+
+\begin{theorem}[Fundamental Decomposition]\label{thm:decomp}
+$U_T P_\Pi = P_\Pi U_T P_\Pi + D_\Pi$.
+\end{theorem}
+\begin{proof}
+Immediate from Definition~\ref{def:defect}.
+\end{proof}
+
+\begin{theorem}[Defect Vanishing]\label{thm:vanish}
+The following are equivalent:
+\begin{enumerate}
+    \item[(i)] $D_\Pi = 0$.
+    \item[(ii)] $U_T(V_\Pi)\subseteq V_\Pi$.
+    \item[(iii)] $x\sim_\Pi y \Rightarrow T(x)\sim_\Pi T(y)$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}
+(i)$\Rightarrow$(ii): If $D_\Pi=0$, then $(I-P_\Pi)U_T P_\Pi=0$, so $U_T P_\Pi = P_\Pi U_T P_\Pi$. For any $f\in V_\Pi$, $U_T f = P_\Pi U_T f \in V_\Pi$.
+
+(ii)$\Rightarrow$(iii): If $U_T(V_\Pi)\subseteq V_\Pi$, then for any block $B\in\Pi$, the indicator $\mathbf 1_B\in V_\Pi$, so $U_T\mathbf 1_B = \mathbf 1_{T^{-1}(B)}\in V_\Pi$. Thus $T^{-1}(B)$ is a union of blocks, equivalently $x\sim y\Rightarrow T(x)\sim T(y)$.
+
+(iii)$\Rightarrow$(i): If $T$ respects blocks, then for any $f\in V_\Pi$, $U_T f$ is constant on blocks, so $U_T f\in V_\Pi$. Hence $(I-P_\Pi)U_T P_\Pi=0$.
+\end{proof}
+
+\begin{theorem}[Exact Quotient]\label{thm:quotient}
+$D_\Pi=0$ if and only if the quotient map $T_\Pi:X/\Pi\to X/\Pi$ given by $T_\Pi([x])=[T(x)]$ is well-defined.
+\end{theorem}
+\begin{proof}
+By Theorem~\ref{thm:vanish}, $D_\Pi=0$ iff $T$ respects partition blocks, which is exactly the condition for $[T(x)]$ to depend only on $[x]$.
+\end{proof}
+
+\section{Computational Verification}
+
+All claims were verified by exhaustive enumeration for $n\le 6$.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{llll}
+\toprule
+Experiment & Target & Result & Status \\
+\midrule
+EXP-008 & Minimal quotient $m(T)$ & C1 disproved: 6-cycle has $m(T)=3$ & Verified \\
+EXP-009 & Spectral classification & Collision at $n=6$: non-conjugate, same spectra & Verified \\
+Kaprekar & 55-class Nerode & $D_\Pi=0$, nilpotency $6$, depth reduction $1$ & Verified \\
+\bottomrule
+\end{tabular}
+\caption{Computational verification summary.}\label{tab:comp}
+\end{table}
+
+\section{Negative Results}
+
+\begin{enumerate}
+    \item \textbf{C1} ($m(T)\le 2$): Disproved. Counterexample: $T=[1,2,3,4,5,0]$ (6-cycle), $m(T)=3$.
+    \item \textbf{Spectral classification}: Disproved. Non-conjugate $T_1,T_2$ at $n=6$ with identical defect spectra.
+    \item \textbf{Rank combinatorial}: Disproved. Same-size partitions yield different ranks.
+\end{enumerate}
+
+\section{Open Problems}
+
+\begin{conjecture}[C2: Minimal Quotient Bound]\label{conj:c2}
+$m(T)\le 3$ for all finite functional graphs. Verified for $n\le 6$.
+\end{conjecture}
+
+\begin{conjecture}[Spectral Density]\label{conj:density}
+The fraction of conjugacy classes distinguished by defect spectra tends to $0$ as $n\to\infty$.
+\end{conjecture}
+
+\section{Formalization}
+
+The Defect Vanishing Theorem (Theorem~\ref{thm:vanish}) has been formalized in Lean~4. The proof follows the same structure as the paper proof, with the forward and backward directions established by direct manipulation of the projection and invariance conditions. The formalization is available in the repository at \texttt{DefectVanishing.lean}.
+
+\section{Evidence Hierarchy}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{clp{7cm}}
+\toprule
+Category & Label & Requirement \\
+\midrule
+A & Definitions & None; self-evident \\
+B & Theorems & Formal proof; Lean~4 verification for core results \\
+C & Computation & Reproducible script, deterministic hash, independent verifier \\
+D & Counterexamples & Explicit object, verification certificate \\
+E & Conjectures & Clearly marked; evidence status indicated \\
+\bottomrule
+\end{tabular}
+\caption{AQARION evidence hierarchy. Every claim is assigned exactly one category.}\label{tab:evidence}
+\end{table}
+
+\bibliographystyle{alpha}
+\begin{thebibliography}{9}
+\bibitem{Koopman1931} B.~O. Koopman. Hamiltonian systems and transformation in Hilbert space. \emph{PNAS}, 17(5):315--318, 1931.
+\bibitem{Mezic2020} I.~Mezi\'{c}. Spectrum of the Koopman operator, spectral expansions in functional spaces, and state-space geometry. \emph{J. Nonlinear Sci.}, 30(5):2091--2145, 2020.
+\bibitem{ShahCortes2026} D.~Shah and J.~Cort\'{e}s. A unified algebraic framework for subspace pruning in Koopman operator approximation. \emph{arXiv:2603.29001}, 2026.
+\bibitem{HaseliCortes2025} M.~Haseli and J.~Cort\'{e}s. Recursive forward-backward EDMD. \emph{IEEE Access}, 13:61006--61025, 2025.
+\end{thebibliography}
+
+\end{document}
+'''
+
+with open(ROOT / "AQARION_PAPER_I.tex", "w") as f:
+    f.write(paper_i_tight)
+
+print("Paper I tightened: removed scope creep, focused on defect theorem.")
+
+# ============================================================
+# Step 3: Generate CI workflow for automated reproducibility
+# ============================================================
+
+ci_workflow = '''name: AQARION Cross-Kernel CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install jsonschema
+      
+      - name: Run registry
+        run: |
+          cd AQARION-TOOL-CHAIN
+          python aq.py registry
+      
+      - name: Run AQTC-002 (Registry Loader)
+        run: |
+          cd AQARION-TOOL-CHAIN
+          python tests/test_registry_loader.py
+      
+      - name: Run AQTC-003 (Graph Generator)
+        run: |
+          cd AQARION-TOOL-CHAIN
+          python tests/test_graph_generator.py
+      
+      - name: Run independent verification
+        run: |
+          cd AQARION-TOOL-CHAIN
+          python aq_verify.py certificates/TEST-001_certificate.json
+      
+      - name: Run graph analysis
+        run: |
+          cd AQARION-TOOL-CHAIN
+          python aq_analyze.py all
+      
+      - name: Check claim-evidence consistency
+        run: |
+          cd AQARION-TOOL-CHAIN
+          python -c "
+          import json
+          from pathlib import Path
+          claims = {}
+          for f in Path('claims').glob('*.json'):
+              data = json.load(open(f))
+              claims[data['claim_id']] = data
+          evidence = {}
+          for f in Path('evidence').glob('*.json'):
+              data = json.load(open(f))
+              cid = data.get('claim_id')
+              evidence.setdefault(cid, []).append(data)
+          errors = []
+          for cid, c in claims.items():
+              level = c['evidence_level']
+              ev = evidence.get(cid, [])
+              if level in ('CV', 'FV') and not ev:
+                  errors.append(f'{cid}: level={level} but no evidence')
+              if level == 'FV' and c['status'] != 'PROVED':
+                  errors.append(f'{cid}: FV but status={c[\"status\"]}')
+          if errors:
+              print('FAILURES:')
+              for e in errors:
+                  print(f'  {e}')
+              exit(1)
+          print('All claims consistent with evidence levels.')
+          "
+      
+      - name: Verify deterministic hashes
+        run: |
+          cd AQARION-TOOL-CHAIN
+          HASH1=$(python -c "import json; print(json.load(open('reports/claim_registry_report.json'))['hash'])")
+          python aq.py registry > /dev/null
+          HASH2=$(python -c "import json; print(json.load(open('reports/claim_registry_report.json'))['hash'])")
+          if [ "$HASH1" != "$HASH2" ]; then
+            echo "Hash drift detected: $HASH1 vs $HASH2"
+            exit 1
+          fi
+          echo "Deterministic hash verified: $HASH1"
+'''
+
+(ROOT / ".github").mkdir(parents=True, exist_ok=True)
+(ROOT / ".github" / "workflows").mkdir(parents=True, exist_ok=True)
+with open(ROOT / ".github" / "workflows" / "ci.yml", "w") as f:
+    f.write(ci_workflow)
+
+print("CI workflow created at .github/workflows/ci.yml")Paper I tightened: removed scope creep, focused on defect theorem.
+CI workflow created at .github/workflows/ci.yml
