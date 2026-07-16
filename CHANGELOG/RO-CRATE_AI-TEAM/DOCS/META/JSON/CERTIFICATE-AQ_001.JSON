@@ -1,0 +1,11 @@
+{
+  "boundary": "LOCKED",
+  "certificate_id": "AQ-001-FINAL",
+  "certificate_json_sha256": "909d006d376e69ead6de842e0d05d9688764ade7a2bb7dfcb9a57ed50ca19cfd",
+  "foundation_checkpoint": "v2.0.1 ACCEPTED",
+  "next_gate": "KIMIS-K005 PartitionJoin closure",
+  "registry_hash": "d9ac0d0c25c35e3ed9c2728d012c02ac26fec509d59762319793c69e5476a072",
+  "status": "CERTIFIED",
+  "timestamp": "2026-07-16T00:00:00+00:00",
+  "verification": "9/9 PASS"
+}
