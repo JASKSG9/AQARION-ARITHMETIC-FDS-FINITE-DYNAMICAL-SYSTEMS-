@@ -1,4 +1,6 @@
-  🧮 AQARION⚖️ARITHMETIC 🧮
+#AQARION develops a certified criterion for exact observable quotient descent in finite deterministic dynamical systems, centered on a defect operator that witnesses when a proposed observable partition is dynamically closed. The paper is intentionally narrow: it isolates the Koopman pullback setting, proves the exact quotient theorem in that setting, and uses a small finite benchmark only as a reproducible illustration rather than as the source of the mathematics. The broader infrastructure around governance, hashes, and computational replay is included only to support reproducibility and claim tracking, not to replace proof. This positioning distinguishes AQARION from classical invariant-subspace theory, lumpability, and bisimulation by emphasizing an explicit certification layer for given observable partitions, rather than a search for optimal ones.
+
+---
 
 ## Behavioral Quotient Certification via Operator Obstruction
 
