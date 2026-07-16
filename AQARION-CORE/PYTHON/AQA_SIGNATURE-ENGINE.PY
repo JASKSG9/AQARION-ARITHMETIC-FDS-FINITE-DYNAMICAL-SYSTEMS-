@@ -422,4 +422,4 @@ __all__ = [
 with open('/mnt/agents/output/J15/signature_engine.py', 'w') as f:
     f.write(fixed_signature)
 
-print("Fixed signature_engine.py written")Fixed signature_engine.py written
+print("Fixed signature_engine.py written")
