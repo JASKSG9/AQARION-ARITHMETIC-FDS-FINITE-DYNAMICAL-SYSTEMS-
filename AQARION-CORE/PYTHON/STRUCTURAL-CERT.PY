@@ -1,7 +1,7 @@
 
-# PHASE 2 — STRUCTURAL CERTIFICATION
+# Fix the structural_cert.py to use the correct invariant
 
-structural_code = '''"""
+fixed_structural = '''"""
 AQARION J15.LEAN — Structural Certification Module
 PHASE 2: Structural Certification
 
@@ -108,18 +108,18 @@ def certify_image_filtration(T: Dict[int, int]) -> List[int]:
     
     # Verify non-increasing
     for i in range(len(chain) - 1):
-        assert chain[i] >= chain[i + 1], \
+        assert chain[i] >= chain[i + 1], \\
             f"Image chain not non-increasing at step {i}: {chain[i]} < {chain[i+1]}"
     
     # Verify terminal value
     fixed_count = sum(1 for x in T if T[x] == x)
-    assert chain[-1] == fixed_count, \
+    assert chain[-1] == fixed_count, \\
         f"Terminal image chain value {chain[-1]} != fixed point count {fixed_count}"
     
     return chain
 
 
-# 2.3 Minimal Polynomial Verification
+# 2.3 Minimal Polynomial Verification (CORRECTED)
 
 def matrix_power(M: np.ndarray, k: int) -> np.ndarray:
     """Compute M^k with exact Fraction arithmetic."""
@@ -145,42 +145,41 @@ def matrix_power(M: np.ndarray, k: int) -> np.ndarray:
     return result
 
 
-def verify_min_poly(K: np.ndarray, k: int) -> None:
+def verify_eventual_idempotency(K: np.ndarray, max_depth: int) -> None:
     """
-    2.3 MINIMAL POLYNOMIAL VERIFICATION
+    2.3 EVENTUAL IDEMPOTENCY VERIFICATION (CORRECTED)
     
-    Verify that K^k (K - I) = 0 for the validated nilpotent index k.
+    For functional graphs with only fixed point cycles,
+    the Koopman operator satisfies K^d = K^{d+1} where d is the maximum depth.
     
-    For functional graphs with only fixed point cycles, the Koopman operator
-    satisfies (K - I)^k = 0 where k is the maximum depth + 1.
+    This is the correct spectral invariant (not nilpotency of K-I).
+    
+    Proof sketch: After d steps, all paths have reached a fixed point.
+    Once at a fixed point, applying T again stays at the fixed point.
+    So K^d counts paths of length d, and K^{d+1} counts paths of length d+1,
+    which are the same since all paths terminate at fixed points.
     """
     n = K.shape[0]
-    I = np.eye(n, dtype=object)
+    
+    K_d = matrix_power(K, max_depth)
+    K_d1 = matrix_power(K, max_depth + 1)
+    
+    # Verify K^d = K^{d+1}
     for i in range(n):
         for j in range(n):
-            I[i, j] = Fraction(1) if i == j else Fraction(0)
-    
-    K_minus_I = K - I
-    for i in range(n):
-        for j in range(n):
-            K_minus_I[i, j] = Fraction(K_minus_I[i, j]).limit_denominator()
-    
-    # Compute (K - I)^k
-    A = matrix_power(K_minus_I, k)
-    
-    # Verify all entries are zero
-    for i in range(n):
-        for j in range(n):
-            val = Fraction(A[i, j]).limit_denominator()
-            assert val == 0, \
-                f"Minimal polynomial verification failed at ({i},{j}): {val}"
+            val_d = Fraction(K_d[i, j]).limit_denominator()
+            val_d1 = Fraction(K_d1[i, j]).limit_denominator()
+            assert val_d == val_d1, \\
+                f"Eventual idempotency failed at ({i},{j}): K^{max_depth}={val_d}, K^{max_depth+1}={val_d1}"
 
 
 def compute_jordan_blocks(K: np.ndarray, max_depth: int) -> List[Tuple[int, int]]:
     """
-    Compute Jordan block structure from nilpotent operator (K - I).
+    Compute Jordan block structure from the nilpotent part of K.
     
-    Returns list of (size, count) for each Jordan block size.
+    For functional graphs with only fixed points, K = I + N where N is
+    nilpotent on the transient subspace. The Jordan blocks correspond to
+    the tree structure (depth profile).
     """
     n = K.shape[0]
     I = np.eye(n, dtype=object)
@@ -215,13 +214,12 @@ __all__ = [
     'compute_image_chain',
     'certify_image_filtration',
     'matrix_power',
-    'verify_min_poly',
+    'verify_eventual_idempotency',
     'compute_jordan_blocks'
 ]
 '''
 
 with open('/mnt/agents/output/J15/structural_cert.py', 'w') as f:
-    f.write(structural_code)
+    f.write(fixed_structural)
 
-print("PHASE 2 complete — structural_cert.py written")
-print(f"Size: {len(structural_code)} bytes")
+print("Fixed structural_cert.py written")Fixed structural_cert.py written
