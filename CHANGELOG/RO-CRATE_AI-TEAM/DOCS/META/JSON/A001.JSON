@@ -1,0 +1,139 @@
+{
+  "artifacts": {
+    "README.md": {
+      "sha256": "747473dd...c2f76ae",
+      "size": "2385 B"
+    },
+    "certificate.json": {
+      "sha256": "909d006d376e69ead6de842e0d05d9688764ade7a2bb7dfcb9a57ed50ca19cfd",
+      "size": "2824 B"
+    },
+    "object_definitions.md": {
+      "sha256": "6e80a8a0...eaf291b",
+      "size": "4028 B"
+    },
+    "registry.json": {
+      "sha256": "461b4db9...6d18ef0",
+      "size": "2718 B"
+    },
+    "sha256_manifest.txt": {
+      "sha256": "\u2014",
+      "size": "405 B"
+    }
+  },
+  "boundary_enforcement": {
+    "benchmark (tree) \u2192 theorem (AQ-001)": "LOCKED",
+    "geometry (spectral) \u2192 dynamics (Koopman)": "LOCKED",
+    "image (filtration) \u2192 quotient (exactness)": "LOCKED",
+    "proof (Lean) \u2192 computation (Python)": "LOCKED"
+  },
+  "certificate_hash": "909d006d376e69ead6de842e0d05d9688764ade7a2bb7dfcb9a57ed50ca19cfd",
+  "classification": {
+    "APPLICATION": [
+      {
+        "id": "7_spectral_geometry",
+        "mu1": 0.0114017894,
+        "type": "EMPIRICAL_GEOMETRIC_SIGNATURE"
+      },
+      {
+        "id": "8_curvature_geometry",
+        "mean_kappa": -0.36,
+        "type": "EMPIRICAL_GEOMETRIC_SIGNATURE"
+      }
+    ],
+    "BENCHMARK": [
+      {
+        "edges": 53,
+        "id": "6_tree_geometry",
+        "status": "CERTIFIED",
+        "type": "tree",
+        "vertices": 54
+      }
+    ],
+    "CERTIFICATION": [
+      {
+        "depth": 6,
+        "id": "3_active_gap_system",
+        "states": 54,
+        "status": "CERTIFIED"
+      },
+      {
+        "condition": "D=0, rank 0",
+        "id": "4_exact_quotient",
+        "status": "CERTIFIED"
+      },
+      {
+        "depth": "6 collapse",
+        "id": "5_image_filtration",
+        "status": "CERTIFIED"
+      }
+    ],
+    "CORE": [
+      {
+        "id": "1_raw_system",
+        "states": 9990,
+        "status": "VERIFIED_COMPUTATION"
+      },
+      {
+        "id": "2_gap_observation",
+        "map": "\u03c0: X\u2192G",
+        "status": "VERIFIED_COMPUTATION"
+      }
+    ]
+  },
+  "maintainer": "AQARION Research Node #10878",
+  "registry_id": "AQ-001",
+  "timestamp": "2026-07-16T00:00:00+00:00",
+  "verification": {
+    "checks": [
+      {
+        "id": 1,
+        "name": "AQ-001 exactness (D_\u03a0 = 0)",
+        "status": "PASS"
+      },
+      {
+        "id": 2,
+        "name": "Image filtration (54\u219220\u219214\u219210\u21927\u21924\u21921)",
+        "status": "PASS"
+      },
+      {
+        "id": 3,
+        "name": "Koopman certificate (K\u2076(K-I) = 0)",
+        "status": "PASS"
+      },
+      {
+        "id": 4,
+        "name": "Functional graph (1 attractor, root (6,2))",
+        "status": "PASS"
+      },
+      {
+        "id": 5,
+        "name": "Tree verification (54V, 53E, acyclic)",
+        "status": "PASS"
+      },
+      {
+        "id": 6,
+        "name": "Spectral record (\u03bc\u2081 = 0.0114017894)",
+        "status": "PASS"
+      },
+      {
+        "id": 7,
+        "name": "Cheeger record (h = 0.2, inequality satisfied)",
+        "status": "PASS"
+      },
+      {
+        "id": 8,
+        "name": "Curvature record (mean \u03ba = -0.36)",
+        "status": "PASS"
+      },
+      {
+        "id": 9,
+        "name": "SHA256 export",
+        "status": "PASS"
+      }
+    ],
+    "passed": 9,
+    "total": 9
+  },
+  "version": "v2.0.1"
+}
