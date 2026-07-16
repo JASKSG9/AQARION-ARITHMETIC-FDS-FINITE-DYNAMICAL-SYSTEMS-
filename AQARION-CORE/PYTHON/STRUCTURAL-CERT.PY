@@ -222,4 +222,4 @@ __all__ = [
 with open('/mnt/agents/output/J15/structural_cert.py', 'w') as f:
     f.write(fixed_structural)
 
-print("Fixed structural_cert.py written")Fixed structural_cert.py written
+print("Fixed structural_cert.py written")
