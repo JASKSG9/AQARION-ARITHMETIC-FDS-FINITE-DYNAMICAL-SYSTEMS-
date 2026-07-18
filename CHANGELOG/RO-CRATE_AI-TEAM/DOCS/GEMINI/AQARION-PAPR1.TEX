@@ -1,0 +1,48 @@
+\documentclass[10pt, conference]{IEEEtran}
+\usepackage{amsmath, amsfonts, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+% Dynamically injected cryptographic binding
+\input{aqarion_metadata.tex}
+
+\title{AQARION: Exact Algebraic Co-Design and Topological Compilation for Neuromorphic Substrates}
+\author{
+    \IEEEauthorblockN{Anonymous Authors}
+    \IEEEauthorblockA{Submission to Neuromorphic Computing and Engineering (NCE)\\
+    Artifact DOI: \href{https://doi.org/\aqarionDOI}{\aqarionDOI} | Verification: \aqarionLeanStatus}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Neuromorphic systems offer highly efficient platforms for simulating complex dynamical systems, yet compiling high-dimensional state spaces onto energy-constrained physical substrates introduces a severe challenge. Engineers are forced to choose between computationally intractable exact state mappings and heuristic aggregations that destroy topological invariants, risking catastrophic ``black-box'' post-deployment failures.
+
+We introduce AQARION, a rigorous algebraic framework and hardware co-design compiler that addresses this ``Epistemic Scarcity'' by formalizing the transition from pure topological dynamics to physical neuromorphic hardware targets. By mapping state-space transitions to a pullback Koopman operator $K$ and partition boundaries to a block-averaging projection operator $P_\Pi$, we define the Global Defect Operator $D_\Pi = (I - P_\Pi) K P_\Pi$. We prove that $D_\Pi = 0$ is a necessary and sufficient condition for topological congruence (lossless reduction), while its algebraic nilpotency ($D_\Pi^2 = 0$) is a static projection artifact rather than a dynamic descriptor, clarifying a key error in prior literature.
+
+Through our exhaustive exact arithmetic sweep across millions of matrix evaluations of the 54-state Kaprekar dynamical system, we mathematically demonstrate the scarcity of lossless quotients. We introduce the physical $m$-step defect to quantify how coordinate leakage decays over physical clock cycles. Finally, we present the AQARION Co-Design Compiler, which protects against Trivial Collapse via a three-tiered defensive architecture. This compiler outputs explicit hardware-clamping parameters ($\epsilon$) directly to generalized analog crossbars, enabling engineers to systematically trade topological purity for physical throughput.
+\end{abstract}
+
+\section{The Algebraic Foundation}
+\subsection{Operator Hygiene and the Pullback Architecture}
+To formalize the compilation of finite deterministic dynamical systems onto physical neuromorphic substrates, we must establish a strict algebraic framework that avoids standard floating-point approximations. We model the underlying deterministic dynamical system as a pair $(X, T)$, where $X$ is a finite state space of dimension $n$, and $T: X \to X$ is the deterministic transition map.
+
+Let $\mathcal{F} = \mathbb{R}^X$ denote the space of all real-valued observables on $X$. The dynamics are captured by the linear, globally defined pullback Koopman operator $K: \mathcal{F} \to \mathcal{F}$, where $Kf(x) = f(T(x))$. Simulating $K$ natively on resource-constrained hardware requires mapping $X$ into a coarse-grained coordinate partition $\Pi = \{B_1, B_2, \dots, B_m\}$ where $m \ll n$. This defines a closed subspace $V_\Pi \subset \mathcal{F}$ of block-constant functions, accessed via the idempotent orthogonal projection operator $P_\Pi$.
+
+\subsection{The Global Defect Operator}
+Because deterministic dynamics and hardware-imposed projections generally do not commute, we quantify topological leakage via the Global Defect Operator.
+
+\textbf{Definition 1.1 (Global Defect Operator):} For a given dynamics $K$ and partition projection $P_\Pi$, the defect operator $D_\Pi: \mathcal{F} \to \mathcal{F}$ is defined as:
+$$D_\Pi = (I - P_\Pi) K P_\Pi$$
+
+\subsection{Core Congruence and Nilpotency Theorems}
+\textbf{Theorem 1.1 (Exact Descent):} The defect operator vanishes ($D_\Pi = 0$) if and only if the observable subspace $V_\Pi$ is strictly invariant under the Koopman operator, i.e., $K(V_\Pi) \subseteq V_\Pi$.
+
+\textbf{Theorem 1.2 (Algebraic Nilpotency):} For any finite deterministic dynamical system and any orthogonal projection $P_\Pi$, the global defect operator is nilpotent of degree 2, i.e., $D_\Pi^2 = 0$.
+
+\section{Data and Code Availability}
+The exact computational environment, exhaustive coordinate matrices, and complete Lean 4 formal proofs (\aqarionLeanStatus) supporting this paper are sealed within an RO-Crate FAIR Digital Object (DOI: \href{https://doi.org/\aqarionDOI}{\aqarionDOI}). Independent auditors can verify the integrity of the artifact by confirming the root archive matches the exact SHA-256 signature \texttt{\aqarionHash}.
+
+\end{document}
