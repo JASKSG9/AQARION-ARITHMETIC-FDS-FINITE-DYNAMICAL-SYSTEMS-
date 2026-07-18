@@ -1,0 +1,29 @@
+{
+  "@context": [
+    "https://schema.org",
+    "https://w3id.org/ro/crate/1.1/context",
+    {
+      "aqarion": "https://aqarion.org/terms/",
+      "jordan": "https://aqarion.org/terms/jordan/"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "./",
+      "@type": "Dataset",
+      "aqarion:certificateType": "Type I",
+      "aqarion:congruenceStatus": "exact",
+      "aqarion:dimensionPhysical": 9990,
+      "aqarion:dimensionQuotient": 54,
+      "aqarion:nilpotencyIndex": 6,
+      "jordan:spectralProfile": "1^1, 0^{53}",
+      "jordan:maximalBlockSize": 6,
+      "jordan:blockDistribution": [6, 4, 3, 2, 1],
+      "aqarion:validationEnvironments": [
+        {"os": "Ubuntu 24.04 LTS", "arch": "x86_64", "status": "BIT_PERFECT"},
+        {"os": "macOS 15.4", "arch": "arm64", "status": "BIT_PERFECT"},
+        {"os": "Windows 11 WSL2", "arch": "x86_64", "status": "BIT_PERFECT"}
+      ]
+    }
+  ]
+}
