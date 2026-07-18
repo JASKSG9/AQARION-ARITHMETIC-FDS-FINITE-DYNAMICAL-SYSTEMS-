@@ -1,6 +1,6 @@
 # AQARION-ARITHMETIC — CHECKPOINT v11.0.0
 
-**Version:** v11.0.0 (Full Audit Edition)  
+**Version:** (Full Audit Edition)  
 **Date:** 2026-06-20  
 **Status:** Computational Track Complete · 4 Critical Corrections Applied  
 **Protocol:** Prove First · Predict Second · No Free Parameters  
