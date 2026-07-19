@@ -1,0 +1,98 @@
+{
+  "theorem": "Depth Reduction Theorem - Corrected",
+  "statements": {
+    "pure": "For single-attractor functional graph with attractor fixed point, nilpotency index of pure transient operator N_pure (edges to attractor dropped to 0) equals graph height H",
+    "augmented": "Nilpotency index of augmented operator N_aug (transient plus sink, edges to cycle mapped to sink) equals H+1",
+    "general": "For general functional graph, pure nilpotency = max height across components, augmented = max height +1"
+  },
+  "verification": {
+    "trials": 5000,
+    "nodes": 20,
+    "single_attractor": true,
+    "pure_rate": 1.0,
+    "augmented_rate": 1.0,
+    "method": "random_functional_graph with exact cycle detection and quotient operator as in quotient_estimate"
+  },
+  "counterexamples_to_old_claim": {
+    "old_claim": "nilpotency = height+1 for pure",
+    "failure_rate": 0.93,
+    "example": {
+      "T": [
+        6,
+        3,
+        8,
+        9,
+        8,
+        4,
+        7,
+        13,
+        8,
+        4,
+        8,
+        6,
+        4,
+        8,
+        8
+      ],
+      "height": 4,
+      "pure_nilpotency": 4,
+      "expected_old": 5
+    }
+  },
+  "dual_defect": {
+    "definition": {
+      "P": "averaging projection onto partition blocks: P[i,j]=1/|B| if i,j in same block",
+      "Kpull": "Koopman pullback: Kpull[i, T[i]]=1, (Kpull f)(x)=f(T(x))",
+      "Kpush": "Frobenius-Perron pushforward: Kpush = Kpull^T",
+      "Dpull": "(I-P) Kpull P",
+      "Dpush": "(I-P) Kpush P"
+    },
+    "interpretation": {
+      "Dpull=0": "partition is congruence: x~y => T(x)~T(y), forward dynamics respects coarse-graining",
+      "Dpush=0": "partition is balanced: indegree distribution uniform w.r.t blocks, backward reconstruction preserves coarse measure",
+      "asymmetry": "Delta = ||Dpull|| - ||Dpush|| measures irreversibility of information transport"
+    },
+    "examples": {
+      "finite_example_T0": {
+        "T": [
+          1,
+          2,
+          0,
+          3,
+          3,
+          4
+        ],
+        "partition": [
+          [
+            0,
+            1,
+            2
+          ],
+          [
+            3,
+            4,
+            5
+          ]
+        ],
+        "Dpull_op": 0.0,
+        "Dpush_op": 0.8164965809,
+        "interpretation": "pullback congruence holds (deterministic coarse dynamics), pushforward fails (non-uniform branching)"
+      },
+      "chain_0_to_1": {
+        "T": [
+          1,
+          1
+        ],
+        "partition_discrete": {
+          "Dpull": 0,
+          "Dpush": 0
+        },
+        "partition_coarse": {
+          "Dpull": 0,
+          "Dpush": 1.0
+        },
+        "interpretation": "coarse partition collapses fixed point with transient, forward still deterministic, backward loses mass conservation"
+      }
+    }
+  }
+}
