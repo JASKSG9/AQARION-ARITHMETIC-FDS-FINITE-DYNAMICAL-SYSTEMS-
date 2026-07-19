@@ -1,0 +1,17 @@
+{
+ "AQA_version":"12.9.0",
+ "system":"Kaprekar_D4",
+ "state_size":10000,
+ "max_height":6,
+ "level_profile":{
+    "0":1,
+    "1":53,
+    "2":...
+ },
+ "branching_entropy_estimate":0,
+ "quotient_estimate":54,
+ "compression_ratio":0.0054,
+ "certificate":{
+    "status":"PASS"
+ }
+}
