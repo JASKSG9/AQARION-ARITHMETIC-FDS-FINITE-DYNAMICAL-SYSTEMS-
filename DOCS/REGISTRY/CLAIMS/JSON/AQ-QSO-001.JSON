@@ -31,3 +31,17 @@
   "steady_state_physics": "ground |0><0| absorbing; coherences decay as (sqrt(3)/2)^t; excited (3/4)^t",
   "sha256": "sha256:8f4c2e917d3b6a8f1e0c5d4b3a2f1e9d8c7b6a5f4e3d2c1b0a9f8e7d6c5b4a3"
 }
+{
+  "status": "verified",
+  "verification_scope": [
+    "exact amplitude damping channel gamma=1/4",
+    "Liouville representation",
+    "spectral decomposition",
+    "transient/recurrent block separation"
+  ],
+  "not_claimed": [
+    "general quantum defect theorem",
+    "all CPTP channels",
+    "universal DFS classification"
+  ]
+}
