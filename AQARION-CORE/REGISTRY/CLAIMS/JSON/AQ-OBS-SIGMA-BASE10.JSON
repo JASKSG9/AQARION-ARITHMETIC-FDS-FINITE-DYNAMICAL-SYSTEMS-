@@ -1,0 +1,132 @@
+[
+  {
+    "claim_id": "AQ-OBS-SIGMA-BASE10",
+    "title": "Base-10 Kaprekar depth standard deviation is numerically close to sqrt(pi)",
+    "statement": "For the base-10 four-digit Kaprekar system, the depth distribution over the 9,990 non-repdigit states yields a standard deviation numerically close to sqrt(pi); this is a base-10 empirical observation, not a universal theorem.",
+    "scope": {
+      "system": "4-digit Kaprekar map",
+      "base": 10,
+      "state_space": "non-repdigit, 9,990 states",
+      "metric": "depth standard deviation"
+    },
+    "state": "CERTIFIED",
+    "evidence_set": [
+      {
+        "evidence_id": "EV-SIGMA-BASE10-EXHAUSTIVE",
+        "kind": "EXHAUSTIVE",
+        "description": "Exhaustive base-10 computation over the non-repdigit Kaprekar quotient.",
+        "artifact": "output/closure_experiment/dashboard.html",
+        "hash": null
+      },
+      {
+        "evidence_id": "EV-SIGMA-BASE10-TABLE",
+        "kind": "COMPUTATIONAL",
+        "description": "Cross-base sweep showing base-10 near sqrt(pi) while other bases deviate.",
+        "artifact": "DOCS/PYTHON/CHECKPOINT.TXT",
+        "hash": null
+      }
+    ],
+    "strongest_kind": "EXHAUSTIVE",
+    "weakest_kind": "COMPUTATIONAL",
+    "certification_status": "ACCEPTED",
+    "validator_set": [
+      "numerical-recomputation",
+      "cross-base-counterexample-sweep"
+    ],
+    "parent_claims": [],
+    "supersedes": [],
+    "superseded_by": [],
+    "quarantine_reason": null,
+    "kill_reason": null,
+    "provenance_log": [
+      {
+        "timestamp": "2026-07-20T14:02:00-04:00",
+        "actor": "registry-updater",
+        "event": "created",
+        "reason": "Certified base-10 empirical observation from exhaustive recomputation"
+      },
+      {
+        "timestamp": "2026-07-20T14:02:00-04:00",
+        "actor": "registry-updater",
+        "event": "evidence-attached",
+        "reason": "Added exhaustive and computational evidence records"
+      }
+    ],
+    "publication_eligibility": {
+      "siam": false,
+      "arxiv": true,
+      "osf": true,
+      "ro_crate": true,
+      "zenodo": true
+    },
+    "tags": [
+      "Kaprekar",
+      "depth",
+      "empirical",
+      "base-10",
+      "sigma"
+    ]
+  },
+  {
+    "claim_id": "AQ-CLAIM-SIGMA-UNIVERSAL",
+    "title": "Depth standard deviation equals sqrt(pi) for all bases",
+    "statement": "For all bases b, the Kaprekar depth standard deviation satisfies sigma = sqrt(pi).",
+    "scope": {
+      "system": "4-digit Kaprekar map",
+      "base": "all bases",
+      "state_space": "all corresponding quotient systems",
+      "metric": "depth standard deviation"
+    },
+    "state": "KILLED",
+    "evidence_set": [
+      {
+        "evidence_id": "EV-SIGMA-COUNTEREXAMPLE-SWEEP",
+        "kind": "EXHAUSTIVE",
+        "description": "Cross-base sweep showing many bases with sigma/sqrt(pi) far from 1.",
+        "artifact": "DOCS/PYTHON/CHECKPOINT.TXT",
+        "hash": null
+      }
+    ],
+    "strongest_kind": "EXHAUSTIVE",
+    "weakest_kind": "EXHAUSTIVE",
+    "certification_status": "REJECTED",
+    "validator_set": [
+      "cross-base-counterexample-sweep"
+    ],
+    "parent_claims": [
+      "AQ-OBS-SIGMA-BASE10"
+    ],
+    "supersedes": [],
+    "superseded_by": [],
+    "quarantine_reason": null,
+    "kill_reason": "Counterexample sweep shows the claim fails outside base 10; universality rejected.",
+    "provenance_log": [
+      {
+        "timestamp": "2026-07-20T14:02:00-04:00",
+        "actor": "registry-updater",
+        "event": "created",
+        "reason": "Universal version contradicted by cross-base exhaustive sweep"
+      },
+      {
+        "timestamp": "2026-07-20T14:02:00-04:00",
+        "actor": "registry-updater",
+        "event": "killed",
+        "reason": "Marked permanently invalid after counterexample table"
+      }
+    ],
+    "publication_eligibility": {
+      "siam": false,
+      "arxiv": false,
+      "osf": true,
+      "ro_crate": true,
+      "zenodo": true
+    },
+    "tags": [
+      "Kaprekar",
+      "depth",
+      "universal-claim",
+      "counterexample",
+      "killed"
+    ]
+  }
+]
