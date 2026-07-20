@@ -1,0 +1,33 @@
+{
+  "claim_id": "AQ-QSO-001",
+  "version": "v22.3",
+  "channel": "amplitude_damping",
+  "gamma": "1/4",
+  "superop_exact": "[[1,0,0,1/4],[0,sqrt(3)/2,0,0],[0,0,sqrt(3)/2,0],[0,0,0,3/4]]",
+  "eigenvalues": {
+    "1": 1,
+    "3/4": 1,
+    "sqrt(3)/2": 2
+  },
+  "charpoly_factored": "(λ-1)(4λ-3)(4λ²-4√3λ+3)/16",
+  "jordan_diagonal": true,
+  "cptp_verified": true,
+  "rank_D_ground_state": 0,
+  "rank_D_diagonal_subspace": 0,
+  "aq001_instance": "D_Q=0 — ground state |0><0| is E-invariant. AQ-001 VERIFIED.",
+  "bugs_fixed": [
+    "sp.tensorproduct→sp.kronecker_product",
+    "M.rational_form() DNE→M.jordan_form()",
+    "M.inv_factors() DNE",
+    "M.minpoly() DNE→M.charpoly()"
+  ],
+  "overclaim_killed": "quantum decoherence structurally isomorphic to classical defects — LAYER C only",
+  "classification": {
+    "ground_state_D0": "verified",
+    "dfs_claim": "research",
+    "isomorphism_claim": "Layer_C_exploration_only"
+  },
+  "constitution": "v3.1",
+  "steady_state_physics": "ground |0><0| absorbing; coherences decay as (sqrt(3)/2)^t; excited (3/4)^t",
+  "sha256": "sha256:8f4c2e917d3b6a8f1e0c5d4b3a2f1e9d8c7b6a5f4e3d2c1b0a9f8e7d6c5b4a3"
+}
