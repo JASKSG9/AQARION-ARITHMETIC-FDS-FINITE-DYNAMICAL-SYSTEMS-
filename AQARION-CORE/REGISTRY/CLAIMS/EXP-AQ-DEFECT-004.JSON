@@ -1,0 +1,16 @@
+{
+  "id": "EXP-AQ-DEFECT-004",
+  "type": "other",
+  "state": "ACTIVE",
+  "evidence": "COMPUTATIONAL",
+  "artifact": "defect_reports.json",
+  "description": "AQARION defect-operator analysis across Mandelbrot row, Kaprekar τ-levels, and affine radius partition.",
+  "lineage": {
+    "derived_from": ["EXP-AQ-MANDELBROT-001", "EXP-AQ-KAPREKAR-002", "EXP-AQ-AFFINE-003"]
+  },
+  "metadata": {
+    "mandelbrot_1d_row": "APPROXIMATE, low-rank structured leakage",
+    "kaprekar_tau_levels": "EXACT closure under identity observable",
+    "affine_radius_partition": "APPROXIMATE, structured leakage"
+  }
+}
