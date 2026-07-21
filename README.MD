@@ -16998,5 +16998,6 @@ Authority: AQARION Core
 
 Node: #10878
 
+An evidence-governed framework for certifying observable quotients of dynamical systems through defect operators, reproducible computation, and explicit separation between theorem-level statements and empirical evidence.
 
 ################################################################################
