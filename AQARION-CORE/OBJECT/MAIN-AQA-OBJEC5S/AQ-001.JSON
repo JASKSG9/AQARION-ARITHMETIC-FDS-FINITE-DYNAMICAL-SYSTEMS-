@@ -1,0 +1,36 @@
+{
+  "object_id": "J27-AQ-001",
+  "object_type": "AQAObject",
+  "version": "1.0.0",
+  "system": {
+    "states": [],
+    "transition_map": []
+  },
+  "observable": {
+    "type": "user_defined",
+    "function": null
+  },
+  "partition": {
+    "blocks": []
+  },
+  "operators": {
+    "projection": "P",
+    "koopman": "K",
+    "defect": "D=(I-P)KP",
+    "quotient": "Q=PKP"
+  },
+  "invariants": {
+    "rank_D": null,
+    "stable_rank": null,
+    "operator_norm": null,
+    "exact_descent": null
+  },
+  "evidence": {
+    "P": [],
+    "FV": [],
+    "CV": [],
+    "RV": [],
+    "EX": [],
+    "KH": []
+  }
+}
