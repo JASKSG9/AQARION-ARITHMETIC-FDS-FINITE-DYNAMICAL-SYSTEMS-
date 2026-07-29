@@ -1,0 +1,48 @@
+{
+  "artifact": {
+    "id": "AQ-CERT-DEFECTGAP-001",
+    "version": "2.0",
+    "timestamp_utc_epoch": 1774742400
+  },
+  "claim": {
+    "statement": "Finite Exhaustive Verification of Non-Zero Frobenius Defect Gap n <= 6",
+    "claim_type": "ComputationalCertificate"
+  },
+  "domain": {
+    "max_n": 6,
+    "total_endofunctions": 46656,
+    "total_partitions": 203,
+    "total_pairs_evaluated": 9471168,
+    "rustc_architecture": "x86_64"
+  },
+  "results": {
+    "non_zero_defect_evaluations": 9182304,
+    "gap_violations": 0,
+    "minimum_squared_norm_rational": {
+      "numerator": 3,
+      "denominator": 8
+    },
+    "minimum_norm_f64": 0.6123724356957945,
+    "execution_time_seconds": 0.2841,
+    "sha256_witness_hash": "b8a361e27142fa9165d21a719c6395e92182ef45b591b34381014a97401569a4"
+  },
+  "witness": {
+    "n": 6,
+    "transition_map_t": [0, 0, 1, 2, 3, 4],
+    "partition": {
+      "raw_blocks": [
+        [0, 1],
+        [2],
+        [3],
+        [4],
+        [5]
+      ],
+      "cardinalities": [2, 1, 1, 1, 1]
+    },
+    "frobenius_norm_sq_rational": {
+      "numerator": 3,
+      "denominator": 8
+    },
+    "frobenius_norm_f64": 0.6123724356957945
+  }
+}
