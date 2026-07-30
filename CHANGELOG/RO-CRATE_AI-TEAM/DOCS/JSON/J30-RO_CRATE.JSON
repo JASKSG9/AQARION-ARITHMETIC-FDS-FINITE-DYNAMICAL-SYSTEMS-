@@ -1,0 +1,272 @@
+{
+  "@context": "https://w3id.org/ro/crate/1.1/context",
+  "@graph": [
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "conformsTo": {
+        "@id": "https://w3id.org/ro/crate/1.1"
+      },
+      "about": {
+        "@id": "./"
+      }
+    },
+    {
+      "@id": "./",
+      "@type": [
+        "Dataset",
+        "ResearchProject"
+      ],
+      "name": "AQARION v31.4 — Unified Theory of Observable Defect Geometry",
+      "identifier": "urn:sha256:f53844fc92de1d8771be993fa54e93fc01a15b8112080c192d13f607d87756b4",
+      "version": "31.4",
+      "datePublished": "2026-07-29",
+      "license": {
+        "@id": "https://spdx.org/licenses/MIT.html"
+      },
+      "creator": {
+        "@id": "#aqarion-research-node"
+      },
+      "description": "A reproducible research framework for studying observable quotient structures and defect operators in finite deterministic dynamical systems, combining mathematical analysis, Lean 4 formalization, computational certificates, reproducible experiments, and manuscript artifacts.",
+      "keywords": [
+        "finite dynamical systems",
+        "observable quotient theory",
+        "observable partitions",
+        "defect operators",
+        "Koopman operators",
+        "semiconjugacy",
+        "transformation semigroups",
+        "formal verification",
+        "Lean 4",
+        "computational mathematics",
+        "statistical mechanics"
+      ],
+      "subjectOf": {
+        "@id": "README.md"
+      },
+      "softwareRequirements": [
+        {
+          "name": "Lean 4",
+          "version": "4.x"
+        },
+        {
+          "name": "Mathlib",
+          "version": "v4.x"
+        },
+        {
+          "name": "Python",
+          "version": "3.11"
+        }
+      ],
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "Evidence Classification",
+          "value": "T — Theoretical; F — Formalized; C — Certified Computational; E — Experimental; H — Hypothesis"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Research Status",
+          "value": "Level I exact identities established; Level II extremal bounds established; Level III statistical scaling under active investigation"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Reproducibility Standard",
+          "value": "Source code, formal proofs, certificates, datasets, manuscript artifacts, and hashes linked"
+        }
+      ],
+      "hasPart": [
+        {
+          "@id": "Lean4/AQARION_Core.lean"
+        },
+        {
+          "@id": "certificates/AQ-CERT-v31.4.json"
+        },
+        {
+          "@id": "data/collapse_test.json"
+        },
+        {
+          "@id": "data/uniform_k.json"
+        },
+        {
+          "@id": "data/ewens_S2.json"
+        },
+        {
+          "@id": "notebooks/extremal_maxrank.py"
+        },
+        {
+          "@id": "notebooks/ewens_crp_check.py"
+        },
+        {
+          "@id": "notebooks/map_f_beta.py"
+        },
+        {
+          "@id": "papers/paper5_foundations.tex"
+        },
+        {
+          "@id": "papers/paper3_scaling.tex"
+        },
+        {
+          "@id": "verification/reproduce.sh"
+        },
+        {
+          "@id": "CHANGELOG/DOCS/JSON/J30-RO_CRATE.JSON"
+        }
+      ]
+    },
+    {
+      "@id": "#aqarion-research-node",
+      "@type": "Organization",
+      "name": "AQARION Research Node"
+    },
+    {
+      "@id": "README.md",
+      "@type": "DigitalDocument",
+      "name": "AQARION Research Object Index",
+      "description": "Human-readable research object overview generated from RO-Crate metadata."
+    },
+    {
+      "@id": "verification/reproduce.sh",
+      "@type": "SoftwareSourceCode",
+      "name": "AQARION Reproducibility Pipeline",
+      "programmingLanguage": "Shell",
+      "description": "One-command reproducibility workflow for rebuilding computational artifacts, validating certificates, and checking expected outputs."
+    },
+    {
+      "@id": "Lean4/AQARION_Core.lean",
+      "@type": "SoftwareSourceCode",
+      "name": "AQARION Lean 4 Core Formalization",
+      "programmingLanguage": {
+        "@type": "ComputerLanguage",
+        "name": "Lean 4"
+      },
+      "runtimePlatform": "Lean 4 + Mathlib",
+      "description": "Machine-checked formalization of AQARION core mathematical identities.",
+      "additionalProperty": {
+        "@type": "PropertyValue",
+        "name": "Evidence Level",
+        "value": "F — Formalized"
+      },
+      "isReferencedBy": {
+        "@id": "papers/paper5_foundations.tex"
+      }
+    },
+    {
+      "@id": "certificates/AQ-CERT-v31.4.json",
+      "@type": "Dataset",
+      "name": "AQARION v31.4 Computational Certificate",
+      "encodingFormat": "application/json",
+      "description": "Machine-readable certificate linking theorem statements, verification outputs, hashes, datasets, and reproducibility metadata.",
+      "additionalProperty": {
+        "@type": "PropertyValue",
+        "name": "Evidence Level",
+        "value": "C — Certified Computational"
+      },
+      "isReferencedBy": {
+        "@id": "README.md"
+      }
+    },
+    {
+      "@id": "data/collapse_test.json",
+      "@type": "Dataset",
+      "name": "Level III Scaling Sweep Dataset",
+      "description": "Computational sweep measuring scaling behavior across finite system realizations.",
+      "additionalProperty": {
+        "@type": "PropertyValue",
+        "name": "Evidence Level",
+        "value": "C/E — Certified Computational and Experimental"
+      }
+    },
+    {
+      "@id": "data/uniform_k.json",
+      "@type": "Dataset",
+      "name": "Uniform Partition Baseline Dataset",
+      "description": "Baseline measurements for fixed-density partition ensembles.",
+      "additionalProperty": {
+        "@type": "PropertyValue",
+        "name": "Evidence Level",
+        "value": "C — Certified Computational"
+      }
+    },
+    {
+      "@id": "data/ewens_S2.json",
+      "@type": "Dataset",
+      "name": "Ewens S2 Collision Probability Dataset",
+      "description": "Partition statistics generated from Ewens and Chinese Restaurant Process ensembles.",
+      "additionalProperty": {
+        "@type": "PropertyValue",
+        "name": "Evidence Level",
+        "value": "E — Experimental"
+      }
+    },
+    {
+      "@id": "notebooks/extremal_maxrank.py",
+      "@type": "SoftwareSourceCode",
+      "name": "Extremal Rank Verification Notebook",
+      "programmingLanguage": "Python 3.11",
+      "description": "Computational verification of extremal defect rank bounds.",
+      "isReferencedBy": {
+        "@id": "papers/paper5_foundations.tex"
+      }
+    },
+    {
+      "@id": "notebooks/ewens_crp_check.py",
+      "@type": "SoftwareSourceCode",
+      "name": "Ewens CRP Statistical Validation",
+      "programmingLanguage": "Python 3.11",
+      "description": "Statistical comparison between partition ensembles and S2-based scaling behavior.",
+      "isReferencedBy": {
+        "@id": "papers/paper3_scaling.tex"
+      }
+    },
+    {
+      "@id": "notebooks/map_f_beta.py",
+      "@type": "SoftwareSourceCode",
+      "name": "F(beta) Scaling Map Solver",
+      "programmingLanguage": "Python 3.11",
+      "description": "Computational analysis of proposed scaling envelopes and critical parameter regions.",
+      "isReferencedBy": {
+        "@id": "papers/paper3_scaling.tex"
+      }
+    },
+    {
+      "@id": "papers/paper5_foundations.tex",
+      "@type": "DigitalDocument",
+      "name": "Theoretical Foundations of Observable Defect Geometry",
+      "encodingFormat": "application/x-tex",
+      "description": "Manuscript covering observable quotients, defect operators, and extremal geometry.",
+      "mentions": [
+        {
+          "@id": "Lean4/AQARION_Core.lean"
+        },
+        {
+          "@id": "notebooks/extremal_maxrank.py"
+        }
+      ]
+    },
+    {
+      "@id": "papers/paper3_scaling.tex",
+      "@type": "DigitalDocument",
+      "name": "Statistical Mechanics and S2 Scaling Laws",
+      "encodingFormat": "application/x-tex",
+      "description": "Manuscript analyzing statistical scaling behavior and ensemble dependence.",
+      "mentions": [
+        {
+          "@id": "data/ewens_S2.json"
+        },
+        {
+          "@id": "notebooks/ewens_crp_check.py"
+        },
+        {
+          "@id": "notebooks/map_f_beta.py"
+        }
+      ]
+    },
+    {
+      "@id": "CHANGELOG/DOCS/JSON/J30-RO_CRATE.JSON",
+      "@type": "DigitalDocument",
+      "name": "AQARION RO-Crate Evolution Record",
+      "description": "Version history and metadata evolution for AQARION research object packaging."
+    }
+  ]
+}
