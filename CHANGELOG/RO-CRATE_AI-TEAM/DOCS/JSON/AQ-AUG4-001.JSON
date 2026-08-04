@@ -1,0 +1,379 @@
+{
+  "@context": [
+    "https://w3id.org/ro/crate/1.1/context",
+    {
+      "@vocab": "https://schema.org/",
+      "aq": "https://aqarion.org/ns#",
+      "EvidenceClass": "aq:EvidenceClass",
+      "theorem": "aq:theorem",
+      "verified": "aq:verified",
+      "empirical": "aq:empirical",
+      "conjecture": "aq:conjecture"
+    }
+  ],
+  "@graph": [
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "about": { "@id": "./" },
+      "conformsTo": { "@id": "https://w3id.org/ro/crate/1.1" },
+      "description": "RO-Crate metadata for the AQARION Observable Quotient research package (v42 snapshot, 2026-08-04).",
+      "encodingFormat": "application/ld+json",
+      "license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }
+    },
+    {
+      "@id": "./",
+      "@type": ["Dataset", "ResearchProject"],
+      "name": "AQARION — Observable Quotient Theory for Finite Dynamical Systems",
+      "alternateName": ["AQARION v42 Research Object", "Observable Defect Operator Framework"],
+      "description": "Research package for exact and approximate observable quotients of finite deterministic dynamical systems. Central object is the defect operator D_Π = (I − P_Π) K P_Π. Package contains definitions, computational certificates, empirical Ulam/gradient experiments, modularity analysis, quantum-DFS analogy notes, and adversarial status locks. Evidence classes are explicit: Theorem / Verified computation / Empirical / Conjecture.",
+      "datePublished": "2026-08-04",
+      "version": "42.0-snapshot",
+      "license": { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+      "keywords": [
+        "Koopman operator",
+        "observable quotient",
+        "defect operator",
+        "congruence lattice",
+        "principal angles",
+        "Ulam approximation",
+        "exact partition",
+        "mono-unary algebra",
+        "modularity",
+        "decoherence-free subspace analogy"
+      ],
+      "creator": { "@id": "#creator" },
+      "publisher": { "@id": "#publisher" },
+      "hasPart": [
+        { "@id": "docs/" },
+        { "@id": "scripts/" },
+        { "@id": "certificates/" },
+        { "@id": "figures/" },
+        { "@id": "data/" },
+        { "@id": "README.md" },
+        { "@id": "MANIFEST.sha256" },
+        { "@id": "EVIDENCE_CLASSES.md" }
+      ],
+      "mainEntity": { "@id": "#core-defect-operator" },
+      "about": [
+        { "@id": "#core-defect-operator" },
+        { "@id": "#exactness-theorem" },
+        { "@id": "#congruence-correspondence" },
+        { "@id": "#principal-angle-identity" },
+        { "@id": "#continuous-defect-conjecture" },
+        { "@id": "#quantum-dfs-analogy" }
+      ]
+    },
+
+    {
+      "@id": "#creator",
+      "@type": "Organization",
+      "name": "AQARION Research Program",
+      "url": "https://aqarion.org"
+    },
+    {
+      "@id": "#publisher",
+      "@type": "Organization",
+      "name": "AQARION Academy (research snapshot)",
+      "description": "Internal research packaging; not a formal publisher."
+    },
+
+    {
+      "@id": "#core-defect-operator",
+      "@type": ["ScholarlyArticle", "DefinedTerm"],
+      "name": "Observable Defect Operator",
+      "description": "D_Π = (I − P_Π) K P_Π, where K is the Koopman (pullback) operator and P_Π is the orthogonal projector onto functions constant on blocks of partition Π. Measures leakage of observables out of the observable subspace after one dynamical step.",
+      "identifier": "AQ-DEF-001",
+      "aq:EvidenceClass": "theorem",
+      "keywords": ["defect operator", "Koopman", "observable subspace"]
+    },
+    {
+      "@id": "#exactness-theorem",
+      "@type": "ScholarlyArticle",
+      "name": "Exactness Criterion",
+      "description": "D_Π = 0 if and only if K(V_Π) ⊆ V_Π, where V_Π = Im(P_Π). Algebraic consequence of the definition when P_Π is an orthogonal projector.",
+      "identifier": "AQ-THM-EXACT",
+      "aq:EvidenceClass": "theorem"
+    },
+    {
+      "@id": "#congruence-correspondence",
+      "@type": "ScholarlyArticle",
+      "name": "Congruence Correspondence (Paper I centerpiece)",
+      "description": "Claim: D_Π = 0 ⇔ Π ∈ Con(X,T) for a finite deterministic system (X,T). Algebraic direction is immediate; full dynamical chain (invariance → constant on blocks → well-defined quotient → congruence) requires a complete published proof.",
+      "identifier": "AQ-THM-CONG",
+      "aq:EvidenceClass": "verified",
+      "comment": "Strong but incomplete; full written proof still required."
+    },
+    {
+      "@id": "#principal-angle-identity",
+      "@type": "ScholarlyArticle",
+      "name": "Principal-Angle Identity (Frobenius form)",
+      "description": "Under the hypotheses that K is unitary (or isometric on the relevant subspace) and P is an orthogonal projector onto an r-dimensional subspace V, ||(I−P)KP||_F² = Σ sin² θ_i where θ_i are the principal angles between V and K(V). Operator-norm sibling δ(V)=sin θ_max appears independently in Haseli–Cortés (arXiv:2311.13033).",
+      "identifier": "AQ-THM-ANGLE",
+      "aq:EvidenceClass": "theorem",
+      "comment": "Standard geometry; publish with explicit hypotheses. Numeric verification at machine precision available."
+    },
+    {
+      "@id": "#continuous-defect-conjecture",
+      "@type": "ScholarlyArticle",
+      "name": "Continuous Defect Conjecture (AQ-CONJ-CONT-001)",
+      "description": "Conjecture relating Hilbert–Schmidt defect of an observable subspace to vanishing of a restricted Lyapunov spectrum. Supported by Ulam sweeps on quadratic maps (empirical correlation only). Not established as a theorem.",
+      "identifier": "AQ-CONJ-CONT-001",
+      "aq:EvidenceClass": "conjecture"
+    },
+    {
+      "@id": "#quantum-dfs-analogy",
+      "@type": "ScholarlyArticle",
+      "name": "Quantum Decoherence-Free Subspace Analogy",
+      "description": "Formal identity D = (I−P)UP is algebraically identical to the classical residual. Full CPTP / Kraus theory is not automatic. Status: plausible analogy, separate mathematical development required.",
+      "identifier": "AQ-Q-DFS",
+      "aq:EvidenceClass": "conjecture"
+    },
+
+    {
+      "@id": "docs/",
+      "@type": "Dataset",
+      "name": "Documentation and status locks",
+      "description": "Markdown documents locking adversarial audit status, DFS bridge, and Egorova modularity notes.",
+      "hasPart": [
+        { "@id": "docs/AQARION_V41_ADVERSARIAL_STATUS.md" },
+        { "@id": "docs/AQARION_DFS_DEFECT_BRIDGE.md" },
+        { "@id": "docs/AQARION_EGOROVA_MODULARITY.md" }
+      ]
+    },
+    {
+      "@id": "docs/AQARION_V41_ADVERSARIAL_STATUS.md",
+      "@type": "DigitalDocument",
+      "name": "AQARION v41 Adversarial Audit Status",
+      "encodingFormat": "text/markdown",
+      "description": "Locked status matrix separating proved, conditional, empirical, and conjectural claims after external-style adversarial review.",
+      "sha256": "4c3b5ebc22f16227fae3d47fa95be3a6153179fe21f5acbc4d43d0b4905567a5",
+      "aq:EvidenceClass": "verified"
+    },
+    {
+      "@id": "docs/AQARION_DFS_DEFECT_BRIDGE.md",
+      "@type": "DigitalDocument",
+      "name": "Classical–Quantum Defect Bridge",
+      "encodingFormat": "text/markdown",
+      "description": "Dictionary linking classical defect operator to decoherence-free subspace residual; two-qubit singlet/triplet checks.",
+      "sha256": "e06aa1366e231781ba922cea568c7959cdd0a1338b5078344b03cca3840e8d3b",
+      "aq:EvidenceClass": "empirical"
+    },
+    {
+      "@id": "docs/AQARION_EGOROVA_MODULARITY.md",
+      "@type": "DigitalDocument",
+      "name": "Egorova Modularity Notes",
+      "encodingFormat": "text/markdown",
+      "description": "Notes on Egorova classification of modular congruence lattices of mono-unary algebras and computational witnesses for non-modularity.",
+      "sha256": "8dceeb0077ca7199283c5d36aecd7adf79567d353e769ce52188ff2fbb4c6d7b",
+      "aq:EvidenceClass": "verified"
+    },
+
+    {
+      "@id": "scripts/",
+      "@type": "Dataset",
+      "name": "Executable scripts",
+      "description": "Python implementations for defect reformulations, gradient diagnostics, Ulam refinement, Union-Find partitions, and DFS prototype.",
+      "hasPart": [
+        { "@id": "scripts/aqarion_ulam_refinement.py" },
+        { "@id": "scripts/aqarion_defect_reformulations.py" },
+        { "@id": "scripts/aqarion_gradient_diagnostic_corrected.py" },
+        { "@id": "scripts/aqarion_gradient_norm_audit.py" },
+        { "@id": "scripts/aqarion_unionfind.py" },
+        { "@id": "scripts/aqarion_dfs_prototype.py" }
+      ]
+    },
+    {
+      "@id": "scripts/aqarion_ulam_refinement.py",
+      "@type": ["SoftwareSourceCode", "File"],
+      "name": "Ulam Mesh-Refinement Defect Spectrum",
+      "encodingFormat": "text/x-python",
+      "programmingLanguage": { "@id": "https://www.python.org/" },
+      "description": "Controlled Ulam/Galerkin experiment: nested box partitions, coarse projector, full defect spectrum (Frobenius, operator, nuclear, stable rank, entropy). Empirical only; no continuous conjecture claimed.",
+      "sha256": "46327d9e6c9f473301582a16087fd6e5478f637048f6e40e466637a8a80dced6",
+      "aq:EvidenceClass": "empirical"
+    },
+    {
+      "@id": "scripts/aqarion_defect_reformulations.py",
+      "@type": ["SoftwareSourceCode", "File"],
+      "name": "Defect Loss Reformulations for Stronger Gradients",
+      "encodingFormat": "text/x-python",
+      "description": "Alternative soft defect losses (within-block consistency, direct fixed-point residual, scaled residual) and gradient-norm audit versus reconstruction loss.",
+      "sha256": "2d74b7903853202bf9758d4b63bf0029ef2b19811fab82f86047717aed46fa13",
+      "aq:EvidenceClass": "empirical"
+    },
+    {
+      "@id": "scripts/aqarion_gradient_diagnostic_corrected.py",
+      "@type": ["SoftwareSourceCode", "File"],
+      "name": "Corrected Gradient Diagnostic Sweep",
+      "encodingFormat": "text/x-python",
+      "description": "Separate backward passes for reconstruction, dynamics, and defect losses; reports full/encoder ratios and absolute head norms.",
+      "sha256": "9307d0d0a0bf9530c626f09d81c253deb434245fb7604db80688c08dca26139e",
+      "aq:EvidenceClass": "empirical"
+    },
+    {
+      "@id": "scripts/aqarion_gradient_norm_audit.py",
+      "@type": ["SoftwareSourceCode", "File"],
+      "name": "Gradient-Norm Audit (legacy)",
+      "encodingFormat": "text/x-python",
+      "sha256": "20bcb071a96d6a3144f89ee1b8bde483afd8b768c1826e5a04ea5755856e785c",
+      "aq:EvidenceClass": "empirical"
+    },
+    {
+      "@id": "scripts/aqarion_unionfind.py",
+      "@type": ["SoftwareSourceCode", "File"],
+      "name": "Union-Find Partition Join/Meet",
+      "encodingFormat": "text/x-python",
+      "description": "Path-compression + union-by-rank implementation for partition join (finest common coarsening) and meet.",
+      "sha256": "509f5c7bdd8b0fa3b6b26644f325f30d823cb889b1d533cfbeac28ba55b62593",
+      "aq:EvidenceClass": "verified"
+    },
+    {
+      "@id": "scripts/aqarion_dfs_prototype.py",
+      "@type": ["SoftwareSourceCode", "File"],
+      "name": "Quantum DFS Prototype (two-qubit collective noise)",
+      "encodingFormat": "text/x-python",
+      "description": "Sanity checks that singlet and triplet subspaces are decoherence-free under collective spin operators; product states leak.",
+      "sha256": "394bbf4a7af311ca47db9e546ec998138d2c5f4632d9231cabab25365339ad1b",
+      "aq:EvidenceClass": "empirical"
+    },
+
+    {
+      "@id": "certificates/",
+      "@type": "Dataset",
+      "name": "Computational certificates (JSON)",
+      "description": "SHA-pinned JSON results for Ulam refinement, gradient diagnostics, defect reformulation audit, and DFS prototype.",
+      "hasPart": [
+        { "@id": "certificates/aqarion_ulam_refinement_certificate.json" },
+        { "@id": "certificates/aqarion_dfs_prototype_certificate.json" },
+        { "@id": "certificates/defect_reformulation_audit.json" },
+        { "@id": "certificates/gradient_diagnostic_corrected.json" }
+      ]
+    },
+    {
+      "@id": "certificates/aqarion_ulam_refinement_certificate.json",
+      "@type": "File",
+      "name": "Ulam Refinement Certificate",
+      "encodingFormat": "application/json",
+      "description": "Empirical defect spectrum vs N for logistic r=4 and quadratic period-2 window. SHA of body recorded inside file.",
+      "sha256": "20638bcfb08c3e1030bf6bbd15f086d6e5d203267b0c16b56862587ed9827dc4",
+      "aq:EvidenceClass": "empirical"
+    },
+    {
+      "@id": "certificates/aqarion_dfs_prototype_certificate.json",
+      "@type": "File",
+      "name": "DFS Prototype Certificate",
+      "encodingFormat": "application/json",
+      "sha256": "e0f7fe344dbe9f330356cad101baf7e7e357318dce35ecd5baca0b6a188c9ea6",
+      "aq:EvidenceClass": "empirical"
+    },
+    {
+      "@id": "certificates/defect_reformulation_audit.json",
+      "@type": "File",
+      "name": "Defect Reformulation Audit Results",
+      "encodingFormat": "application/json",
+      "sha256": "e47ece2e64c53010e0cb7dc6ba3f997bc1cefb56893b0ee624676e9c503a8975",
+      "aq:EvidenceClass": "empirical"
+    },
+    {
+      "@id": "certificates/gradient_diagnostic_corrected.json",
+      "@type": "File",
+      "name": "Gradient Diagnostic Sweep Results",
+      "encodingFormat": "application/json",
+      "sha256": "65c59051dab5e0af72f1491a9a45f157fbdc30aa00da3040643ca21ec15418db",
+      "aq:EvidenceClass": "empirical"
+    },
+
+    {
+      "@id": "figures/",
+      "@type": "Dataset",
+      "name": "Figures",
+      "hasPart": [
+        { "@id": "figures/aqarion_ulam_refinement.png" },
+        { "@id": "figures/defect_reformulation_audit.png" },
+        { "@id": "figures/gradient_diagnostic_corrected.png" },
+        { "@id": "figures/gradient_ratio_audit.png" }
+      ]
+    },
+    {
+      "@id": "figures/aqarion_ulam_refinement.png",
+      "@type": ["ImageObject", "File"],
+      "name": "Ulam Refinement Defect Spectrum Plot",
+      "encodingFormat": "image/png",
+      "sha256": "f632c2f5617e6d21ee362eb749ccb659076ef4399449dbfff00dfd0e12487958",
+      "aq:EvidenceClass": "empirical"
+    },
+    {
+      "@id": "figures/defect_reformulation_audit.png",
+      "@type": ["ImageObject", "File"],
+      "name": "Defect Reformulation Gradient Comparison",
+      "encodingFormat": "image/png",
+      "sha256": "a28c6b43114c75849a17001a67ed32fc4b7ef46e33ccf13353056eb5179ef1bb",
+      "aq:EvidenceClass": "empirical"
+    },
+    {
+      "@id": "figures/gradient_diagnostic_corrected.png",
+      "@type": ["ImageObject", "File"],
+      "name": "Gradient Diagnostic Sweep Plots",
+      "encodingFormat": "image/png",
+      "sha256": "d2532133e7b4f06024195cb2298fc0451bd2a42a5e55d197d379222d4d3a6c5a",
+      "aq:EvidenceClass": "empirical"
+    },
+    {
+      "@id": "figures/gradient_ratio_audit.png",
+      "@type": ["ImageObject", "File"],
+      "name": "Gradient Ratio Audit (legacy)",
+      "encodingFormat": "image/png",
+      "sha256": "9e791f6725542a2fa42d37d08f08267a60361f97284a382335704edf00caa5bf",
+      "aq:EvidenceClass": "empirical"
+    },
+
+    {
+      "@id": "data/",
+      "@type": "Dataset",
+      "name": "Data (reserved)",
+      "description": "Placeholder for future large tabular dumps (Kaprekar enumerations, Ulam matrices). Current certificates embed small result tables."
+    },
+
+    {
+      "@id": "README.md",
+      "@type": "DigitalDocument",
+      "name": "RO-Crate README",
+      "encodingFormat": "text/markdown",
+      "description": "Human-readable entry point for the research object."
+    },
+    {
+      "@id": "MANIFEST.sha256",
+      "@type": "File",
+      "name": "SHA-256 Manifest",
+      "encodingFormat": "text/plain",
+      "description": "One hash per file under the crate root (excluding the metadata file itself when re-hashed)."
+    },
+    {
+      "@id": "EVIDENCE_CLASSES.md",
+      "@type": "DigitalDocument",
+      "name": "Evidence Class Legend",
+      "encodingFormat": "text/markdown",
+      "description": "Defines the four evidence tags used throughout the crate: theorem, verified, empirical, conjecture."
+    },
+
+    {
+      "@id": "https://creativecommons.org/licenses/by/4.0/",
+      "@type": "CreativeWork",
+      "name": "Creative Commons Attribution 4.0 International",
+      "identifier": "CC-BY-4.0"
+    },
+    {
+      "@id": "https://w3id.org/ro/crate/1.1",
+      "@type": "CreativeWork",
+      "name": "RO-Crate 1.1",
+      "url": "https://www.researchobject.org/ro-crate/1.1/"
+    },
+    {
+      "@id": "https://www.python.org/",
+      "@type": "ComputerLanguage",
+      "name": "Python",
+      "version": "3.x"
+    }
+  ]
+}
