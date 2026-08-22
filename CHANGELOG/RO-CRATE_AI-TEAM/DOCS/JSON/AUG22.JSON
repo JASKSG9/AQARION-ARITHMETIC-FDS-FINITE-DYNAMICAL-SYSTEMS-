@@ -1,0 +1,70 @@
+{
+  "@context": "https://w3id.org/ro/crate/1.2/context",
+  "@graph": [
+    {
+      "@id": "ro-crate-metadata.json",
+      "@type": "CreativeWork",
+      "conformsTo": {
+        "@id": "https://w3id.org/ro/crate/1.2"
+      },
+      "about": {
+        "@id": "./"
+      },
+      "name": "RO-Crate metadata for AQARION v2.4-RESTORED",
+      "description": "Machine-readable metadata for single-file Q-core deliverable with status-aware taxonomy."
+    },
+    {
+      "@id": "./",
+      "@type": "Dataset",
+      "name": "AQARION v2.4-RESTORED: Q-core frozen single-file Lean",
+      "description": "Open research artifact with Partition:=Setoid, U Pi, K_T, IsCongruent, averagingProjection IsProj via LinearMap.IsProj, pairing symmetry bilinear, defect D=(I-P)KP square-zero D^2=0 via PQ=0, AQ-EXACT-001 D=0 iff congruent, operator atlas, PK2P decomposition, dual transport.",
+      "datePublished": "2026-08-22",
+      "version": "2.4-RESTORED",
+      "license": {
+        "@id": "https://opensource.org/license/mit"
+      },
+      "keywords": [
+        "finite dynamical systems",
+        "Koopman",
+        "exact quotient",
+        "partition congruence",
+        "Lean 4",
+        "Q-core",
+        "defect operator",
+        "square-zero"
+      ],
+      "hasPart": [
+        {
+          "@id": "AQARION_Main_SingleFile_v2.lean"
+        },
+        {
+          "@id": "AQARION_Main_SingleFile_v2.lean"
+        },
+        {
+          "@id": "ro-crate-metadata.json"
+        },
+        {
+          "@id": "AQARION_STATUS_LEDGER_v2.1.json"
+        },
+        {
+          "@id": "AQ-SM-BRT-001-CORRECTED-WITNESS-v2.1.json"
+        }
+      ],
+      "status_taxonomy": [
+        "P",
+        "F",
+        "V-Q",
+        "V-float",
+        "KILLED",
+        "C",
+        "WITHDRAWN",
+        "P-target",
+        "F-target",
+        "READY",
+        "UNRESOLVED",
+        "R",
+        "OPEN"
+      ]
+    }
+  ]
+}
