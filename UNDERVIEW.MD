@@ -4283,7 +4283,1070 @@ A8 is no longer just "leakage."
 }
 \]
 
-That's the next rabbit hole. 🧮🧬
+AQARION WU1 — Public Research Checkpoint
+
+
+X07 Rigorous Tail-Enclosure Track
+
+
+Project: AQARION
+
+Work Unit: WU1
+
+Checkpoint: WU1-X07
+
+Date: 2026-08-30
+
+Status: ANALYTIC REDUCTION CLOSED — RIGOROUS ENCLOSURE OPEN
+
+Evidence policy: [D] Definition · [P] Symbolic Proof · [V] Exact Computational Verification · [PV] Proof + Verification · [C] Conjecture · [R] Research
+
+
+
+1. Executive Status
+
+
+WU1 has now been separated into two mathematically distinct layers:
+
+
+
+
+the explicit analytic tail integrals, which are closed; and
+
+
+the discrete infinite-tail majorant, which remains the principal proof obligation.
+
+
+
+
+The current checkpoint therefore does not certify the uniform infinite remainder.
+
+
+The correct status is
+
+
+[
+\boxed{\text{WU1-X07-A: CLOSED}}
+]
+
+
+for the analytic integral formulas, and
+
+
+[
+\boxed{\text{WU1-X07-B: OPEN}}
+]
+
+
+for the theorem connecting the actual discrete remainder to those bounds.
+
+
+No numerical reproduction of a decimal lineage is being promoted to a theorem.
+
+
+In particular, the previously observed value
+
+
+[
+5.4821903142
+]
+
+
+remains unresolved at the present checkpoint.
+
+
+
+2. Canonical Tail Variables
+
+
+Set
+
+
+[
+a=N+1,
+]
+
+
+[
+y=a+\alpha,
+]
+
+
+and
+
+
+[
+X=\delta y,
+\qquad \delta>0.
+]
+
+
+The analytic tail integrals required by WU1 are
+
+
+[
+\int_a^\infty e^{-\delta(x+\alpha)},dx
+
+
+\frac{e^{-X}}{\delta},
+]
+
+
+[
+\int_a^\infty (x+\alpha)e^{-\delta(x+\alpha)},dx
+
+
+e^{-X}
+\left(
+\frac{y}{\delta}
++
+\frac{1}{\delta^2}
+\right),
+]
+
+
+and
+
+
+[
+\int_a^\infty (x+\alpha)^2e^{-\delta(x+\alpha)},dx
+
+
+e^{-X}
+\left(
+\frac{y^2}{\delta}
++
+\frac{2y}{\delta^2}
++
+\frac{2}{\delta^3}
+\right).
+]
+
+
+These identities are exact.
+
+
+Evidence
+
+
+[
+\boxed{\text{WU1-X07-A: [P]}}
+]
+
+
+No numerical approximation is involved in these formulas.
+
+
+
+3. Conditional Tail Bounds
+
+
+Assuming the previously derived discrete-to-integral majorant, define
+
+
+[
+R_0^\star=
+\frac{e^{-X}(1+\delta^{-1})}
+{(1-e^{-X})^2},
+]
+
+
+[
+R_1^\star=
+\frac{
+e^{-X}
+\left(
+y+y\delta^{-1}+\delta^{-2}
+\right)}
+{(1-e^{-X})^2},
+]
+
+
+and
+
+
+[
+R_2^\star=
+\frac{
+e^{-X}
+\left(
+y^2+y^2\delta^{-1}
++2y\delta^{-2}
++2\delta^{-3}
+\right)}
+{(1-e^{-X})^2}.
+]
+
+
+These expressions are therefore the proposed upper bounds, not the actual remainders.
+
+
+This distinction is now frozen.
+
+
+
+4. Exact Remainder vs. Certified Bound
+
+
+For each moment define
+
+
+[
+B_k
+
+
+S_k(N)+R_k^{\mathrm{actual}}(N),
+]
+
+
+where S_k(N) is the finite contribution and R_k^{\mathrm{actual}} is the actual infinite remainder.
+
+
+The analytic objective is to prove
+
+
+[
+0\le
+R_k^{\mathrm{actual}}
+\le
+R_k^\star.
+]
+
+
+Only after that theorem is established may we write the certified enclosure
+
+
+[
+\boxed{
+B_k\in
+\left[
+S_k(N),
+S_k(N)+R_k^\star
+\right].
+}
+]
+
+
+The notation
+
+
+[
+R_k^\star
+]
+
+
+must never be substituted for the mathematical remainder itself.
+
+
+This separation is mandatory for the certification artifact.
+
+
+
+5. The Principal Open Theorem
+
+
+The central WU1-X07 proof obligation is
+
+
+[
+\boxed{
+R_k^{\mathrm{actual}}(N)
+\le
+R_k^\star(N),
+\qquad k=0,1,2.
+}
+]
+
+
+The theorem must hold uniformly over the intended parameter regime.
+
+
+This is the point where WU1 transitions from numerical reproducibility to rigorous infinite-tail certification.
+
+
+Current status
+
+
+[
+\boxed{\text{[OPEN]}}
+]
+
+
+No promotion to [P] has occurred.
+
+
+
+6. Moment/Hankel Positivity
+
+
+The determinant appearing in the WU1 construction has an independent positivity identity.
+
+
+For
+
+
+[
+B_k=\sum_j w_jx_j^k,
+\qquad w_j\ge0,
+]
+
+
+one has
+
+
+[
+B_0B_2-B_1^2
+
+
+\frac12
+\sum_{i,j}
+w_iw_j(x_i-x_j)^2.
+]
+
+
+Therefore
+
+
+[
+\boxed{
+B_0B_2-B_1^2\ge0.
+}
+]
+
+
+The corresponding determinant quantity is
+
+
+[
+D
+
+
+\delta^5
+\left(
+B_0B_2-B_1^2
+\right),
+]
+
+
+so
+
+
+[
+\boxed{D\ge0}.
+]
+
+
+This is promoted as an independent algebraic invariant of the moment construction.
+
+
+Evidence
+
+
+[
+\boxed{\text{WU1-L007: [P] target}}
+]
+
+
+The identity should be formalized independently of the interval implementation.
+
+
+
+7. Certified Interval Object
+
+
+The canonical certified object is now:
+
+
+[
+I_k=
+\left[
+S_k,,
+S_k+R_k^\star
+\right].
+]
+
+
+Thus
+
+
+[
+B_k\in I_k.
+]
+
+
+The determinant enclosure is then constructed from
+
+
+[
+I_0,\quad I_1,\quad I_2.
+]
+
+
+The certification pipeline must preserve the distinction between:
+
+
+
+
+exact finite sums;
+
+
+actual mathematical remainders;
+
+
+proven remainder bounds;
+
+
+interval enclosures;
+
+
+derived determinant intervals.
+
+
+
+
+No point estimate is permitted to substitute for an enclosure.
+
+
+
+8. Numerical Certification Backend
+
+
+The executable certification layer is designated to use Arb ball arithmetic, preferably through python-flint.
+
+
+The intended numerical architecture is
+
+
+[
+\boxed{
+\text{exact rational/integer data}
+\rightarrow
+\text{Arb enclosure arithmetic}
+\rightarrow
+\text{machine-readable certificate}.
+}
+]
+
+
+The certification path must not depend on ordinary floating-point arithmetic.
+
+
+The certificate should retain sufficient metadata to reproduce every enclosure:
+
+
+
+
+\delta;
+
+
+\alpha;
+
+
+N;
+
+
+working precision;
+
+
+finite sums;
+
+
+tail bounds;
+
+
+enclosure endpoints;
+
+
+determinant interval;
+
+
+positivity check;
+
+
+locked-reference containment;
+
+
+final status.
+
+
+
+
+
+9. Interval-Dependency Warning
+
+
+The three moments are generated by the same infinite tail.
+
+
+Therefore independent interval propagation
+
+
+[
+I_0I_2-I_1^2
+]
+
+
+can introduce substantial dependency overestimation.
+
+
+The certification architecture consequently has three levels.
+
+
+Level 1 — Independent moment intervals
+
+
+[
+B_k\in
+[S_k,S_k+R_k^\star].
+]
+
+
+This is the first executable implementation.
+
+
+Level 2 — Correlated tail enclosure
+
+
+Represent the common tail parametrically rather than treating the three moment errors as independent.
+
+
+Level 3 — Structural positivity
+
+
+Use
+
+
+[
+B_0B_2-B_1^2
+
+
+\frac12
+\sum_{i,j}
+w_iw_j(x_i-x_j)^2
+]
+
+
+as an independent positivity certificate.
+
+
+The implementation should begin at Level 1.
+
+
+Levels 2–3 are escalation mechanisms only if the enclosure width requires them.
+
+
+
+10. Six-Point Adversarial Gate
+
+
+The first executable certification test remains the locked six-point set
+
+
+[
+\delta\in
+{0.02,0.01,0.005,0.002,0.001,0.0005}.
+]
+
+
+The locked reference values are:
+
+
+
+
+\delta
+Locked value
+
+
+
+
+0.02
+4.75978737751
+
+
+0.01
+5.00476181054
+
+
+0.005
+5.16292405313
+
+
+0.002
+5.28525787852
+
+
+0.001
+5.33715442248
+
+
+0.0005
+5.36826363860
+
+
+
+
+For each point the required test is
+
+
+[
+\boxed{
+v_{\mathrm{locked}}\in I_D.
+}
+]
+
+
+An independent high-precision computation must also satisfy
+
+
+[
+\boxed{
+v_{\mathrm{MP}}\in I_D.
+}
+]
+
+
+Failure of either condition is a hard stop.
+
+
+No interval may be widened merely to contain a failing target.
+
+
+No target value may be altered.
+
+
+No later decimal computation can override a failed enclosure.
+
+
+
+11. Canonical Source Requirement
+
+
+The finite sums S_0,S_1,S_2, together with the exact parameter-selection rule (\delta,\alpha,N), must come from the canonical WU1 implementation.
+
+
+The locked decimal targets do not uniquely determine those definitions.
+
+
+Consequently:
+
+
+[
+\boxed{
+\text{No reconstructed finite-sum implementation will be promoted as canonical.}
+}
+]
+
+
+The executable X07 certificate must consume the actual canonical source.
+
+
+This prevents numerical target-fitting from entering the certification path.
+
+
+
+12. X07 Executable Contract
+
+
+The eventual executable verifier shall implement the following sequence.
+
+
+INPUT
+    delta
+    alpha
+    N
+    precision
+
+CANONICAL SOURCE
+    finite-sum definitions
+
+FINITE CONTRIBUTIONS
+    S0
+    S1
+    S2
+
+TAIL PARAMETERS
+    a = N + 1
+    y = a + alpha
+    X = delta * y
+
+ANALYTIC BOUNDS
+    R0_bound
+    R1_bound
+    R2_bound
+
+MOMENT ENCLOSURES
+    B0 ∈ [S0, S0 + R0_bound]
+    B1 ∈ [S1, S1 + R1_bound]
+    B2 ∈ [S2, S2 + R2_bound]
+
+DETERMINANT
+    D_interval = delta^5 * (B0 * B2 - B1^2)
+
+INDEPENDENT CHECK
+    Hankel positivity
+
+REGRESSION
+    locked value ∈ D_interval
+
+AUDIT RECORD
+    all parameters and enclosure endpoints
+
+OUTPUT
+    machine-readable certificate
+
+
+
+The verifier must distinguish a failed theorem prerequisite from a failed numerical enclosure.
+
+
+
+13. Certificate Schema
+
+
+The proposed certificate schema is:
+
+
+artifact:
+    WU1-X07
+
+backend:
+    Arb / python-flint
+
+precision_bits:
+    ...
+
+delta:
+    ...
+
+alpha:
+    ...
+
+N:
+    ...
+
+X:
+    ...
+
+finite:
+    S0: [...]
+    S1: [...]
+    S2: [...]
+
+tail:
+    R0_bound: [...]
+    R1_bound: [...]
+    R2_bound: [...]
+
+moments:
+    B0: [...]
+    B1: [...]
+    B2: [...]
+
+determinant:
+    interval: [...]
+    lower: ...
+    upper: ...
+
+positivity:
+    compatible: true/false
+
+locked_reference:
+    value: ...
+
+containment:
+    locked_in_interval: true/false
+
+status:
+    PASS/FAIL
+
+
+
+This certificate is intended to be independently inspectable without trusting the final decimal alone.
+
+
+
+14. Lean Proof Ladder
+
+
+The formal proof remains decomposed into independent obligations.
+
+
+WU1-L002
+
+
+Exact k=0 tail integral.
+
+
+WU1-L003
+
+
+Exact k=1 tail integral.
+
+
+WU1-L004
+
+
+Exact k=2 tail integral.
+
+
+WU1-L005
+
+
+Unified k\in{0,1,2} integral formula.
+
+
+WU1-L006
+
+
+Discrete-to-integral tail-majorant theorem.
+
+
+WU1-L007
+
+
+Hankel/Gram positivity.
+
+
+WU1-L008
+
+
+Interval propagation.
+
+
+WU1-L009
+
+
+Determinant enclosure.
+
+
+The critical boundary is
+
+
+[
+\boxed{\text{WU1-L006}}.
+]
+
+
+L002–L005 establish the analytic formulas.
+
+
+L006 establishes the infinite-tail inequality.
+
+
+L007 establishes the independent positivity invariant.
+
+
+L008–L009 establish executable enclosure propagation.
+
+
+These must not be conflated.
+
+
+
+15. Evidence Ledger
+
+
+
+
+Component
+Status
+
+
+
+
+Stable kernel/residue-sector results
+CLOSED at stated evidence levels
+
+
+Canonical six-point numerical lineage
+REPRODUCIBLE
+
+
+k=0 analytic tail integral
+[P]
+
+
+k=1 analytic tail integral
+[P]
+
+
+k=2 analytic tail integral
+[P]
+
+
+Unified analytic tail formula
+[P]
+
+
+Explicit R_k^\star expressions
+[P], conditional
+
+
+Discrete-to-integral majorant
+OPEN
+
+
+Arb certification implementation
+NEXT
+
+
+Six-point interval containment
+PENDING EXECUTION
+
+
+Hankel positivity
+[P] target
+
+
+Rigorous uniform remainder
+OPEN
+
+
+5.4821903142 lineage
+UNRESOLVED
+
+
+
+
+
+16. Prohibited Promotion
+
+
+The following statements are not currently authorized:
+
+
+
+
+“WU1 is rigorously certified.”
+
+
+
+
+
+
+“The uniform remainder has been proved.”
+
+
+
+
+
+
+“The six-point values have been interval-certified.”
+
+
+
+
+
+
+“5.4821903142 has been rigorously established.”
+
+
+
+
+
+
+“The analytic tail formulas prove the infinite-tail bound.”
+
+
+
+
+The permitted statement is:
+
+
+
+
+The analytic tail-integral reduction is closed; rigorous certification of the discrete infinite remainder remains an open proof and execution obligation.
+
+
+
+
+
+17. Next Checkpoint
+
+
+The next checkpoint is WU1-X07-C:
+
+
+[
+\boxed{
+\text{Implement Level-1 Arb interval certification against the canonical WU1 source.}
+}
+]
+
+
+It must then execute the six-point adversarial gate.
+
+
+The acceptance condition is:
+
+
+[
+\forall\delta\in
+{0.02,0.01,0.005,0.002,0.001,0.0005},
+\qquad
+v_{\mathrm{locked}}\in I_D,
+]
+
+
+and independently
+
+
+[
+v_{\mathrm{MP}}\in I_D.
+]
+
+
+Only after that succeeds should the project proceed to the uniform remainder theorem.
+
+
+
+18. Final Public Classification
+
+
+[
+\boxed{
+\begin{array}{c}
+\textbf{WU1-X07}\[2mm]
+\text{Analytic Tail Reduction: CLOSED}\
+\text{Discrete Tail Majorant: OPEN}\
+\text{Interval Certification: PENDING}\
+\text{Uniform Infinite Remainder: OPEN}\
+5.4821903142\text{: UNRESOLVED}
+\end{array}
+}
+]
+
+
+The project has therefore crossed a genuine methodological boundary:
+
+
+[
+\boxed{
+\text{numerical reproducibility}
+;\longrightarrow;
+\text{rigorous enclosure}
+}
+]
+
+
+but has not yet crossed the final boundary
+
+
+[
+\boxed{
+\text{rigorous enclosure}
+;\longrightarrow;
+\text{uniform theorem}.
+}
+]
+
+
+The next executable objective is WU1-X07-C, with no additional numerical exploration required before the canonical source is connected to the Arb certification path.
+
+https://huggingface.co/spaces/Quantarion9/AQARION-ACADEMY/resolve/main/DOCS/CHECKPOINTS/A29_WU1.MD
+
+https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-/blob/main/LIBRARY/AUGUST/A29_WU1-SUPPORT.TEX
+
 
 https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-/blob/main/DOCS/CHECKPOINTS/AUGUST/A4_A8.TEX/
 
