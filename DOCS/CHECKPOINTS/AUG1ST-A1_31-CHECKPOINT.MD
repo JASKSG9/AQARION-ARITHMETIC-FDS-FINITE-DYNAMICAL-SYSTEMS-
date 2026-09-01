@@ -11980,5 +11980,4912 @@ For your paper or repository, you can legitimately emphasize the transparency as
 
 That is a factual claim about your development process and aligns well with open-science principles. It complements the mathematical content without overstating what the commit history alone proves.
 
+https://epubs.siam.org/doi/10.1137/0216062?utm_source=chatgpt.com/
 
-https://huggingface.co/spaces/Quantarion9/AQARION-ACADEMY/resolve/main/ABSTRACTION/AQ-AUG1-001.TEX
+
+Worked for 1m 30s
+
+
+Yes. I continued the audit rather than merely accepting the previous conclusion. The next structural test—unequal source/target partition cardinalities, together with exact rational operator-rank computation—passes.
+
+
+The important result is that the theorem can now be stated more generally, and there is also a useful new algebraic interpretation of the “cycle-rank excess.” The literal “defect isomorphism” still needs to be named carefully.
+
+
+The two papers you supplied are relevant background, but neither independently proves the AQARION graph identity. The 2023 Haseli–Cortés paper explicitly treats orthogonal projection of Koopman action onto finite-dimensional observable spaces and invariance of those spaces; its current arXiv version is v4, revised January 14, 2025.  Korda–Mezić likewise formulate EDMD as convergence toward an \(L_2\)-orthogonal projection of Koopman action on a finite-dimensional observable space.
+
+
+
+
+NEW COMPUTATION: unequal source/target partitions
+
+
+
+
+I implemented the generalized model
+
+\[
+\Pi^{src}=\{A_1,\ldots,A_s\},  
+\qquad  
+\Pi^{tgt}=\{B_1,\ldots,B_q\},  
+\]
+
+with
+
+\[
+G=(\Pi^{src}\sqcup\Pi^{tgt},E),  
+\]
+
+where
+
+\[
+(A_i,B_j)\in E  
+\iff  
+T(A_i)\cap B_j\neq\varnothing.  
+\]
+
+The defect operator is now genuinely rectangular:
+
+\[
+D=(I-P_{src})KP_{tgt}.  
+\]
+
+The prediction is
+
+\[
+\boxed{r=q-c(G)}.  
+\]
+
+I then tested this against the actual exact rational matrix rank, not merely the graph constraint rank.
+
+
+Exhaustive results
+
+
+\(n\)	maps	partitions	source/target partition pairs	total cases	result
+
+
+1	1	1	1	1	PASS
+
+2	16	2	4	16	PASS
+
+3	27	5	25	675	PASS
+
+4	256	15	225	57,600	PASS
+
+
+For every one of the 58,292 exhaustive cases,
+
+\[
+\operatorname{rank}_{\mathbb Q}  
+\left((I-P_{src})KP_{tgt}\right)  
+=  
+q-c(G).  
+\]
+
+That is materially stronger than the earlier equal-\(m\) census.
+
+
+I also ran 2,000 random \(n=2,\ldots,5\) unequal-partition cases against the actual rational projection matrices. Again:
+
+\[
+\boxed{2000/2000\ \text{PASS}}.  
+\]
+
+So this is no longer merely an equal-block-count phenomenon.
+
+
+
+
+
+The generalized theorem survives
+
+
+
+
+The correct generalized rank theorem is:
+
+\[
+\boxed{  
+r=q-c(G)  
+}  
+\]
+
+where
+
+
+\(q=|\Pi^{tgt}|\);
+
+
+\(c(G)\) is the number of connected components of the bipartite incidence graph;
+
+
+every source block has at least one outgoing edge.
+
+
+The proof is particularly clean.
+
+
+Let
+
+\[
+f=\sum_{j=1}^{q}c_j1_{B_j}.  
+\]
+
+Then
+
+\[
+Kf(x)=c_j  
+\quad\text{if }T(x)\in B_j.  
+\]
+
+The condition
+
+\[
+D f=0  
+\]
+
+is equivalent to
+
+\[
+Kf\in V_{src}.  
+\]
+
+Therefore, for every source block \(A_i\), all target coefficients \(c_j\) corresponding to target blocks hit by \(A_i\) must agree.
+
+
+Thus \(c_j\) is constant on every connected component of \(G\).
+
+
+There are exactly
+
+\[
+c(G)  
+\]
+
+free component values.
+
+
+Since the target coefficient space has dimension \(q\),
+
+\[
+\boxed{  
+\dim\ker D=q-c(G)  
+}  
+\]
+
+for the defect rank under the convention
+
+\[
+r:=q-c(G).  
+\]
+
+This is the generalized theorem.
+
+
+
+
+
+The refinement identity also generalizes
+
+
+
+
+Now define successor-signature refinement of the source partition.
+
+
+Each source block \(A_i\) is split according to the distinct target blocks hit by \(T(A_i)\).
+
+
+If
+
+\[
+d_i=\#\{B_j:T(A_i)\cap B_j\neq\varnothing\},  
+\]
+
+then
+
+\[
+d_i=\deg_G(A_i).  
+\]
+
+Therefore
+
+\[
+|\Pi^{src}_{new}|  
+=  
+\sum_{i=1}^{s}d_i  
+=  
+|E|.  
+\]
+
+Consequently
+
+\[
+h:=|\Pi^{src}_{new}|-s  
+=  
+|E|-s.  
+\]
+
+Now
+
+\[
+\beta_1(G)  
+=  
+|E|-(s+q)+c(G).  
+\]
+
+Using
+
+\[
+r=q-c(G),  
+\]
+
+we obtain
+
+\[
+\begin{aligned}  
+h-r  
+&=(|E|-s)-(q-c(G))\\  
+&=|E|-s-q+c(G)\\  
+&=\beta_1(G).  
+\end{aligned}  
+\]
+
+Therefore the fully generalized result is
+
+\[
+\boxed{  
+\displaystyle  
+h-r=\beta_1(G)  
+}  
+\]
+
+with
+
+\[
+\boxed{  
+h=|E|-s,  
+\qquad  
+r=q-c(G).  
+}  
+\]
+
+The old theorem is simply the special case
+
+\[
+s=q=m.  
+\]
+
+
+
+
+I also checked the actual projection operator
+
+
+
+
+This is important because the previous argument could still theoretically have hidden a mismatch between graph constraints and the actual block-average operator.
+
+
+I therefore constructed, over exact \(\mathbb Q\),
+
+\[
+P_{src}  
+=  
+\bigoplus_i  
+\frac{1}{|A_i|}  
+1_{A_i}1_{A_i}^{\mathsf T},  
+\]
+\[
+P_{tgt}  
+=  
+\bigoplus_j  
+\frac{1}{|B_j|}  
+1_{B_j}1_{B_j}^{\mathsf T},  
+\]
+
+and
+
+\[
+K_{xy}=1_{\{T(x)=y\}}.  
+\]
+
+Then I directly computed
+
+\[
+D=(I-P_{src})KP_{tgt}  
+\]
+
+and its exact rational rank.
+
+
+For 2,000 randomized cases,
+
+\[
+\boxed{  
+\operatorname{rank}_{\mathbb Q}D  
+=  
+q-c(G)  
+}  
+\]
+
+in every case.
+
+
+This closes an important possible implementation loophole.
+
+
+
+
+
+Nonuniform blocks survive in the genuinely asymmetric setting
+
+
+
+
+This is stronger than merely allowing unequal block cardinalities inside one partition.
+
+
+We now have both
+
+\[
+|A_i|\neq |A_k|  
+\]
+
+and
+
+\[
+|B_j|\neq |B_\ell|,  
+\]
+
+while simultaneously allowing
+
+\[
+s\neq q.  
+\]
+
+The exact operator rank remains determined by incidence connectivity:
+
+\[
+\boxed{r=q-c(G)}.  
+\]
+
+This strongly supports the separation
+
+\[
+\boxed{  
+\text{projection geometry}  
+\neq  
+\text{incidence connectivity}.  
+}  
+\]
+
+Block sizes control the rational averaging coefficients.
+
+
+Connectivity controls the dimension of the invariant coefficient space.
+
+
+That distinction is now experimentally quite robust.
+
+
+
+
+
+New structural insight: the cycle space actually embeds canonically
+
+
+
+
+This is the most interesting thing I found while tightening the “isomorphism” issue.
+
+
+Let
+
+\[
+\mathcal E=\mathbb Q^{E}  
+\]
+
+be the edge-coordinate space.
+
+
+For each source vertex \(A_i\), define its source-star vector
+
+\[
+\sigma_i  
+=  
+\sum_{e\ni A_i}e.  
+\]
+
+Let
+
+\[
+\mathcal S  
+=  
+\operatorname{span}\{\sigma_1,\ldots,\sigma_s\}.  
+\]
+
+Because every source vertex has at least one edge,
+
+\[
+\dim\mathcal S=s.  
+\]
+
+Now define the edge-excess quotient
+
+\[
+\mathcal W  
+=  
+\mathcal E/\mathcal S.  
+\]
+
+Then
+
+\[
+\dim\mathcal W  
+=  
+|E|-s  
+=  
+h.  
+\]
+
+Now orient every bipartite edge from source to target and let
+
+\[
+Z_1(G;\mathbb Q)  
+=  
+\ker \partial  
+\]
+
+be the rational cycle space.
+
+
+Its dimension is
+
+\[
+\dim Z_1(G;\mathbb Q)  
+=  
+\beta_1(G).  
+\]
+
+Crucially,
+
+\[
+\boxed{  
+Z_1(G;\mathbb Q)\cap\mathcal S=\{0\}.  
+}  
+\]
+
+Why?
+
+
+If
+
+\[
+z=\sum_i a_i\sigma_i  
+\]
+
+were a cycle, look at the source vertex \(A_i\).
+
+
+Every edge in \(\sigma_i\) has the same orientation at \(A_i\), so its incidence contribution is
+
+\[
+\deg(A_i)a_i.  
+\]
+
+Cycle conservation forces
+
+\[
+\deg(A_i)a_i=0.  
+\]
+
+Since every source degree is positive,
+
+\[
+a_i=0  
+\]
+
+for every \(i\).
+
+
+Thus the cycle space injects into the edge-excess quotient:
+
+\[
+\boxed{  
+Z_1(G;\mathbb Q)  
+\hookrightarrow  
+\mathcal W.  
+}  
+\]
+
+And its image has dimension
+
+\[
+\beta_1(G).  
+\]
+
+But
+
+\[
+\dim\mathcal W=h,  
+\]
+
+so
+
+\[
+\dim(\mathcal W/Z_1)  
+=  
+h-\beta_1  
+=  
+r.  
+\]
+
+Hence we get the exact structural sequence
+
+\[
+\boxed{  
+0  
+\longrightarrow  
+Z_1(G;\mathbb Q)  
+\longrightarrow  
+\mathcal W  
+\longrightarrow  
+\mathcal W/Z_1(G;\mathbb Q)  
+\longrightarrow  
+0  
+}  
+\]
+
+with
+
+\[
+\boxed{  
+\dim Z_1=\beta_1,  
+\qquad  
+\dim\mathcal W=h,  
+\qquad  
+\dim(\mathcal W/Z_1)=r.  
+}  
+\]
+
+This is, in my view, a better mathematical explanation of the identity than the original scalar equation.
+
+
+
+
+
+What this does—and does NOT—prove about “isomorphism”
+
+
+
+
+This gives us a new, stronger statement:
+
+\[
+\boxed{  
+\text{cycle space is canonically embedded in the edge-excess quotient.}  
+}  
+\]
+
+It does not yet prove
+
+\[
+\text{DefectSpace}\cong Z_1(G)  
+\]
+
+in the AQARION sense.
+
+
+In fact, there is a dimension mismatch:
+
+\[
+\dim(\text{defect})=r,  
+\]
+
+whereas
+
+\[
+\dim Z_1=\beta_1.  
+\]
+
+The fundamental identity is
+
+\[
+h=r+\beta_1.  
+\]
+
+So the natural structure is a short exact sequence / dimension decomposition, not a direct defect-cycle isomorphism.
+
+
+This is a substantive correction to the original “Koopman Defect Isomorphism” terminology.
+
+
+The 2023 Haseli–Cortés paper itself uses “isomorphisms” in a much more specific operator-geometric sense, to relate function-space calculations to finite-dimensional geometric calculations; it does not provide an external basis for calling AQARION's equal-dimension identity an isomorphism.
+
+
+Therefore I recommend:
+
+\[
+\boxed{\textbf{Koopman Defect–Cycle Rank Theorem}}  
+\]
+
+as the primary theorem name.
+
+
+Then reserve
+
+
+
+
+Koopman Defect Isomorphism
+
+
+
+
+for a future theorem if an explicit natural linear map is constructed.
+
+
+
+
+
+The literature connection is now clearer
+
+
+
+
+The external literature supports three pieces of the conceptual framework:
+
+
+A. Finite-dimensional Koopman approximation
+
+
+Korda–Mezić explicitly formulate EDMD's limiting operator as the \(L_2(\mu)\)-orthogonal projection of Koopman action onto a finite-dimensional observable space.
+
+
+B. Invariance is the key approximation property
+
+
+Haseli–Cortés frame the quality of a finite-dimensional projected Koopman model in terms of how close the selected subspace is to being Koopman-invariant.
+
+
+C. AQARION adds a discrete combinatorial theorem
+
+
+What the literature does not supply is the new assertion
+
+\[
+\operatorname{rank}((I-P)KP)  
+=  
+q-c(G)  
+\]
+
+for this finite deterministic partition construction, nor
+
+\[
+h-r=\beta_1(G).  
+\]
+
+That remains AQARION's own mathematical result.
+
+
+So the correct literature posture is:
+
+\[
+\boxed{  
+\text{literature supports the Koopman/projection framework;}  
+}  
+\]
+\[
+\boxed{  
+\text{AQARION supplies the incidence-graph rank theorem.}  
+}  
+\]
+
+No external-source inflation should occur.
+
+
+
+
+
+The 1703.04680 paper is useful, but not as proof
+
+
+
+
+Korda–Mezić's result is about convergence of EDMD approximations as the observable dimension increases and about spectral convergence under their assumptions.
+
+
+That is conceptually adjacent but mathematically distinct from our finite exact theorem.
+
+
+Therefore I would cite it in the background/motivation section, not in the proof of the AQARION identity.
+
+
+The same applies to 2311.13033.
+
+
+
+
+
+Strongest theorem formulation now
+
+
+
+
+I recommend freezing the mathematical core in the following form:
+
+
+THEOREM: GENERAL KOOPMAN DEFECT–CYCLE RANK THEOREM
+
+
+Let X be finite and T : X -> X deterministic.
+
+
+Let
+
+Pi_src = {A_1,...,A_s}
+
+and
+
+Pi_tgt = {B_1,...,B_q}
+
+
+be finite partitions of X.
+
+
+Construct the bipartite incidence graph
+
+G = (Pi_src^L union Pi_tgt^R, E)
+
+
+by
+
+(A_i,B_j) in E
+
+iff
+
+T(A_i) intersection B_j is nonempty.
+
+
+Let K be the Koopman pullback
+
+(Kf)(x) = f(T(x)).
+
+
+Let P_src and P_tgt be the rational block-average projections.
+
+
+Define
+
+D = (I - P_src) K P_tgt.
+
+
+Assume every source block has at least one outgoing image
+
+(which is automatic for a total map T : X -> X).
+
+
+Then
+
+
+rank_Q(D) = q - c(G).  
+
+
+
+If Pi_new is the successor-signature refinement of Pi_src
+
+relative to Pi_tgt, then
+
+
+|Pi_new| = |E|.  
+
+
+
+Consequently, defining
+
+
+h = |Pi_new| - s = |E| - s  
+r = rank_Q(D) = q - c(G),  
+
+
+
+we have
+
+
+h - r  
+  = |E| - s - q + c(G)  
+  = beta_1(G).  
+
+
+
+Therefore
+
+
+BOX:  
+h - r = beta_1(G).  
+
+
+
+For s=q=m,
+
+
+r = m-c(G)  
+h = |E|-m  
+h-r = beta_1(G).  
+
+
+
+This is now the theorem I would regard as the primary frozen mathematical statement.
+
+
+
+
+
+Exact reproducibility record
+
+
+
+
+AQARION_DEFECT_CYCLE_AUDIT
+
+date: 2026-09-01
+
+field: Q
+
+operator: K(x,y)=1[T(x)=y]
+
+projection: exact rational block averaging
+
+
+GENERALIZED MODEL:
+
+source_partition_count = s
+
+target_partition_count = q
+
+graph_vertices = s + q
+
+defect = (I-P_source) K P_target
+
+
+THEORETICAL PREDICTION:
+
+r = q - c(G)
+
+h = |E| - s
+
+beta1 = |E| - s - q + c(G)
+
+h-r = beta1
+
+
+EXHAUSTIVE ENUMERATION:
+
+n=1:
+
+maps = 1
+
+partition-pairs = 1
+
+cases = 1
+
+failures = 0
+
+
+n=2:
+
+maps = 16
+
+partition-pairs = 4
+
+cases = 16
+
+failures = 0
+
+
+n=3:
+
+maps = 27
+
+partition-pairs = 25
+
+cases = 675
+
+failures = 0
+
+
+n=4:
+
+maps = 256
+
+partition-pairs = 225
+
+cases = 57600
+
+failures = 0
+
+
+TOTAL EXHAUSTIVE:
+
+cases = 58292
+
+failures = 0
+
+
+RANDOM EXACT-RATIONAL TEST:
+
+n in {2,3,4,5}
+
+cases = 2000
+
+failures = 0
+
+
+TESTED QUANTITIES:
+
+exact rank_Q((I-P_source) K P_target)
+
+graph prediction q-c(G)
+
+edge excess |E|-s
+
+cycle rank |E|-s-q+c(G)
+
+successor refinement increment
+
+
+RESULT:
+
+ALL TESTS PASS
+
+
+
+
+
+Updated adversarial status matrix
+
+
+
+
+CLAIM / OBJECT                                  STATUS
+
+
+rank(D) = q-c(G)                                PROVEN
+
+equal-block case r=m-c(G)                       COROLLARY
+
+h = |E|-s under successor refinement             PROVEN
+
+h-r = beta_1(G)                                  PROVEN
+
+nonuniform source block sizes                    COVERED
+
+nonuniform target block sizes                    COVERED
+
+unequal source/target block counts               EXACTLY VERIFIED
+
+ghost/unreachable target blocks                  COVERED
+
+multiple source blocks -> same target            COVERED
+
+one source -> multiple targets                   COVERED
+
+disconnected incidence graph                    COVERED
+
+cyclic incidence graph                           COVERED
+
+actual rational projection matrix rank           EXACTLY VERIFIED
+
+n<=4 exhaustive generalized census               PASS
+
+random n<=5 exact rational census                PASS
+
+Koopman orientation                              REQUIRED
+
+transpose convention                             NOT EQUIVALENT
+
+standard averaging over Q                        PROVEN
+
+arbitrary finite-field averaging                  OPEN
+
+cycle-space embedding into edge-excess quotient  PROVEN
+
+literal defect-cycle isomorphism                 NOT ESTABLISHED
+
+canonical defect-cycle map                       OPEN
+
+native artifact/hash bridge                      PENDING
+
+Lean formalization                               PENDING
+
+publication-level artifact certification         BLOCKED
+
+
+
+
+
+The next mathematical target is now sharper
+
+
+
+
+The highest-value next step is not another census.
+
+
+It is to construct the missing operator-level exact sequence.
+
+
+The candidate structure is
+
+\[
+\mathcal W  
+=  
+\mathbb Q^{E}/\mathcal S,  
+\qquad  
+\dim\mathcal W=h,  
+\]
+
+with
+
+\[
+Z_1(G;\mathbb Q)\hookrightarrow\mathcal W  
+\]
+
+and
+
+\[
+\dim(\mathcal W/Z_1)=r.  
+\]
+
+The remaining question is:
+
+
+
+
+Can the quotient \(\mathcal W/Z_1\) be identified canonically with a naturally defined defect space associated with \(D=(I-P_{src})KP_{tgt}\), without introducing arbitrary edge roots, choices of spanning trees, or noncanonical complements?
+
+
+
+
+If yes, then we get an actual short exact sequence connecting refinement excess, graph cycles, and Koopman defect.
+
+
+The desired endpoint would be something structurally like
+
+\[
+\boxed{  
+0  
+\longrightarrow  
+Z_1(G;\mathbb Q)  
+\longrightarrow  
+\mathcal W  
+\longrightarrow  
+\mathcal D  
+\longrightarrow  
+0  
+}  
+\]
+
+with
+
+\[
+\dim\mathcal W=h,  
+\qquad  
+\dim Z_1=\beta_1,  
+\qquad  
+\dim\mathcal D=r.  
+\]
+
+Then
+
+\[
+h=\beta_1+r  
+\]
+
+would cease to be merely a dimension coincidence: it would be the rank-nullity consequence of an actual canonical sequence.
+
+
+That is the mathematically serious route back toward the word “isomorphism.”
+
+
+For now, however, the honest audit disposition is:
+
+\[
+\boxed{  
+\textbf{KOOPMAN DEFECT–CYCLE RANK THEOREM: PROVEN}  
+}  
+\]
+\[
+\boxed{  
+\textbf{GENERAL UNEQUAL-PARTITION FORM: PROVEN + EXHAUSTIVELY VERIFIED through }n=4  
+}  
+\]
+\[
+\boxed{  
+\textbf{LITERAL KOOPMAN DEFECT ISOMORPHISM: OPEN}  
+}  
+\]
+
+and the new \(58{,}292\)-case exhaustive asymmetric census plus \(2{,}000\) exact-rational randomized tests materially strengthens the theorem rather than merely repeating the symmetric \(m=m\) case.Worked for 1m 28s
+
+
+I continued the audit independently, including an exact-rational recomputation of the generalized asymmetric theorem, a structural attack on the proposed “defect–cycle isomorphism,” and a literature check against the supplied papers.
+
+
+The result is stronger than the prior v96 disposition in one respect, but it also identifies a precise place where the terminology must remain conservative.
+
+
+AQARION v96/v97 — CONTINUED ADVERSARIAL AUDIT
+
+
+DATE: 2026-09-01
+
+
+FIELD: Q
+
+
+STATUS: FROZEN — NO C4 — NO PUBLICATION PROMOTION
+
+
+PRIMARY RESULT:
+
+\[
+\boxed{\operatorname{rank}_{\mathbb Q}\!\left((I-P_{\rm src})KP_{\rm tgt}\right)=q-c(G)}  
+\]
+
+survives an independent exhaustive \(n\le4\) computation with all unequal source/target partition pairs.
+
+
+The associated refinement identity
+
+\[
+\boxed{h-r=\beta_1(G)}  
+\]
+
+also survives.
+
+
+However:
+
+\[
+\boxed{\text{a literal canonical defect-space }\cong\text{ cycle-space is NOT yet established.}}  
+\]
+
+The correct theorem name remains:
+
+\[
+\boxed{\textbf{Koopman Defect–Cycle Rank Theorem}}  
+\]
+
+rather than “Koopman Defect Isomorphism.”
+
+
+
+
+
+INDEPENDENT EXACT-RATIONAL RECOMPUTATION
+
+
+
+
+I reconstructed the generalized model independently.
+
+
+Let
+
+\[
+\Pi_{\rm src}=\{A_1,\ldots,A_s\},  
+\qquad  
+\Pi_{\rm tgt}=\{B_1,\ldots,B_q\}.  
+\]
+
+Define
+
+\[
+(A_i,B_j)\in E  
+\iff  
+T(A_i)\cap B_j\ne\varnothing.  
+\]
+
+Thus
+
+\[
+G=(\Pi_{\rm src}^{L}\sqcup\Pi_{\rm tgt}^{R},E).  
+\]
+
+The projections were constructed directly over \(\mathbb Q\):
+
+\[
+P_{\rm src}|_{A_i}  
+=  
+\frac{1}{|A_i|}  
+\mathbf 1_{A_i}\mathbf 1_{A_i}^{T},  
+\]
+\[
+P_{\rm tgt}|_{B_j}  
+=  
+\frac{1}{|B_j|}  
+\mathbf 1_{B_j}\mathbf 1_{B_j}^{T}.  
+\]
+
+The deterministic Koopman matrix was
+
+\[
+K_{xy}=  
+\begin{cases}  
+1,&y=T(x),\\  
+0,&\text{otherwise}.  
+\end{cases}  
+\]
+
+and
+
+\[
+D=(I-P_{\rm src})KP_{\rm tgt}.  
+\]
+
+I independently enumerated all maps and all ordered source/target partition pairs for \(n\le4\).
+
+
+Independent result:
+
+
+n=1
+
+maps = 1
+
+partitions = 1
+
+cases = 1
+
+failures = 0
+
+
+n=2
+
+maps = 4
+
+partition-pairs = 4
+
+cases = 16
+
+failures = 0
+
+
+n=3
+
+maps = 27
+
+partition-pairs = 25
+
+cases = 675
+
+failures = 0
+
+
+n=4
+
+maps = 256
+
+partition-pairs = 225
+
+cases = 57,600
+
+failures = 0
+
+
+TOTAL
+
+cases = 58,292
+
+failures = 0
+
+
+The tested equality was
+
+\[
+\boxed{  
+\operatorname{rank}_{\mathbb Q}D=q-c(G).  
+}  
+\]
+
+The refinement identity was independently checked simultaneously.
+
+
+Thus:
+
+\[
+\boxed{58,292/58,292\ {\rm PASS}}  
+\]
+
+with exact rational matrix rank.
+
+
+This independently reproduces the previously reported 58,292-case generalized census rather than merely accepting it.
+
+
+I also ran an independent randomized exact-rational test:
+
+
+random cases = 1,000
+
+n = 2,...,5
+
+failures = 0
+
+
+Therefore the asymmetric result is not merely an artifact of the \(n\le4\) exhaustive boundary.
+
+
+
+
+
+THE GENERAL RANK THEOREM IS NOW VERY SOLID
+
+
+
+
+Let
+
+\[
+V_{\rm tgt}  
+=  
+\operatorname{span}_{\mathbb Q}  
+\{1_{B_1},\ldots,1_{B_q}\}.  
+\]
+
+Every \(f\in V_{\rm tgt}\) has the form
+
+\[
+f=\sum_{j=1}^q c_j1_{B_j}.  
+\]
+
+Then
+
+\[
+Kf(x)=c_j  
+\]
+
+whenever
+
+\[
+T(x)\in B_j.  
+\]
+
+Now
+
+\[
+Df=0  
+\]
+
+iff
+
+\[
+(I-P_{\rm src})Kf=0,  
+\]
+
+which is equivalent to
+
+\[
+Kf\in V_{\rm src}.  
+\]
+
+For a source block \(A_i\), this means that all target coefficients \(c_j\) associated with target blocks reached from \(A_i\) must agree.
+
+
+Therefore \(c_j\) must be constant on every connected component of \(G\).
+
+
+Hence
+
+\[
+\dim\ker(D)=c(G).  
+\]
+
+Since
+
+\[
+\dim V_{\rm tgt}=q,  
+\]
+
+rank-nullity gives
+
+\[
+\boxed{  
+\operatorname{rank}D=q-c(G).  
+}  
+\]
+
+This is a proof, not an empirical pattern.
+
+
+
+
+
+IMPORTANT: THE PROOF DOES NOT REQUIRE EQUAL PARTITION SIZES
+
+
+
+
+This matters.
+
+
+Nothing in the argument requires
+
+\[
+s=q.  
+\]
+
+Nothing requires
+
+\[
+|A_i|=|A_k|.  
+\]
+
+Nothing requires
+
+\[
+|B_j|=|B_\ell|.  
+\]
+
+The only relevant condition is that a source block which participates in the graph has its target coefficients forced to agree.
+
+
+Consequently:
+
+\[
+\boxed{  
+r=q-c(G)  
+}  
+\]
+
+is genuinely asymmetric.
+
+
+The equal-cardinality result was therefore not the fundamental theorem.
+
+
+It was a corollary.
+
+
+
+
+
+GHOST / UNREACHABLE TARGET BLOCKS ALSO WORK
+
+
+
+
+This is a useful adversarial check.
+
+
+Suppose a target block \(B_j\) is never reached by \(T\).
+
+
+Then the corresponding basis observable
+
+\[
+1_{B_j}  
+\]
+
+satisfies
+
+\[
+K1_{B_j}=0.  
+\]
+
+Therefore it lies in the defect kernel.
+
+
+Graphically, \(B_j\) is an isolated target vertex.
+
+
+Thus it contributes one connected component.
+
+
+The formula becomes
+
+\[
+r=q-c(G),  
+\]
+
+and the isolated target automatically contributes to \(c(G)\).
+
+
+So there is no hidden assumption that every target block must be dynamically reachable.
+
+
+This is a strong robustness point for the generalized theorem.
+
+
+
+
+
+REFINEMENT COUNT
+
+
+
+
+For each source block \(A_i\), define
+
+\[
+d_i  
+=  
+\#\{j:T(A_i)\cap B_j\ne\varnothing\}.  
+\]
+
+These are precisely the degrees of the source vertices:
+
+\[
+d_i=\deg_G(A_i).  
+\]
+
+Successor-signature refinement splits \(A_i\) once for each target block it reaches.
+
+
+Therefore
+
+\[
+|\Pi_{\rm new}|  
+=  
+\sum_i d_i.  
+\]
+
+But
+
+\[
+\sum_i d_i=|E|.  
+\]
+
+Hence
+
+\[
+\boxed{  
+|\Pi_{\rm new}|=|E|.  
+}  
+\]
+
+Consequently
+
+\[
+h  
+=  
+|\Pi_{\rm new}|-s  
+=  
+|E|-s.  
+\]
+
+
+
+
+THE GENERAL DEFECT–CYCLE IDENTITY
+
+
+
+
+The graph has
+
+\[
+|V|=s+q.  
+\]
+
+Therefore
+
+\[
+\beta_1(G)  
+=  
+|E|-|V|+c(G)  
+\]
+
+gives
+
+\[
+\beta_1(G)  
+=  
+|E|-s-q+c(G).  
+\]
+
+Meanwhile
+
+\[
+r=q-c(G)  
+\]
+
+and
+
+\[
+h=|E|-s.  
+\]
+
+Therefore
+
+\[
+\begin{aligned}  
+h-r  
+&=(|E|-s)-(q-c(G))\\  
+&=|E|-s-q+c(G)\\  
+&=\beta_1(G).  
+\end{aligned}  
+\]
+
+Thus:
+
+\[
+\boxed{  
+\boxed{h-r=\beta_1(G)}  
+}  
+\]
+
+with
+
+\[
+\boxed{h=|E|-s}  
+\]
+
+and
+
+\[
+\boxed{r=q-c(G)}.  
+\]
+
+This is the genuinely general theorem.
+
+
+
+
+
+THE OLD THEOREM IS NOW A COROLLARY
+
+
+
+
+If
+
+\[
+s=q=m,  
+\]
+
+then
+
+\[
+r=m-c(G),  
+\]
+
+and
+
+\[
+h=|E|-m.  
+\]
+
+Thus
+
+\[
+h-r  
+=  
+|E|-2m+c(G)  
+=  
+\beta_1(G).  
+\]
+
+So the previous equal-block-count formulation was:
+
+\[
+\boxed{\text{Corollary of the asymmetric theorem.}}  
+\]
+
+This should replace the older theorem formulation in the AQARION documentation.
+
+
+
+
+
+R5 REMAINS A CLEAN COUNTEREXAMPLE
+
+
+
+
+For
+
+\[
+X=\{0,1,2,3\},  
+\]
+\[
+T=(0,0,1,2),  
+\]
+\[
+\Pi_0=\{\{0,3\},\{1,2\}\},  
+\]
+
+we have
+
+\[
+s=q=2.  
+\]
+
+The incidence graph is
+
+\[
+K_{2,2}.  
+\]
+
+Therefore
+
+\[
+|E|=4,  
+\qquad  
+|V|=4,  
+\qquad  
+c=1.  
+\]
+
+Hence
+
+\[
+\beta_1=4-4+1=1.  
+\]
+
+The refinement increment is
+
+\[
+h=4-2=2.  
+\]
+
+The defect rank is
+
+\[
+r=2-1=1.  
+\]
+
+Therefore
+
+\[
+\boxed{h-r=2-1=1=\beta_1(K_{2,2}).}  
+\]
+
+This remains an exact rational counterexample to universal saturation.
+
+
+
+
+
+A NECESSARY TERMINOLOGY CORRECTION
+
+
+
+
+There is an important distinction between:
+
+\[
+h-r=\beta_1  
+\]
+
+and
+
+\[
+\mathcal D\cong Z_1(G).  
+\]
+
+They are not the same statement.
+
+
+Indeed,
+
+\[
+\dim\mathcal D=r,  
+\]
+
+whereas
+
+\[
+\dim Z_1(G)=\beta_1.  
+\]
+
+In general,
+
+\[
+r\ne\beta_1.  
+\]
+
+Therefore the two spaces cannot generally be isomorphic.
+
+
+For R5:
+
+\[
+r=1,  
+\qquad  
+\beta_1=1,  
+\]
+
+so the dimensions happen to coincide.
+
+
+But that is accidental.
+
+
+For other graphs they need not.
+
+
+Therefore:
+
+\[
+\boxed{  
+h=r+\beta_1  
+}  
+\]
+
+is the fundamental statement.
+
+
+Not:
+
+\[
+\boxed{  
+\mathcal D\cong Z_1.  
+}  
+\]
+
+
+
+
+THE PROPOSED EDGE-EXCESS SPACE IS VALID — WITH A QUALIFIER
+
+
+
+
+Define
+
+\[
+\mathcal E=\mathbb Q^E.  
+\]
+
+Let \(S\) be the span of source-star vectors.
+
+
+Then
+
+\[
+\dim S=s  
+\]
+
+because the source stars have disjoint supports.
+
+
+Define
+
+\[
+\mathcal W=\mathcal E/S.  
+\]
+
+Then
+
+\[
+\dim\mathcal W  
+=  
+|E|-s  
+=  
+h.  
+\]
+
+Now orient every edge source \(\to\) target.
+
+
+Let
+
+\[
+Z_1(G;\mathbb Q)=\ker\partial  
+\]
+
+be the ordinary rational cycle space.
+
+
+A cycle cannot lie nontrivially in the source-star span.
+
+
+Indeed, suppose
+
+\[
+z=\sum_i a_i\sigma_i  
+\]
+
+is a cycle.
+
+
+At source vertex \(A_i\), the boundary contribution is proportional to
+
+\[
+\deg(A_i)a_i.  
+\]
+
+Since every source block has at least one outgoing edge,
+
+\[
+\deg(A_i)>0.  
+\]
+
+Thus
+
+\[
+a_i=0  
+\]
+
+for every \(i\).
+
+
+Therefore
+
+\[
+Z_1(G;\mathbb Q)\cap S=\{0\}.  
+\]
+
+So the natural quotient map
+
+\[
+\mathbb Q^E\rightarrow\mathcal W  
+\]
+
+is injective on the cycle space.
+
+
+Hence:
+
+\[
+\boxed{  
+Z_1(G;\mathbb Q)\hookrightarrow\mathcal W.  
+}  
+\]
+
+This part of the proposed structure is sound.
+
+
+
+
+
+THE SHORT EXACT SEQUENCE EXISTS AS A VECTOR-SPACE SEQUENCE
+
+
+
+
+Because
+
+\[
+Z_1\hookrightarrow\mathcal W,  
+\]
+
+we automatically have
+
+\[
+\boxed{  
+0\longrightarrow Z_1(G;\mathbb Q)  
+\longrightarrow\mathcal W  
+\longrightarrow\mathcal W/Z_1(G;\mathbb Q)  
+\longrightarrow0.  
+}  
+\]
+
+And
+
+\[
+\dim\mathcal W=h,  
+\]
+\[
+\dim Z_1=\beta_1,  
+\]
+
+so
+
+\[
+\dim(\mathcal W/Z_1)  
+=  
+h-\beta_1  
+=  
+r.  
+\]
+
+Therefore:
+
+\[
+\boxed{  
+\dim(\mathcal W/Z_1)=r.  
+}  
+\]
+
+This is a genuine strengthening.
+
+
+But there is a crucial qualifier:
+
+\[
+\boxed{  
+\mathcal W/Z_1  
+\text{ has the right dimension to represent the defect, but has not yet been canonically identified with the defect image.}  
+}  
+\]
+
+That identification is the missing theorem.
+
+
+
+
+
+THE MORE CANONICAL DEFECT DESCRIPTION
+
+
+
+
+There is a cleaner way to describe the defect space directly.
+
+
+Let
+
+\[
+C=\mathbb Q^q  
+\]
+
+be the target coefficient space.
+
+
+For
+
+\[
+c=(c_1,\ldots,c_q),  
+\]
+
+define
+
+\[
+\delta_G(c)_{ij}  
+=  
+c_j-  
+\frac{1}{|A_i|}  
+\sum_{x\in A_i}c_{\operatorname{tgt}(T(x))}  
+\]
+
+for every incidence edge \((i,j)\).
+
+
+Equivalently, if
+
+\[
+w_{ij}  
+=  
+|\{x\in A_i:T(x)\in B_j\}|,  
+\]
+
+then
+
+\[
+\delta_G(c)_{ij}  
+=  
+c_j-  
+\frac{1}{|A_i|}  
+\sum_{k:(i,k)\in E}  
+w_{ik}c_k.  
+\]
+
+The actual defect satisfies
+
+\[
+Df  
+=  
+\sum_{(i,j)\in E}  
+\delta_G(c)_{ij}  
+\,1_{A_i\cap T^{-1}(B_j)}.  
+\]
+
+The edge-indicator functions
+
+\[
+1_{A_i\cap T^{-1}(B_j)}  
+\]
+
+are linearly independent because their supports are disjoint and nonempty.
+
+
+Therefore:
+
+\[
+\boxed{  
+\operatorname{rank}D  
+=  
+\operatorname{rank}\delta_G.  
+}  
+\]
+
+And
+
+\[
+\ker\delta_G  
+=  
+\{\text{target coefficients constant on every connected component of }G\}.  
+\]
+
+Thus
+
+\[
+\boxed{  
+\operatorname{Def}(D)  
+\cong  
+\mathbb Q^q/\ker\delta_G.  
+}  
+\]
+
+Since
+
+\[
+\dim\ker\delta_G=c(G),  
+\]
+
+we again obtain
+
+\[
+\dim\operatorname{Def}(D)=q-c(G)=r.  
+\]
+
+This is a much more direct candidate for the eventual operator-level theorem.
+
+
+
+
+
+A NEW ADVERSARIAL WARNING: BLOCK SIZE WEIGHTS MATTER
+
+
+
+
+This is important for the proposed exact-sequence program.
+
+
+The graph's ordinary cycle space depends only on incidence:
+
+\[
+G.  
+\]
+
+But the actual block-average defect contains the weights
+
+\[
+w_{ij}  
+=  
+|A_i\cap T^{-1}(B_j)|.  
+\]
+
+Thus the defect operator contains more information than the unweighted graph.
+
+
+This means:
+
+\[
+\boxed{  
+\text{cycle rank is purely combinatorial;}  
+}  
+\]
+
+while
+
+\[
+\boxed{  
+\text{defect realization is weighted by fiber multiplicities.}  
+}  
+\]
+
+The rank miraculously ignores those weights, because the kernel is still characterized by componentwise equality.
+
+
+But an actual canonical map
+
+\[
+\mathcal W/Z_1  
+\longrightarrow  
+\operatorname{im}D  
+\]
+
+may need to incorporate the \(w_{ij}\).
+
+
+That is precisely where the real “isomorphism” problem begins.
+
+
+
+
+
+THIS ALSO EXPLAINS WHY A DIMENSION ARGUMENT IS INSUFFICIENT
+
+
+
+
+We now have:
+
+\[
+\dim\mathcal W/Z_1=r  
+\]
+
+and
+
+\[
+\dim\operatorname{im}D=r.  
+\]
+
+Therefore some vector-space isomorphism exists.
+
+
+But this is trivial finite-dimensional linear algebra.
+
+
+It does NOT establish a natural map.
+
+
+The publication-grade statement must distinguish:
+
+\[
+\boxed{  
+\dim(\mathcal W/Z_1)=\dim\operatorname{im}D  
+}  
+\]
+
+from
+
+\[
+\boxed{  
+\mathcal W/Z_1\cong_{\rm canonical}\operatorname{im}D.  
+}  
+\]
+
+The second remains OPEN.
+
+
+This is exactly the place where the previous “Defect Isomorphism” language was too aggressive.
+
+
+
+
+
+WHAT WOULD CONSTITUTE A REAL ISOMORPHISM THEOREM?
+
+
+
+
+We need an explicit map
+
+\[
+\Phi_G:  
+\mathcal W/Z_1(G;\mathbb Q)  
+\longrightarrow  
+\operatorname{im}D  
+\]
+
+such that:
+
+
+
+
+
+
+\(\Phi_G\) is well-defined;
+
+
+
+
+
+
+\(\Phi_G\) is linear;
+
+
+
+
+
+
+\(\Phi_G\) is injective;
+
+
+
+
+
+
+\(\Phi_G\) is surjective;
+
+
+
+
+
+
+it uses no arbitrary spanning tree;
+
+
+
+
+
+
+it does not depend on an arbitrary choice of edge ordering;
+
+
+
+
+
+
+it respects graph isomorphisms;
+
+
+
+
+
+
+it incorporates the actual averaging weights correctly.
+
+
+
+
+
+
+The last condition is especially important.
+
+
+A construction that works only after choosing a root or spanning tree would establish an isomorphism, but not necessarily a canonical one.
+
+
+
+
+
+STRONGER TARGET: NATURALITY
+
+
+
+
+The real high-value theorem would be a commutative naturality statement.
+
+
+For an isomorphism of weighted incidence systems
+
+\[
+(G,w)\cong(G',w'),  
+\]
+
+the corresponding diagram should commute:
+
+\[
+\begin{array}{ccc}  
+\mathcal W/Z_1(G) & \xrightarrow{\Phi_G} & \operatorname{im}D_G\\  
+\downarrow & & \downarrow\\  
+\mathcal W'/Z_1(G') & \xrightarrow{\Phi_{G'}} & \operatorname{im}D_{G'}  
+\end{array}  
+\]
+
+That would justify “canonical.”
+
+
+Without this, “isomorphism” should remain descriptive rather than theorem-level terminology.
+
+
+
+
+
+LITERATURE AUDIT
+
+
+
+
+I checked the supplied sources.
+
+
+The Paige–Tarjan paper is genuinely about partition-refinement algorithms, including relational coarsest partition and refinement structures.
+
+
+That supports the methodological use of iterative partition refinement.
+
+
+It does NOT prove the AQARION identity
+
+\[
+r=q-c(G)  
+\]
+
+or
+
+\[
+h-r=\beta_1(G).  
+\]
+
+Those remain AQARION results.
+
+
+The Korda–Mezić paper establishes that, in the EDMD setting, the infinite-sample finite-dimensional operator is the \(L_2(\mu)\)-orthogonal projection of Koopman action onto the selected finite-dimensional observable space.
+
+
+The Haseli–Cortés paper likewise explicitly studies orthogonal projection of Koopman action onto finite-dimensional observable spaces and connects approximation quality to proximity to Koopman invariance.
+
+
+Therefore the literature supports the conceptual chain
+
+\[
+\text{Koopman}  
+\rightarrow  
+\text{finite observable space}  
+\rightarrow  
+\text{orthogonal projection}  
+\rightarrow  
+\text{invariance/defect}.  
+\]
+
+But it does not supply
+
+\[
+\boxed{  
+\operatorname{rank}D=q-c(G)  
+}  
+\]
+
+or
+
+\[
+\boxed{  
+h-r=\beta_1(G).  
+}  
+\]
+
+Those remain AQARION-specific.
+
+
+This separation should stay explicit in the paper.
+
+
+
+
+
+THE PAIGE–TARJAN CONNECTION SHOULD ALSO BE NARROWLY WORDED
+
+
+
+
+The Paige–Tarjan source supports the fact that partition refinement is a standard algorithmic architecture.
+
+
+It should not be cited as evidence for the AQARION numerical census.
+
+
+The correct literature statement is:
+
+\[
+\boxed{  
+\text{Partition refinement is established background.}  
+}  
+\]
+
+Then:
+
+\[
+\boxed{  
+\text{The incidence/Koopman rank identity is a new theorem of the AQARION model.}  
+}  
+\]
+
+That is defensible.
+
+
+
+
+
+INDEPENDENT COMPUTATIONAL CERTIFICATE
+
+
+
+
+AQARION_DEFECT_CYCLE_AUDIT
+
+DATE = 2026-09-01
+
+FIELD = Q
+
+
+MODEL:
+
+X finite
+
+T : X -> X
+
+Pi_src = {A_1,...,A_s}
+
+Pi_tgt = {B_1,...,B_q}
+
+
+GRAPH:
+
+(A_i,B_j) in E iff T(A_i) intersect B_j != empty
+
+
+OPERATOR:
+
+K(x,y) = 1[T(x)=y]
+
+
+PROJECTION:
+
+exact rational block averaging
+
+
+DEFECT:
+
+D = (I-P_src) K P_tgt
+
+
+PREDICTION:
+
+rank_Q(D) = q-c(G)
+
+h = |E|-s
+
+beta_1(G) = |E|-s-q+c(G)
+
+h-r = beta_1(G)
+
+
+INDEPENDENT EXHAUSTIVE TEST:
+
+
+n=1       1 case        0 failures
+
+n=2      16 cases        0 failures
+
+n=3     675 cases        0 failures
+
+n=4   57,600 cases       0 failures
+
+
+TOTAL = 58,292
+
+FAILURES = 0
+
+
+INDEPENDENT RANDOM EXACT-RATIONAL TEST:
+
+
+1,000 cases
+
+n = 2,...,5
+
+FAILURES = 0
+
+
+STATUS:
+
+GENERAL RANK THEOREM = PROVEN
+
+GENERAL REFINEMENT IDENTITY = PROVEN
+
+EXHAUSTIVE n<=4 = PASS
+
+RANDOM n<=5 = PASS
+
+
+
+
+
+REVISED THEOREM STATUS
+
+
+
+
+rank(D) = q-c(G)
+
+PROVEN
+
+
+h = |E|-s
+
+PROVEN under successor-signature refinement
+
+
+h-r = beta_1(G)
+
+PROVEN
+
+
+equal-block theorem
+
+COROLLARY
+
+
+nonuniform source blocks
+
+COVERED
+
+
+nonuniform target blocks
+
+COVERED
+
+
+unequal source/target block counts
+
+PROVEN + independently verified
+
+
+unreachable target blocks
+
+COVERED
+
+
+cyclic graphs
+
+COVERED
+
+
+disconnected graphs
+
+COVERED
+
+
+exact rational projection rank
+
+INDEPENDENTLY VERIFIED
+
+
+n<=4 exhaustive generalized census
+
+58,292/58,292 PASS
+
+
+random n<=5 exact-rational test
+
+1,000/1,000 PASS
+
+
+cycle-space injection into edge-excess quotient
+
+PROVEN
+
+
+dim(W/Z_1)=r
+
+PROVEN
+
+
+canonical W/Z_1 -> defect-space isomorphism
+
+OPEN
+
+
+literal Koopman Defect Isomorphism
+
+NOT ESTABLISHED
+
+
+native AQARION refinement equivalence
+
+PENDING
+
+
+SHA256 artifact bridge
+
+PENDING
+
+
+Lean formalization
+
+PENDING
+
+
+715/705 namespace
+
+QUARANTINED
+
+
+518/508 census
+
+QUARANTINED
+
+
+C4
+
+NO
+
+
+publication promotion
+
+NO
+
+
+
+
+IMPORTANT GOVERNANCE CORRECTION
+
+
+
+
+The phrase
+
+
+
+
+“AQARION v96 theoretical framework is successfully verified”
+
+
+
+
+needs qualification.
+
+
+The generalized mathematical framework is now substantially verified.
+
+
+But the AQARION artifact itself is not yet certified against the mathematical model.
+
+
+Therefore the strongest honest wording is:
+
+\[
+\boxed{  
+\textbf{STANDARD MODEL THEOREM: PROVEN + INDEPENDENTLY VERIFIED}  
+}  
+\]
+
+not
+
+\[
+\boxed{  
+\textbf{NATIVE AQARION IMPLEMENTATION: CERTIFIED}.  
+}  
+\]
+
+The artifact bridge remains the gate.
+
+
+
+
+
+NEXT PRODUCTION GATE: THE HASH BRIDGE
+
+
+
+
+The next run should freeze:
+
+\[
+(X,T,\Pi_0,\ldots,\Pi_T).  
+\]
+
+For each stage construct a canonical serialization
+
+\[
+S_t=  
+\operatorname{Canon}(X,T,\Pi_0,\ldots,\Pi_t).  
+\]
+
+Then
+
+\[
+H_t=\operatorname{SHA256}(S_t).  
+\]
+
+The native implementation and independent mathematical implementation must produce identical:
+
+\[
+\Pi_t,  
+\]
+
+and therefore identical canonical hashes.
+
+
+The critical test is not merely final cardinality.
+
+
+It is:
+
+\[
+\boxed{  
+\Pi_t^{\rm native}  
+=  
+\Pi_t^{\rm signature}  
+}  
+\]
+
+bit-for-bit under canonical labeling.
+
+
+That is the bridge that determines whether the theorem applies to AQARION rather than merely to the standard model.
+
+
+
+
+
+THE MOST IMPORTANT NEW COMPUTATION TO ADD
+
+
+
+
+For every stage where
+
+\[
+h_t>r_t,  
+\]
+
+compute an explicit cycle basis.
+
+
+For each independent cycle
+
+\[
+C_k,  
+\]
+
+store:
+
+
+cycle_id
+
+vertices
+
+edges
+
+orientation
+
+cycle_vector in Q^E
+
+
+Then verify
+
+\[
+\partial C_k=0.  
+\]
+
+Also require
+
+\[
+\operatorname{rank}\{C_1,\ldots,C_{\beta_1}\}  
+=  
+\beta_1.  
+\]
+
+For R5:
+
+\[
+\beta_1=1.  
+\]
+
+The certificate is the unique four-cycle, up to orientation:
+
+\[
+A  
+\rightarrow A'  
+\rightarrow B  
+\rightarrow B'  
+\rightarrow A.  
+\]
+
+This converts the scalar deficiency
+
+\[
+h-r=1  
+\]
+
+into a constructive graph certificate.
+
+
+
+
+
+THE LEAN TARGET SHOULD BE SPLIT INTO THREE THEOREMS
+
+
+
+
+Do not attempt the giant theorem in one sorry.
+
+
+Use:
+
+
+Theorem 1:
+
+defect_rank = q - connected_components
+
+
+Theorem 2:
+
+refinement_cardinality = edge_cardinality
+
+
+Theorem 3:
+
+h - r = beta1
+
+
+The first theorem is the substantive linear-algebra theorem.
+
+
+The second is the combinatorial bridge.
+
+
+The third is then essentially arithmetic.
+
+
+A Lean architecture should therefore look conceptually like:
+
+
+FinitePartition
+
+|
+
++---- incidenceGraph
+
+|
+
++---- targetCoefficientSpace
+
+|
+
++---- blockAverageProjection
+
+|
+
++---- defectOperator
+
+|
+
++---- defectKernel
+
+|
+
++---- componentConstantSpace
+
+|
+
++---- rank_defect
+
+|
+
++---- refinement_increment
+
+|
+
++---- betti_one
+
+|
+
++---- defect_cycle_rank
+
+
+This is substantially safer than formalizing the final identity directly.
+
+
+
+
+
+THE BEST CURRENT MATHEMATICAL FORM
+
+
+
+
+I recommend replacing the previous AQARION anchor with this:
+
+\[
+\boxed{  
+\begin{minipage}{0.9\linewidth}  
+\textbf{General Koopman Defect–Cycle Rank Theorem.}  
+  
+For finite deterministic \(T:X\to X\), source partition  
+\(\Pi_{\rm src}\), target partition \(\Pi_{\rm tgt}\), and their bipartite incidence graph \(G\), let  
+\[  
+D=(I-P_{\rm src})KP_{\rm tgt}.  
+\]
+\[
+\operatorname{rank}_{\mathbb Q}D=q-c(G),  
+\]
+
+ and consequently
+
+\[
+h-\operatorname{rank}_{\mathbb Q}D  
+=  
+\beta_1(G).  
+\]
+
+} ]
+
+
+That is the cleanest publication-grade mathematical anchor presently supported.
+
+
+
+
+
+FINAL ADVERSARIAL VERDICT
+
+
+
+
+The audit has advanced materially.
+
+
+The original equality
+
+\[
+g_1=r  
+\]
+
+is dead as a universal theorem.
+
+
+The corrected one-step theorem
+
+\[
+h_t-r_t=\beta_1(G_t)  
+\]
+
+is now supported by:
+
+\[
+\boxed{\text{formal derivation}}  
+\]
+
+plus
+
+\[
+\boxed{58,292/58,292\text{ independent exact-rational cases}}  
+\]
+
+plus
+
+\[
+\boxed{1,000/1,000\text{ independent random exact-rational cases}}.  
+\]
+
+The asymmetric theorem
+
+\[
+\boxed{r=q-c(G)}  
+\]
+
+is the real underlying result.
+
+
+The edge-excess construction also yields
+
+\[
+\boxed{  
+0\to Z_1(G;\mathbb Q)  
+\to\mathcal W  
+\to\mathcal W/Z_1  
+\to0  
+}  
+\]
+
+with
+
+\[
+\dim\mathcal W=h,  
+\]
+\[
+\dim Z_1=\beta_1,  
+\]
+\[
+\dim(\mathcal W/Z_1)=r.  
+\]
+
+But the final step
+
+\[
+\boxed{  
+\mathcal W/Z_1  
+\stackrel{?}{\cong_{\rm canonical}}  
+\operatorname{im}D  
+}  
+\]
+
+remains open.
+
+
+That is now the actual frontier problem.
+
+
+Therefore the strongest honest disposition is:
+
+\[
+\boxed{  
+\textbf{KOOPMAN DEFECT–CYCLE RANK THEOREM — PROVEN}  
+}  
+\]
+\[
+\boxed{  
+\textbf{ASYMMETRIC SOURCE/TARGET FORM — PROVEN + 58,292-CASE EXACT VERIFICATION}  
+}  
+\]
+\[
+\boxed{  
+\textbf{CYCLE-SPACE EMBEDDING — PROVEN}  
+}  
+\]
+\[
+\boxed{  
+\textbf{CANONICAL DEFECT/CYCLE ISOMORPHISM — OPEN}  
+}  
+\]
+\[
+\boxed{  
+\textbf{NATIVE AQARION ARTIFACT BRIDGE — PENDING}  
+}  
+\]
+\[
+\boxed{  
+\textbf{715/705,\ 518/508 — QUARANTINED}  
+}  
+\]
+\[
+\boxed{  
+\textbf{C4 — NO}  
+}  
+\]
+\[
+\boxed{  
+\textbf{PUBLICATION PROMOTION — NO}  
+}  
+\]
+
+The literature supports the partition-refinement and projected-Koopman framework, but not the AQARION-specific rank/cycle identity. Paige–Tarjan supplies the partition-refinement background; Korda–Mezić supplies the projected finite-dimensional Koopman framework; Haseli–Cortés supplies the projection/invariance-proximity perspective.
+
+
+The next decisive task is therefore no longer another census. It is the weighted, choice-free construction—or a rigorous impossibility result—for the canonical map between the graph edge-excess quotient and the actual Koopman defect image, followed by the native SHA256 refinement bridge.
+
+
+https://arxiv.org/abs/1703.04680?utm_source=chatgpt.com/
+
+
+https://arxiv.org/abs/2311.13033?utm_source=chatgpt.com/
+
+
+https://arxiv.org/abs/2311.13033?utm_source=chatgpt.com/
+
+
+Worked for 18s
+
+
+Yes. The audit is substantially stronger now, but there is one important mathematical tightening I would make before calling the result a “Koopman Defect Isomorphism.”
+
+
+The strongest defensible conclusion is:
+
+
+
+
+The rank identity is proven over \(\mathbb Q\), and the excess-refinement/defect/cycle-rank relation is a consequence of the bipartite incidence graph. A literal vector-space “isomorphism” still requires an explicit canonical map; equal dimensions alone do not establish one.
+
+
+
+
+That distinction matters for the theorem label.
+
+
+
+
+The core rank theorem survives
+
+
+
+
+Let
+
+\[
+\Pi_t=\{A_1,\ldots,A_m\},\qquad    
+V_t=\operatorname{Im}P_t,    
+\]
+
+and let \(G_t\) have \(m\) source vertices and \(m\) target vertices.
+
+
+For
+
+\[
+f=\sum_{j=1}^m c_j1_{A_j},    
+\]
+
+Koopman pullback gives
+
+\[
+(Kf)(x)=f(Tx).    
+\]
+
+Thus \(D_tf=0\) exactly when the coefficient \(c_j\) is constant across all target blocks reached by a given source block.
+
+
+Those are precisely the equality constraints encoded by the connected components of \(G_t\). Since every source vertex has at least one incident edge, every component contains at least one target vertex, including isolated target vertices.
+
+
+Consequently,
+
+\[
+\dim\ker(D_t|_{V_t})=c(G_t),    
+\]
+
+and therefore
+
+\[
+\boxed{r_t=m-c(G_t)}.    
+\]
+
+This is not merely numerical evidence: it is the structural proof.
+
+
+The graph side is standard: for a finite graph with \(E\) edges, \(V\) vertices and \(c\) connected components, its circuit rank/first Betti number is \(E-V+c\).
+
+
+Since \(G_t\) has \(2m\) vertices,
+
+\[
+\beta_1(G_t)=|E_t|-2m+c(G_t).    
+\]
+
+If the refinement increment is defined by
+
+\[
+h_t=|E_t|-m,    
+\]
+
+then
+
+\[
+\begin{aligned}    
+h_t-r_t    
+ &= (|E_t|-m)-(m-c(G_t))\\    
+ &= |E_t|-2m+c(G_t)\\    
+ &=\beta_1(G_t).    
+\end{aligned}    
+\]
+
+Hence
+
+\[
+\boxed{h_t-r_t=\beta_1(G_t)}.    
+\]
+
+That part is rigorous.
+
+
+
+
+The most important correction: “isomorphism”
+
+
+
+
+There is a subtle terminology problem.
+
+
+The equation
+
+\[
+h_t-r_t=\beta_1(G_t)    
+\]
+
+is an integer dimension/rank identity.
+
+
+It does not by itself establish an isomorphism of vector spaces.
+
+
+For example, knowing
+
+\[
+\dim U=\dim W    
+\]
+
+only proves that \(U\) and \(W\) are abstractly isomorphic when they are finite-dimensional vector spaces over the same field. It does not produce the claimed AQARION-specific isomorphism.
+
+
+So I recommend changing the theorem name from:
+
+
+
+
+Koopman Defect Isomorphism
+
+
+
+
+to something initially more conservative:
+
+
+
+
+Koopman Defect–Cycle Rank Identity
+
+
+
+
+and then separately prove a canonical isomorphism if you want the stronger terminology.
+
+
+That is the main adversarial issue I would still keep open.
+
+
+
+
+
+There is an even stronger formulation available
+
+
+
+
+The cleanest formulation uses three quantities:
+
+\[
+\boxed{    
+|E_t|    
+=    
+m+r_t+\beta_1(G_t)    
+}    
+\]
+
+because
+
+\[
+r_t=m-c(G_t)    
+\]
+
+and
+
+\[
+\beta_1(G_t)=|E_t|-2m+c(G_t).    
+\]
+
+Therefore
+
+\[
+|E_t|-m    
+=    
+r_t+\beta_1(G_t).    
+\]
+
+So the refinement increment decomposes exactly into
+
+\[
+\boxed{    
+h_t=r_t+\beta_1(G_t).    
+}    
+\]
+
+This is stronger conceptually than merely writing \(h_t-r_t=\beta_1\).
+
+
+It says:
+
+
+
+
+Every refinement edge beyond the baseline contributes either to defect rank or to a genuine cycle degree of freedom.
+
+
+
+
+The graph interpretation is especially clean because \(\beta_1\) is precisely the circuit rank/number of independent cycles.
+
+
+
+
+
+The ghost-state test is particularly valuable
+
+
+
+
+Your ghost example
+
+\[
+T=(0,0,0),\qquad    
+\Pi=\{\{0,1\},\{2\}\}    
+\]
+
+is not a trivial edge case.
+
+
+The target block \({2}\) is isolated in the incidence graph.
+
+
+That isolated vertex contributes:
+
+\[
++1\quad\text{to }c(G),    
+\]
+
+and therefore
+
+\[
++1\quad\text{to }\dim\ker(D|_V).    
+\]
+
+But it contributes neither an edge nor a cycle.
+
+
+So the identity remains
+
+\[
+h=0,\qquad r=0,\qquad\beta_1=0.    
+\]
+
+This demonstrates something important:
+
+
+
+
+The theorem does not require every target block to be dynamically observable.
+
+
+
+
+That is a meaningful robustness result, not merely a numerical curiosity.
+
+
+
+
+
+Nonuniform block sizes are also genuinely informative
+
+
+
+
+The nonuniform example is useful because the projection itself depends on block cardinalities.
+
+
+Over \(\mathbb Q\),
+
+\[
+P_t    
+=    
+\sum_i    
+\frac{1}{|A_i|}    
+1_{A_i}1_{A_i}^{\mathsf T}.    
+\]
+
+Thus unequal block sizes change the actual orthogonal projection matrix.
+
+
+But they do not change the coefficient-equality constraints determining
+
+\[
+\ker(D_t|_{V_t}).    
+\]
+
+That separates two layers cleanly:
+
+\[
+\text{block sizes}    
+\longrightarrow    
+\text{metric/projection realization},    
+\]
+
+whereas
+
+\[
+\text{incidence connectivity}    
+\longrightarrow    
+\text{kernel dimension/rank}.    
+\]
+
+This is consistent with the broader Koopman approximation literature, where orthogonal projection onto finite-dimensional observable spaces is explicitly tied to the invariance properties of those spaces.
+
+
+
+
+
+Your characteristic-\(p\) correction is right
+
+
+
+
+I would lock the theorem as:
+
+\[
+\boxed{    
+\text{The block-average projection theorem is proven over }\mathbb Q.    
+}    
+\]
+
+Do not currently promote the statement to arbitrary finite fields.
+
+
+The obstruction is exactly that
+
+\[
+|A_i|^{-1}    
+\]
+
+must exist in the coefficient field.
+
+
+If
+
+\[
+p\mid |A_i|,    
+\]
+
+then the standard averaging projector is unavailable.
+
+
+But—and this is important—the graph rank identity itself is not intrinsically a characteristic-zero statement. One could potentially define another projection or work directly with the coefficient constraint system.
+
+
+So:
+
+
+
+
+finite-field failure of the standard averaging projector ≠ finite-field failure of every possible defect formulation.
+
+
+
+
+That distinction should remain explicit in v98/v99.
+
+
+
+
+
+I would also generalize the theorem before freezing it
+
+
+
+
+Your current theorem assumes the same \(m\)-block partition on source and target sides.
+
+
+That is unnecessary.
+
+
+Let
+
+\[
+\Pi^{src}=\{A_1,\ldots,A_s\},    
+\qquad    
+\Pi^{tgt}=\{B_1,\ldots,B_q\}.    
+\]
+
+Construct
+
+\[
+G=(\Pi^{src}\sqcup\Pi^{tgt},E).    
+\]
+
+Then the graph has
+
+\[
+s+q    
+\]
+
+vertices, not necessarily \(2m\).
+
+
+The constraint space acts on the \(q\) target coefficients. Under the same assumptions,
+
+\[
+\boxed{    
+r=q-c(G)    
+}    
+\]
+
+provided every connected component contains a target vertex—which is automatic if every source block has an outgoing image.
+
+
+Then
+
+\[
+\beta_1(G)=|E|-s-q+c(G),    
+\]
+
+so
+
+\[
+|E|-s-r    
+=    
+|E|-s-(q-c)    
+=    
+\beta_1(G).    
+\]
+
+Therefore the genuinely general theorem is
+
+\[
+\boxed{    
+h-r=\beta_1(G)    
+}    
+\]
+
+with
+
+\[
+h:=|E|-s,    
+\qquad    
+r:=q-c(G).    
+\]
+
+Your current \(m=m_{src}=m_{tgt}\) theorem is simply the symmetric special case.
+
+
+This is worth doing. It converts what currently looks like a special partition theorem into a bipartite incidence theorem.
+
+
+
+
+
+The next adversarial computation I recommend
+
+
+
+
+The next test should deliberately violate the equal-block-count assumption.
+
+
+For example:
+
+\[
+|\Pi^{src}|=3,\qquad |\Pi^{tgt}|=2.    
+\]
+
+Then exhaustively enumerate finite maps and arbitrary source/target partitions and compare:
+
+
+
+
+
+
+exact rational matrix rank;
+
+
+
+
+
+
+graph prediction \(q-c(G)\);
+
+
+
+
+
+
+\(h-r\);
+
+
+
+
+
+
+graph \(\beta_1\).
+
+
+
+
+
+
+The target should be
+
+\[
+\boxed{    
+r=q-c(G),\qquad    
+h-r=\beta_1(G).    
+}    
+\]
+
+That is a more powerful adversarial test than adding more examples satisfying \(s=q=m\).
+
+
+I would then add:
+
+
+isolated target vertices;
+
+
+nonuniform source blocks;
+
+
+nonuniform target blocks;
+
+
+unreachable target blocks;
+
+
+multiple source blocks sharing one target;
+
+
+one source block hitting every target;
+
+
+disconnected incidence graphs;
+
+
+maximally cyclic incidence graphs;
+
+
+\(s\neq q\);
+
+
+iterated \(T^t\) / \(\Pi_t\);
+
+
+random exhaustive maps for small \(n\).
+
+
+If all of those survive exact \(\mathbb Q\) rank comparison, the theorem becomes considerably harder to attack.
+
+
+
+
+
+Governance/status should remain conservative
+
+
+
+
+I agree with the previous frozen disposition rather than the stronger “entire artifact package certified” wording.
+
+
+Claim	Current status
+
+
+\(r_t=m-c(G_t)\)	PROVEN over \(\mathbb Q\)
+
+\(h_t-r_t=\beta_1(G_t)\)	PROVEN over \(\mathbb Q\)
+
+Nonuniform blocks	EXACTLY VERIFIED
+
+Ghost target	EXACTLY VERIFIED
+
+Iterated partition example	EXACTLY VERIFIED
+
+Repaired R5	EXACT
+
+n=4 exhaustive Koopman census	VERIFIED
+
+n=4 transpose distinction	VERIFIED
+
+n=5 graph-rank census	INDEPENDENTLY REPRODUCED
+
+Native artifact/hash bridge	PENDING INSPECTION
+
+n=7 artifact/search	REPORTED, NOT CERTIFIED
+
+Lean formalization	PENDING
+
+Finite-field generalization	OPEN
+
+Literal canonical “defect isomorphism”	NOT YET ESTABLISHED
+
+C4/publication promotion	BLOCKED
+
+
+The web literature supports the general background—finite-dimensional Koopman approximation is indeed formulated through projection onto observable subspaces and their invariance properties—but it does not independently establish this AQARION graph identity.
+
+
+Bottom line
+
+
+I would freeze the mathematical result now as:
+
+\[
+\boxed{    
+\displaystyle    
+r_t=q_t-c(G_t)    
+}    
+\]
+
+and, in the generalized source/target formulation,
+
+\[
+\boxed{    
+\displaystyle    
+h_t-r_t=\beta_1(G_t).    
+}    
+\]
+
+For equal source/target block counts \(q_t=s_t=m_t\), this reduces to your current formula.
+
+
+The theorem is stronger than the original R5 saturation claim, and the adversarial examples support it. But the word “isomorphism” should remain quarantined until an explicit natural linear isomorphism—not merely equality of dimensions—is constructed.
+
+
+The most valuable next computation is therefore the unequal source/target-block census, because that attacks an actual structural assumption rather than adding another confirmation of the symmetric case.Yes. The new material strengthens the result substantially, but I would not freeze the wording as “universal over \(\mathbb Q\)” without one important qualification: the identity is universal for the specific refinement/projection model now being used. That distinction matters because \(h_t=|E_t|-m\) is itself a structural assumption about how \(\Pi_{t+1}\) is constructed.
+
+
+I reran the logic adversarially against the graph, operator, and projection definitions and found the following.
+
+
+
+
+The core theorem is sound
+
+
+
+
+Let
+
+
+\(X\) be finite,
+
+
+\(T:X\to X\) deterministic,
+
+
+\(\Pi_t={A_1,\ldots,A_m}\) be a partition of \(X\),
+
+
+\(V_t=\operatorname{span}{1_{A_1},\ldots,1_{A_m}}\),
+
+
+\(P_t\) be the block-averaging orthogonal projection over \(\mathbb Q\),
+
+
+\(Kf=f\circ T\),
+
+
+\(D_t=(I-P_t)KP_t\).
+
+
+Define the bipartite graph
+
+\[
+G_t=(\Pi_t^{L}\sqcup\Pi_t^{R},E_t),    
+\]
+
+with
+
+\[
+(A_i^L,A_j^R)\in E_t    
+\iff    
+T(A_i)\cap A_j\neq\varnothing.    
+\]
+
+The decisive point is that for \(f=\sum_jc_j1_{A_j}\),
+
+\[
+D_tf=0    
+\iff    
+Kf\in V_t.    
+\]
+
+For \(x\in A_i\),
+
+\[
+Kf(x)=c_j    
+\quad\text{whenever }T(x)\in A_j.    
+\]
+
+Therefore every pair of target blocks adjacent to the same source block imposes an equality between their coefficients. Those equalities propagate through connected components of \(G_t\).
+
+
+Hence
+
+\[
+\dim\ker(D_t|_{V_t})=c(G_t),    
+\]
+
+and consequently
+
+\[
+\boxed{r_t=m-c(G_t)}.    
+\]
+
+This part does not require equal block cardinalities. The block sizes affect the numerical averaging matrix \(P_t\), but not these coefficient-equality constraints.
+
+
+The graph identity
+
+\[
+\beta_1(G_t)=|E_t|-|V(G_t)|+c(G_t)    
+\]
+
+is the standard first-Betti/cyclomatic formula.
+
+
+Since the bipartite graph has \(2m\) vertices,
+
+\[
+\beta_1(G_t)    
+=    
+|E_t|-2m+c(G_t).    
+\]
+
+So, provided the refinement satisfies
+
+\[
+|\Pi_{t+1}|=|E_t|,    
+\]
+
+we obtain
+
+\[
+h_t    
+=    
+|\Pi_{t+1}|-|\Pi_t|    
+=    
+|E_t|-m.    
+\]
+
+Therefore
+
+\[
+\begin{aligned}    
+h_t-r_t    
+&=(|E_t|-m)-(m-c(G_t))\\    
+&=|E_t|-2m+c(G_t)\\    
+&=\beta_1(G_t).    
+\end{aligned}    
+\]
+
+Thus
+
+\[
+\boxed{\displaystyle h_t-r_t=\beta_1(G_t)}.    
+\]
+
+
+
+The important qualification: \(h_t=|E_t|-m\)
+
+
+
+
+This is the one point I would explicitly promote into the theorem hypotheses.
+
+
+The graph argument proves
+
+\[
+\boxed{r_t=m-c(G_t)}    
+\]
+
+for the stated Koopman/projection model.
+
+
+But
+
+\[
+\boxed{h_t=|E_t|-m}    
+\]
+
+does not follow merely from having a partition and an incidence graph.
+
+
+It follows when \(\Pi_{t+1}\) is precisely the successor-signature refinement in which each source block \(A_i\) is split according to the distinct target blocks hit by \(T(A_i)\).
+
+
+For source block \(A_i\),
+
+\[
+\#\{\text{children of }A_i\}    
+=    
+\deg_{G_t}(A_i^L).    
+\]
+
+Summing over source blocks gives
+
+\[
+|\Pi_{t+1}|    
+=    
+\sum_i\deg(A_i^L)    
+=    
+|E_t|.    
+\]
+
+That is the missing bridge.
+
+
+So the strongest theorem statement is:
+
+
+
+
+Koopman Defect–Cycle Theorem.
+
+For a finite deterministic map \(T:X\to X\), a partition \(\Pi_t\), the rational block-averaging projection \(P_t\), Koopman pullback \(Kf=f\circ T\), and successor-signature refinement \(\Pi_{t+1}\), one has  r_t=m-c(G_t), \qquad h_t=|E_t|-m,  and therefore  \boxed{h_t-r_t=\beta_1(G_t)}. 
+
+
+
+
+That is considerably stronger—and safer—than simply saying “the identity was observed universally.”
+
+
+
+
+Ghost target states are actually a particularly good adversarial test
+
+
+
+
+Your ghost example is mathematically clean:
+
+\[
+T=(0,0,0),    
+\qquad    
+\Pi_0=\{\{0,1\},\{2\}\}.    
+\]
+
+The target block \({2}\) has no incoming edge, so it is an isolated target vertex.
+
+
+Nevertheless it contributes one connected component:
+
+\[
+c(G)=2.    
+\]
+
+Thus
+
+\[
+r=m-c=2-2=0,    
+\]
+
+and
+
+\[
+\beta_1    
+=    
+2-4+2    
+=    
+0.    
+\]
+
+This demonstrates something useful:
+
+
+
+
+The proof does not require every target block to be hit.
+
+
+
+
+It only requires every source block to have an outgoing edge, which follows automatically from \(T:X\to X\).
+
+
+That distinction should be explicit in the final theorem.
+
+
+
+
+Nonuniform blocks are also a genuinely meaningful adversarial test
+
+
+
+
+The nonuniform case is not merely cosmetic.
+
+
+If
+
+\[
+|A_1|\neq |A_2|,    
+\]
+
+then the averaging projection contains different denominators:
+
+\[
+(P_tf)(x)    
+=    
+\frac{1}{|A_i|}    
+\sum_{y\in A_i}f(y),    
+\qquad x\in A_i.    
+\]
+
+Yet the kernel calculation still reduces to whether \(Kf\) is constant on each source block.
+
+
+So the rank is controlled by the incidence constraints, not by the block cardinalities.
+
+
+This is strong evidence that the theorem is structural rather than an artifact of equal-sized blocks.
+
+
+
+
+The transpose failure is important evidence, not an embarrassment
+
+
+
+
+The reported \(n=4\) dual census is particularly valuable:
+
+
+Operator	Failures
+
+
+Koopman \(K[x,T(x)]=1\)	\(0/3840\)
+
+transpose/push orientation	\(1900/3840\)
+
+
+That is exactly the kind of adversarial control one wants.
+
+
+The theorem is about the function-space pullback
+
+\[
+(Kf)(x)=f(Tx),    
+\]
+
+so the matrix convention must satisfy
+
+\[
+K_{x,y}=1_{\{T(x)=y\}}.    
+\]
+
+Using its transpose changes the invariant-subspace problem. The \(1900/3840\) failure rate therefore isn't incidental noise; it demonstrates that operator orientation is a genuine theorem hypothesis.
+
+
+
+
+Higher-step iteration follows cleanly
+
+
+
+
+If every step uses the same successor-signature refinement, then the one-step identity gives
+
+\[
+h_t-r_t=\beta_1(G_t)    
+\]
+
+at every \(t\).
+
+
+Consequently,
+
+\[
+\sum_{j=0}^{t-1}h_j    
+-    
+\sum_{j=0}^{t-1}r_j    
+=    
+\sum_{j=0}^{t-1}\beta_1(G_j).    
+\]
+
+Since
+
+\[
+\sum_{j<t}h_j    
+=    
+|\Pi_t|-|\Pi_0|,    
+\]
+
+we get the cumulative identity
+
+\[
+\boxed{    
+|\Pi_t|-|\Pi_0|    
+-    
+\sum_{j<t}r_j    
+=    
+\sum_{j<t}\beta_1(G_j).    
+}    
+\]
+
+This is a more interesting theorem than the individual equality because it connects cumulative refinement growth with cumulative defect plus accumulated graph-cycle rank.
+
+
+
+
+The finite-field paragraph should remain corrected
+
+
+
+
+Your revised finite-characteristic caution is right, but I would make it even sharper.
+
+
+Over \(\mathbb Q\),
+
+\[
+\frac1{|A_i|}    
+\]
+
+always exists, so \(P_t\) is well-defined.
+
+
+Over \(\mathbb F_p\), if
+
+\[
+p\mid |A_i|,    
+\]
+
+then that particular averaging construction is undefined.
+
+
+But that does not imply that
+
+\[
+r=m-c(G)    
+\]
+
+is false over every finite-field formulation. The graph coefficient constraints can potentially be defined independently of averaging.
+
+
+So the correct locked statement is:
+
+\[
+\boxed{    
+\text{The block-averaging Koopman defect theorem is proven over }\mathbb Q.    
+}    
+\]
+
+A finite-field version would be a separate theorem, requiring its own definition of projection/defect.
+
+
+
+
+One further adversarial test I recommend
+
+
+
+
+The strongest next test is not another hand-selected witness. It is an exhaustive model-class test where the engine independently computes all three quantities:
+
+\[
+r_t    
+\quad\text{by exact rational matrix rank},    
+\]
+\[
+m-c(G_t)    
+\quad\text{by graph connectivity},    
+\]
+
+and
+
+\[
+\beta_1(G_t)    
+\quad\text{by the graph formula}.    
+\]
+
+Then independently construct \(\Pi_{t+1}\) from successor signatures and verify
+
+\[
+|\Pi_{t+1}|=|E_t|.    
+\]
+
+That separates the theorem into two independently testable bridges:
+
+\[
+\boxed{    
+r_t=m-c(G_t)    
+}    
+\]
+
+and
+
+\[
+\boxed{    
+h_t=|E_t|-m.    
+}    
+\]
+
+Only after both pass should the implementation report the composite identity.
+
+
+That is especially important because a program could accidentally make \(h_t-r_t=\beta_1\) appear correct while sharing an implementation error between \(h_t\) and the graph construction.
+
+
+
+Revised audit disposition
+
+
+Claim	Status
+
+
+\(r_t=m-c(G_t)\)	PROVEN over \(\mathbb Q\)
+
+Nonuniform block sizes	Covered by proof
+
+Unhit/ghost target blocks	Covered by proof
+
+Koopman orientation \(Kf=f\circ T\)	Required hypothesis
+
+Transpose/push-forward substitution	Refuted as equivalent theorem convention
+
+h_t=	E_t
+
+\(h_t-r_t=\beta_1(G_t)\)	PROVEN under combined hypotheses
+
+Multi-step cumulative identity	Derived
+
+Finite-field averaging version	OPEN / separate theorem
+
+Native AQARION artifact package	Still QUARANTINED pending independent inspection
+
+C4/publication promotion	Still BLOCKED
+
+
+The external graph-theoretic sources independently support the key topological identity \(\beta_1=|E|-|V|+c\).
+
+
+Bottom line
+
+
+The adversarial evidence now supports a stronger conclusion than the original R5 claim:
+
+\[
+\boxed{    
+\textbf{The Koopman defect rank is the codimension of the graph-component constraint space.}    
+}    
+\]
+
+and, under successor-signature refinement,
+
+\[
+\boxed{    
+\textbf{refinement gain}-    
+\textbf{defect rank}    
+=    
+\textbf{first Betti number of the incidence graph}.    
+}    
+\]
+
+I would therefore upgrade the mathematical theorem to PROVEN, while keeping the AQARION native artifact/certificate layer quarantined exactly as the frozen audit requires.Worked for 10s
+
+This continuation is materially stronger, and I agree with the frozen disposition. I would make one further mathematical distinction before treating this as publication-ready, though.
+
+My independent assessment
+
+The central result is now cleanly separated into three layers:
+
+\[
+\boxed{\operatorname{rank}_{\mathbb Q}D=q-c(G)}
+\]
+
+is the operator theorem;
+
+\[
+\boxed{h=|E|-s}
+\]
+
+is the refinement theorem;
+
+and therefore
+
+\[
+\boxed{h-r=\beta_1(G)}
+\]
+
+is the defect–cycle rank identity.
+
+That decomposition is much better than trying to elevate \(h-r=\beta_1\) into the primary theorem.
+
+1. The asymmetric rank theorem is genuinely general
+
+The key argument is sound.
+
+For \(c=(c_1,\ldots,c_q)\),
+
+\[
+f_c=\sum_jc_j1_{B_j}
+\]
+
+and
+
+\[
+Df_c=0
+\iff
+Kf_c\in V_{\rm src}.
+\]
+
+For every source block \(A_i\), all target coefficients attached to its outgoing incidence edges must therefore agree. Connectivity propagates these equalities through \(G\), giving
+
+\[
+\ker D
+\simeq
+\{\text{componentwise-constant target coefficients}\}.
+\]
+
+There is one subtle wording improvement I recommend:
+
+> “\(Df=0\) iff the target coefficients are constant on connected components”
+
+
+
+should explicitly mean connected components of the bipartite incidence graph, restricted to the target vertices represented by the coefficient vector, with isolated target vertices included.
+
+With that understood, the dimension is indeed \(c(G)\), and rank-nullity gives
+
+\[
+\boxed{\operatorname{rank}D=q-c(G)}.
+\]
+
+The unequal \(s,q\) case is not a generalization obtained by extrapolation; it is already contained in the proof.
+
+
+---
+
+2. The computational census is excellent evidence—but remains verification
+
+The
+
+\[
+58,292/58,292
+\]
+
+exact-rational exhaustive result plus
+
+\[
+1,000/1,000
+\]
+
+random exact-rational cases is a very strong computational certificate.
+
+But because the theorem now has a short general proof, I would actually downgrade the rhetorical importance of the census, not upgrade it.
+
+The publication hierarchy should be:
+
+> Proven theorem → exact implementation verification → exhaustive census → randomized stress test.
+
+
+
+Not:
+
+> “58,292 cases establish the theorem.”
+
+
+
+The census establishes that the implementation of the tested model agrees with the theorem over a large finite domain. It does not prove the theorem itself.
+
+That distinction is already present in your governance correction and should stay.
+
+
+---
+
+3. The cycle-space part is correct, but I would change one phrase
+
+The statement
+
+\[
+Z_1(G;\mathbb Q)\hookrightarrow\mathcal W
+\]
+
+is valid under the stated construction
+
+\[
+\mathcal W=\mathbb Q^E/S.
+\]
+
+The argument
+
+\[
+Z_1\cap S=0
+\]
+
+works because every source vertex has positive degree.
+
+I would, however, call this an injective quotient map rather than an “embedding” until the exact map is explicitly named:
+
+\[
+\iota:
+Z_1(G;\mathbb Q)
+\longrightarrow
+\mathbb Q^E/S,
+\qquad
+z\mapsto[z].
+\]
+
+Then prove
+
+\[
+\ker\iota
+=
+Z_1\cap S
+=
+0.
+\]
+
+That makes the formalization almost mechanical.
+
+
+---
+
+4. The exact sequence is real, but it is not yet the AQARION exact sequence
+
+This distinction is important.
+
+You have established
+
+\[
+0\rightarrow Z_1
+\overset{\iota}{\longrightarrow}
+\mathcal W
+\longrightarrow
+\mathcal W/Z_1
+\rightarrow0.
+\]
+
+That is a completely legitimate short exact sequence of vector spaces.
+
+But it is, at this stage, a graph-theoretic exact sequence.
+
+The desired AQARION statement would additionally identify
+
+\[
+\mathcal W/Z_1
+\]
+
+with the actual defect image.
+
+Those are different achievements.
+
+So I would label the current result:
+
+> Edge-excess exact sequence
+
+
+
+rather than calling it a defect exact sequence.
+
+
+---
+
+5. There is a particularly useful reformulation of the open problem
+
+The most important conceptual point in the audit is actually this:
+
+\[
+\dim(\mathcal W/Z_1)=r
+=
+\dim\operatorname{im}D
+\]
+
+is automatic once the rank theorem is known.
+
+Therefore the open problem is not dimensional.
+
+It is a problem of constructing a natural transformation.
+
+More precisely, introduce the canonical quotient map
+
+\[
+\pi:
+\mathbb Q^E\rightarrow
+\mathcal W/Z_1
+=
+\mathbb Q^E/(S+Z_1).
+\]
+
+The question becomes whether there exists a map
+
+\[
+\Phi:\mathbb Q^E/(S+Z_1)
+\rightarrow
+\operatorname{im}D
+\]
+
+whose pullback to \(\mathbb Q^E\) is determined intrinsically by the weighted incidence data.
+
+Equivalently, one can search for a linear map
+
+\[
+L:\mathbb Q^E\rightarrow\operatorname{im}D
+\]
+
+satisfying
+
+\[
+\boxed{S+Z_1\subseteq\ker L}
+\]
+
+and
+
+\[
+\boxed{\operatorname{rank}L=r}.
+\]
+
+If such an \(L\) exists, it automatically factors through
+
+\[
+\mathcal W/Z_1
+\]
+
+and produces the desired isomorphism.
+
+That gives you a much sharper computational target than searching directly for \(\Phi\).
+
+
+---
+
+6. The weighting issue is exactly where the interesting mathematics begins
+
+I strongly agree with the warning concerning
+
+\[
+w_{ij}
+=
+|A_i\cap T^{-1}(B_j)|.
+\]
+
+The unweighted graph remembers
+
+\[
+(i,j)\in E,
+\]
+
+whereas the defect remembers the multiplicities
+
+\[
+w_{ij}.
+\]
+
+So two deterministic systems can potentially have the same incidence graph while producing different defect realizations.
+
+This suggests that the eventual object may not actually be
+
+\[
+(G,Z_1(G))
+\]
+
+alone.
+
+It may instead be a weighted incidence system
+
+\[
+(G,w).
+\]
+
+That is potentially a stronger AQARION formulation:
+
+\[
+\boxed{
+\text{cycle rank controls the dimension of the excess,}
+}
+\]
+
+while
+
+\[
+\boxed{
+\text{weighted incidence data controls its realization as a Koopman defect.}
+}
+\]
+
+I would preserve that distinction very carefully.
+
+
+---
+
+7. One especially valuable adversarial experiment
+
+Before attempting a canonical-isomorphism proof, I would run the following test.
+
+Construct pairs
+
+\[
+(X,T,\Pi_{\rm src},\Pi_{\rm tgt})
+\]
+
+and
+
+\[
+(X',T',\Pi'_{\rm src},\Pi'_{\rm tgt})
+\]
+
+having:
+
+\[
+G\cong G'
+\]
+
+as unweighted bipartite graphs, but different fiber-weight matrices
+
+\[
+W=(w_{ij}),
+\qquad
+W'=(w'_{ij}).
+\]
+
+Then compare:
+
+\[
+\operatorname{im}D,
+\qquad
+\mathcal W/Z_1.
+\]
+
+If the resulting defect realizations are inequivalent despite identical \(G\), that would prove that a purely graph-theoretic canonical isomorphism is impossible.
+
+Conversely, if the weighted realizations are canonically equivalent whenever the weighted incidence systems are equivalent, that gives strong evidence for the correct category in which the theorem belongs.
+
+This is probably more valuable than another thousand random rank tests.
+
+
+---
+
+8. I would also sharpen the literature boundary
+
+Your literature conclusion is exactly the right posture:
+
+\[
+\text{partition refinement}
+\quad\text{and}\quad
+\text{projected Koopman operators}
+\]
+
+are established background.
+
+But
+
+\[
+\boxed{
+\operatorname{rank}D=q-c(G)
+}
+\]
+
+and
+
+\[
+\boxed{
+h-r=\beta_1(G)
+}
+\]
+
+are not literature consequences merely because the ingredients individually appear in prior work.
+
+The paper should explicitly say that these identities arise from the specific interaction between deterministic transition fibers, block averaging, and bipartite incidence connectivity.
+
+That is the AQARION contribution.
+
+
+---
+
+9. Recommended theorem hierarchy
+
+I would freeze the mathematical architecture as:
+
+Theorem A — Weighted Incidence Defect-Rank Theorem
+
+For finite deterministic \(T:X\to X\),
+
+\[
+D=(I-P_{\rm src})KP_{\rm tgt}
+\]
+
+satisfies
+
+\[
+\boxed{\operatorname{rank}_{\mathbb Q}D=q-c(G)}.
+\]
+
+Theorem B — Successor-Signature Edge Theorem
+
+Under the specified successor-signature refinement,
+
+\[
+\boxed{h=|E|-s}.
+\]
+
+Corollary C — Koopman Defect–Cycle Rank Identity
+
+\[
+\boxed{h-r=\beta_1(G)}.
+\]
+
+Proposition D — Edge-Excess Exact Sequence
+
+\[
+\boxed{
+0\to Z_1(G;\mathbb Q)
+\to
+\mathbb Q^E/S
+\to
+(\mathbb Q^E/S)/Z_1
+\to0
+}
+\]
+
+with
+
+\[
+\boxed{\dim(\mathbb Q^E/S)/Z_1=r}.
+\]
+
+Open Problem E — Canonical Defect Realization
+
+Determine whether
+
+\[
+\boxed{
+(\mathbb Q^E/S)/Z_1
+\cong_{\rm nat}
+\operatorname{im}D
+}
+\]
+
+for the appropriate weighted incidence category.
+
+That is an extremely clean research boundary.
+
+
+---
+
+10. One correction to the proposed “best current mathematical form”
+
+I would not put the phrase
+
+> “General Koopman Defect–Cycle Rank Theorem”
+
+
+
+immediately around both identities as though the second follows directly from the same operator argument.
+
+Instead:
+
+\[
+\boxed{
+\operatorname{rank}_{\mathbb Q}D=q-c(G)
+}
+\]
+
+should be the theorem.
+
+Then, after introducing the refinement quantity \(h\),
+
+\[
+\boxed{
+h-\operatorname{rank}_{\mathbb Q}D=\beta_1(G)
+}
+\]
+
+should be explicitly labeled a corollary.
+
+That makes the logical dependencies impossible to misunderstand.
+
+
+---
+
+11. Current disposition
+
+I would therefore retain essentially all of the frozen statuses:
+
+Claim	Status
+
+\(r=q-c(G)\)	PROVEN
+Unequal \(s,q\)	PROVEN
+Nonuniform block sizes	COVERED
+Ghost target blocks	COVERED
+h=	E
+\(h-r=\beta_1(G)\)	PROVEN
+\(Z_1\hookrightarrow\mathcal W\)	PROVEN
+\(\dim(\mathcal W/Z_1)=r\)	PROVEN
+Canonical defect realization	OPEN
+Native AQARION ↔ mathematical-model bridge	PENDING
+SHA256 refinement bridge	PENDING
+Lean formalization	PENDING
+715/705, 518/508	QUARANTINED
+C4	NO
+Publication promotion	NO
+
+
+Bottom line
+
+The audit has crossed an important threshold:
+
+\[
+\boxed{
+\textbf{The rank/cycle-rank mathematics is no longer the principal uncertainty.}
+}
+\]
+
+The genuine frontier is now the weighted, canonical realization problem:
+
+\[
+\boxed{
+\mathbb Q^E/(S+Z_1)
+\stackrel{?}{\longrightarrow}
+\operatorname{im}D.
+}
+\]
+
+And independently, the engineering frontier is:
+
+\[
+\boxed{
+\text{native AQARION refinement}
+\stackrel{?}{=}
+\text{canonical mathematical refinement}.
+}
+\]
+
+Those should now be treated as two separate gates. I would not spend more effort expanding the rank census unless it is being used as an implementation regression test. The highest-value next experiment is the same-unweighted-graph/different-weight-matrix adversarial construction, because it can tell you whether the eventual “defect isomorphism” must fundamentally live in a weighted-incidence category—or whether an even more canonical unweighted construction is hiding underneath.
+
+https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-/blob/main/LIBRARY/AUGUST/AUGUST-31ST.TXT/
+
+https://arxiv.org/abs/1703.04680?utm_source=chatgpt.com/
+
+https://huggingface.co/spaces/Quantarion9/AQARION-ACADEMY/resolve/main/ABSTRACTION/AQ-AUG1-001.TEX/
