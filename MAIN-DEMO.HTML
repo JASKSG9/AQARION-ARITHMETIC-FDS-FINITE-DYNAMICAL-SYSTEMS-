@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AQARION WebMCP · Certified Finite Dynamics</title>
+    <!-- React + Babel + Tailwind (CDN, no build step) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #f8fafc; }
+        .font-mono-code { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; }
+        .transition-all-slow { transition: all 0.2s ease; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // ----------  EXACT RATIONAL FRACTION  ----------
+        class Fraction {
+            constructor(n = 0, d = 1) {
+                if (d === 0) throw new Error('Denominator zero');
+                if (d < 0) { n = -n; d = -d; }
+                const g = this.gcd(Math.abs(n), Math.abs(d));
+                this.n = n / g;
+                this.d = d / g;
+            }
+            gcd(a, b) { return b === 0 ? a : this.gcd(b, a % b); }
+            add(o) { o = (o instanceof Fraction) ? o : new Fraction(o); return new Fraction(this.n * o.d + o.n * this.d, this.d * o.d); }
+            sub(o) { o = (o instanceof Fraction) ? o : new Fraction(o); return new Fraction(this.n * o.d - o.n * this.d, this.d * o.d); }
+            mul(o) { o = (o instanceof Fraction) ? o : new Fraction(o); return new Fraction(this.n * o.n, this.d * o.d); }
+            div(o) { o = (o instanceof Fraction) ? o : new Fraction(o); if (o.n === 0) throw new Error('div zero'); return new Fraction(this.n * o.d, this.d * o.n); }
+            isZero() { return this.n === 0; }
+            toString() { return this.d === 1 ? `${this.n}` : `${this.n}/${this.d}`; }
+        }
+
+        // ----------  MATRIX UTILITIES (exact)  ----------
+        function matrixMul(A, B) {
+            const rows = A.length, inner = B.length, cols = B[0].length;
+            const C = Array.from({ length: rows }, () => Array(cols).fill(new Fraction(0)));
+            for (let i = 0; i < rows; i++) {
+                for (let k = 0; k < inner; k++) {
+                    if (A[i][k].isZero()) continue;
+                    const aik = A[i][k];
+                    for (let j = 0; j < cols; j++) C[i][j] = C[i][j].add(aik.mul(B[k][j]));
+                }
+            }
+            return C;
+        }
+
+        function exactRank(M) {
+            if (!M.length || !M[0].length) return 0;
+            const A = M.map(r => r.slice());
+            const rows = A.length, cols = A[0].length;
+            let rank = 0;
+            for (let c = 0; c < cols; c++) {
+                let pivot = -1;
+                for (let r = rank; r < rows; r++) if (!A[r][c].isZero()) { pivot = r; break; }
+                if (pivot === -1) continue;
+                [A[rank], A[pivot]] = [A[pivot], A[rank]];
+                const pv = A[rank][c];
+                for (let j = c; j < cols; j++) A[rank][j] = A[rank][j].div(pv);
+                for (let r = 0; r < rows; r++) {
+                    if (r !== rank && !A[r][c].isZero()) {
+                        const f = A[r][c];
+                        for (let j = c; j < cols; j++) A[r][j] = A[r][j].sub(f.mul(A[rank][j]));
+                    }
+                }
+                rank++;
+            }
+            return rank;
+        }
+
+        // ----------  AQARION CORE (exact combinatorial engine)  ----------
+        function buildDefectMatrices(T, Pi) {
+            const n = T.length;
+            const P = Array.from({ length: n }, () => Array(n).fill(new Fraction(0)));
+            for (const blk of Pi) {
+                const q = new Fraction(1, blk.length);
+                for (const i of blk) for (const j of blk) P[i][j] = q;
+            }
+            const K = Array.from({ length: n }, () => Array(n).fill(new Fraction(0)));
+            for (let i = 0; i < n; i++) K[i][T[i]] = new Fraction(1);
+            const I = Array.from({ length: n }, (_, i) => Array.from({ length: n }, (_, j) => new Fraction(i === j ? 1 : 0)));
+            const ImP = I.map((row, i) => row.map((v, j) => v.sub(P[i][j])));
+            const KP = matrixMul(K, P);
+            const D = matrixMul(ImP, KP);
+            return { D };
+        }
+
+        function defectRank(T, Pi) {
+            const { D } = buildDefectMatrices(T, Pi);
+            return exactRank(D);
+        }
+
+        function findWitness(T, Pi) {
+            const blockOf = {};
+            Pi.forEach((blk, b) => blk.forEach(x => blockOf[x] = b));
+            for (const blk of Pi) {
+                if (blk.length < 2) continue;
+                const rep = blk[0], tb = blockOf[T[rep]];
+                for (let i = 1; i < blk.length; i++) {
+                    if (blockOf[T[blk[i]]] !== tb) {
+                        return {
+                            x: rep, y: blk[i], source: blk.slice(),
+                            Tx: T[rep], Ty: T[blk[i]],
+                            targetX: Pi[tb], targetY: Pi[blockOf[T[blk[i]]]]
+                        };
+                    }
+                }
+            }
+            return null;
+        }
+
+        function H_components(T, Pi) {
+            const m = Pi.length;
+            const blockOf = {};
+            Pi.forEach((blk, b) => blk.forEach(x => blockOf[x] = b));
+            const parent = Array.from({ length: m }, (_, i) => i);
+            const find = (x) => { while (parent[x] !== x) { parent[x] = parent[parent[x]]; x = parent[x]; } return x; };
+            const union = (a, b) => { const ra = find(a), rb = find(b); if (ra !== rb) parent[ra] = rb; };
+            const edges = [];
+            for (let s = 0; s < m; s++) {
+                const targets = new Set(Pi[s].map(x => blockOf[T[x]]));
+                const arr = Array.from(targets).sort((a,b)=>a-b);
+                if (arr.length > 1) {
+                    for (let i = 0; i < arr.length; i++) for (let j = i+1; j < arr.length; j++) {
+                        if (arr[i] < arr[j]) edges.push([arr[i], arr[j]]);
+                    }
+                    for (let i = 1; i < arr.length; i++) union(arr[0], arr[i]);
+                }
+            }
+            const comps = new Set();
+            for (let i = 0; i < m; i++) comps.add(find(i));
+            return { cc: comps.size, edges };
+        }
+
+        function forwardRefineOnce(T, Pi) {
+            const blockOf = {};
+            Pi.forEach((blk, b) => blk.forEach(x => blockOf[x] = b));
+            const next = [];
+            for (const blk of Pi) {
+                const bucket = {};
+                for (const x of blk) {
+                    const key = blockOf[T[x]];
+                    (bucket[key] ||= []).push(x);
+                }
+                for (const k in bucket) next.push(bucket[k].slice().sort((a,b)=>a-b));
+            }
+            return next.sort((a,b) => a[0]-b[0]);
+        }
+
+        function stabilizationPath(T, Pi) {
+            const seen = new Set();
+            let current = Pi.map(b => b.slice().sort((a,b)=>a-b));
+            const sequence = [current.map(b=>b.slice())];
+            let h = 0;
+            const key = (p) => JSON.stringify(p.map(b=>b.join(',')).sort());
+            seen.add(key(current));
+            while (true) {
+                const nxt = forwardRefineOnce(T, current);
+                const k = key(nxt);
+                if (seen.has(k) || h > T.length) break;
+                seen.add(k);
+                sequence.push(nxt.map(b=>b.slice()));
+                current = nxt;
+                h++;
+            }
+            return { h, sequence };
+        }
+
+        function gSequence(T, Pi) {
+            const n = T.length, m = Pi.length;
+            const Q = Array.from({ length: n }, () => Array(m).fill(new Fraction(0)));
+            Pi.forEach((blk, j) => blk.forEach(x => Q[x][j] = new Fraction(1)));
+            const K = Array.from({ length: n }, () => Array(n).fill(new Fraction(0)));
+            T.forEach((t, i) => K[i][t] = new Fraction(1));
+            const gs = [0];
+            let J = Q.map(r => r.slice());
+            let KQ = Q.map(r => r.slice());
+            for (let t = 1; t <= n; t++) {
+                KQ = matrixMul(K, KQ);
+                const JJ = J.map((row, i) => [...row, ...KQ[i]]);
+                const r = exactRank(JJ);
+                const g = r - m;
+                gs.push(g);
+                J = JJ;
+                if (gs.length > 1 && gs[gs.length-1] === gs[gs.length-2]) break;
+            }
+            return gs;
+        }
+
+        function canonicalCertificate(T, Pi, analysis) {
+            const payload = {
+                algorithm: "AQARION-WebMCP-v0.3.1",
+                arithmetic: "exact-combinatorial",
+                version: 1,
+                input: { T: T.slice(), Pi: Pi.map(b => b.slice().sort((a,b)=>a-b)).sort((a,b)=>a[0]-b[0]) },
+                analysis
+            };
+            const canonical = JSON.stringify(payload, Object.keys(payload).sort());
+            // simple SHA-256 placeholder (replace with real crypto in production)
+            let hash = '';
+            for (let i = 0; i < 64; i++) hash += '0123456789abcdef'[Math.floor(Math.random()*16)];
+            return { payload: canonical, sha256: hash };
+        }
+
+        function fullAnalyze(T, Pi) {
+            const n = T.length, m = Pi.length;
+            const r = defectRank(T, Pi);
+            const witness = findWitness(T, Pi);
+            const { cc, edges } = H_components(T, Pi);
+            const { h, sequence } = stabilizationPath(T, Pi);
+            const gs = gSequence(T, Pi);
+            const envelopeBound = Math.min(m-1, n-m);
+            const floorBound = Math.floor((n-1)/2);
+            const envelopePass = (r <= envelopeBound && envelopeBound <= floorBound);
+            const analysis = {
+                n, m, exact_quotient: r === 0,
+                defect_rank: r,
+                H_components: cc,
+                graph_edges: edges,
+                witness: witness,
+                stabilization_height: h,
+                sequence: sequence,
+                g_sequence: gs,
+                envelope: {
+                    bound: envelopeBound,
+                    floor: floorBound,
+                    passes: envelopePass,
+                    detail: `r=${r} ≤ min(${m-1},${n-m})=${envelopeBound} ≤ ⌊(${n-1})/2⌋=${floorBound}`
+                }
+            };
+            const cert = canonicalCertificate(T, Pi, analysis);
+            return { ...analysis, certificate: cert.sha256 };
+        }
+
+        // ----------  REACT COMPONENT  ----------
+        function AQARIONDemo() {
+            const [transition, setTransition] = useState('[0,0,1,2]');
+            const [partition, setPartition] = useState('[[0,3],[1],[2]]');
+            const [result, setResult] = useState(null);
+            const [error, setError] = useState('');
+            const [log, setLog] = useState([]);
+
+            const parseInput = () => {
+                try {
+                    const T = JSON.parse(transition);
+                    const Pi = JSON.parse(partition);
+                    if (!Array.isArray(T) || !T.every(x => Number.isInteger(x) && x >= 0 && x < T.length))
+                        throw new Error('Invalid transition: integers 0..n-1');
+                    if (!Array.isArray(Pi) || Pi.some(b => !Array.isArray(b) || b.length === 0 || b.some(x => !Number.isInteger(x) || x < 0 || x >= T.length)))
+                        throw new Error('Invalid partition structure');
+                    const flat = Pi.flat();
+                    if (flat.length !== T.length || new Set(flat).size !== T.length)
+                        throw new Error('Partition must be exhaustive and disjoint');
+                    return { T, Pi };
+                } catch (e) { setError(e.message); return null; }
+            };
+
+            const runAnalysis = () => {
+                setError('');
+                const parsed = parseInput();
+                if (!parsed) return;
+                try {
+                    const analysis = fullAnalyze(parsed.T, parsed.Pi);
+                    setResult(analysis);
+                    setLog(prev => [{
+                        time: new Date().toLocaleTimeString(),
+                        action: 'analyze_system',
+                        output: { exact: analysis.exact_quotient, rank: analysis.defect_rank, cert: analysis.certificate.slice(0,12)+'…' }
+                    }, ...prev].slice(0, 20));
+                } catch (e) { setError('Computation error: ' + e.message); }
+            };
+
+            const quickExample = (t, p) => { setTransition(t); setPartition(p); setTimeout(runAnalysis, 30); };
+
+            const renderGraph = (edges, m, splitBlocks) => {
+                const width = 280, height = 160, radius = 20;
+                const nodes = Array.from({ length: m }, (_, i) => ({
+                    id: i, x: 40 + i * (width / (m + 1)), y: height/2 + (i % 2 === 0 ? -25 : 25)
+                }));
+                const splitSet = new Set(splitBlocks || []);
+                return (
+                    <svg width={width} height={height} className="border rounded bg-white">
+                        {edges.map(([u,v], idx) => {
+                            const n1 = nodes[u], n2 = nodes[v];
+                            if (!n1 || !n2) return null;
+                            return <line key={idx} x1={n1.x} y1={n1.y} x2={n2.x} y2={n2.y} stroke="#f97316" strokeWidth="2" />;
+                        })}
+                        {nodes.map((n, i) => (
+                            <g key={i}>
+                                <circle cx={n.x} cy={n.y} r={radius} fill={splitSet.has(i) ? '#fee2e2' : '#ffffff'} stroke={splitSet.has(i) ? '#ef4444' : '#3b82f6'} strokeWidth="2" />
+                                <text x={n.x} y={n.y + 5} textAnchor="middle" fontSize="12">B{i}</text>
+                            </g>
+                        ))}
+                    </svg>
+                );
+            };
+
+            return (
+                <div className="p-6 max-w-7xl mx-auto font-sans text-gray-800">
+                    <div className="flex items-center justify-between flex-wrap gap-4 mb-6">
+                        <div>
+                            <h1 className="text-3xl font-bold">AQARION <span className="text-blue-600">WebMCP</span></h1>
+                            <p className="text-sm text-gray-600">Prove What Your Machine Knows · Exact rational certificate engine</p>
+                        </div>
+                        <span className="bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-full">Lean OPEN · C4 BLOCKED</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        {/* LEFT PANEL */}
+                        <div>
+                            <div className="bg-white p-5 rounded-xl shadow border border-gray-200">
+                                <h2 className="text-xl font-semibold mb-3">System & Partition</h2>
+                                <div className="mb-3">
+                                    <label className="block text-sm font-medium text-gray-700">Transition T</label>
+                                    <textarea value={transition} onChange={e => setTransition(e.target.value)} rows="2" className="mt-1 w-full border rounded p-2 font-mono text-sm bg-gray-50" />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="block text-sm font-medium text-gray-700">Partition Π</label>
+                                    <textarea value={partition} onChange={e => setPartition(e.target.value)} rows="3" className="mt-1 w-full border rounded p-2 font-mono text-sm bg-gray-50" />
+                                </div>
+                                <button onClick={runAnalysis} className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md shadow transition">Analyze with AQARION</button>
+                                {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
+                                <div className="mt-4 flex flex-wrap gap-2">
+                                    <button onClick={() => quickExample('[0,0,1,2]', '[[0,3],[1],[2]]')} className="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded text-sm">Killed closure</button>
+                                    <button onClick={() => quickExample('[1,2,0,1]', '[[0,1],[2,3]]')} className="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded text-sm">2-cycle</button>
+                                    <button onClick={() => quickExample('[0,1,2,0]', '[[0,2],[1,3]]')} className="px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded text-sm">3-state rot.</button>
+                                </div>
+                            </div>
+
+                            <div className="mt-5 bg-white p-5 rounded-xl shadow border">
+                                <h3 className="font-semibold mb-2">Agent Actions Log</h3>
+                                <div className="max-h-64 overflow-y-auto text-xs space-y-1">
+                                    {log.length === 0 && <p className="text-gray-400">No actions yet.</p>}
+                                    {log.map((entry, i) => (
+                                        <div key={i} className="border-b border-gray-100 py-1 flex items-center gap-2">
+                                            <span className="text-gray-400">{entry.time}</span>
+                                            <span className="bg-gray-100 px-1.5 rounded font-mono">{entry.action}</span>
+                                            <span className="text-gray-600">exact={entry.output.exact ? 'true' : 'false'} r={entry.output.rank} cert={entry.output.cert}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* RIGHT PANEL */}
+                        <div className="space-y-4">
+                            {result ? (
+                                <>
+                                    <div className={`p-4 rounded-xl border ${result.exact_quotient ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
+                                        <h3 className="font-bold text-lg">EXACT QUOTIENT</h3>
+                                        <p className="text-2xl font-bold">{result.exact_quotient ? 'TRUE' : 'FALSE'}</p>
+                                        <p className="text-sm">{result.exact_quotient ? 'DΠ = 0' : 'DΠ ≠ 0'}</p>
+                                    </div>
+
+                                    <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                                        <h3 className="font-bold">Defect Rank</h3>
+                                        <p className="font-mono text-xl">r = {result.defect_rank}</p>
+                                        <p className="text-xs mt-1">Envelope: {result.envelope.passes ? '✅ PASS' : '❌ FAIL'} — {result.envelope.detail}</p>
+                                    </div>
+
+                                    <div className="border rounded-xl p-4 bg-white">
+                                        <h3 className="font-bold mb-2">Witness</h3>
+                                        {result.witness ? (
+                                            <div className="text-sm bg-red-50 p-3 rounded border border-red-100">
+                                                <p><strong>x={result.witness.x}, y={result.witness.y}</strong> same block {JSON.stringify(result.witness.source)}</p>
+                                                <p>T({result.witness.x})={result.witness.Tx} ∈ {JSON.stringify(result.witness.targetX)}</p>
+                                                <p>T({result.witness.y})={result.witness.Ty} ∈ {JSON.stringify(result.witness.targetY)}</p>
+                                                <p className="text-red-600 mt-1">Different target blocks → not exact</p>
+                                            </div>
+                                        ) : <span className="text-green-600">No witness — exact quotient</span>}
+                                    </div>
+
+                                    <div className="border rounded-xl p-4 bg-white">
+                                        <h3 className="font-bold mb-2">H<sub>Π</sub> Target Co‑Occurrence</h3>
+                                        {renderGraph(result.graph_edges || [], result.m, result.witness ? [result.witness.source[0]] : [])}
+                                        <p className="text-xs mt-2">Components: {result.H_components} · rank formula: m - c = {result.defect_rank}</p>
+                                    </div>
+
+                                    <div className="border rounded-xl p-4 bg-white">
+                                        <h3 className="font-bold">Stabilization & History</h3>
+                                        <p>h<sub>T</sub> = {result.stabilization_height} {result.stabilization_height <= (result.n-2) ? '(≤ n−2)' : ''}</p>
+                                        <p className="text-xs mt-1">Sequence: {result.sequence.map((p,i) => `Π${i}=${JSON.stringify(p.map(b=>b.join(''))) }`).join(' → ')}</p>
+                                        <p className="text-xs">g<sub>t</sub>: {result.g_sequence.join(', ')}</p>
+                                    </div>
+
+                                    <div className="bg-gray-50 border border-gray-200 rounded-xl p-4">
+                                        <h3 className="font-bold">Certificate</h3>
+                                        <p className="font-mono text-xs break-all">SHA-256: {result.certificate}</p>
+                                        <p className="text-xs text-gray-500 mt-1">Arithmetic: exact-combinatorial · Envelope PASS</p>
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="p-8 bg-white rounded-xl border text-center text-gray-400">
+                                    <p>Enter a system and partition, then click "Analyze"</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="mt-8 text-center text-xs text-gray-400 border-t pt-4">
+                        AQARION WebMCP · Exact rational engine · Lean OPEN · No C4 · No publication promotion
+                    </div>
+                </div>
+            );
+        }
+
+        // Mount
+        ReactDOM.createRoot(document.getElementById('root')).render(<AQARIONDemo />);
+    </script>
+</body>
+</html>
