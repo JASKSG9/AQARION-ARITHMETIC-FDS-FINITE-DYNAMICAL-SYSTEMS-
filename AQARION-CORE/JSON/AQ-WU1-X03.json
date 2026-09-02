@@ -1,0 +1,60 @@
+{
+  "claim_id": "AQ-CERT-WU1-X03-MELLIN",
+  "statement": "For f(x)=e^{-x}/(1-e^{-x})^2=sum_{r>=1} r e^{-rx}, the Mellin transform is M f(s)=Gamma(s) zeta(s-1) on the domain where termwise integration is justified.",
+  "status": "P",
+  "scope": {
+    "system_class": "analytic-kernel",
+    "operator_convention": "K_x,T(x)=1",
+    "assumptions": [
+      "The Mellin integral converges in the stated fundamental strip.",
+      "Termwise integration is justified in that strip."
+    ]
+  },
+  "inputs": {
+    "canonical_sha256": "REPLACE_WITH_ACTUAL_SHA256",
+    "serialization_version": "1.0",
+    "description": "Canonical WU1 kernel definition and Mellin derivation."
+  },
+  "outputs": {
+    "canonical_sha256": "REPLACE_WITH_ACTUAL_SHA256",
+    "result_path": "evidence/WU1-X03-mellin.json",
+    "summary": {
+      "identity": "Mf(s)=Gamma(s)*zeta(s-1)"
+    }
+  },
+  "verification": {
+    "exact_arithmetic": true,
+    "independent_reexecution": false,
+    "orientation_lock": true,
+    "lean": {
+      "status": "pending"
+    }
+  },
+  "artifacts": [
+    {
+      "role": "proof",
+      "path": "proofs/WU1-X03-MELLIN.md",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    },
+    {
+      "role": "reproduction-script",
+      "path": "direct_sums.py",
+      "sha256": "133241bf8f4cd4fd798f1088e9510024c89bc045053eadfaf929c646205eb916",
+      "media_type": "text/x-python"
+    }
+  ],
+  "dependencies": [],
+  "rejection_tests": [
+    {
+      "name": "kernel-orientation-mutation",
+      "result": "EXPECTED_FAIL",
+      "description": "Orientation mutation must not silently validate as equivalent."
+    }
+  ],
+  "created_at": "2026-09-01T20:45:00-04:00",
+  "producer": {
+    "name": "AQARION Research",
+    "version": "WU1-v93",
+    "commit": "REPLACE_WITH_ACTUAL_COMMIT"
+  }
+}
