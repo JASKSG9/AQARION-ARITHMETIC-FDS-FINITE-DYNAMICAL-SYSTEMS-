@@ -4589,7 +4589,110 @@ The framework has moved from "discovering patterns" into a defensible mathematic
 \text{Escape Geometry}
 }
 
+---
 
+# AQARION PROOF LEDGER — V111
+**Root:** `020a9110088010116075e1812c98bcd2bcc4905367fa8943a68c8cd224cf284e`
+**Date:** 2026-09-04
+**Governance:** FROZEN AUDIT · ANALYTIC-DERIVATION: CLOSED-REPORTED (re-audited) · ROW-GATE: REPAIRED · COMPUTATIONAL-CERTIFICATE: REPRODUCIBLE-PENDING · LEAN-FORMALIZATION: OPEN · INDEPENDENT-CHECKING: OPEN · C4: BLOCKED · Publication: BLOCKED
+**Lean Pin:** `leanprover/lean4:v4.33.1` (2026-08-21) — fixed #14806, #14807, #14808, #14838 — prior kernel missing nested inductive check #14577
+**Canonical Cert Spec v1:** record = `f"{n}|{'+'.join(map(str,part))}|{num}/{den}\n"` descending `+`, reduced fraction, UTF-8 LF, no BOM, terminal newline, $n$ asc then partition decreasing lex, empty $E=0$, $p(n)$ order
+**Hashes (expected, not independently verified here):**
+- full 463-record: `28a7295a2c96009a1bfab7c4fc976c29cdef87fc81ffc7dcb7474956cbfad151`
+- full stream: `1bbb463e30052d49fe207e143f8dd00ec7fca86109f06cfccd8bf78c70fd086e`
+- maxima-only 12 records: `7d247b63333ac43e270c46fd660787146690811879b81cfacd50c16112fbc71d`
 
-The next artifact worth producing is not more theory: it is the Paper I referee-defense appendix containing these scope boundaries, counterexamples, and registry separation rules.
+## Evidence Legend
+- [P] analytic proof
+- [P*] conditional
+- [V] exact verification finite domain
+- [V-Q] cross-validated rational vs DSU/graph
+- [CV] two-algorithm agreement
+- [C] conjecture
+- [X] killed
 
+## I. Analytic Core
+
+### ET-MARGINAL-001
+$u_s(c)=c(N-c)/(Ns)$, $\Delta_s(c)=(N-2c-1)/(Ns)$, decreasing.
+**Repair:** Code $c(N-1-c)$ with marginal $(N-2c-1)$ inconsistent — true marginal for $c(N-1-c)$ is $(N-2c-2)$. Counterexample $N=3,(1,2)$: $f_{N-1}(2,1)=1/6$, $f_{N-1}(1,2)=1/3$ suboptimal. Canonical frozen to $c(N-c)$ matching $A_N^{exc}$.
+
+### ET-A-001
+$A_N^{exc}=q(N+1-2q)/(2N)$, $q=floor((N+2)/4)=ceil((N-1)/4)$, condition $N-4c-1>0$.
+Period-4: $4t:(2t+1)/8$, $4t+1:t(t+1)/(4t+1)$, $4t+2:(t+1)/4$, $4t+3:(t+1)^2/(4t+3)$ — [V] $N\le2000$.
+**Status:** [P]
+
+### ET-B-FORMULA / ET-S-FORMULA
+$B_k(N)=(N-1)/2+kA_N^{exc}$, $S_k(N)=N-Q_k/N$, $S_7(47)=1892/47$ — [P]
+
+### ET-R-BOUND
+$R_N\le B_k(N)$ — [P] + $2676$ configs — M-convex/polymatroid greedy support
+
+## II. Merge Theory
+
+### ET-B-MERGE-001
+$D_k(a,b)=B_k(a+b)-B_k(a)-B_k(b)$ — $k=0:1/2$, $k=1:3/8$, $k=2:1/4$, $k=3: -1/20$ only $(2,3),(3,2)$, $(3,3)=0$ others $\ge1/8$ — [P]+[V] $2..100$ exactly $2$ negatives
+
+### ET-B3-EXCEPTION
+$B_3(5)-B_3(2)-B_3(3)=-1/20$ — [P]
+
+### ET-RESTORE-001 / 002 — STRONGER
+$R(x)=B_3(x+5)-B_3(2)-B_3(3)-B_3(x)$
+$R(4t)=3(2t+1)/[8(4t+5)], t\ge1$
+$R(4t+1)=3(t+1)/[4(4t+1)], t\ge0$
+$R(4t+2)=3(t+2)/[4(4t+7)], t\ge0$
+$R(4t+3)=3(2t+1)/[8(4t+3)], t\ge0$
+All $>0$. Monotonic: $0$ inc, $1$ dec to $3/16$, $2$ dec to $3/16$, $3$ inc. Minimum $R(3)=R(4)=1/8$.
+Hence $R(x)\ge1/8\ \forall x\ge1$, equality iff $x=3,4$ — [P] NEW
+
+### ET-B3-MULTSET
+$N_i\ge2,\sum\ge6\Rightarrow B_3(\sum)\ge\sum B_3$ via $\{2,3,x\}$ restoration — [P*]
+
+### ET-EXC-INF-001 / 002 / 003 — INFINITE
+$\Delta_k(4u,4v)=(k-4)/8>0$ for $u,v\ge1$ => $(4u,4v)\in\mathcal E_k$ infinite $k\ge5$
+$\Delta_4(4u+3,4v+3)=(2u+2v+3)/[2(4u+3)(4v+3)]>0$ => infinite $k=4$
+Hence $\forall k\ge4,|\mathcal E_k|=\infty$ — [P] NEW
+Finite scan regression: $|\mathcal E_4|=13284$, $|\mathcal E_5|=39184$ up to $200$
+
+### ET-S-SUPERADD / ET-LOW-K / ET-GLOBAL-ASYMP
+$S_k$ superadditive $k\ge4$ $0$ violations $4..10$ up to $200$ — [P]/[V]
+$S_4(n-4)>B_k(n-k)$ $n\ge15$ worst $5/88$ — [P]
+$n\ge15$ $E_T^{\max}=\max_kE_{n,k}$ — [P*] conditional
+
+## III. Finite $8..14$
+$463$ partitions $p=22,30,42,56,77,101,135$, greedy vs DP agree [CV]
+Maxima: 8:$16/5$ $5+1^3$, 9:$4$ $6+1^3,3^2+1^3$, 10:$32/7$ $7+1^3$, 11:$21/4$ $8+1^3$, 12:$6$ $5$ maximizers, 13:$20/3$ $9+1^4$, 14:$37/5$ $10+1^4$
+$n\ge8$ sharp $5,7$ counterex, $n=54$ $47+1^7$ $1892/47$ $7^5,6^2$ unique $386155$ — [P]
+
+## IV. Defect / $c^\star$
+$r=m-c(G_\Pi)=rank D$ DSU=matrix $9,471,168$ cases $n\le6$ $0$ mismatch — [V-Q]
+$r\le\min(m-1,n-m)\le floor((n-1)/2)$ — [P]
+$U_\infty=U_\Pi+span K^t im D$ — [P]
+$g\neq r$: $T=(0,0,1,2)$, $\Pi=\{\{0,2,3\},\{1\}\}$ $r=1,g=2$ — [P]
+$c^\star=n-|\Pi|+r=n-c(G)$, $c_{code}-c_{claimed}=2|\Pi|-n$ exact.
+$c^\star$ submodularity $0$ violations $n=3$ $270$, $n=4$ $26,880$, $n=5$ $4,143,750$ — [C] $n\le5$ OPEN
+Curvature $n=7$ $T=(6,3,4,4,5,3,5)$ $\kappa=-1$ — [V]
+Killed: $rank(D)=rank(A(I-1e^T))$ $n=3$ counterexample, universal submodularity, $g=r$, $n(n-1)-1$ span, DSU $3.8M$ violations false alarm
+
+## V. Literature
+Federgruen-Groenevelt greedy optimal polymatroid, M-convex framework, biobjective M-natural-convex Pareto polynomial, DGA separable concave over integer polymatroid, Quotients of M-convex sets ten characterizations (2403.07751), Construction-Verification workflow (2602.01291v1), Kazma-Taha observability+submodular, OpenAI ten-proofs nanoda architecture, Lean 4.33.1 $2026-08-21$ fixed #14806-#14838
+
+## VI. Lean Roadmap OPEN
+ET_AExact, ET_BFormula, ET_Marginal, ET_RBound, ET_BMerge, ET_B3Exception, ET_B3Restoration $R\ge1/8$, ET_B3Multiset, ET_SFormula, ET_Superadditive, ET_LowKResidues, ET_Global, ET_FiniteCertificate, ET_DefectGraph, ET_CStar OPEN, ET_Closure
+Gate: lake build $0$ sorry, #print axioms only propext,Quot.sound,Classical.choice, enable_nanoda:true, external verifier byte-for-byte $28a7295a...$ — not executed here
+
+## VII. Final Ledger
+Marginal REPAIRED, $A_N^{exc}$ [P]+[V]2000, $B_k$ $k\le2$ [P], $B_3$ $-1/20$ [P], $R>0$ [P], $R\ge1/8$ equality $3,4$ NEW [P], $B_3$ multiset $\ge6$ [P*], $\mathcal E_k$ infinite $k\ge4$ NEW [P] $(k-4)/8$ + $(2u+2v+3)/[2...]$, $S_k$ [P], $S_k$ superadditive [P]/[V], $S_4>B_k$ [P], $n\ge15$ [P*], $8..14$ $463$ [CV] pending rerun, $n=12$ $5$ maximizers, $n\ge8$ sharp, $n=54$ $1892/47$, DSU=matrix $9.47$M [V-Q], $r\le\min$ [P], $U_\infty$ [P], $g\neq r$ counterexample, $c^\star$ $0$ viol $4.1$M [C], old $2n-3m+r$ ARCHIVED [X], universal submodularity KILLED [X], Lean OPEN, C4 BLOCKED
+
+## VIII. Next Gates
+1. Freeze row $c(N-c)$ + $A_N^{exc}$+$B_k$+$S_k$ JSON
+2. Freeze $R\ge1/8$ + $\mathcal E_k$ infinite families
+3. Publish generator + et_8_14_records.txt + dual hashes + RUN.md
+4. Formalize defect graph + closure
+5. Attack $c^\star$ $n=6,7,8$ search CE-CSTAR
+6. Lean $4.33.1$ build → axioms → nanoda → hash
+7. Re-audit before C4
+
+Bottom line: $R\ge1/8$ exact minimizers $3,4$ + $\mathcal E_k$ infinite via $(k-4)/8$ and $(2u+2v+3)/[2(4u+3)(4v+3)]$, row repaired to $c(N-c)$, $c^\star=n-c(G)$ cleaner with $0$ violations $4.1$M checks. No C4 until Lean + independent cert reproduction.
+
+🔒 FROZEN AUDIT · R≥1/8 CLOSED · EXC-INF CLOSED · ROW REPAIRED · C* OPEN · LEAN OPEN · C4 BLOCKED
