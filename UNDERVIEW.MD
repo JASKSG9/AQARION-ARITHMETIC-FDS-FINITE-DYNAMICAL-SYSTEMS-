@@ -5343,6 +5343,912 @@ but has not yet crossed the final boundary
 
 The next executable objective is WU1-X07-C, with no additional numerical exploration required before the canonical source is connected to the Arb certification path.
 
+
+
+# AQARION Public Q&A
+
+**Version:** V108  
+**Date:** 4 September 2026  
+**Status:** Analytic core closed · Lean open · C4 blocked · Publication blocked  
+**Root:** `020a9110088010116075e1812c98bcd2bcc4905367fa8943a68c8cd224cf284e`
+
+> AQARION studies exact and approximate observable quotients of finite dynamical systems. Its central question is whether a chosen observable partition is preserved by the dynamics; when it is not, the defect operator measures leakage.
+
+## Interactive Q&A
+
+### What is AQARION?
+
+AQARION is a research framework for studying finite deterministic dynamics through observable partitions, quotient maps, Koopman operators, defect operators, and certified computation.
+
+### What is the central defect operator?
+
+$$
+D_\Pi=(I-P_\Pi)KP_\Pi,
+$$
+
+where $$K$$ is the Koopman operator and $$P_\Pi$$ projects onto functions constant on partition blocks.
+
+- $$D_\Pi=0$$: the observable subspace is dynamically invariant.
+- $$D_\Pi\ne0$$: dynamics leak outside the chosen observable subspace.
+
+### What does exact quotient mean?
+
+An observable partition is exact when there exists a quotient map $$T_Q$$ satisfying
+
+$$
+\pi\circ T=T_Q\circ\pi.
+$$
+
+Equivalently, the induced observable subspace is preserved by the Koopman operator, subject to the precise hypotheses of the formal theorem.
+
+### What is currently proved?
+
+The current reported analytic results include:
+
+- the exact period-4 formula for $$A_N^{\mathrm{exc}}$$;
+- the symbolic $$B_k$$ merge analysis;
+- the isolated $$B_3$$ exception $$(2,3)$$;
+- all-$$x$$ restoration for that exception;
+- $$S_k$$ balanced-allocation formulas;
+- the $$n\ge15$$ reduction to $$\max_k E_{n,k}$$;
+- the exact finite certificate for $$8\le n\le14$$;
+- the reported value
+  $$
+  E_T(54)=\frac{1892}{47}
+  $$
+  at $$47+1^7$$.
+
+These are currently classified as analytic or computational results according to the audit layer. They are not yet all formally verified in Lean.
+
+### What is the $$B_3$$ exception?
+
+Unrestricted $$B_3$$ superadditivity is false:
+
+$$
+B_3(5)-B_3(2)-B_3(3)=-\frac1{20}.
+$$
+
+The correct statement is pairwise superadditivity except for the symmetric pair $$(2,3),(3,2)$$, together with a restoration theorem when a third nonsingleton part is present.
+
+### What is restoration?
+
+For $$x\ge1$$,
+
+$$
+R(x)=B_3(5+x)-B_3(2)-B_3(3)-B_3(x)>0.
+$$
+
+The four residue formulas are:
+
+$$
+\begin{aligned}
+R(4t)&=\frac{3(2t+1)}{8(4t+5)},\\
+R(4t+1)&=\frac{3(t+1)}{4(4t+1)},\\
+R(4t+2)&=\frac{3(t+2)}{4(4t+7)},\\
+R(4t+3)&=\frac{3(2t+1)}{8(4t+3)}.
+\end{aligned}
+$$
+
+Each numerator and denominator is positive on its declared domain.
+
+### Why is greedy allocation valid?
+
+The row objective is separable and discretely concave:
+
+$$
+u_s(c)=\frac{c(N-c)}{Ns},
+$$
+
+with marginal
+
+$$
+\Delta_s(c)=\frac{N-2c-1}{Ns}.
+$$
+
+The marginal decreases with $$c$$, so selecting the largest feasible marginal gains gives the row optimum under the relevant resource-allocation constraints. This connects AQARION’s row problem to polymatroid and M-convex optimization.[1][2]
+
+### Is the whole AQARION theorem formally verified?
+
+No. The current audit explicitly keeps Lean open. A valid formal-verification receipt still requires:
+
+- pinned Lean version;
+- pinned Mathlib revision;
+- successful `lake build`;
+- zero `sorry`;
+- `#print axioms`;
+- external checker result;
+- canonical source and certificate hashes.
+
+### Why is C4 blocked?
+
+C4 remains blocked because the formal bridge and independent verification receipts have not been completed. The analytic claims may be closed at the derivation layer without being formally certified.
+
+### What is the 54-state Kaprekar result?
+
+The 54-state exact quotient is a separate application branch. Its exact Koopman spectrum requires the canonical quotient transition table. Without that table, a numerical spectrum must not be claimed.
+
+### Does AQARION establish quantum chaos?
+
+No. A finite deterministic Koopman operator may have roots-of-unity cycle eigenvalues and nilpotent transient structure, but that alone does not establish quantum chaos. Any ORSM or quantum-chaos claim requires a precise operator definition and a justified diagnostic.
+
+### What is still conjectural?
+
+Examples include:
+
+- general exceptional-set growth for $$\mathcal E_k$$;
+- universal $$n\ge8$$ optimizer structure;
+- rank/span claims for defect operators;
+- continuous Koopman/Lyapunov extensions;
+- quantum or ORSM interpretations.
+
+These remain marked `[C]` or `[R]`, not `[P]` or `[FV]`.
+
+***
+
+# Sessions Progress Overview
+
+## Status dashboard
+
+| Session / Track | Current state | Evidence |
+|---|---|---|
+| Analytic $$A_N^{\mathrm{exc}}$$ | Closed as reported | [P] |
+| $$B_k$$ residue merge | Closed as reported | [P] |
+| $$B_3$$ exception | Closed as reported | [P] |
+| All-$$x$$ restoration | Closed as reported | [P] |
+| $$S_k$$ formula | Closed | [P] |
+| $$n\ge15$$ reduction | Closed conditional on dependencies | [P] |
+| $$8\le n\le14$$ certificate | Two-algorithm reproduction reported | [CV] |
+| $$E_T(54)$$ | Exact reported value | [CV]/[P] boundary |
+| M-convex bridge | Theory support identified | [R] formalization |
+| Fiber averaging | Core module mostly complete | [FV] pending final receipt |
+| Universal quotient theorem | Formal proof chain open | [P]/[FV] target |
+| Kaprekar 54-state spectrum | Transition table required | [R] |
+| Defect rank/span theory | Several claims refuted or open | [C]/[R] |
+| Lean verification | Not complete | [FV] blocked |
+| C4 | Blocked | Governance |
+| Publication | Blocked | Governance |
+
+## Session timeline
+
+### Session A — Core definitions
+
+Completed:
+
+- observable partitions;
+- quotient maps;
+- Koopman operator;
+- defect operator;
+- exactness criterion;
+- fiber-averaging architecture.
+
+### Session B — Fiber averaging
+
+Completed or reported complete:
+
+- block membership;
+- nonempty fibers;
+- positive block cardinality;
+- block-constant averaging;
+- fiber decomposition;
+- averaging idempotence.
+
+Remaining formal boundary:
+
+- kernel characterization refinement;
+- independent Lean build;
+- projection-module integration.
+
+### Session C — Finite resource allocation
+
+Completed:
+
+- row marginal formula;
+- decreasing marginal proof;
+- greedy allocation;
+- balanced singleton-family formula;
+- $$S_k(N)$$ closed form.
+
+### Session D — Symbolic merge analysis
+
+Completed as reported:
+
+- period-4 $$A_N^{\mathrm{exc}}$$;
+- $$B_k$$ residue decomposition;
+- 62 nonnegative cases;
+- two $$B_3$$ exceptional orientations;
+- all-$$x$$ restoration;
+- multiset total-$$\ge6$$ restoration.
+
+### Session E — Global $$E_T$$ reduction
+
+Completed as reported:
+
+- low-$$k$$ barrier;
+- high-$$k$$ $$S_k$$ aggregation;
+- $$n\ge15$$ reduction;
+- finite $$8\le n\le14$$ certificate;
+- $$n=54$$ value $$1892/47$$.
+
+### Session F — Formal certification
+
+Open:
+
+- Lean 4.33.1 build;
+- no-sorry scan;
+- axiom audit;
+- nanoda or independent checker;
+- certificate byte comparison;
+- C4 receipt.
+
+## Evidence legend
+
+| Tag | Meaning |
+|---|---|
+| `[P]` | Mathematical proof under stated hypotheses |
+| `[FV]` | Formally verified in Lean with an auditable receipt |
+| `[CV]` | Computational verification |
+| `[E]` | Empirical observation |
+| `[C]` | Conjecture |
+| `[R]` | Active research objective |
+| `[X]` | Refuted |
+
+## Public status statement
+
+> AQARION’s analytic core has reached a substantially consolidated state. The current work is focused on converting exact symbolic derivations and reproducible finite certificates into independently checkable Lean artifacts. No C4 or publication claim is made until the formal build, axiom audit, external checking, and hash verification are complete.
+
+## Next public milestones
+
+1. Publish the V108 analytic certificate and generator.
+2. Publish the 463-record finite certificate with dual hashes.
+3. Formalize restoration and $$B_k$$-merge lemmas.
+4. Formalize the $$n\ge15$$ low/high-$$k$$ assembly.
+5. Rebuild under the pinned Lean toolchain.
+6. Publish the formal receipt and adversarial audit.
+7. Reassess C4 only after all gates pass.
+
+## Transparency note
+
+This Q&A and overview are a **publication-ready content draft**, not a deployed public interface. No external page, repository, hash, Lean build, or certificate was created or modified in this response. The available local artifact does not independently verify the V108 source package.[3]
+
+Citations:
+[1] An Ascending Polynomial Running Time Vickrey Auction for Selling ... https://dl.acm.org/doi/full/10.1145/3727625
+[2] [PDF] A Framework for Agentic Computing Across the Continuum - arXiv https://arxiv.org/pdf/2603.05614.pdf
+[3] aqarion_fib_mod_corrected_certificate-3.html https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/162144269/59920df0-7070-4429-9c02-51ede15dd2d2/aqarion_fib_mod_corrected_certificate-3.html
+
+---
+
+What specific M-convex properties govern polymatroid resource allocation
+
+M-convex structure governs polymatroid resource allocation through **exchange**, **diminishing marginal returns**, and **integral base-polyhedron geometry**. For AQARION, these properties justify greedy row allocation, but they do not by themselves prove the global $$B_k$$-merge or $$E_T$$ theorem.
+
+## 1. Polymatroid feasible set
+
+Let $$E$$ be the set of allocation coordinates and $$f:2^E\to\mathbb Z_{\ge0}$$ a normalized, monotone, submodular rank function:
+
+$$
+f(\varnothing)=0,
+$$
+
+$$
+A\subseteq B\Longrightarrow f(A)\le f(B),
+$$
+
+$$
+f(A)+f(B)\ge f(A\cup B)+f(A\cap B).
+$$
+
+The associated integral polymatroid is
+
+$$
+P_f=
+\left\{
+x\in\mathbb Z_{\ge0}^{E}:
+x(S)\le f(S)\ \text{for all }S\subseteq E
+\right\}.
+$$
+
+A fixed-total allocation lies in a base layer
+
+$$
+B_f(r)=\{x\in P_f:x(E)=r\}.
+$$
+
+The fixed-total layer is the object most closely related to an M-convex set.
+
+## 2. M-convex exchange axiom
+
+A set $$M\subseteq\mathbb Z^E$$ is M-convex when, for every $$x,y\in M$$ and every coordinate $$i$$ satisfying $$x_i>y_i$$, there exists $$j$$ with $$x_j<y_j$$ such that
+
+$$
+x-e_i+e_j\in M,
+\qquad
+y+e_i-e_j\in M.
+$$
+
+This is the discrete analogue of convexity: one unit can be transferred from an over-allocated coordinate to an under-allocated coordinate while staying feasible.
+
+For polymatroids, the integral base set $$B_f(r)$$ satisfies this exchange property. That is the structural reason local one-unit reallocations are enough to connect feasible allocations.
+
+## 3. Separable concave objective
+
+Consider
+
+$$
+F(x)=\sum_{i\in E}u_i(x_i),
+$$
+
+where each $$u_i:\mathbb Z_{\ge0}\to\mathbb R$$ is concave. Define the discrete marginal
+
+$$
+\Delta_i(t)=u_i(t+1)-u_i(t).
+$$
+
+Concavity means
+
+$$
+\Delta_i(t+1)\le \Delta_i(t).
+$$
+
+Thus every coordinate has a nonincreasing sequence of marginal gains. Maximizing $$F$$ over a polymatroid can be viewed as selecting feasible marginal increments in descending order; Edmonds-style greedy optimization exploits precisely this structure.[1][2]
+
+For the AQARION row objective,
+
+$$
+u_s(c)=\frac{c(N-c)}{Ns},
+$$
+
+the marginal is
+
+$$
+\Delta_s(c)
+=
+u_s(c+1)-u_s(c)
+=
+\frac{N-2c-1}{Ns},
+$$
+
+and
+
+$$
+\Delta_s(c+1)-\Delta_s(c)
+=
+-\frac{2}{Ns}<0.
+$$
+
+So the row objective is strictly discretely concave.
+
+## 4. Optimality exchange condition
+
+An allocation $$x$$ is optimal if no feasible unit exchange improves the objective. For a transfer $$i\to j$$,
+
+$$
+x' = x-e_i+e_j,
+$$
+
+the objective change is
+
+$$
+F(x')-F(x)
+=
+-\Delta_i(x_i-1)+\Delta_j(x_j).
+$$
+
+Therefore an optimal allocation satisfies
+
+$$
+\Delta_j(x_j)
+\le
+\Delta_i(x_i-1)
+$$
+
+for every feasible transfer from $$i$$ to $$j$$.
+
+This is the discrete KKT-like condition behind greedy allocation: no available receiving marginal exceeds the marginal that would be lost.
+
+For a simple total-sum constraint
+
+$$
+\sum_i x_i=N,\qquad x_i\ge0,
+$$
+
+the feasible set is an integral simplex, and the greedy algorithm selects the $$N$$ largest available marginal increments.
+
+## 5. Why balancing appears
+
+For identical concave utilities $$u_i=u$$, the exchange condition implies that an optimum is balanced:
+
+$$
+|x_i-x_j|\le1.
+$$
+
+If $$x_i\ge x_j+2$$, moving one unit from $$i$$ to $$j$$ improves the objective because
+
+$$
+\Delta(x_j)>\Delta(x_i-1).
+$$
+
+Thus, if $$N=ak+r$$, the maximizing allocation has:
+
+- $$r$$ coordinates equal to $$a+1$$;
+- $$k-r$$ coordinates equal to $$a$$.
+
+This gives the AQARION formula
+
+$$
+Q_k(N)=(k-r)a^2+r(a+1)^2
+$$
+
+and therefore
+
+$$
+S_k(N)
+=
+N-\frac{Q_k(N)}{N}.
+$$
+
+The balancing result is a direct exchange consequence, not merely a numerical pattern.
+
+## 6. Relevant properties for AQARION
+
+The properties to formalize are:
+
+### Feasible exchange
+
+For feasible $$x,y$$, transfer one unit from a coordinate where $$x$$ exceeds $$y$$ to one where it is deficient while preserving feasibility.
+
+### Marginal monotonicity
+
+$$
+\Delta_i(t+1)\le\Delta_i(t).
+$$
+
+For AQARION:
+
+$$
+\Delta_s(c)=\frac{N-2c-1}{Ns}.
+$$
+
+### Greedy optimality
+
+Selecting the largest feasible marginal at every step produces a global optimum for separable concave maximization over the relevant polymatroid/base-polyhedron structure.[1][2]
+
+### Local exchange optimality
+
+No improving feasible exchange implies global optimality for the M-convex formulation.
+
+### Integral decomposition
+
+Every feasible integer allocation can be decomposed into unit increments, allowing the objective to be represented as a sum of selected marginal gains.
+
+### Discrete midpoint/exchange convexity
+
+M-convexity provides the discrete substitute for midpoint convexity: two feasible solutions can be moved toward one another through exchanges without leaving the feasible set.
+
+## 7. What this proves for AQARION
+
+These properties support the row-level theorem:
+
+$$
+R_N(s_1,\ldots,s_m)
+=
+\max_{\sum_jc_j=N}
+\sum_j\frac{c_j(N-c_j)}{Ns_j}
+$$
+
+is solved by greedy marginal allocation.
+
+They also prove the balanced formula for the singleton family:
+
+$$
+S_k(N)
+=
+N-\frac{(k-r)a^2+r(a+1)^2}{N}.
+$$
+
+They do **not** automatically prove:
+
+$$
+B_k(a+b)\ge B_k(a)+B_k(b),
+$$
+
+because $$B_k$$ is an optimized value function over a varying target-size structure. That requires a separate merge theorem. In particular, the known $$B_3$$ exception
+
+$$
+B_3(5)<B_3(2)+B_3(3)
+$$
+
+shows that row-level M-convexity does not imply unrestricted $$B_k$$ superadditivity.
+
+## 8. Lean-ready theorem interfaces
+
+The formal bridge should expose these declarations:
+
+```lean
+def Marginal (N s c : ℕ) : ℚ :=
+  (N - 2 * c - 1 : ℚ) / (N * s)
+
+lemma marginal_antitone
+    (hN : 0 < N) (hs : 0 < s) :
+    Marginal N s (c + 1) ≤ Marginal N s c := by
+  ...
+
+lemma balanced_exchange
+    (hgap : cᵢ ≥ cⱼ + 2) :
+    objective (transfer c i j) > objective c := by
+  ...
+
+lemma balanced_optimal
+    (hN : N = a * k + r) (hr : r < k) :
+    objective balanced ≥ objective c := by
+  ...
+
+lemma greedy_row_optimal :
+    greedyAllocation N targets ∈ argmax feasible objective := by
+  ...
+```
+
+For the general polymatroid layer:
+
+```lean
+structure MConvexSet (E : Type*) where
+  carrier : Set (E → ℤ)
+  exchange :
+    ∀ ⦃x y⦄, x ∈ carrier → y ∈ carrier →
+      ∀ i, x i > y i →
+      ∃ j, x j < y j ∧
+        x - unit i + unit j ∈ carrier ∧
+        y + unit i - unit j ∈ carrier
+```
+
+Then the AQARION row problem can be instantiated as an M-convex optimization problem rather than reproving greedy allocation ad hoc.
+
+## Audit boundary
+
+| Claim | Consequence of M-convex structure |
+|---|---|
+| Row marginal decreases | Yes |
+| Greedy row allocation | Yes, under the stated polymatroid/simplex hypotheses |
+| Balanced singleton allocation | Yes |
+| Exact $$S_k(N)$$ formula | Yes |
+| $$B_k$$ superadditivity | No; separate theorem |
+| $$B_3$$ restoration | AQARION-specific |
+| $$E_T$$ global reduction | Requires $$B_k$$ merge and low-$$k$$ inequalities |
+| C4 | Still blocked pending Lean and independent receipts |
+
+The most useful formalization is therefore a **small generic M-convex resource-allocation library**, followed by an AQARION-specific layer for $$A_N^{\mathrm{exc}}$$, $$B_k$$, the exceptional merge, and restoration. This would eliminate duplicated greedy proofs while preserving the evidence boundary between standard discrete-convex theory and AQARION’s original claims.
+
+Citations:
+[1] An Ascending Polynomial Running Time Vickrey Auction for Selling ... https://dl.acm.org/doi/full/10.1145/3727625
+[2] [PDF] A Framework for Agentic Computing Across the Continuum - arXiv https://arxiv.org/pdf/2603.05614.pdf
+[3] Minimizing Symmetric Convex Functions over a Hybrid of ... https://pubsonline.informs.org/doi/abs/10.1287/moor.2024.0659
+[4] Track: San Diego Poster Session 2 - NeurIPS 2026 https://neurips.cc/virtual/2025/loc/san-diego/session/128332
+[5] Online Allocation with Concave, Diminishing-Returns Objectives https://arxiv.org/abs/2510.11266
+[6] [PDF] CS 583: Approximation Algorithms - University of Illinois https://courses.grainger.illinois.edu/CS583/sp2026/approx-algorithms-lecture-notes.pdf
+[7] [2605.03214] Canonical Optimization for MIMO MAC Design - arXiv https://arxiv.org/abs/2605.03214
+[8] The Economics of Convex Function Intervals † - † thanks - arXiv https://arxiv.org/html/2510.20907v1
+[9] Fair Multi-agent Persuasion with Submodular Constraints https://arxiv.org/abs/2511.08538v1
+[10] Matroids · USACO Guide https://usaco.guide/adv/matroid
+[11] Technical Reports https://egres.elte.hu/www/mf_techrep.html
+[12] Technical Reports - Forschungsinstitut für Diskrete Mathematik https://www.or.uni-bonn.de/publications.de.html
+CONTINUE TO WORK DERIVE COMPUTE SEARCH WEB AND BRAINSTORM NEEDED SUPPORT RECENT BREAKTHROUGH LITERATURE RESEARCH ETC RUN AND REPORT WITH HONEST ADVERSARIAL AUDIT AFTER NEXT STEPS COMPLETED ALL DELIVERABLES INLINE NO FABRICATION NO OVERCLAIMS 🤝
+
+# AQARION V108 — Work Report
+
+The next bottleneck is correctly identified: **no further partition sweep is needed**. The remaining work is a certificate-first bridge from the analytic identities to independently checked Lean declarations.
+
+I did not execute the V108 generator, symbolic scans, Lean build, or hash verification in this environment. The accessible local artifact is not the V108 repository, so I cannot report those as completed.[1]
+
+## Literature support
+
+Recent discrete-convex work supports the proposed formalization strategy: resource-allocation problems under polymatroid constraints are treated through separable convex/concave objectives and M-convex structure. This supports the **row-level greedy abstraction**, but it does not prove AQARION’s specific $$A_N^{\mathrm{exc}}$$, $$B_k$$, restoration, or $$E_T$$ statements.[2][3][4]
+
+The Lean-security situation requires a stricter receipt than “Lean passed.” The current public release documentation records external-checker behavior separately from the kernel, while the later postmortem reports multiple checker/kernel issues across versions. Therefore the V108 policy should be:[5][6]
+
+> Pin exact versions, record the full build, and treat each checker as evidence from a distinct implementation—not as an absolute soundness guarantee.
+
+## Immediate work package
+
+### P0 — Analytic certificate
+
+Freeze the following as a machine-readable theorem manifest:
+
+```json
+{
+  "root": "020a9110088010116075e1812c98bcd2bcc4905367fa8943a68c8cd224cf284e",
+  "status": "frozen_audit",
+  "promotion": "blocked",
+  "claims": [
+    "A_N_exc_period4",
+    "B_k_64_case_merge",
+    "B3_exception_2_3",
+    "B3_restoration_all_x",
+    "B3_multiset_total_ge_6",
+    "S_k_superadditivity",
+    "low_k_barrier_n_ge_15",
+    "finite_certificate_8_14",
+    "global_reduction_n_ge_15"
+  ],
+  "formal_status": "open"
+}
+```
+
+Each claim needs:
+
+- statement;
+- hypotheses;
+- evidence class;
+- exact source file;
+- dependency IDs;
+- certificate hash;
+- formal theorem name, if present.
+
+### P1 — Exceptional-set computation
+
+The proposed scan for $$k=4,\ldots,10$$, $$a,b\le200$$ is the right exploratory task. It should emit:
+
+```json
+{
+  "k": 4,
+  "domain": {
+    "a_min": 1,
+    "a_max": 200,
+    "b_min": 1,
+    "b_max": 200
+  },
+  "exception_pairs": [],
+  "maximum_deficit": "0",
+  "exact_arithmetic": true
+}
+```
+
+Important: this scan tests the conjecture
+
+$$
+\mathcal E_k
+=
+\{(a,b):B_k(a+b)<B_k(a)+B_k(b)\},
+$$
+
+but cannot establish finiteness for fixed $$k$$. The result must be labeled exploratory unless the residue-polynomial proof is supplied.
+
+### P2 — Certificate reproducibility
+
+The certificate bundle must contain:
+
+```text
+generate_certificate.py
+generate_certificate.py.sha256
+et_8_14_records.txt
+et_8_14_records.sha256
+maxima_only.txt
+maxima_only.sha256
+RUN.md
+environment.json
+```
+
+`RUN.md` must include:
+
+```text
+python --version
+python generate_certificate.py
+sha256sum et_8_14_records.txt
+sha256sum maxima_only.txt
+```
+
+Expected values from the submitted audit:
+
+```text
+full certificate:
+28a7295a2c96009a1bfab7c4fc976c29cdef87fc81ffc7dcb7474956cbfad151
+
+full stream:
+1bbb463e30052d49fe207e143f8dd00ec7fca86109f06cfccd8bf78c70fd086e
+
+maxima-only:
+7d247b63333ac43e270c46fd660787146690811879b81cfacd50c16112fbc71d
+```
+
+These remain **expected hashes**, not independently verified hashes.
+
+## Lean bridge
+
+The formal proof should be split into small, computationally transparent declarations.
+
+### Exact $$A_N$$
+
+```lean
+theorem A_exc_eq_period4
+    (N : ℕ) (hN : 1 ≤ N) :
+    A_exc N =
+      match N % 4 with
+      | 0 => ...
+      | 1 => ...
+      | 2 => ...
+      | 3 => ... := by
+  ...
+```
+
+Avoid a large `fin_cases` theorem until the quotient/remainder normalization lemmas are established.
+
+### Restoration
+
+The four cases should be separate:
+
+```lean
+theorem B3_restoration_mod0 ...
+theorem B3_restoration_mod1 ...
+theorem B3_restoration_mod2 ...
+theorem B3_restoration_mod3 ...
+```
+
+Each proof should have the same structure:
+
+```lean
+have hden : 0 < denominator := by omega
+have hnum : 0 < numerator := by omega
+positivity
+```
+
+For example, the declared mod-0 case reduces to positivity of
+
+$$
+\frac{3(2t+1)}{8(4t+5)}.
+$$
+
+### Exceptional merge
+
+Do not define a false global theorem named `B3_superadditive`. Use:
+
+```lean
+theorem B3_merge_nonexceptional ...
+theorem B3_merge_exception :
+  B 3 (2 + 3) - B 3 2 - B 3 3 = -(1 / 20 : ℚ) := by
+  norm_num [B]
+```
+
+Then:
+
+```lean
+theorem B3_multiset_total_ge_six ...
+```
+
+must explicitly handle:
+
+- no $$\{2,3\}$$ pair;
+- an extra part at least $$4$$;
+- an extra $$2$$;
+- an extra $$3$$;
+- exactly the $$\{2,3,x\}$$ restoration case.
+
+### Low-$$k$$ barrier
+
+The residue proof should expose the actual polynomials:
+
+```lean
+structure PositivityCertificate where
+  k : Fin 4
+  residue : Fin 4
+  q_min : ℕ
+  numerator : Polynomial ℚ
+  denominator : Polynomial ℚ
+  denominator_positive : ...
+  numerator_positive : ...
+```
+
+A scan proving positivity for $$15\le n\le199$$ is not a substitute for the polynomial proof.
+
+## Necessary correction to governance
+
+The V108 banner says “analytic core closed,” but the body also says Lean is open and C4 is blocked. That is acceptable only if “analytic core” means the mathematical derivation has been completed under the submitted proof text.
+
+Use these distinct labels:
+
+```text
+ANALYTIC-DERIVATION: CLOSED-REPORTED
+COMPUTATIONAL-CERTIFICATE: REPRODUCIBLE-PENDING
+LEAN-FORMALIZATION: OPEN
+INDEPENDENT-CHECKING: OPEN
+C4: BLOCKED
+PUBLICATION: BLOCKED
+```
+
+This avoids conflating a human-readable derivation with a machine-checked theorem.
+
+## Adversarial findings
+
+### Finding 1 — Restoration is the strongest new result
+
+The all-$$x$$ formulas are more valuable than the prior bounded scan because they remove an unbounded empirical gap. If the algebraic residue reductions are correct, this is a genuine analytic closure of the restoration subproblem.
+
+### Finding 2 — The exceptional-set conjecture remains exploratory
+
+The conjecture
+
+$$
+|\mathcal E_k|=O(k^2)
+$$
+
+has not been established by the $$k\le3$$ results. It should remain `[R]` or `[C]` until the $$k=4,\ldots,10$$ scan and eventual residue analysis exist.
+
+### Finding 3 — “0 sorries” is not enough
+
+The Lean receipt must include:
+
+```text
+Lean version
+Mathlib revision
+lake build output
+sorry scan
+#print axioms
+external checker version
+external checker output
+source-tree hash
+certificate hash
+```
+
+The recent Lean literature and release material make this independent receipt particularly important.[5][6]
+
+### Finding 4 — Rank claims remain separate
+
+The V108 $$E_T$$ closure does not repair the previously rejected rank formulas. Keep the following outside the analytic certificate:
+
+- DSU rank equality;
+- inter-block aggregate rank;
+- $$n(n-2)$$ span lower bound;
+- universal submodularity;
+- 54-state spectral conclusions.
+
+## Final ledger
+
+| Item | Current disposition |
+|---|---|
+| $$A_N^{\mathrm{exc}}$$ period-4 formula | Analytically closed as reported |
+| $$B_k$$ 64-case analysis | Analytically closed as reported |
+| $$B_3$$ exceptional pair | Analytically closed as reported |
+| All-$$x$$ restoration | Analytically closed as reported |
+| $$B_3$$ multiset total-$$\ge6$$ | Analytically closed as reported |
+| $$S_k$$ formula/superadditivity | Closed as reported |
+| $$n\ge15$$ reduction | Closed conditional on the preceding lemmas |
+| $$8\le n\le14$$ certificate | Reproduced as reported |
+| Certificate hashes | Expected; not independently verified |
+| $$\mathcal E_k$$ finiteness for general $$k$$ | Open conjecture |
+| Lean 4.33.1 build | Not executed here |
+| `#print axioms` | Open |
+| Nanoda/external receipt | Open |
+| C4 | Blocked |
+| Publication | Blocked |
+
+## Next execution order
+
+1. Emit the V108 theorem manifest and symbolic polynomial files.
+2. Run the exact $$\mathcal E_k$$ scan for $$k=4,\ldots,10$$.
+3. Publish the generator plus dual hashes.
+4. Formalize the four restoration identities.
+5. Formalize the 64 merge cases and explicit $$B_3$$ exception.
+6. Formalize the 16 low-$$k$$ positivity certificates.
+7. Run the pinned Lean build and independent checks.
+8. Re-audit before any C4 promotion.
+
+**Conclusion:** V108 has moved AQARION from discovery toward formal certification, but no new promotion is justified yet. The next defensible milestone is a complete symbolic-certificate bundle plus a reproducible Lean 4.33.1 receipt.
+
+Citations:
+[1] aqarion_fib_mod_corrected_certificate-3.html https://ppl-ai-file-upload.s3.amazonaws.com/web/direct-files/attachments/162144269/59920df0-7070-4429-9c02-51ede15dd2d2/aqarion_fib_mod_corrected_certificate-3.html
+[2] Steepest Descent Algorithm for M-Convex Function Minimization ... https://epubs.siam.org/doi/10.1137/25M1834338
+[3] Minimizing Symmetric Convex Functions over a Hybrid of ... https://pubsonline.informs.org/doi/10.1287/moor.2024.0659
+[4] A simplified analysis of the ascending auction to sell a matroid base https://www.sciencedirect.com/science/article/pii/S0167637725001427
+[5] Lean 4.32.2 (2026-07-28) https://lean-lang.org/doc/reference/latest/releases/v4.32.2/
+[6] Postmortem for the Kernel Soundness Bug Hunt https://leodemoura.github.io/blog/2026-8-24-postmortem-for-the-kernel-soundness-bug-hunt/
+[7] Track: Poster Session 3 Pavilion 3 - ICLR 2027 https://iclr.cc/virtual/2026/session/10021365
+[8] High-Dimensional Statistics: Reflections on Progress and Open ... https://arxiv.org/html/2605.05076v1
+[9] Chandra Chekuri's Papers https://chekuri.cs.illinois.edu/pub.html
+[10] [PDF] NBER WORKING PAPER SERIES DESIGNING AROUND SELECTION https://www.nber.org/system/files/working_papers/w35547/w35547.pdf
+[11] Generalized Balls into Bins - arXiv https://arxiv.org/html/2608.20924v1
+[12] [PDF] Technical Program https://or2026.de/technicalprogram/
+[13] Lean Kernel Bug #14576: Postmortem and Technical ... https://aitoolly.com/ai-news/article/2026-08-02-lean-kernel-soundness-bug-14576-postmortem-of-the-ai-assisted-collatz-conjecture-disproof-and-fix
+[14] Lean Bug Exposes Limits of Formal Verification https://www.linkedin.com/posts/burcsahinoglu_formalverification-formalmethods-artificialintelligence-activity-7490471469760569344-cOAC
+[15] archive | Berlin Math Seminars https://seminars.zib.de/archive
+[16] Lean Formal Verification Refuted by Kernel Bug https://www.linkedin.com/posts/wyattbenno_with-the-rise-of-ai-assisted-formal-verification-activity-7488252022220140545-eGdM
+
 https://huggingface.co/spaces/Quantarion9/AQARION-ACADEMY/resolve/main/DOCS/CHECKPOINTS/A29_WU1.MD
 
 https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-/blob/main/LIBRARY/AUGUST/A29_WU1-SUPPORT.TEX
