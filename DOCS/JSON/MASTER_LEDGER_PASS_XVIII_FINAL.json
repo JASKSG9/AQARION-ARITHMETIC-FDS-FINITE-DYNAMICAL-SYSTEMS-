@@ -1,0 +1,112 @@
+{
+  "certificate": "AQARION-PASS-XVIII",
+  "root": "020a9110088010116075e1812c98bcd2bcc4905367fa8943a68c8cd224cf284e",
+  "governance": {
+    "audit": "FROZEN",
+    "promotion": "BLOCKED",
+    "c4": "BLOCKED",
+    "publication": "BLOCKED"
+  },
+
+  "authoritative_theorem": {
+    "id": "THM-COOC",
+    "title": "Defect Rank via Target-Cooccurrence Components",
+    "status": {
+      "mathematics": "PROVEN",
+      "computation": "VERIFIED",
+      "lean_architecture": "READY",
+      "lean_build": "OPEN"
+    },
+    "formula": "rank(D_Pi) = |Pi| - c(H_Pi)",
+    "graph": "one-copy target-cooccurrence graph",
+    "definition": "H_Pi = union over source blocks B_s of complete graphs on S_s"
+  },
+
+  "legacy_theorem": {
+    "id": "THM-BIP",
+    "status": "WITHDRAWN",
+    "certification_role": "NONE",
+    "reason": "superseded by corrected one-copy target-cooccurrence formulation"
+  },
+
+  "formal_route": [
+    "TargetSet",
+    "HAdj",
+    "H",
+    "defect-zero coefficient condition",
+    "H-edge equality",
+    "Laplacian kernel",
+    "connected-component dimension",
+    "coefficient/block-function equivalence",
+    "rank-nullity"
+  ],
+
+  "mathlib_bridge": {
+    "laplacian_kernel": "SimpleGraph.lapMatrix_mulVec_eq_zero_iff_forall_reachable",
+    "component_dimension": "SimpleGraph.card_connectedComponent_eq_finrank_ker_toLin'_lapMatrix",
+    "rank_nullity": "LinearMap.rank_range_add_rank_ker",
+    "status": "API CONFIRMED; repository build not yet observed"
+  },
+
+  "computational_evidence": {
+    "correct_formula": "rank(D_Pi) = m - c(H_Pi)",
+    "exhaustive_through_n5": "reported PASS",
+    "additional_exact_random_n6_n8": "reported PASS",
+    "status": "supporting computational evidence, not Lean certification"
+  },
+
+  "regression": {
+    "partition": "{{0,3},{1},{2}}",
+    "transition": "(2,3,2,3)",
+    "cooccurrence_edges": ["B0-B2"],
+    "isolated_target": "B1",
+    "component_count": 2,
+    "partition_size": 3,
+    "defect_rank": 1
+  },
+
+  "operator_freeze": {
+    "ambient": "(I-P)KP",
+    "restricted": "(I-P)K|V_Pi : V_Pi -> V_Pi_perp",
+    "restricted_square": "ill-typed",
+    "universal_ambient_square_zero": "REFUTED"
+  },
+
+  "withdrawn_claims": [
+    "universal ambient square-zero",
+    "raw Delta*Delta = L_W",
+    "old Koopman pushforward orientation",
+    "|B|/n as lambda2",
+    "submodularity",
+    "AQ-SPEC-001 lambda2 monotonicity"
+  ],
+
+  "remaining_gates": {
+    "lean_zero_sorry_pinned_build": "OPEN",
+    "lean_print_axioms": "OPEN",
+    "jcs_second_language_observed_corpus": "OPEN",
+    "wu1_explicit_contour_constants": "OPEN"
+  },
+
+  "acceptance_rule": {
+    "lean": [
+      "pinned lake build observed",
+      "exit code 0",
+      "zero sorry",
+      "zero admit",
+      "#print axioms reviewed",
+      "source SHA recorded",
+      "lakefile SHA recorded",
+      "lockfile SHA recorded",
+      "Lean version recorded",
+      "Mathlib revision recorded",
+      "stdout SHA recorded",
+      "stderr SHA recorded"
+    ],
+    "promotion": "Do not promote before all required evidence is observed."
+  },
+
+  "final_status": "FROZEN AUDIT - NO PROMOTION - C4 BLOCKED - PUBLICATION BLOCKED"
+}
+
+
