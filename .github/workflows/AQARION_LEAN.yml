@@ -1,0 +1,160 @@
+name: AQARION Lean CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aqarion-lean-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  preflight:
+    name: AQARION project preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Require Lean project metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -f lean-toolchain || {
+            echo "ERROR: lean-toolchain is missing."
+            exit 1
+          }
+
+          if [[ ! -f lakefile.lean && ! -f lakefile.toml ]]; then
+            echo "ERROR: neither lakefile.lean nor lakefile.toml exists."
+            exit 1
+          fi
+
+      - name: Require canonical AQARION verifier
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -f verify_defect_incidence.py || {
+            echo "ERROR: verify_defect_incidence.py is missing."
+            exit 1
+          }
+
+  python:
+    name: Exact Defect-Incidence regression
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install exact-regression dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install numpy
+
+      - name: Run Defect-Incidence verifier
+        run: |
+          python verify_defect_incidence.py
+
+  lean:
+    name: Lean build
+    needs: preflight
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Lean and mathlib cache
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          auto-config: true
+          use-mathlib-cache: true
+
+      - name: Show toolchain
+        run: |
+          lean --version
+          lake --version
+          cat lean-toolchain
+
+      - name: Build
+        run: lake build
+
+      - name: Reject sorry and sorryAx
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if grep -R -nE '\bsorry\b|sorryAx' \
+              --include='*.lean' \
+              --exclude-dir=.lake \
+              .; then
+            echo "ERROR: sorry/sorryAx detected."
+            exit 1
+          fi
+
+  axioms:
+    name: AQARION theorem axiom audit
+    needs: lean
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Lean and mathlib cache
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          auto-config: true
+          use-mathlib-cache: true
+
+      - name: Require explicit theorem audit manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test -f AQARION-CORE/LEAN/AQARION_AXIOM_AUDIT.lean || {
+            echo "ERROR: explicit AQARION axiom-audit file is missing."
+            echo "No #print axioms certification is claimed."
+            exit 1
+          }
+
+      - name: Run theorem axiom audit
+        run: |
+          lake env lean AQARION-CORE/LEAN/AQARION_AXIOM_AUDIT.lean
+
+  provenance:
+    name: Provenance
+    needs: [python, lean, axioms]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Emit immutable provenance
+        run: |
+          echo "repository=${GITHUB_REPOSITORY}"
+          echo "commit=${GITHUB_SHA}"
+          echo "ref=${GITHUB_REF}"
+          echo "workflow=${GITHUB_WORKFLOW}"
