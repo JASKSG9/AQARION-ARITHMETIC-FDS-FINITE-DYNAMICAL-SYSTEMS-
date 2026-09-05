@@ -1,0 +1,106 @@
+name: AQARION Lean CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aqarion-lean-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  lean:
+    name: Lean build and regression checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Install Lean and mathlib cache
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          auto-config: true
+          use-mathlib-cache: true
+
+      - name: Show pinned toolchain
+        run: |
+          lean --version
+          lake --version
+          test -f lean-toolchain
+          cat lean-toolchain
+
+      - name: Build Lean project
+        run: lake build
+
+      - name: Reject sorry and sorryAx
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if grep -R -nE '\bsorry\b|sorryAx' \
+              --include='*.lean' \
+              --exclude-dir=.lake \
+              .; then
+            echo "ERROR: sorry/sorryAx detected in Lean source."
+            exit 1
+          fi
+
+      - name: Install Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+
+      - name: Defect-Incidence regression
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ -f verify_defect_incidence.py ]]; then
+            python3 verify_defect_incidence.py
+          else
+            echo "verify_defect_incidence.py not present."
+            echo "No computational regression result is claimed."
+          fi
+
+      - name: Emit provenance
+        run: |
+          echo "commit=${GITHUB_SHA}"
+          echo "ref=${GITHUB_REF}"
+          echo "workflow=${GITHUB_WORKFLOW}"
+
+  axioms:
+    name: Axiom audit gate
+    needs: lean
+    if: ${{ needs.lean.result == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Install Lean and mathlib cache
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          auto-config: true
+          use-mathlib-cache: true
+
+      - name: Build before axiom audit
+        run: lake build
+
+      - name: Require explicit axiom receipt
+        run: |
+          echo "Axiom audit is not yet wired to the AQARION theorem list."
+          echo "CI success must not be interpreted as a #print axioms receipt."
+          exit 1
