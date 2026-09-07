@@ -5589,4 +5589,45 @@ The immediate priority is therefore the certified n=9 critical-locus sweep
 
 Three corrected artifacts supplied are now frozen baseline. All earlier material with wrong Bell number, $q-1$ rule, or unproved radius claims superseded.
 
+AQ-S7 CANONICAL PUBLIC CHECKPOINT created 
+
+---
+
+Summary of what S8 fixes vs S7
+| Issue S7 | S8 canonical |
+| --- | --- |
+| Pair count 223,574,931 | 223,587,231 = C(21147,2) = 21147·21146/2 — only value |
+| Raw array 21,147,515 | Removed — B9=21147 |
+| \Delta_d histogram 3..9 | QUARANTINED — impossible because d_T\le2\Rightarrow\Delta_d\in[-4,4] |
+| d_T=q-1 shortcut | KILLED — use triangle rank proof $0\le d_T\le2$ |
+| Transport verification inside if delta<0 | Corrected — must verify s_T=s_0+\Delta_d-m_T on every s_0=1,m_T=0 |
+| Reverse 3-cycle orientation mutation | REMOVED — J_T=J_{T^{-1}} invariant |
+| s=\mu+\beta / Type-A/B | KILLED — counterexample \Pi=\{\{0,1,4\},\{2,3,5\}\},\Sigma=\{\{0,2,4\},\{1,3,5\}\} s=1,\mu=2,\beta=1 |
+| s=\beta_{\rm Crapo} | KILLED — K_{2,3}+isolated gives s=2,\beta_{\rm Crapo}=0 |
+| Public artifacts sync | Documented NOT SYNCHRONIZED — S8 purges all stale |
+Canonical numbers now frozen
+B5=52 pairs 1326 0 mismatches s=β_cyc
+B6=203 pairs 20503 0 mismatches
+B7=877 pairs 384126 0 mismatches
+Total 405,955 PASS
+
+B8=4140 pairs 8,567,730 s0=1 2,405,613 m0 198,630 sT=1 197,550 sT=2 1080 viol 0 cross-lang Python+ C++17 ~3.6s
+
+B9=21147 pairs 223,587,231 s0=1 75,193,461 m0 7,657,635 Δ_d<0 0 min 0 hist {0:7,454,595,1:203,040} transport 0 failures ~31s independent
+
+RGS SHA 7075bdb8ecdf398f0f26075b13967af1b702404c143a7b7b3386dd290af0ea83 matches
+Source SHA dcdd0ac19e65a7153587c1b88f072da1d46f8d6399a3deb8bfb60659cfb8354c
+Result SHA 45ca29418435fc079148a028028a3fb682bb466990d732b5bd963b79d692d3c6
+Lean target — Setoid (answer to your question)
+
+Model separation via Setoid α, not explicit set disjointness. Partition lattice = Setoid α. Meet ⟨hΠ,hΣ⟩, join = transitive closure. C2 defect:
+def c2Defect (Π : Setoid α) (a b : α) : ℕ := if Π.Rel a b then 0 else 1
+theorem c2_defect_submodular : ... ≤ ... -- ≥ false due to indirect join via third element
+C3: use Fin 3 restriction, not subtype over permutations. f: Fin 3 → α, restrict Π f : Setoid (Fin 3) has exactly B_3=5 inhabitants, joint 10 types modulo S_3. This gives q_T\in\{1,2,3\},e_T\in\{0,1,3\},d_T=q_T-1\in\{0,1,2\}.
+
+DAG: c2_defect_submodular (indicator) → c3_defect_submodular (5-state) → slack_transport ( s_T=s_0+\Delta_d-m_T) → single_cycle_safety ( s_0=1,m_0\Rightarrow s_T\ge1).
+
+Governance S7
+Incidence s=\beta_{\rm cyc} settled direct theorem + 405,955 PASS, Crapo vs cyclomatic isolated, D^2=0 restored, Gram retained, source-split easy, d_T\le2 theorem, \Delta_d histogram quarantined, 3-cycle N_9^-=0 independent exhaustive but remains CONJECTURE — strongest defensible computational result, not universal theorem.
+
 Governance remains FROZEN · EXACT · NO FABRICATION · NO PROMOTION.
