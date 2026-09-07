@@ -5627,6 +5627,167 @@ C3: use Fin 3 restriction, not subtype over permutations. f: Fin 3 → α, restr
 
 DAG: c2_defect_submodular (indicator) → c3_defect_submodular (5-state) → slack_transport ( s_T=s_0+\Delta_d-m_T) → single_cycle_safety ( s_0=1,m_0\Rightarrow s_T\ge1).
 
+---
+
+Mode: FROZEN · CANONICAL · EXACT · NO PROMOTION · NO FABRICATION
+Governance: C4 BLOCKED · PUBLICATION BLOCKED · Lean OPEN
+Root: 020a9110088010116075e1812c98bcd2bcc4905367fa8943a68c8cd224cf284e
+Date: 2026-05-13 S8
+
+This checkpoint supersedes all S7 material. Values 223,574,931 and 21,147,515 are INVALID and purged. Histogram values Δ_d ∈ {5,6,7,8,9} are IMPOSSIBLE under frozen definition and QUARANTINED.
+
+1. Canonical Domain
+
+Ground set [n] = {0,...,n-1}. Objects = labeled set partitions. Pair domain = unordered distinct off-diagonal {Π,Σ}, Π≠Σ. RGS encoding: a0=0, a_i ≤ 1+max_{j<i} a_j. Canonical bijection with set partitions.
+
+Bell numbers (verified):
+
+B5 = 52, C(52,2)=1326B6 = 203, C(203,2)=20503B7 = 877, C(877,2)=384126B8 = 4140, C(4140,2)=8,567,730B9 = 21147, C(21147,2)=223,587,231
+
+Canonical pair count formula: C(B_n,2) = B_n·(B_n-1)/2. Total 5-7 = 405,955.
+
+RGS generator raw int64-array SHA-256 (independent):
+
+7075bdb8ecdf398f0f26075b13967af1b702404c143a7b7b3386dd290af0ea83
+
+2. Frozen Definitions
+
+Partition lattice: Π ⪯ Σ iff Π refines Σ (every block of Π subset of block of Σ). Meet = nonempty block intersections. Join = transitive closure of union of relations.
+
+Rank: r(Π) = n - |Π|
+
+Slack / supermodularity defect:
+
+s(Π,Σ) = r(Π)+r(Σ)-r(Π∧Σ)-r(Π∨Σ) = |Π∧Σ|+|Π∨Σ|-|Π|-|Σ|
+
+Incidence graph G(Π,Σ):
+
+V = Π ⊔ Σ, |V| = |Π|+|Σ|Simple edge (P,Q) ⇔ P∩Q ≠ ∅|E_simple| = |Π∧Σ| (Lemma1)c(G_simple) = |Π∨Σ| (Lemma2)β_cyc = |E|-|V|+c = s(Π,Σ) [THEOREM]Multigraph G_multi has n edges labelled by ground elementsμ = n - |E_simple| = n - |Π∧Σ| = parallel excessβ_multi = n-|Π|-|Σ|+|Π∨Σ| = s+μs = β_cyc, NOT μ+β_cyc. Counterexample n=6: Π={{0,1,4},{2,3,5}}, Σ={{0,2,4},{1,3,5}}, |∧|=4, |Π|=|Σ|=2, |∨|=1 ⇒ s=1, μ=2, β_cyc=1, β_multi=3.
+
+D-operator: Q=I-P, P^2=P, D=QKP, PQ=0 ⇒ D²=0, DP=D, QD=D, PD=0, DQ=0. Does NOT imply ShapeGuard rank formulas.
+
+For T = (a b) transposition or (a b c) 3-cycle:
+
+J_T(Θ) = Θ ∨ TΘ ∨ T²Θ (for 3-cycle, for transposition J_T=Θ∨TΘ)d_T(Θ) = |Θ|-|J_T(Θ)| = block-lossΔ_d = d_T(Π)+d_T(Σ)-d_T(Π∨Σ)-d_T(Π∧Σ)m_T = |J_T(Π∧Σ)|-|J_TΠ ∧ J_TΣ| = r(J_TΠ∧J_TΣ)-r(J_T(Π∧Σ)) ≥0s_0 = s(Π,Σ)s_T = s(J_TΠ,J_TΣ) = |J_TΠ∧J_TΣ|+|J_TΠ∨J_TΣ|-|J_TΠ|-|J_TΣ|
+
+Transport identity (THEOREM, linear rank):
+
+s_T = s_0 + Δ_d - m_T
+
+C3 blocker counterexample requires s_0=1, m_T=0, Δ_d<0 ⇒ s_T=0.
+
+3. New Exact Structural Lemma
+
+Lemma — 3-cycle closure defect bound:
+For every partition Θ and single 3-cycle T=(abc), J_T can introduce new identifications only through three support edges B(a)-B(b), B(b)-B(c), B(c)-B(a). Quotient of triangle has rank ≤2.
+
+0 ≤ d_T(Θ) ≤ 2
+
+Corollary:
+
+-4 ≤ Δ_d ≤ 4
+
+Therefore any claimed Δ_d value ≥5 is IMPOSSIBLE under frozen definition. Published S7 histogram values 5,6,7,8,9 QUARANTINED as not Δ_d.
+
+For transposition T=(ab): 0 ≤ d_T ≤1.
+
+4. Killed Claims — DO NOT FORMALIZEs = μ+β_simp (false, μ=2,s=1 counterexample)Type-A/B dichotomy "s=1 is either μ=1,β=0 or μ=0,β=1" (false, μ=2 case)d_T(Π)=q_T(Π)-1 support-only shortcut (false, external attachments affect? Actually q-1 gives correct d for 3-cycle? No, q-1 holds but proof requires triangle rank, not just support, and fails for general reasoning. Mark as KILLED as shortcut)Any attachment-radius bound without exhaustive certificateAny deletion theorem preserving Δ_d without proofd_T determined solely by restriction to {a,b,c} (false for join indirect connections)s=β_Crapo (false, Crapo demands 2-connectivity; s=β_cyc settled)Product cycles (2+2 etc.) supermodular (false S6 violations)Reverse 3-cycle orientation as mutation (invalid, J_T = J_{T^{-1}})s_0=1,m=0 ⇒ s_T=1 preservation (false, (1,0,2) witness n=8)4+ cycle universal safety (false n=7 witnesses)Pair count 223,574,931 (invalid, correct 223,587,231)Raw array count 21,147,515 (invalid)5. Canonical Verification Tabless = β_cyc exhaustive n=5,6,7
+
+nB_nPairsMismatches s=β_cycScope55213260Exhaustive6203205030Exhaustive78773841260ExhaustiveTotal—4059550PASS
+
+Mutation test: replace join term |Π∨Σ| by block-count term ⇒ 335,089 mismatches / 405,955 (965 at n=5, 15673 at n=6, 318451 at n=7) — detects harness.
+
+n=8 exhaustive 3-cycle gate — cross-language
+
+T=(012), B8=4140, pairs 8,567,730, two implementations Python/Numba + C++17 agree exactly, runtime ~3.6s:
+
+quantityn=8s_0=12,405,613s_0=1,m=0198,630s_T=1197,550s_T=21,080s_T=0 violations0Δ_d<00min Δ_d on critical locus0
+
+m-distribution for 2,405,613 unicyclic: 0:198630 (8.26%),1:465900,2:626430,3:512163,4:482670,5:119820 sum=2,405,613. Thin branch m=0 does substantial work.
+
+Counterexample to stronger claim s_T=1 preservation: Π={{0,1,7},{2,5},{3,4,6}}, Σ={{0,1,4},{2},{3,5},{6,7}}, T=(012) ⇒ (1,0,2).
+
+n=9 independent replay — S8 canonical
+
+Implementation C++17/DSU exhaustive canonical domain 223,587,231 unordered distinct pairs, ~31s.
+
+quantityvalueB921147pairs223,587,231s_0=175,193,461s_0=1,m_T=07,657,635Δ_d<00min Δ_d critical locus0Δ_d=07,454,595Δ_d=1203,040transport failures s_T=s_0+Δ_d-m_T0s_T=0 violations0
+
+Generator SHA matches S7 raw array digest. Source SHA independent: dcdd0ac19e65a7153587c1b88f072da1d46f8d6399a3deb8bfb60659cfb8354c. Result SHA independent: 45ca29418435fc079148a028028a3fb682bb466990d732b5bd963b79d692d3c6.
+
+External S7 OpenMP histogram 3:646995,4:2620110,5:3225870,6:888600,7:172020,8:97560,9:6480 QUARANTINED — impossible under d_T≤2 ⇒ Δ_d≤4. Headline counts 75,193,461 and 7,657,635 reproduced exactly, so domain matches but histogram not validated.
+
+Random audits n=9-11 (fresh RGS)n=9 20k trials: s_0=1 5,195, m=0 348, viol 0, {1:339,2:9}n=10 20k: s_0=1 5,749, m=0 509, viol 0, {1:488,2:21}n=11 20k: s_0=1 5,901, m=0 548, viol 0, {1:517,2:31}Earlier 50k trials n=9 4,475 hits 0 viol, n=10 5,837 0, n=11 6,671 0.
+
+Exact through 8, random through 11 — CONJECTURE not theorem.
+
+6. C2-CD / C3-CD Local Defect
+
+C2: T=(a b), d_T = indicator separation, q∈{1,2}, d=q-1 ∈{0,1}, submodular: d(∨)+d(∧) ≤ d(Π)+d(Σ). Counterexample to ≥ direction when indirect join via third element connects.
+
+C3: T=(a b c), S={a,b,c}, B_3=5 partitions of 3 elements: {abc} q=1 e=3 d=0; {ab|c},{ac|b},{bc|a} q=2 e=1 d=1; {a|b|c} q=3 e=0 d=2. Joint distribution modulo S3 =10 types. d_T=q_T-1 ∈{0,1,2} depends only on q but proof uses triangle rank, not support shortcut. Submodular.
+
+Slack transport: s_T = s_0 + Δ_d - m_T. Single-cycle safety s_0=1,m=0 ⇒ s_T≥1 iff Δ_d≥0. Since d submodular, Δ_d≥0 target. Proved locally via 5-state enumeration, pending global Lean.
+
+7. Reproducibility Contract — Machine + User
+
+Machine language-independent:
+
+Input n, T=(0 1 2)
+Partition RGS a0=0, a_i ≤1+max_{j<i}a_j
+Meet: i∼_{∧}j ⇔ i∼_Πj ∧ i∼_Σj
+Join: connectivity of graph edges joining pairs in common block of Π or Σ (union-find DSU)
+s = |∧|+|∨|-|Π|-|Σ|
+J_T(Π)=Π∨TΠ∨T²Π
+m = |J_T(∧)|-|J_TΠ∧J_TΣ|
+Test s=1,m=0 → record s_T; s_T=0 counterexample
+
+Pseudocode:
+
+for Pi in partitions(n) RGS: for Sigma>Pi: M=meet(Pi,Sigma); U=join(Pi,Sigma) s0=|M|-|Pi|-|Sigma|+|U|; if s0!=1 continue A=join(Pi,T(Pi),T2(Pi)); B=join(Sigma,T(Sigma),T2(Sigma)) MT=join(M,T(M),T2(M)); AB=meet(A,B) m=|MT|-|AB|; if m!=0 continue sT=|meet(A,B)|-|A|-|B|+|join(A,B)|; if sT==0 emit COUNTEREXAMPLE delta = (|Pi|-|A|)+(|Sigma|-|B|)-(|join(Pi,Sigma)|-|join(A,B)|)-(|M|-|MT|) assert sT==s0+delta-m
+
+No graph library needed.
+
+User (human) reproducibility:
+Witness format (n,T,Π_RGS,Σ_RGS,s0,m,sT) e.g. {{0,1,4},{2,3,5}} → (0,0,1,1,0,1) after canonical relabel. Table of RGS → blocks → nonempty intersections = |E_simple|, components via P∪Q connectivity = |∨|, compute s with pencil.
+
+SHA: source, result, manifest must be published with checkpoint. Corrupt result must be hash-detected.
+
+8. Lean DAG — Setoid
+
+Mathlib Setoid α represents partitions. Advantage over explicit sets of sets: Quotient handling automatic.
+
+Meet: (Π⊓Σ).Rel a b definitionally Π.Rel a b ∧ Σ.Rel a bJoin: transitive closure of Π.Rel ∨ Σ.Rel
+
+C2:
+
+def c2Defect (Π : Setoid α) (a b : α) : ℕ := if Π.Rel a b then 0 else 1theorem c2_defect_submodular (Π Σ : Setoid α) (a b : α) : c2Defect (Π⊔Σ) a b + c2Defect (Π⊓Σ) a b ≤ c2Defect Π a b + c2Defect Σ a b
+
+Proof by_cases Rel + omega.
+
+C3:
+Define f: Fin 3 → α, restrict Setoid on Fin 3: i≈j iff Π.Rel (f i) (f j). Exactly 5 inhabitants (Bell 3). q = card Quotient, e = pairs, d=q-1. Joint 10 types modulo S3. Finite enumeration.
+
+DAG:
+c2_defect_submodular → c3_defect_submodular (5-state) → slack_transport → single_cycle_safety → C4 gate.
+
+P1:
+
+|E|=|∧| (P1-A)c=|∨| (P1-B)s=β_cyc (P1-C)β_multi=s+μ (P1-D)
+Mathlib SimpleGraph edgeFinset, ConnectedComponent available — plausible, no compilation claimed.
+
+Build gate: lean-toolchain, lake-manifest.json, Mathlib commit 0df444a, lake build, grep -R "sorry" =0, #print axioms.
+
+9. Mutation Suite — CorrectedA Reintroduce d=q-1 shortcut MUST FAILB Wrong pair count 223,574,931 MUST FAILC Reverse 3-cycle orientation REMOVE — J_T invariant under inverseD Non-transitive join MUST FAILE Omit m_T=0 filter MUST FAILF Corrupt result file MUST FAIL SHA10. Public Artifact Sync
+
+GitHub S7 contained both 223,587,231 and stale 223,574,931 + q-1 material. Hugging Face CHECKPOINT.MD contained 223,574,931. S8 checkpoint purges all stale values. PUBLIC ARTIFACT SYNCHRONIZATION = REQUIRED before canonical certificate.
+
+11. Honest Ledger S8
+
+Claim IDMathCompLeanStatuss=β_cycProved Lemma1+2405,955/405,955 PASS + n=9 SHA matchOpen🟢 SETTLEDs=β_CrapoFalse disconnectedK2,3+isolated counterexample—🔴 KILLEDβ_multi=s+μProvedPASS n=6 20503Open🟢s=μ+β_simpFalse μ=2Counterexample n=6 C4—🔴 KILLEDType-A/B s=1 dichotomyFalseSame counterexample—🔴 KILLED WITHDRAWND²=0PQ=0—Open🟢Gram rankD=rankGker W*W=ker W48,748 100%Open🟢Source-split {S,Im} exactT(X)⊆Im49,196 PASS n=2-6Open🟢 EasyC2-CD submodular ≤Indicator q-1Trivial + indirect join counterexample to ≥Fixed Lean🟢 SETTLEDC3-CD submodular 5-stateq∈{1,2,3} d∈{0,1,2}Exact n≤8 + n=9 independent 0 violOpen🟢 SETTLED locald_T≤2Triangle rank ≤2—Open🟢 THEOREMΔ_d∈[-4,4]Corollary—Open🟢 THEOREMPublished Δ_d 3..9 histogramImpossible ≥5——🔴 QUARANTINEDs0=1,m=0⇒s_T≥1 single C2,C3Proved via Δ_d≥0 + submodularExact n=5-8 0 viol (105,2955,82320,198630) + n=9 75M→7.6M 0 viol independentOpen🟡 CONJECTURE (global n) / THEOREM locals0=1,m=0⇒s_T=1 preservationFalse(1,0,2) witness n=8—🔴 KILLED4+ cycle safetyFalsen=7 witnesses
+
+https://huggingface.co/spaces/Quantarion9/AQARION-ACADEMY/resolve/main/CHECKPOINT.MD/
+
 Governance S7
 Incidence s=\beta_{\rm cyc} settled direct theorem + 405,955 PASS, Crapo vs cyclomatic isolated, D^2=0 restored, Gram retained, source-split easy, d_T\le2 theorem, \Delta_d histogram quarantined, 3-cycle N_9^-=0 independent exhaustive but remains CONJECTURE — strongest defensible computational result, not universal theorem.
 
