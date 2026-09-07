@@ -18137,7 +18137,1054 @@ VII. Final ledger — honest
 | C4 / Publication | 🔴 BLOCKED |
 Bottom line: Analytic derivation closed including ALL-x restoration $R(x)=3(2t+1)/8(4t+5),3(t+1)/4(4t+1),3(t+2)/4(4t+7),3(2t+1)/8(4t+3)>0$. B_k superadditive only for k\le3, S_k superadditive for k\ge4 — dichotomy validated by $0$ vs $13284$ violations. Global n\ge15 reduction now rests on S_k + B_3 restoration, not on false universal B_k superadditivity. Remaining work is certificate hygiene + Lean $4.33.1$ receipt — no further partition sweep needed.
 
-🔒 FROZEN AUDIT · RESTORATION ALL-x PROVED · B_k k\le3 CLOSED · B_k k\ge4 KILLED · S_k k\ge4 CLOSED · LEAN OPEN · C4 BLOCKED
+🔒 AQARION C3 — Critical-Locus Computational Specification
+
+Status: FROZEN · EXACT · NO FABRICATION · NO PROMOTION
+Governance: C4 BLOCKED · Publication BLOCKED pending certified reproduction · Lean OPEN
+Target: 3-cycle closure defect on the partition lattice
+
+1. Mathematical target
+
+Let \Pi,\Sigma be set partitions of X=[n], and let
+
+[
+T=(abc)
+]
+
+be a 3-cycle. Define
+
+[
+J_T(\Pi)=\Pi\vee T(\Pi)\vee T^2(\Pi).
+]
+
+Define the ordinary partition-lattice slack
+
+[
+s_0(\Pi,\Sigma)
+
+|\Pi\wedge\Sigma|
++
+|\Pi\vee\Sigma|
+
+|\Pi|
+
+|\Sigma|.
+]
+
+Define
+
+[
+d_T(\Theta)=|\Theta|-|J_T(\Theta)|.
+]
+
+Define the closure coalescence quantity
+
+[
+m_T(\Pi,\Sigma)
+
+|J_T(\Pi\wedge\Sigma)|
+
+|J_T(\Pi)\wedge J_T(\Sigma)|.
+]
+
+Finally define
+
+[
+\Delta_d
+
+d_T(\Pi)+d_T(\Sigma)
+-d_T(\Pi\vee\Sigma)
+-d_T(\Pi\wedge\Sigma).
+]
+
+The exact transport identity is
+
+[
+\boxed{
+s_T=s_0+\Delta_d-m_T
+}
+]
+
+where
+
+[
+s_T
+
+|J_T(\Pi)\wedge J_T(\Sigma)|
++
+|J_T(\Pi)\vee J_T(\Sigma)|
+
+|J_T(\Pi)|
+
+|J_T(\Sigma)|.
+]
+
+Therefore a counterexample to the C3 blocker must satisfy
+
+[
+\boxed{
+s_0=1,\qquad m_T=0,\qquad \Delta_d<0.
+}
+]
+
+The immediate computational target is exactly this critical locus.
+
+---
+
+2. Canonical domain
+
+Partitions are represented by restricted-growth strings (RGS)
+
+[
+a_0=0,\qquad
+a_i\le 1+\max_{j<i}a_j.
+]
+
+Each RGS represents one labeled set partition.
+
+Pairs are unordered distinct pairs
+
+[
+{\Pi,\Sigma},\qquad \Pi\ne\Sigma,
+]
+
+and are enumerated once.
+
+Bell-number checkpoints:
+
+[
+B_8=4140,\qquad B_9=21147.
+]
+
+Hence the complete unordered distinct-pair domain at n=9 is
+
+[
+\binom{21147}{2}=223,574,931.
+]
+
+The value 21,147,515 is incorrect and must not appear in the canonical record.
+
+---
+
+3. Exact Layer 1 filter
+
+For every pair compute
+
+[
+|\Pi|,\quad |\Sigma|,\quad
+|\Pi\wedge\Sigma|,\quad
+|\Pi\vee\Sigma|.
+]
+
+The meet size is the number of distinct pairs
+
+[
+(\Pi(x),\Sigma(x)).
+]
+
+The join is obtained by the transitive closure of the equivalence relations represented by \Pi and \Sigma.
+
+Then
+
+[
+s_0=
+|\Pi\wedge\Sigma|
++
+|\Pi\vee\Sigma|
+
+|\Pi|
+
+|\Sigma|.
+]
+
+Reject immediately unless
+
+[
+s_0=1.
+]
+
+No closure computation is permitted before this test.
+
+---
+
+4. Exact Layer 2 support handling
+
+The cycle support is
+
+[
+S={a,b,c}.
+]
+
+A support-count heuristic alone is NOT a valid closure formula.
+
+In particular, the previously proposed rule
+
+[
+d_T(\Pi)=q_\Pi-1
+]
+
+with q_\Pi equal to the number of \Pi-blocks meeting S, is false.
+
+Counterexample: if S consists of three singleton blocks and all remaining elements are singleton blocks, then q_\Pi=3, but
+
+[
+T(\Pi)=\Pi
+]
+
+and therefore
+
+[
+d_T(\Pi)=0.
+]
+
+Accordingly, support information may be used only as a safe pruning criterion after the required invariance condition has been established.
+
+For example, if the partition is explicitly verified to be T-invariant, then
+
+[
+J_T(\Pi)=\Pi
+]
+
+and the closure need not be recomputed.
+
+No unproved q-based shortcut is part of the canonical algorithm.
+
+---
+
+5. Exact Layer 3 coalescence filter
+
+After s_0=1, compute
+
+[
+J_T(\Pi),\qquad
+J_T(\Sigma),\qquad
+J_T(\Pi\wedge\Sigma).
+]
+
+Then compute
+
+[
+M_J=J_T(\Pi)\wedge J_T(\Sigma)
+]
+
+and
+
+[
+m_T=|J_T(\Pi\wedge\Sigma)|-|M_J|.
+]
+
+If
+
+[
+m_T\ne0,
+]
+
+the pair cannot falsify the C3 blocker and is discarded before the defect calculation.
+
+Only pairs satisfying
+
+[
+s_0=1,\qquad m_T=0
+]
+
+reach the critical defect calculation.
+
+---
+
+6. Exact Layer 4 status
+
+Canonical isomorphism/orbit reduction and attachment-graph compression are NOT presently certified components of the exhaustive n=9 census.
+
+They may be used in exploratory experiments only if their orbit-completeness and equivalence-preservation are independently proved.
+
+In particular, the following statements are NOT currently promoted:
+
+- bounded attachment radius;
+- bounded number of external vertices;
+- deletion of external vertices preserving \Delta_d;
+- completeness of the proposed attachment-neighborhood signature;
+- reduction of the exhaustive domain by external relabeling.
+
+The canonical n=9 result must therefore be based on the full labeled RGS pair domain unless a separate orbit-reduction certificate is supplied.
+
+---
+
+7. Critical defect calculation
+
+For every surviving pair compute
+
+[
+d_\Pi=|\Pi|-|J_T(\Pi)|,
+]
+
+[
+d_\Sigma=|\Sigma|-|J_T(\Sigma)|,
+]
+
+[
+d_M=|\Pi\wedge\Sigma|-|J_T(\Pi\wedge\Sigma)|,
+]
+
+and
+
+[
+d_U=|\Pi\vee\Sigma|-|J_T(\Pi\vee\Sigma)|.
+]
+
+Then
+
+[
+\Delta_d=d_\Pi+d_\Sigma-d_U-d_M.
+]
+
+The implementation must flag only
+
+[
+\boxed{
+s_0=1,\quad m_T=0,\quad\Delta_d<0.
+}
+]
+
+---
+
+8. Mandatory negative-control readout
+
+If any candidate satisfies
+
+[
+\Delta_d<0,
+]
+
+the run MUST emit:
+
+1. n;
+2. cycle T;
+3. RGS(\Pi);
+4. RGS(\Sigma);
+5. RGS(\Pi\wedge\Sigma);
+6. RGS(\Pi\vee\Sigma);
+7. |\Pi|;
+8. |\Sigma|;
+9. |\Pi\wedge\Sigma|;
+10. |\Pi\vee\Sigma|;
+11. |J_T(\Pi)|;
+12. |J_T(\Sigma)|;
+13. |J_T(\Pi\wedge\Sigma)|;
+14. |J_T(\Pi\vee\Sigma)|;
+15. |J_T(\Pi)\wedge J_T(\Sigma)|;
+16. s_0;
+17. m_T;
+18. \Delta_d;
+19. s_T;
+20. an independent verification of
+
+[
+s_T=s_0+\Delta_d-m_T.
+]
+
+A candidate is rejected unless all independently recomputed quantities agree.
+
+---
+
+9. Required output
+
+The canonical n=9 run must report:
+
+B9
+total unordered distinct pairs
+s0 = 1 count
+s0 = 1, m = 0 count
+Delta_d histogram on s0 = 1, m = 0
+minimum Delta_d
+number of Delta_d < 0
+first negative-defect witness, if any
+transport-identity failures
+negative-control failures
+RGS-generator SHA-256
+source SHA-256
+result SHA-256
+execution environment
+
+The principal decision variable is
+
+[
+N_{9}^{-}
+
+#{
+(\Pi,\Sigma):
+s_0=1,\ m_T=0,\ \Delta_d<0
+}.
+]
+
+The run must not be described as proving the C3 blocker unless
+
+[
+N_9^-=0
+]
+
+is accompanied by a complete, independently reproducible exhaustive certificate.
+
+---
+
+10. Governance
+
+A zero count at n=9 establishes only:
+
+[
+\text{no counterexample exists in the certified }n=9\text{ domain}.
+]
+
+It does NOT establish the universal C3 theorem.
+
+Current mathematical status remains:
+
+[
+\boxed{
+s_0=1,\ m_T=0\Longrightarrow s_T\ge1
+}
+]
+
+for 3-cycles as an OPEN conjecture.
+
+Lean formalization remains OPEN.
+
+C4 remains BLOCKED.
+
+Publication remains BLOCKED pending the required computational and formalization gates.
+
+---
+
+AQARION n=9 Critical-Locus Numba Kernel
+
+The following is the canonical computational core. It deliberately avoids the unsafe q-1 shortcut and computes the lattice operations exactly.
+
+import hashlib
+import numpy as np
+import numba as nb
+
+
+# ------------------------------------------------------------
+# DSU
+# ------------------------------------------------------------
+
+@nb.njit(inline="always")
+def find(parent, x):
+    while parent[x] != x:
+        parent[x] = parent[parent[x]]
+        x = parent[x]
+    return x
+
+
+@nb.njit(inline="always")
+def union(parent, rank, a, b):
+    a = find(parent, a)
+    b = find(parent, b)
+
+    if a == b:
+        return
+
+    if rank[a] < rank[b]:
+        parent[a] = b
+    elif rank[a] > rank[b]:
+        parent[b] = a
+    else:
+        parent[b] = a
+        rank[a] += 1
+
+
+@nb.njit
+def reset_dsu(parent, rank, n):
+    for i in range(n):
+        parent[i] = i
+        rank[i] = 0
+
+
+# ------------------------------------------------------------
+# Dense block count
+# ------------------------------------------------------------
+
+@nb.njit
+def block_count(labels, n):
+    seen = np.zeros(n, dtype=np.uint8)
+    k = 0
+
+    for i in range(n):
+        x = labels[i]
+        if seen[x] == 0:
+            seen[x] = 1
+            k += 1
+
+    return k
+
+
+# ------------------------------------------------------------
+# Meet labels
+# ------------------------------------------------------------
+
+@nb.njit
+def meet_labels(pi, sigma, n):
+    # For n <= 12, direct O(n^2) equality checking is small.
+    out = np.full(n, -1, dtype=np.int64)
+
+    pair_a = np.full(n, -1, dtype=np.int64)
+    pair_b = np.full(n, -1, dtype=np.int64)
+
+    next_id = 0
+
+    for i in range(n):
+        a = pi[i]
+        b = sigma[i]
+
+        found = -1
+
+        for j in range(next_id):
+            if pair_a[j] == a and pair_b[j] == b:
+                found = j
+                break
+
+        if found == -1:
+            pair_a[next_id] = a
+            pair_b[next_id] = b
+            found = next_id
+            next_id += 1
+
+        out[i] = found
+
+    return out, next_id
+
+
+# ------------------------------------------------------------
+# Join labels
+# ------------------------------------------------------------
+
+@nb.njit
+def join_labels(pi, sigma, n, parent, rank):
+    reset_dsu(parent, rank, n)
+
+    for i in range(n):
+        for j in range(i + 1, n):
+            if pi[i] == pi[j] or sigma[i] == sigma[j]:
+                union(parent, rank, i, j)
+
+    out = np.empty(n, dtype=np.int64)
+    root_to_label = np.full(n, -1, dtype=np.int64)
+
+    next_id = 0
+
+    for i in range(n):
+        r = find(parent, i)
+
+        if root_to_label[r] == -1:
+            root_to_label[r] = next_id
+            next_id += 1
+
+        out[i] = root_to_label[r]
+
+    return out, next_id
+
+
+# ------------------------------------------------------------
+# Permutation action
+# ------------------------------------------------------------
+
+@nb.njit
+def apply_cycle(labels, a, b, c, n):
+    """
+    Push-forward convention:
+
+        T(P) has blocks T(B).
+
+    Hence the new label at T(x) equals the old label at x.
+    """
+
+    out = labels.copy()
+
+    out[b] = labels[a]
+    out[c] = labels[b]
+    out[a] = labels[c]
+
+    return out
+
+
+# ------------------------------------------------------------
+# J_T(P) = P v T(P) v T^2(P)
+# ------------------------------------------------------------
+
+@nb.njit
+def closure_3cycle(labels, a, b, c, n, parent, rank):
+
+    t1 = apply_cycle(labels, a, b, c, n)
+    t2 = apply_cycle(t1, a, b, c, n)
+
+    out, k = join_labels(labels, t1, n, parent, rank)
+    out, k = join_labels(out, t2, n, parent, rank)
+
+    return out, k
+
+
+# ------------------------------------------------------------
+# Exact s0
+# ------------------------------------------------------------
+
+@nb.njit
+def exact_s0(pi, sigma, n, parent, rank):
+
+    meet, nmeet = meet_labels(pi, sigma, n)
+    join, njoin = join_labels(pi, sigma, n, parent, rank)
+
+    npi = block_count(pi, n)
+    nsigma = block_count(sigma, n)
+
+    s0 = nmeet + njoin - npi - nsigma
+
+    return s0, meet, join, nmeet, njoin
+
+
+# ------------------------------------------------------------
+# Exact critical-locus evaluation
+# ------------------------------------------------------------
+
+@nb.njit
+def evaluate_pair(pi, sigma, a, b, c, n, parent, rank):
+
+    s0, meet, join, nmeet, njoin = exact_s0(
+        pi, sigma, n, parent, rank
+    )
+
+    if s0 != 1:
+        return s0, -1, 0, 0
+
+    jpi, njpi = closure_3cycle(
+        pi, a, b, c, n, parent, rank
+    )
+
+    jsigma, njsigma = closure_3cycle(
+        sigma, a, b, c, n, parent, rank
+    )
+
+    jmeet, njmeet = closure_3cycle(
+        meet, a, b, c, n, parent, rank
+    )
+
+    closed_meet, nclosed_meet = meet_labels(
+        jpi, jsigma, n
+    )
+
+    m = njmeet - nclosed_meet
+
+    if m != 0:
+        return s0, m, 0, 0
+
+    jjoin, njjoin = closure_3cycle(
+        join, a, b, c, n, parent, rank
+    )
+
+    npi = block_count(pi, n)
+    nsigma = block_count(sigma, n)
+
+    d_pi = npi - njpi
+    d_sigma = nsigma - njsigma
+    d_meet = nmeet - njmeet
+    d_join = njoin - njjoin
+
+    delta = d_pi + d_sigma - d_join - d_meet
+
+    sT = (
+        nclosed_meet
+        + nclosed_meet  # overwritten below
+        - njpi
+        - njsigma
+    )
+
+    # Exact closed join.
+    closed_join, nclosed_join = join_labels(
+        jpi, jsigma, n, parent, rank
+    )
+
+    sT = nclosed_meet + nclosed_join - njpi - njsigma
+
+    return s0, m, delta, sT
+
+
+# ------------------------------------------------------------
+# Transport-identity verification
+# ------------------------------------------------------------
+
+@nb.njit
+def verify_pair(pi, sigma, a, b, c, n, parent, rank):
+
+    s0, meet, join, nmeet, njoin = exact_s0(
+        pi, sigma, n, parent, rank
+    )
+
+    jpi, njpi = closure_3cycle(
+        pi, a, b, c, n, parent, rank
+    )
+
+    jsigma, njsigma = closure_3cycle(
+        sigma, a, b, c, n, parent, rank
+    )
+
+    jmeet, njmeet = closure_3cycle(
+        meet, a, b, c, n, parent, rank
+    )
+
+    jjoin, njjoin = closure_3cycle(
+        join, a, b, c, n, parent, rank
+    )
+
+    closed_meet, nclosed_meet = meet_labels(
+        jpi, jsigma, n
+    )
+
+    closed_join, nclosed_join = join_labels(
+        jpi, jsigma, n, parent, rank
+    )
+
+    m = njmeet - nclosed_meet
+
+    d_pi = block_count(pi, n) - njpi
+    d_sigma = block_count(sigma, n) - njsigma
+    d_meet = nmeet - njmeet
+    d_join = njoin - njjoin
+
+    delta = d_pi + d_sigma - d_join - d_meet
+
+    sT = nclosed_meet + nclosed_join - njpi - njsigma
+
+    return sT == s0 + delta - m
+
+
+# ------------------------------------------------------------
+# Deterministic RGS generator
+# ------------------------------------------------------------
+
+def generate_rgs(n):
+    result = []
+
+    a = np.zeros(n, dtype=np.int64)
+
+    def rec(pos, mx):
+        if pos == n:
+            result.append(a.copy())
+            return
+
+        for v in range(mx + 2):
+            a[pos] = v
+            rec(pos + 1, max(mx, v))
+
+    if n == 0:
+        return np.empty((0, 0), dtype=np.int64)
+
+    a[0] = 0
+    rec(1, 0)
+
+    return np.ascontiguousarray(result, dtype=np.int64)
+
+
+# ------------------------------------------------------------
+# Generator digest
+# ------------------------------------------------------------
+
+def generator_sha256(parts):
+    h = hashlib.sha256()
+    h.update(parts.tobytes(order="C"))
+    return h.hexdigest()
+
+
+# ------------------------------------------------------------
+# Full n=9 driver
+# ------------------------------------------------------------
+
+def run_n9(parts):
+
+    n = 9
+    a, b, c = 0, 1, 2
+
+    parent = np.empty(n, dtype=np.int64)
+    rank = np.empty(n, dtype=np.int64)
+
+    total = 0
+    unit = 0
+    m0 = 0
+    negative = 0
+
+    delta_hist = {}
+
+    first_negative = None
+    transport_failures = 0
+
+    N = len(parts)
+
+    for i in range(N):
+        pi = parts[i]
+
+        for j in range(i + 1, N):
+
+            sigma = parts[j]
+            total += 1
+
+            s0, m, delta, sT = evaluate_pair(
+                pi, sigma,
+                a, b, c,
+                n,
+                parent, rank
+            )
+
+            if s0 != 1:
+                continue
+
+            unit += 1
+
+            if m != 0:
+                continue
+
+            m0 += 1
+
+            delta_hist[delta] = delta_hist.get(delta, 0) + 1
+
+            if delta < 0:
+                negative += 1
+
+                if first_negative is None:
+                    first_negative = (
+                        pi.copy(),
+                        sigma.copy(),
+                        delta,
+                        sT
+                    )
+
+                if not verify_pair(
+                    pi, sigma,
+                    a, b, c,
+                    n,
+                    parent, rank
+                ):
+                    transport_failures += 1
+
+    return {
+        "B9": N,
+        "total_pairs": total,
+        "s0_eq_1": unit,
+        "s0_eq_1_m_eq_0": m0,
+        "delta_histogram": delta_hist,
+        "negative_delta_count": negative,
+        "first_negative": first_negative,
+        "transport_failures": transport_failures,
+        "generator_sha256": generator_sha256(parts),
+    }
+
+Important implementation note
+
+The code above is deliberately a correctness-first reference kernel, not yet the claimed maximum-throughput Cython kernel.
+
+Before using it for the canonical n=9 census, the following must be benchmarked and independently checked:
+
+1. RGS generator count must equal
+
+[
+B_9=21147.
+]
+
+2. Pair count must equal
+
+[
+223574931.
+]
+
+3. n=5,6,7 must reproduce the canonical regression counts.
+
+4. The transport identity must have zero failures.
+
+5. The push-forward permutation convention must agree with the mathematical definition.
+
+6. A second implementation must reproduce every negative-control candidate.
+
+Only after these checks should the kernel be optimized with representative lists, fixed-size pair tables, or Cython.
+
+---
+
+AQARION C3 — Status and Computational Claims
+
+Version: V171 continuation
+Mode: FROZEN · EXACT · NO FABRICATION · NO PROMOTION
+
+Current result
+
+The C3 problem has been reduced to a sharply defined critical locus.
+
+For
+
+[
+J_T(\Theta)=\Theta\vee T(\Theta)\vee T^2(\Theta),
+]
+
+define
+
+[
+d_T(\Theta)=|\Theta|-|J_T(\Theta)|
+]
+
+and
+
+[
+\Delta_d
+
+d_T(\Pi)+d_T(\Sigma)
+-d_T(\Pi\vee\Sigma)
+-d_T(\Pi\wedge\Sigma).
+]
+
+Then the exact transport identity is
+
+[
+\boxed{
+s_T=s_0+\Delta_d-m_T.
+}
+]
+
+Consequently, a failure of the proposed 3-cycle blocker
+
+[
+s_0=1,\quad m_T=0
+\quad\Longrightarrow\quad
+s_T\ge1
+]
+
+can occur only if
+
+[
+\boxed{
+s_0=1,\quad m_T=0,\quad\Delta_d<0.
+}
+]
+
+This is now the canonical falsification target.
+
+Existing computational evidence
+
+The exact critical-locus calculation has produced no negative \Delta_d in the previously completed exhaustive n=5,6,7 regimes and in the reported n=8 sampling/exhaustive work.
+
+These results are computational evidence only.
+
+They do not constitute a universal proof.
+
+Important correction
+
+A previously proposed local formula
+
+[
+d_T(\Pi)=q_\Pi-1
+]
+
+where q_\Pi counts the blocks meeting the 3-cycle support is false.
+
+The simplest counterexample is a partition in which the three support elements are singleton blocks and all remaining elements are also singleton blocks. Such a partition is T-invariant, so
+
+[
+d_T(\Pi)=0
+]
+
+although q_\Pi=3.
+
+Therefore support-block counts may not replace exact closure computation without additional invariance information.
+
+n=9 computational objective
+
+The canonical n=9 domain contains
+
+[
+B_9=21147
+]
+
+labeled set partitions and
+
+[
+\binom{21147}{2}=223574931
+]
+
+unordered distinct pairs.
+
+The required exhaustive computation is:
+
+[
+(\Pi,\Sigma)
+\longmapsto
+s_0
+\longmapsto
+m_T
+\longmapsto
+\Delta_d.
+]
+
+The only pairs requiring the final defect test satisfy
+
+[
+s_0=1,\qquad m_T=0.
+]
+
+Required certificate
+
+A publishable computational claim must include:
+
+- exact partition generator;
+- generator SHA-256;
+- exact input specification;
+- source SHA-256;
+- execution environment;
+- complete pair-domain count;
+- s_0=1 count;
+- m_T=0 count;
+- complete \Delta_d histogram;
+- number of negative defects;
+- negative-control readout for every candidate;
+- independent implementation or independent replay;
+- transport-identity verification;
+- mutation-test result.
+
+Interpretation rule
+
+If the certified n=9 run returns
+
+[
+N_9^-=0,
+]
+
+the correct statement is:
+
+«No pair in the complete canonical n=9 labeled partition domain satisfies s_0=1, m_T=0, and \Delta_d<0.»
+
+It is not permissible to state:
+
+«The C3 blocker has been proved.»
+
+The universal statement remains open until a mathematical proof or zero-sorry Lean formalization is completed.
+
+Attachment signatures
+
+Attachment-graph signatures remain a secondary structural research direction.
+
+They are not currently part of the completeness certificate.
+
+No bounded-radius or bounded-external-vertex theorem is asserted at this stage.
+
+Governance
+
+Claim| Status
+s= simple-incidence cycle rank| THEOREM
+s= Crapo \beta| FALSE / QUARANTINED
+D^2=0 for D=(I-P)KP| THEOREM
+C3 transport identity| THEOREM
+d_T=q-1| FALSE / KILLED
+C3 defect supermodularity| OPEN
+s_0=1,m_T=0\Rightarrow s_T\ge1 for 3-cycles| STRONG CONJECTURE
+n=9 critical-locus census| PENDING
+Lean| OPEN
+C4| BLOCKED
+Publication| BLOCKED
+
+The immediate priority is therefore the certified n=9 critical-locus sweep.
+
 
 https://huggingface.co/spaces/Quantarion9/AQARION-ACADEMY/resolve/main/README-LITE.MD/
 
