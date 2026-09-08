@@ -1,0 +1,66 @@
+{
+  "experiment": "AQ-LAKE-EXP-001C",
+  "root": "020a9110088010116075e1812c98bcd2bcc4905367fa8943a68c8cd224cf284e",
+  "mode": "FROZEN_EXACT_NO_FORK_NO_OVERCLAIM",
+  "status": "EXECUTION_PENDING",
+  "toolchain": "leanprover/lean4:v4.33.1",
+  "tests": {
+    "T1_lakefile_elaboration": {
+      "status": "PENDING"
+    },
+    "T2_lean_build": {
+      "status": "PENDING"
+    },
+    "T3_valid_receipt": {
+      "status": "EXECUTED_PASS",
+      "exit_code": 0
+    },
+    "T4_invalid_schema": {
+      "status": "EXECUTED_FAIL_CLOSED",
+      "exit_code": 1
+    },
+    "T5_stale_source": {
+      "status": "EXECUTED_FAIL_CLOSED",
+      "exit_code": 7
+    },
+    "T6_invalid_artifact": {
+      "status": "EXECUTED_FAIL_CLOSED",
+      "exit_code": 8
+    },
+    "T7_bare_lake_build": {
+      "status": "PENDING"
+    },
+    "T8_receipt_materialization": {
+      "status": "PENDING"
+    },
+    "T9_incremental_caching": {
+      "status": "PENDING"
+    },
+    "T10_mutation_without_rehash": {
+      "status": "EXECUTED_FAIL_CLOSED"
+    },
+    "T11_mutation_with_rehash": {
+      "status": "EXECUTED_LIMITATION_FOUND",
+      "finding": "Hash integrity passes after attacker-controlled rehash; authenticity therefore requires signature verification."
+    },
+    "T12_signed_receipt": {
+      "status": "PENDING"
+    },
+    "T13_parent_chain_break": {
+      "status": "PENDING"
+    }
+  },
+  "promotion": {
+    "current": "ARCHITECTURAL_SUPPORT_VERIFIED",
+    "next": "AQARION_LAKE_V0_ARCHITECTURAL_VIABILITY_VERIFIED",
+    "blocked_until": [
+      "T1",
+      "T2",
+      "T7",
+      "T8",
+      "T9",
+      "T12",
+      "T13"
+    ]
+  }
+}
