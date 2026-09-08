@@ -1,0 +1,12 @@
+{
+  "id": "AQ-LAKE-EXP-001",
+  "title": "Lake evidence-target experiment",
+  "status": "VERIFIED",
+  "source_scope": "EXACT_COMPUTATION",
+  "claim": "A Lake build can depend on a validated AQARION evidence receipt.",
+  "dependencies": [],
+  "artifacts": [
+    "AqarionLake.Core.transport_identity_skeleton"
+  ],
+  "schema_version": "0.1.0"
+}
