@@ -2,27 +2,24 @@ import Mathlib
 
 namespace AQARION
 
-/-
+/-!
 AQ-S9-ATK
-Transport identity — corrected 2026-09-09
+Canonical transport artifact.
 
 Governance:
-  FROZEN · EXACT · NO PROMOTION
-  Lean compilation receipt OPEN
+  FROZEN · EXACT · NO PROMOTION · CANONICAL
 
-Definitions:
-  s0  = rP + rQ - rM - rU
-  sT  = rJP + rJQ - rMeet - rJU
-  Δ   = (rJP-rP) + (rJQ-rQ) - (rJM-rM) - (rJU-rU)
-  mT  = rJM - rMeet
+Canonical convention:
+  mT = rJM - rMeet
 
-Exact algebra:
-  sT = s0 + Δ + mT
+Canonical transport:
+  sT = s0 + delta + mT
 
-The previous public version incorrectly stated:
-  sT = s0 + Δ - m
+The previous subtractive transport theorem was invalid because:
+  1. it used the wrong sign for mT under the historical definition; and
+  2. the former sT used rJT while delta used rJU.
 
-and therefore must not be retained.
+This file removes both ambiguities.
 -/
 
 def s0 (rP rQ rM rU : ℤ) : ℤ :=
@@ -38,15 +35,21 @@ def delta
   (rJM - rM) -
   (rJU - rU)
 
+/-
+Canonical S9 orientation.
+
+mT is the JM-minus-Meet orientation:
+  mT = rJM - rMeet
+-/
 def mT (rJM rMeet : ℤ) : ℤ :=
   rJM - rMeet
 
 /-
-Correct transport identity.
-This is purely algebraic and requires no monotonicity,
-rank, lattice, or dynamical-system assumptions.
+Exact canonical transport identity.
+
+No auxiliary sign hypothesis is required.
 -/
-theorem transport_additive
+theorem transport_identity
     (rP rQ rM rU rJP rJQ rJM rJU rMeet : ℤ) :
     sT rJP rJQ rMeet rJU =
       s0 rP rQ rM rU +
@@ -56,28 +59,51 @@ theorem transport_additive
   ring
 
 /-
-The previously published subtractive law is false under
-the same definitions.
+Critical locus.
 
-Witness:
-  rP=rQ=rM=rU=rJP=rJQ=rJU=rMeet=0
-  rJM=1
-
-Then:
-  sT = 0
-  s0 = 0
-  delta = -1
-  mT = 1
-
-so the subtractive RHS is -2.
+When mT = 0, transport reduces exactly to:
+  sT = s0 + delta
 -/
-example :
-    ¬ (
-      sT 0 0 0 0 =
-        s0 0 0 0 0 +
-        delta 0 0 0 0 0 0 1 0 -
-        mT 1 0
-    ) := by
-  norm_num [s0, sT, delta, mT]
+theorem transport_identity_m_zero
+    (rP rQ rM rU rJP rJQ rJM rJU rMeet : ℤ)
+    (hm : mT rJM rMeet = 0) :
+    sT rJP rJQ rMeet rJU =
+      s0 rP rQ rM rU +
+      delta rP rQ rM rU rJP rJQ rJM rJU := by
+  have hmeet : rJM = rMeet := by
+    unfold mT at hm
+    linarith
+  unfold s0 sT delta
+  rw [hmeet]
+  ring
+
+/-
+Equivalent opposite-sign convention.
+
+If one instead defines
+
+  mOpp = rMeet - rJM,
+
+then the same transport identity becomes
+
+  sT = s0 + delta - mOpp.
+-/
+def mOpp (rJM rMeet : ℤ) : ℤ :=
+  rMeet - rJM
+
+theorem mOpp_eq_neg_mT
+    (rJM rMeet : ℤ) :
+    mOpp rJM rMeet = -(mT rJM rMeet) := by
+  unfold mOpp mT
+  ring
+
+theorem transport_identity_opposite
+    (rP rQ rM rU rJP rJQ rJM rJU rMeet : ℤ) :
+    sT rJP rJQ rMeet rJU =
+      s0 rP rQ rM rU +
+      delta rP rQ rM rU rJP rJQ rJM rJU -
+      mOpp rJM rMeet := by
+  unfold s0 sT delta mOpp
+  ring
 
 end AQARION
