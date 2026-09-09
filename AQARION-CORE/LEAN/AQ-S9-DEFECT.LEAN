@@ -1,131 +1,53 @@
 import Mathlib.LinearAlgebra.Projection
+import Mathlib.Algebra.Module.LinearMap.Basic
 
-namespace AQARION
+variable {R : Type*} [Ring R] {M : Type*} [AddCommGroup M] [Module R M]
 
-variable {R : Type*} [Ring R]
-variable {M : Type*} [AddCommGroup M] [Module R M]
+def Q_of {P : Module.End R M} (hP : P * P = P) : Module.End R M := 1 - P
 
-/--
-Complementary projection associated with an idempotent P.
--/
-def Q_of {P : Module.End R M} (hP : P * P = P) : Module.End R M :=
-  1 - P
+theorem PQ_zero {P : Module.End R M} (hP : P * P = P) : P * Q_of hP = 0 := by
+  unfold Q_of; rw [mul_sub, mul_one, hP, sub_self]
 
-/--
-P and Q = 1 - P are complementary projections.
--/
-theorem PQ_zero
-    {P : Module.End R M}
-    (hP : P * P = P) :
-    P * Q_of hP = 0 := by
-  unfold Q_of
-  rw [mul_sub, mul_one, hP, sub_self]
+theorem QP_zero {P : Module.End R M} (hP : P * P = P) : Q_of hP * P = 0 := by
+  unfold Q_of; rw [sub_mul, one_mul, hP, sub_self]
 
-theorem QP_zero
-    {P : Module.End R M}
-    (hP : P * P = P) :
-    Q_of hP * P = 0 := by
-  unfold Q_of
-  rw [sub_mul, one_mul, hP, sub_self]
-
-/--
-AQARION defect operator:
-D = (1 - P) K P.
--/
-def D_of
-    (P K : Module.End R M)
-    (hP : P * P = P) :
-    Module.End R M :=
+def D_of (P K : Module.End R M) (hP : P * P = P) : Module.End R M :=
   Q_of hP * K * P
 
-/--
-P D = 0.
--/
-theorem PD_zero
-    {P K : Module.End R M}
-    (hP : P * P = P) :
-    P * D_of P K hP = 0 := by
-  unfold D_of
-  rw [← mul_assoc, PQ_zero hP, zero_mul]
+theorem PD_zero {P K : Module.End R M} (hP : P * P = P) :
+  P * D_of P K hP = 0 := by
+  unfold D_of; rw [← mul_assoc, PQ_zero hP, zero_mul]
 
-/--
-D² = 0.
--/
-theorem D_sq_zero
-    {P K : Module.End R M}
-    (hP : P * P = P) :
-    D_of P K hP * D_of P K hP = 0 := by
-  have hPD := PD_zero (P := P) (K := K) hP
-  calc
-    D_of P K hP * D_of P K hP
-        = Q_of hP * K * (P * D_of P K hP) := by
-            simp [mul_assoc, D_of]
+theorem DQ_zero {P K : Module.End R M} (hP : P * P = P) :
+  D_of P K hP * Q_of hP = 0 := by
+  unfold D_of Q_of
+  calc Q_of hP * K * P * (1 - P)
+      = Q_of hP * K * (P * (1 - P)) := by simp [mul_assoc]
     _ = Q_of hP * K * 0 := by
-          rw [hPD]
-    _ = 0 := by
-          simp
+      have : P * (1 - P) = 0 := by rw [mul_sub, mul_one, hP, sub_self]
+      rw [this]
+    _ = 0 := by simp
 
-/--
-D P = D.
--/
-theorem DP_eq_D
-    {P K : Module.End R M}
-    (hP : P * P = P) :
-    D_of P K hP * P = D_of P K hP := by
-  unfold D_of
-  rw [mul_assoc, mul_assoc, hP]
+theorem D_sq_zero {P K : Module.End R M} (hP : P * P = P) :
+  D_of P K hP * D_of P K hP = 0 := by
+  have hPD := PD_zero (P:=P) (K:=K) hP
+  calc D_of P K hP * D_of P K hP
+      = Q_of hP * K * (P * D_of P K hP) := by simp [mul_assoc, D_of]
+    _ = Q_of hP * K * 0 := by rw [hPD]
+    _ = 0 := by simp
 
-/--
-Q D = D.
--/
-theorem QD_eq_D
-    {P K : Module.End R M}
-    (hP : P * P = P) :
-    Q_of hP * D_of P K hP = D_of P K hP := by
+theorem DP_eq_D {P K : Module.End R M} (hP : P * P = P) :
+  D_of P K hP * P = D_of P K hP := by
+  unfold D_of; rw [mul_assoc, mul_assoc, hP]
+
+theorem QD_eq_D {P K : Module.End R M} (hP : P * P = P) :
+  Q_of hP * D_of P K hP = D_of P K hP := by
   unfold D_of Q_of
   have hQ : (1 - P) * (1 - P) = 1 - P := by
-    rw [sub_mul, one_mul, mul_sub, mul_one, hP]
-    abel
-  calc
-    (1 - P) * ((1 - P) * K * P)
-        = ((1 - P) * (1 - P)) * K * P := by
-            simp [mul_assoc]
-    _ = (1 - P) * K * P := by
-          rw [hQ]
+    rw [sub_mul, one_mul, mul_sub, mul_one, hP]; abel
+  calc (1 - P) * ((1 - P) * K * P)
+      = ((1 - P) * (1 - P)) * K * P := by simp [mul_assoc]
+    _ = (1 - P) * K * P := by rw [hQ]
 
-/--
-D Q = 0.
-
-This closes the remaining elementary right-complement
-identity in the AQARION defect algebra.
--/
-theorem DQ_zero
-    {P K : Module.End R M}
-    (hP : P * P = P) :
-    D_of P K hP * Q_of hP = 0 := by
-  unfold D_of
-  rw [← mul_assoc, PQ_zero hP, mul_zero]
-
-/-
-Established algebraic identities represented in this file:
-
-  P Q = 0
-  Q P = 0
-  P D = 0
-  D² = 0
-  D P = D
-  Q D = D
-  D Q = 0
-
-Mathematical status:
-  CLOSED.
-
-Formal status:
-  SOURCE-LEVEL FORMALIZATION PRESENT.
-
-Governance:
-  A compiler receipt is required before these source declarations
-  are promoted to compiler-certified status in the canonical ledger.
--/
-
-end AQARION
+-- Freeze D=QKP, D=KPQ quarantined. No assumption on K.
+-- DQ=0 now present — fixes public sync failure.
