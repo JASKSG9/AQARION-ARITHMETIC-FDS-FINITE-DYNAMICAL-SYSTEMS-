@@ -7,7 +7,6 @@ Exact transport identity.
 
 Here `r` is the partition-lattice rank
 `r(P) = n - |P|`, and
-
 m = r(JP ∧ JQ) - r(JM).
 
 With this convention the correction is SUBTRACTIVE.
@@ -24,10 +23,6 @@ theorem transport_identity_minus
       - (rMeet - rJM) := by
   ring
 
-/--
-On the meet-preserving locus `m = 0`, the sign convention
-does not affect the reduced C3 identity.
--/
 theorem transport_identity_m_zero
     (rP rQ rM rU rJP rJQ rJM rJU rMeet : ℤ)
     (hm : rMeet = rJM) :
@@ -42,9 +37,8 @@ theorem transport_identity_m_zero
   ring
 
 /--
-The proposed `+m` transport law is false in general.
-This concrete rank tuple is realized by an exact n=6
-3-cycle partition pair found in the adversarial replay.
+The formerly proposed additive `+m` transport formula is false.
+This is an explicit Lean-level refutation.
 -/
 theorem transport_identity_plus_false :
     ¬ (
