@@ -1,0 +1,6 @@
+-- Stage 1: blockConst ι_Π : (Fin m → ℝ) →ₗ (X → ℝ) finrank m
+-- Stage 2: defectRestricted = (1-P) ∘ₗ pullback T ∘ₗ blockConst
+-- Stage 3: kernel_iff_component_constant v∈ker L ↔ ∀ i j Connected H i j → v i = v j
+-- Stage 4: componentIndicator basis
+-- Stage 5: dim_ker = nComponents
+-- Stage 6: rank-nullity → Matrix.rank = m-c via rank_eq_finrank_range_toLin
