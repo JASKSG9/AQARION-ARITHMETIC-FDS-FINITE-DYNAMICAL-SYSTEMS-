@@ -1,22 +1,64 @@
 {
-  "claim_id": "WU1-C16",
-  "claim": "...",
-  "formal_statement": "...",
-  "mathematical_dependencies": [],
-  "source_commit": "...",
-  "source_files": [],
-  "input_hashes": [],
-  "algorithm_id": "...",
-  "implementation_language": "...",
-  "toolchain": "...",
-  "precision": "...",
-  "rounding_mode": "...",
-  "execution_command": "...",
-  "output_hash": "...",
-  "independent_route": "...",
-  "independent_result": "...",
-  "formal_status": "OPEN",
-  "semantic_audit": "OPEN",
-  "reproduction_level": "R0-R7",
-  "promotion_status": "BLOCKED"
+  "WU1-C01": "Mellin representation",
+  "status": "DERIVED",
+
+  "WU1-C02": "double pole at s=2",
+  "status": "EXACT",
+
+  "WU1-C03": "log coefficient = 1",
+  "status": "EXACT",
+
+  "WU1-C04": "finite part = 1 + gamma",
+  "status": "EXACT",
+
+  "WU1-C05": "pole ladder s = 2 - 2k",
+  "status": "EXACT_STRUCTURE",
+
+  "WU1-C06": "c_k = zeta(1-2k)^2/(2k-2)!",
+  "status": "EXACT",
+
+  "WU1-C07": "c_k = B_(2k)^2/((2k)^2(2k-2)!)",
+  "status": "EXACT",
+
+  "WU1-C08": "exact coefficients k <= 10",
+  "status": "INDEPENDENTLY_RECHECKED",
+
+  "WU1-C09": "c_(k+1)/c_k ~ k^2/(4*pi^4)",
+  "status": "INDEPENDENTLY_RECHECKED",
+
+  "WU1-C10": "k_opt ~ 2*pi^2/delta",
+  "status": "INDEPENDENTLY_RECHECKED",
+
+  "WU1-C11": "exp(-4*pi^2/delta)",
+  "status": "OPTIMAL_TRUNCATION_SCALE_ONLY",
+
+  "WU1-C12": "finite-N residue expansion",
+  "status": "OPEN",
+
+  "WU1-C13": "explicit Mellin remainder constant",
+  "status": "OPEN",
+
+  "WU1-C14": "Euler-Maclaurin remainder",
+  "status": "OPEN",
+
+  "WU1-C15": "direct interval-tail certificate",
+  "status": "OPEN",
+
+  "WU1-C16": "uniform WU1 remainder",
+  "status": "PRIMARY_BLOCKER",
+
+  "WU1-C17": "determinant interval certificate",
+  "status": "BLOCKED",
+
+  "WU1-C18": "lambda sqrt(delta) uniform theorem",
+  "status": "NUMERICAL_ONLY",
+
+  "WU1-C19": "Lean finite coefficient core",
+  "status": "OPEN",
+
+  "WU1-C20": "Lean analytic proof",
+  "status": "OPEN",
+
+  "WU1-C21": "clean-room replay",
+  "status": "OPEN"
 }
