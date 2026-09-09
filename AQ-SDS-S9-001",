@@ -1,0 +1,36 @@
+{
+  "case_id": "AQ-SDS-S9-001",
+  "domain": "transport_rank_identity",
+  "source_artifact": "AQ-S9-ATK.LEAN",
+
+  "failure_class": [
+    "variable_mismatch",
+    "sign_convention_drift",
+    "unsupported_theorem",
+    "invalid_negative_test"
+  ],
+
+  "definitions": {
+    "s0": "rP+rQ-rM-rU",
+    "sT": "rJP+rJQ-rMeet-rJT",
+    "delta": "(rJP-rP)+(rJQ-rQ)-(rJM-rM)-(rJU-rU)",
+    "mT": "rJM-rMeet"
+  },
+
+  "claimed_identity":
+    "sT=s0+delta-mT",
+
+  "computed_residual":
+    "rJU-rJT+2*rJM-2*rMeet",
+
+  "required_condition":
+    "rJT=rJU+2*(rJM-rMeet)",
+
+  "condition_present": false,
+
+  "disposition": "QUARANTINED",
+
+  "lesson":
+    "Never infer theorem validity from tactic syntax; compare theorem
+     conclusion against explicit definitions and semantic roles first."
+}
