@@ -1,523 +1,2698 @@
-AQARION-ARITHMETIC — COMPREHENSIVE PROJECT SYNTHESIS
-
-OPEN_PROBLEMS.MD 
-
-Version: v17.4-PUBLICATION-READY
-Date: 2026-06-22
-Status: FROZEN · All Discrepancies Resolved · Peer-Review Ready
-Repository: github.com/JASKSG9/KAPREKAR-SPECTRAL-GEOMETRY
-Artifact Hash: bb40ec19be6fd8c1ae89746c5e0185639c91c14a2d41bc10da112915dad6d900
-
----
-
-Executive Summary
-
-AQARION-ARITHMETIC has evolved from a recreational observation about 6174 into a mathematically rigorous framework for Finite Observable-Induced Quotient Dynamical Systems (FOQDS). Given any finite deterministic dynamical system (X, T) and an observable O : X \to G, the framework constructs the canonical quotient X_F = X/{\sim_F}—the smallest representation that preserves all future observations. The equivalence \sim_F is characterized as the greatest fixed point of a monotone refinement operator \Phi_O.
-
-The framework is fully instantiated on the classical 4-digit Kaprekar map, where the gap observable (a-d, b-c) yields a 55-state quotient, a 7-step transient depth, and a Koopman operator with minimal polynomial x^7(x-1). The geometry of the attractor is captured by a tropical max-plus envelope, and a cross-base scaling law confirms the structure is universal.
-
----
-
-Three-Level System Description
-
-The apparent discrepancy between semigroup sizes (4 vs. 7) was resolved by recognizing two different levels:
-
-| Level | State Space | Size | Map | |S| | Max Depth |
-
-|-------|-------------|------|-----|:---:|:---:|
-
-| 1 | Full 4-digit numbers (non-repdigit) | 9,000 | K(n)=\text{desc}(n)-\text{asc}(n) | 8 | 7 |
-
-| 2 | Kaprekar image space K(A_4) | 55 | K restricted to image | 7 | 6 |
-
-| 3 | Gap quotient P | 54 | \tilde T(g) = \pi(K(L(g))) | 4 | 3 |
-
-The corrected semiconjugacy relation: \tilde T \circ \pi = \pi \circ K^2.
-
----
-
-The FOQDS Fixed-Point Theorem (Capstone)
-
-The central mathematical result is the characterization of behavioral equivalence as a greatest fixed point:
-
-\Phi_O(R) = \{(x,y) \mid O(x) = O(y) \text{ and } (T(x), T(y)) \in R\}
-
-· Monotonicity: If R_1 \subseteq R_2 then \Phi_O(R_1) \subseteq \Phi_O(R_2).
-· Greatest Fixed Point: \sim_F = \operatorname{gfp}(\Phi_O), the coarsest equivalence with T-invariant observable equivalence.
-· Kleene Convergence: Starting from R_0 = X \times X, the descending chain stabilizes after finitely many steps to \sim_F.
-
-Proof status: Proven symbolically (P) with careful re-examination of both inclusion directions. Computational verification on 200 monotonicity trials and 50 random gfp containment checks all pass.
-
----
-
-Three Convergent Interpretations
-
-The FOQDS quotient supports three distinct but equivalent mathematical languages:
-
-1. Koopman Operator (Spectral): U : \mathbb{C}^{X_F} \to \mathbb{C}^{X_F}, \sigma(U) \subseteq \{0,1\}, minimal polynomial x^7(x-1). Jordan–Chevalley decomposition: U = P + N, P^2=P, N^7=0.
-2. Tropical Max-Plus Geometry: The dynamics on gap coordinates lift to a piecewise-affine map on \mathbb{R}^2 with unique dominant eigenvalue \lambda=0 and eigenvector (6,2)—exactly the gap of the attractor 6174.
-3. Combinatorial Cross-Base Scaling: Exhaustive enumeration for bases b=2,\dots,12 gives |Q_b| = b(b+1)/2 for even b, confirming universality.
-
----
-
-Chamber Decomposition & Digit-Order Geometry
-
-The sorted digits of L(g_1,g_2) = 999g_1 + 90g_2 follow explicit formulas:
-
-· If g_2 \ge 1: [10-g_1,\; 9-g_2,\; g_2-1,\; g_1]
-· If g_2 = 0: [10-g_1,\; 9,\; 9,\; g_1-1]
-
-Verified results:
-
-· Pattern classes (constant sorted digit pattern): 30
-· Chambers (maximal connected constant-T_G regions): 26
-· Distinct constant images: 14
-· All chambers have zero linear part (A=0)
-
----
-
-Verified Structural Invariants
-
-Property Value Evidence
-FOQDS classes 55 (including repdigit sink) C2
-Gap classes 54 C2
-Non-repdigit states 9,990 C2
-Attractor singleton {6174} C2
-Max transient depth 7 (state 14) C2
-Koopman minimal polynomial x^7(x-1) P + C2
-Koopman spectrum {0,1} P
-Tropical eigenvector (6,2) with \lambda=0 C2 + P
-Cross-base quotient size b(b+1)/2 for even b C2 (empirical); O (proof)
-
----
-
-Certification Framework
-
-All claims are classified by evidence level:
-
-Level Meaning Description
-C0 Concept Proposed idea, no formalization
-C1 Mathematical Model Formal definition, no verification
-C2 Verified Computation Exhaustive, reproducible, deterministic
-P Formal Proof Complete deductive chain
-PV Proof + Verification Formal proof with computational cross-check
-O Open Problem No claim made
-
-The verification pipeline executes 10 gates, all passing, with SHA-256 artifact integrity.
-
----
-
-Publication Roadmap
-
-Paper Title Status
-I Foundations of Finite Coalgebraic Dynamics 95% — ready for submission
-II Semigroup and Spectral Structure of Observable Quotients 93%
-III Piecewise-Affine Geometry of Kaprekar 78%
-IV Cross-Base Universality and Scaling Laws 90%
-
----
-
-Open Problems
-
-1. Categorical Completion: When does \nu\Phi = \ker(\text{beh}) hold beyond deterministic systems?
-2. Cross-Base Universality: Prove Q_b = b(b+1)/2 for all even bases
-3. Chamber Decomposition Theorem: Prove affine dynamics on the 705 chambers
-4. Jordan–Depth Correspondence: Nilpotent index = max transient depth for general FDDS
-5. Spectral Reconstruction: Can the FOQDS partition be recovered from spectral data alone?
-
----
-
-Governance
-
-· Frozen core: All certified results (C2, P, PV) are immutable
-· Versioning: Semantic (MAJOR.MINOR.PATCH)
-· Contributions: Via pull request with proof review and SHA-256 certificate update
-
----
-
-Citation
-
-```bibtex
-@misc{aqarion2026,
-  author = {{AQARION Research Node #10878}},
-  title = {AQARION-ARITHMETIC: Observable-Induced Quotients for Finite Deterministic Dynamical Systems},
-  year = 2026,
-  howpublished = {GitHub repository},
-  url = {https://github.com/JASKSG9/KAPREKAR-SPECTRAL-GEOMETRY},
-  note = {Version v17.4-PUBLICATION-READY}
-}
-```
 AQARION-ARITHMETIC — OPEN PROBLEMS
 
-Version: v17.4-PUBLICATION-READY
-Date: 2026-06-22
-Scope: Deterministic quotient theory, induced spectral observables, and extension boundaries
-Status: Research roadmap — all problems listed here are open and do not weaken any certified claim.
 
----
+Version: v18.0-CURRENT-RESEARCH-BOUNDARY
 
-0. Purpose
+Date: 2026-09-09
 
-This document collects the genuinely open questions left by the current AQARION‑ARITHMETIC framework. The deterministic finite case is treated as structurally mature, but several extension problems remain unresolved, especially when branching, probabilistic, or uncertain semantics are introduced.
+Status: FROZEN RESEARCH LEDGER · C4 BLOCKED · PUBLICATION BLOCKED · NO PROMOTION
 
-The guiding principle is simple:
+Repository: JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-
 
-Deterministic quotient semantics are closed enough to certify; branching and uncertainty are not yet closed enough to compress into a single universal theorem.
 
----
 
-1. Core Open Gap
+0. PURPOSE AND GOVERNANCE
 
-OP‑0: Fixed‑point quotient vs behavioral kernel beyond determinism
 
-Question.
-When does the fixed‑point quotient construction \nu\Phi_O coincide with the kernel of the behavioral map \ker(\mathrm{beh}) in nondeterministic, probabilistic, or uncertainty‑bearing systems?
+This document is the current authoritative open-problems ledger for AQARION-ARITHMETIC.
 
-Why it matters.
-In deterministic finite systems the quotient construction and behavioral equivalence align cleanly. In branching or uncertain systems the canonical quotient may fail to be unique, and trace semantics may diverge from bisimulation semantics.
 
-Current status.
-Open. No general theorem covers all uncertainty functors.
+It replaces obsolete June-2026 roadmap language. Historical versions remain preserved by Git history and should not be copied forward merely for continuity.
 
-Suggested target statement.
 
-\nu\Phi_O \stackrel{?}{=} \ker(\mathrm{beh})
+The governing rule is:
 
-in a suitably enriched coalgebraic setting.
 
----
 
-2. Deterministic‑to‑Branching Lift
 
-OP‑1: Canonical quotient uniqueness for branching systems
+A mathematical derivation, numerical agreement, repository artifact, or Lean source file is not promoted to a certified theorem merely because it is plausible or because a related computation passes.
 
-Question.
-Is there a canonical quotient semantics operator for branching systems that behaves like FOQDS in the deterministic case?
 
-Obstacle.
-For nondeterministic systems, bisimulation and trace equivalence are distinct, and no single partition‑refinement fixed point is known to serve as a universal quotient in all semantics.
 
-What would count as progress.
 
-· A functorial quotient operator for branching coalgebras.
-· A precise condition under which the fixed point recovers bisimulation.
-· A counterexample showing that no such operator exists in full generality.
+Every item must be classified by its actual evidence state.
 
-Current status. Open.
 
----
+Evidence states
 
-OP‑2: Trace vs bisimulation collapse conditions
 
-Question.
-Under what functorial or structural hypotheses do trace equivalence and bisimulation coincide?
 
-Why it matters.
-AQARION currently relies on the deterministic collapse where forward bisimulation, trace equivalence, and fixed‑point quotienting agree. That collapse is not automatic once branching enters the system.
 
-What would count as progress.
+State
+Meaning
 
-· A theorem identifying the exact class of functors where collapse holds.
-· A semantics‑preserving determinization procedure compatible with quotient refinement.
-· A counterexample demonstrating unavoidable divergence.
 
-Current status. Open.
 
----
 
-3. Uncertainty and Quantitative Semantics
+OPEN
+Unresolved mathematical or structural question
 
-OP‑3: Unified uncertainty coalgebra
 
-Question.
-Can nondeterminism, probability, plausibility, and possibility be embedded into one common coalgebraic quotient semantics?
+CONJECTURE
+Precisely stated but not proved
 
-Why it matters.
-Existing coalgebraic modal frameworks treat uncertainty via different functor classes, but there is no fully unified quotient theory that preserves a deterministic‑style fixed point and a canonical behavioral kernel across all uncertainty types.
 
-What would count as progress.
+COMPUTED
+Exact finite computation or numerical evidence exists
 
-· A single categorical construction covering powerset, probabilistic, and belief‑style semantics.
-· A corresponding modal logic with a complete quotient theorem.
-· A proof that the construction cannot exist without weakening uniqueness or exactness.
 
-Current status. Open.
+DERIVED
+Mathematical derivation exists but an explicit certificate/remainder/formal closure remains
 
----
 
-OP‑4: Final semantics under uncertainty
+PROVED
+Mathematical proof is complete at the stated scope
 
-Question.
-When does a final coalgebra exist for the relevant uncertainty functors?
 
-Why it matters.
-The identification of quotient classes with behavioral kernels depends on having a final semantic target. Without final semantics, the “kernel of behavior” interpretation may fail or become non‑canonical.
+FORMAL-OPEN
+Mathematical result is established, but the public Lean theorem/proof is incomplete or under-specified
 
-What would count as progress.
 
-· Existence theorem for a specific uncertainty functor class.
-· A weakened finality notion adequate for quotient semantics.
-· A proof of nonexistence for important hybrid functors.
+REPRO-OPEN
+Artifact exists but independent reproduction/compilation has not been established
 
-Current status. Open.
 
----
+QUARANTINED
+Claim is plausible or partially supported but deliberately not promoted
 
-OP‑5: Metric equivalence vs exact equivalence
 
-Question.
-Can the exact quotient theory be lifted to a metric or approximate version in which spectral objects become stability witnesses rather than invariants?
+REFUTED
+Earlier formulation has been disproved or superseded
 
-Why it matters.
-Paper II uses induced Koopman, Laplacian, and resistance objects as canonical images of quotienting. In uncertain systems, those objects may only behave approximately, so the relevant notion may become stability rather than equality.
 
-What would count as progress.
+BLOCKED
+Governance gate prevents promotion regardless of local mathematical progress
 
-· A robust metric version of FOQDS.
-· Stability bounds for quotient‑induced operators under perturbation.
-· A theorem relating approximate kernels to approximate behavioral equivalence.
 
-Current status. Open.
 
----
 
-4. Kaprekar‑Specific Open Problems
+Non-promotion rule
 
-OP‑6: Cross‑base universality
 
-Question.
-Which structural features of the four‑digit Kaprekar quotient persist across bases?
+No item marked DERIVED, FORMAL-OPEN, REPRO-OPEN, or QUARANTINED may be described elsewhere in the repository as a fully certified result.
 
-Why it matters.
-Recent work in odd bases shows a strong projective‑doubling structure after a short transient, suggesting that some quotient geometry may be base‑universal while others are not.
 
-What would count as progress.
 
-· A theorem classifying quotient sizes across bases.
-· A generalization of the 54‑state gap quotient to arbitrary odd bases.
-· A proof of universality or a family of counterexamples.
+1. CURRENT EXECUTIVE STATUS
 
-Current status. Open — empirical formula |Q_b| = b(b+1)/2 holds for even bases up to b=12, but no proof exists.
 
----
+1.1 Overall state
 
-OP‑7: Quotient rigidity vs quotient collapse
 
-Question.
-When does an observable quotient preserve enough structure to be rigid, and when does it collapse distinct behaviors?
+[
+\boxed{
+\text{MATHEMATICS ADVANCED}
+\quad
+\text{FORMAL CERTIFICATION OPEN}
+\quad
+\text{C4 BLOCKED}
+\quad
+\text{PUBLICATION BLOCKED}
+}
+]
 
-Why it matters.
-The AQARION benchmark shows both phenomena: a 54‑state observable quotient and a 55‑state behavioral refinement quotient. The split of one gap class is a concrete rigidity signal, but no general theory yet explains when such splits must occur.
 
-What would count as progress.
+The strongest current advances are:
 
-· A rigidity criterion for quotient splitting.
-· A classification of singleton splits in fixed‑point refinements.
-· A proof that certain observables cannot distinguish fixed points from transients without refinement.
 
-Current status. Open.
 
----
 
-OP‑8: Kaprekar automorphism groups
+exact structural understanding of the Koopman defect;
 
-Question.
-What is the automorphism group of the Kaprekar quotient system, and how does it vary with base?
 
-Why it matters.
-Quotient automorphism groups encode symmetry, rigidity, and possible hidden equivalences. Even in finite deterministic systems, these groups can be subtle.
+mathematical proof architecture for THM-BIP;
 
-What would count as progress.
 
-· Explicit group computation for the base‑10 quotient.
-· A family theorem across bases.
-· Relations to Green’s relations or semigroup structure.
+independent exact finite census through n=5;
 
-Current status. Open.
 
----
+correction of the historical census metadata;
 
-5. Spectral and Operator Questions
 
-OP‑9: Exact meaning of induced spectral observables
+exact two-block defect identities;
 
-Question.
-Can the induced Koopman, Laplacian, and resistance objects be characterized by a single universal quotient‑semantics theorem?
 
-Why it matters.
-The stable formulation is that spectral objects are functorial images of the quotient, not invariants of the original system. This is plausible and useful, but it still needs a clean theorem statement and proof architecture.
+analytic resolution of the former WU1 \lambda=2 residual;
 
-What would count as progress.
 
-· A theorem with precise functoriality hypotheses.
-· A commutative diagram showing restriction, projection, and coarse‑graining.
-· A general proof that all three operators arise as induced images.
+exact cancellation of the \delta^{3/2} coefficient;
 
-Current status. Open.
 
----
+explicit derivation of the new \delta^2 coefficient;
 
-OP‑10: Spectral phase transition theorem
 
-Question.
-Under what conditions does observable granularity produce a sharp spectral phase transition in the quotient Laplacian or Koopman restriction?
+identification of the remaining WU1 task as an explicit uniform remainder certificate;
 
-Why it matters.
-The current framework suggests that refinement can create threshold behavior, but the general theorem has not been written.
 
-What would count as progress.
+identification of the actual Lean specification hole;
 
-· A monotonicity theorem for the first nonzero Laplacian eigenvalue under refinement.
-· A critical‑value theorem for observable families.
-· A proof that the Kaprekar benchmark is or is not a representative phase‑transition model.
 
-Current status. Open.
+identification of the public Lean-toolchain baseline as unresolved;
 
----
 
-OP‑11: Spectral minimal polynomial structure
+separation of RO-Crate schema existence from actual theorem certification.
 
-Question.
-Is there a structural explanation for the observed nilpotent index and minimal polynomial of the quotient Koopman operator?
 
-Why it matters.
-In the base‑10 Kaprekar benchmark, the operator data are fully certified computationally, but the algebraic explanation of the nilpotent structure remains incomplete.
 
-What would count as progress.
 
-· A proof‑level derivation of the nilpotent index.
-· A general theorem relating transient depth to minimal polynomial degree.
-· A classification of possible Jordan patterns for quotient Koopman operators.
+None of these changes, individually or collectively, closes C4.
 
-Current status. Open.
 
----
 
-6. Approximation and Algorithmic Questions
+2. P0 — COMPILER AND FORMAL BASELINE
 
-OP‑12: Exact quotient vs approximation schemes
 
-Question.
-How close are multilevel coarsening schemes such as SHyPar or related graph/hypergraph methods to the exact quotient refinement produced by AQARION?
+OP-P0: Establish the actual public Lean compiler baseline
 
-Why it matters.
-Approximation methods can validate the exact quotient but may also merge non‑equivalent states. The limiting relationship should be made precise.
 
-What would count as progress.
+Question
 
-· Convergence theorem for approximation‑to‑exact quotienting.
-· Error bounds in partition lattice distance.
-· Explicit examples where approximation provably deviates from exact quotient structure.
 
-Current status. Open.
+What exact Lean compiler, Mathlib revision, Lake configuration, and build command constitute the reproducible AQARION formalization baseline?
 
----
 
-OP‑13: Complexity of quotient refinement
+Current issue
 
-Question.
-What is the sharp complexity bound for computing the exact quotient on general finite deterministic systems?
 
-Why it matters.
-The current implementation is finite and practical, but a full complexity analysis would clarify the algorithmic cost of exact quotienting versus approximation.
+The repository has referred to Lean 4.33.1 as the intended formal environment, but the public Mathlib/AQARION artifacts do not currently provide an observed compiler certificate establishing that baseline.
 
-What would count as progress.
 
-· Worst‑case time and space complexity.
-· Average‑case bounds under random system models.
-· Lower bounds showing inherent difficulty.
+A public fork also contains instructions referring to a later release-candidate environment.
 
-Current status. Open.
 
----
+Therefore:
 
-7. Minimal Compression Targets
 
-The following compression goals are explicitly open because they would unify the current framework into a smaller theorem schema:
+[
+\boxed{\text{Lean 4.33.1 is an intended baseline, not yet a public compiler receipt.}}
+]
 
-OP‑14: AQARION Collapse Principle
 
-Question.
-Can the entire deterministic theory be compressed into one theorem that states:
+Required closure
 
-· FOQDS is a quotient‑semantics fixed point,
-· the quotient induces canonical operator images,
-· and exact descent is equivalent to obstruction vanishing?
 
-Why it matters.
-This would be the cleanest possible publication‑level formulation of the project.
+A reproducible certificate must record:
 
-Current status. Open.
 
----
 
-OP‑15: Minimal axiom system
 
-Question.
-Is there a 5‑axiom basis from which Papers I and II can be derived?
+exact lean-toolchain;
 
-Why it matters.
-A minimal axiom set would make the theory easier to teach, review, and extend.
 
-What would count as progress.
+exact Lean version;
 
-· Five axioms that generate the quotient construction.
-· Derived theorems matching the current paper structure.
-· Proof that the axioms are independent, or identification of redundancy.
 
-Current status. Open.
+exact Mathlib commit;
 
----
 
-8. Research Priorities
+exact Lake configuration;
 
-High priority
 
-· OP‑0: Fixed‑point quotient vs behavioral kernel beyond determinism.
-· OP‑1: Canonical quotient uniqueness for branching systems.
-· OP‑3: Unified uncertainty coalgebra.
-· OP‑9: Induced spectral observables as a single theorem.
-· OP‑14: AQARION Collapse Principle.
+successful dependency resolution;
 
-Medium priority
 
-· OP‑2: Trace vs bisimulation collapse conditions.
-· OP‑4: Final semantics under uncertainty.
-· OP‑5: Metric equivalence vs exact equivalence.
-· OP‑10: Spectral phase transition theorem.
-· OP‑12: Exact quotient vs approximation schemes.
+successful build;
 
-Lower priority, but structurally important
 
-· OP‑6: Cross‑base universality.
-· OP‑7: Quotient rigidity vs quotient collapse.
-· OP‑8: Kaprekar automorphism groups.
-· OP‑11: Spectral minimal polynomial structure.
-· OP‑13: Complexity of quotient refinement.
-· OP‑15: Minimal axiom system.
+successful theorem compilation;
 
----
 
-9. Working Principle
+#print axioms or equivalent axiom audit where required;
 
-The current AQARION program should not expand by adding more layers. It should compress by proving that the existing layers are manifestations of one quotient‑semantics principle.
 
-The deterministic case is the certified core.
-The branching case is the first open extension.
-The uncertainty case is the broader frontier.
-The compression problem is the unifying question.
+reproducible command sequence.
 
----
 
-10. Shortest Honest Summary
 
-AQARION is currently strongest in the deterministic finite setting, where exact quotienting, refinement, and induced spectral observables are all coherent. The main open questions begin where determinism ends: branching, uncertainty, approximate semantics, and universal categorical completion.
 
----
+Status
 
-Status: Open problems identified and separated from certified claims.
-Next files to write: AQARION_COLLAPSE_THEOREM.md, TIKZ_QUOTIENT_SEMANTICS_DIAGRAM.tex, MINIMAL_AXIOMS.md.
 
----
+[
+\boxed{\text{BLOCKED / OPEN}}
+]
 
-"Finite dynamical systems admit exact quotient geometries. The role of the observer interface is to reveal them; the role of the behavioral refinement operator is to complete them."
+
+Priority
+
+
+P0
+
+
+
+3. P1 — THM-BIP FORMAL SPECIFICATION
+
+
+OP-P1: Repair the concrete Lean statement for THM-BIP
+
+
+Mathematical theorem
+
+
+For a finite deterministic dynamical system (X,T), observable partition \Pi with m blocks, Koopman operator K_T, and block projection P_\Pi, define
+
+
+[
+D_\Pi=(I-P_\Pi)K_TP_\Pi.
+]
+
+
+The intended structural theorem is
+
+
+[
+\boxed{
+\operatorname{rank}D_\Pi
+
+
+m-c(G_{\Pi,T}),
+}
+]
+
+
+where G_{\Pi,T} is the bipartite block-transition graph.
+
+
+Current formalization problem
+
+
+The public Lean theorem currently permits an arbitrary defect operator D while asserting a kernel characterization that depends on the concrete definition
+
+
+[
+D=(I-P_\Pi)K_TP_\Pi.
+]
+
+
+A comment describing the missing hypothesis does not substitute for the hypothesis in the theorem signature.
+
+
+This is a genuine specification defect.
+
+
+Required repair
+
+
+The primary formal object should be the concrete restriction
+
+
+[
+L_\Pi
+
+
+(I-P_\Pi)\circ K_T\circ\iota_\Pi,
+]
+
+
+where
+
+
+[
+\iota_\Pi:\mathbb R^m\hookrightarrow\mathbb R^X
+]
+
+
+is the block-constant embedding.
+
+
+Then prove:
+
+
+[
+\boxed{
+\ker L_\Pi
+
+
+\operatorname{ConstRightComp}(\Pi,T).
+}
+]
+
+
+Only afterward derive the rank theorem.
+
+
+Status
+
+
+[
+\boxed{\text{MATHEMATICS PROVED / LEAN FORMALIZATION OPEN}}
+]
+
+
+Priority
+
+
+P1
+
+
+
+4. P2 — THM-BIP KERNEL/COMPONENT THEOREM
+
+
+OP-P2: Formalize the component-indicator kernel basis
+
+
+Let the bipartite graph have left vertices corresponding to source blocks and right vertices corresponding to target blocks.
+
+
+For each source block B_i, let
+
+
+[
+R_i
+
+
+{j:\exists x\in B_i,\ T(x)\in B_j}.
+]
+
+
+For a block-coordinate vector
+
+
+[
+v=(v_1,\ldots,v_m),
+]
+
+
+the concrete defect vanishes precisely when
+
+
+[
+v_j=v_k
+\qquad
+\forall i,\quad j,k\in R_i.
+]
+
+
+These equality constraints generate the equivalence relation represented by connected components of G_{\Pi,T}.
+
+
+For every connected component C, define
+
+
+[
+u_C=\mathbf 1_C.
+]
+
+
+The intended theorem is
+
+
+[
+\boxed{
+\ker L_\Pi
+
+
+\operatorname{span}{u_C:C\in\pi_0(G_{\Pi,T})}.
+}
+]
+
+
+Hence
+
+
+[
+\boxed{
+\dim\ker L_\Pi=c(G_{\Pi,T}).
+}
+]
+
+
+Preferred Lean architecture
+
+
+Do not begin with Matrix.rank.
+
+
+Formalize, in order:
+
+
+
+
+concrete block embedding;
+
+
+concrete defect restriction;
+
+
+pointwise kernel criterion;
+
+
+generated equality relation;
+
+
+equivalence with graph connected components;
+
+
+component-indicator basis;
+
+
+kernel dimension;
+
+
+rank-nullity.
+
+
+
+
+Status
+
+
+[
+\boxed{\text{MATHEMATICS PROVED / LEAN OPEN}}
+]
+
+
+Priority
+
+
+P2
+
+
+
+5. P3 — THM-BIP RANK THEOREM
+
+
+OP-P3: Derive rank from kernel dimension
+
+
+After OP-P2 is formalized, derive
+
+
+[
+\dim\ker L_\Pi=c(G_{\Pi,T})
+]
+
+
+and
+
+
+[
+\dim V_\Pi=m.
+]
+
+
+Rank-nullity then gives
+
+
+[
+\boxed{
+\operatorname{rank}D_\Pi
+
+
+m-c(G_{\Pi,T}).
+}
+]
+
+
+The theorem should be stated for the concrete defect, not for an arbitrary matrix satisfying only
+
+
+[
+D=(I-P)KP.
+]
+
+
+Status
+
+
+[
+\boxed{\text{MATHEMATICS PROVED / LEAN OPEN}}
+]
+
+
+Priority
+
+
+P3
+
+
+
+6. P4 — CYCLE-RANK REFORMULATION
+
+
+OP-P4: Formalize the cycle-rank corollary
+
+
+For a bipartite graph with 2m vertices, e edges, and c connected components,
+
+
+[
+\beta(G)=e-2m+c.
+]
+
+
+Combining this with
+
+
+[
+\operatorname{rank}D=m-c
+]
+
+
+gives
+
+
+[
+\boxed{
+\operatorname{rank}D=e-m-\beta(G).
+}
+]
+
+
+This is a derived graph-theoretic reformulation, not an independent foundational theorem.
+
+
+Further deterministic consequence
+
+
+Under the pinned deterministic/nonempty-block setting,
+
+
+[
+D=0
+\iff
+c(G)=m
+\iff
+e=m
+\iff
+\beta(G)=0.
+]
+
+
+Thus the graph has no cycles and exactly one outgoing target block per source block.
+
+
+Equivalently, the graph is a forest of m source-centered stars.
+
+
+Status
+
+
+[
+\boxed{\text{MATHEMATICS DERIVED / FORMALIZATION OPEN}}
+]
+
+
+Priority
+
+
+P4
+
+
+
+7. P5 — UNIVERSAL DEFECT IDENTITIES
+
+
+The following identities remain part of the mathematical core:
+
+
+[
+\boxed{D^2=0}
+]
+
+
+[
+\boxed{PD=0}
+]
+
+
+[
+\boxed{D(I-P)=0}
+]
+
+
+[
+\boxed{DP=D}.
+]
+
+
+These are distinct from the false identity described below.
+
+
+Refuted identity
+
+
+The statement
+
+
+[
+\boxed{D(KP)=D}
+]
+
+
+is refuted.
+
+
+Direct computation shows that it does not hold in general.
+
+
+The correct depth-cut behavior is geometric decay of appropriate iterates of D(KP), with the two-block forward-invariant case governed by p_{BB}.
+
+
+Governance rule
+
+
+The refuted identity must not be reintroduced into future proofs, summaries, benchmarks, or theorem statements.
+
+
+Status
+
+
+[
+\boxed{\text{CLOSED: FALSE IDENTITY KILLED}}
+]
+
+
+
+8. P6 — EXACT FINITE CENSUS
+
+
+OP-P6: Preserve the corrected all-map/all-partition census
+
+
+An independent exact enumeration of deterministic maps and set partitions for
+
+
+[
+n=2,3,4,5
+]
+
+
+gives:
+
+
+[
+B_2=2,\quad
+B_3=5,\quad
+B_4=15,\quad
+B_5=52.
+]
+
+
+The total number of map/partition pairs is
+
+
+[
+2^2B_2+
+3^3B_3+
+4^4B_4+
+5^5B_5
+
+
+8+135+3840+162500
+
+
+\boxed{166479}.
+]
+
+
+Independent exact rational construction of P,K,D, exact rank computation, and independent graph-component computation gives:
+
+
+
+
+n
+Cases
+Passed
+
+
+
+
+2
+8
+8
+
+
+3
+135
+135
+
+
+4
+3,840
+3,840
+
+
+5
+162,500
+162,500
+
+
+Total
+166,479
+166,479
+
+
+
+
+No failures occurred in this independent replay.
+
+
+Governance correction
+
+
+The historical number
+
+
+[
+166483
+]
+
+
+must no longer be presented as the exact all-map/all-partition census.
+
+
+The corrected independently reproduced count is
+
+
+[
+\boxed{166479}.
+]
+
+
+Status
+
+
+[
+\boxed{\text{COMPUTED / REPRODUCED}}
+]
+
+
+This is a computational certificate for the tested finite scope, not a Lean theorem.
+
+
+
+9. P7 — TWO-BLOCK DEFECT FORMULA
+
+
+For a two-block partition
+
+
+[
+\Pi=A|B,
+]
+
+
+with
+
+
+[
+a=|A|,\qquad b=|B|,\qquad n=a+b,
+]
+
+
+and A forward invariant, let
+
+
+[
+q=p_{BA}.
+]
+
+
+Then
+
+
+[
+\boxed{
+|D|_F^2
+
+
+\frac{nq(1-q)}a.
+}
+]
+
+
+The associated second eigenvalue is
+
+
+[
+\boxed{
+\lambda_2=p_{BB}=1-q.
+}
+]
+
+
+For the depth-cut example with a=1, b=53, q=3/53,
+
+
+[
+|D|_F
+
+
+\frac{90}{53}
+\approx1.6981132075.
+]
+
+
+These formulas should be retained as derived structural results.
+
+
+Status
+
+
+[
+\boxed{\text{MATHEMATICS DERIVED/PROVED}}
+]
+
+
+
+10. P8 — WU1 CORE ASYMPTOTICS
+
+
+OP-P8: Preserve the locked c_k and optimal-term scale
+
+
+The WU1 coefficient ladder
+
+
+[
+c_k
+
+
+\frac{\zeta(1-2k)^2}{(2k-2)!}
+]
+
+
+and equivalent exact fast form remain mathematically locked at their established scope.
+
+
+The optimal-term scale is likewise treated as established within the current WU1 derivation.
+
+
+Status
+
+
+[
+\boxed{\text{MATHEMATICALLY LOCKED}}
+]
+
+
+
+11. P9 — WU1-B ORIGINAL TRANSPORT LAW
+
+
+The original WU1-B transport/power-law formulation is refuted.
+
+
+It must not be revived merely because later asymptotics resemble part of its heuristic structure.
+
+
+Status
+
+
+[
+\boxed{\text{REFUTED}}
+]
+
+
+
+12. P10 — WU1-B.REVISED ABEL DECOMPOSITION
+
+
+The revised route begins from
+
+
+[
+f(x)=\frac{x^2}{4\sinh^2(x/2)}
+
+
+\frac{x^2e^{-x}}{(1-e^{-x})^2},
+]
+
+
+and
+
+
+[
+S(\delta,\alpha)
+
+
+\sum_{r\ge1}\frac{e^{-\alpha r}}r f(\delta r).
+]
+
+
+Then
+
+
+[
+D(\delta,\alpha)
+
+
+S(\delta,\alpha)-S(\delta,0)
+
+
+-\int_0^\alpha
+\sum_{r\ge1}f(\delta r)e^{-tr},dt.
+]
+
+
+The decomposition
+
+
+[
+g(x)=f(x)-e^{-x}
+]
+
+
+removes the divergent harmonic subtraction and produces the exact reference term
+
+
+[
+D_{\exp}
+
+
+\log
+\frac{1-e^{-\delta}}
+{1-e^{-(\alpha+\delta)}}.
+]
+
+
+The remaining g-term is controlled by Euler–Maclaurin and a Laplace-tail expansion.
+
+
+Status
+
+
+[
+\boxed{\text{DERIVED}}
+]
+
+
+The proof architecture is considered substantially preferable to the previous contour-shift route.
+
+
+
+13. P11 — EXACT REGULARIZED CONSTANT
+
+
+The regularized integral
+
+
+[
+I_g
+
+
+\int_0^\infty\frac{g(x)}x,dx
+]
+
+
+evaluates to
+
+
+[
+\boxed{I_g=1+\gamma}.
+]
+
+
+Therefore the constant contribution is
+
+
+[
+\boxed{-(1+\gamma)}.
+]
+
+
+This removes the former numerical mystery surrounding the finite constant.
+
+
+Status
+
+
+[
+\boxed{\text{DERIVED}}
+]
+
+
+
+14. P12 — WU1-B.REVISED JOINT-SCALING EXPANSION
+
+
+Under
+
+
+[
+\alpha=\lambda\sqrt{\delta},
+]
+
+
+the current derived expansion is
+
+
+[
+\boxed{
+\begin{aligned}
+S(\delta,\lambda\sqrt\delta)-S(\delta,0)
+={}&
+-\frac12\log\frac1\delta
+-\log\lambda
+-(1+\gamma)\
+&+\frac{\lambda}{2}\sqrt\delta\
+&-\left(
+\frac{\lambda^2}{24}
++\frac1{12\lambda^2}
+\right)\delta\
+&+
+\left(
+\frac{\lambda^4}{2880}
++\frac1{40\lambda^4}
+\right)\delta^2\
+&+O(\delta^{5/2}).
+\end{aligned}
+}
+]
+
+
+The displayed coefficient of \delta^{3/2} cancels identically.
+
+
+Important qualification
+
+
+The asymptotic structure is analytically derived, but the final uniform theorem requires an explicit, independently checkable remainder constant.
+
+
+Therefore the expansion must not yet be labelled as a fully certified uniform theorem.
+
+
+Status
+
+
+[
+\boxed{\text{DERIVED / REMAINDER OPEN}}
+]
+
+
+
+15. P13 — EXACT \delta^{3/2} CANCELLATION
+
+
+The \delta^{3/2} coefficient is
+
+
+[
+-\frac{\lambda^4+4}{12\lambda^3}
++
+\frac1{3\lambda^3}
++
+\frac{\lambda}{12}.
+]
+
+
+It simplifies identically to
+
+
+[
+\boxed{0}.
+]
+
+
+This is a structural coefficient identity, not a numerical fit.
+
+
+Status
+
+
+[
+\boxed{\text{PROVED AT THE FORMAL ASYMPTOTIC-DERIVATION LEVEL}}
+]
+
+
+The remaining issue is inclusion of this cancellation inside a fully bounded uniform remainder theorem.
+
+
+
+16. P14 — NEW \delta^2 COEFFICIENT
+
+
+The next nonzero coefficient is
+
+
+[
+\boxed{
+C_4(\lambda)
+
+
+\frac{\lambda^4}{2880}
++
+\frac1{40\lambda^4}.
+}
+]
+
+
+For example,
+
+
+[
+C_4(2)
+
+
+\frac{16}{2880}+\frac1{640}
+
+
+0.007118055555\ldots
+]
+
+
+The previous \lambda=2 residual is therefore explained by the omitted \delta^2 term.
+
+
+The old governance statement
+
+
+
+
+“\lambda=2 indicates unresolved higher-order fine structure”
+
+
+
+
+should be retired.
+
+
+The stronger current statement is:
+
+
+
+
+The former \lambda=2 residual is consistent with the explicitly derived \delta^2 coefficient, while the \delta^{3/2} coefficient cancels identically.
+
+
+
+
+Status
+
+
+[
+\boxed{\text{DERIVED + NUMERICALLY CONSISTENT}}
+]
+
+
+Not yet promoted to a complete uniform theorem.
+
+
+
+17. P15 — WU1 EXPLICIT UNIFORM REMAINDER
+
+
+Primary remaining WU1 analytic problem
+
+
+Construct an explicit constant
+
+
+[
+C(\lambda_0,\lambda_1)
+]
+
+
+such that, uniformly for
+
+
+[
+\lambda\in[\lambda_0,\lambda_1]
+\subset(0,\infty),
+]
+
+
+the remainder satisfies
+
+
+[
+\left|
+R(\delta,\lambda)
+\right|
+\le
+C(\lambda_0,\lambda_1)\delta^{5/2}
+]
+
+
+for all sufficiently small \delta.
+
+
+The preferred proof route is:
+
+
+[
+\boxed{
+\text{exact Abel identity}
+\rightarrow
+\text{exponential reference}
+\rightarrow
+\text{Euler--Maclaurin}
+\rightarrow
+\text{Laplace tail}
+\rightarrow
+\text{explicit uniform bound}.
+}
+]
+
+
+Required ingredients
+
+
+
+
+uniform control of the Euler–Maclaurin remainder;
+
+
+explicit bounds on derivatives of g;
+
+
+explicit Laplace-tail remainder;
+
+
+explicit dependence on [\lambda_0,\lambda_1];
+
+
+independent numerical adversarial testing;
+
+
+preferably an exact or interval-arithmetic certificate.
+
+
+
+
+Status
+
+
+[
+\boxed{\text{OPEN}}
+]
+
+
+Priority
+
+
+P5
+
+
+
+18. P16 — GENERAL ABEL-TRANSPORT COEFFICIENT THEOREM
+
+
+The WU1 cancellation suggests a general theorem.
+
+
+Suppose
+
+
+[
+g(x)=\sum_{j\ge1}b_jx^j.
+]
+
+
+Then
+
+
+[
+\int_0^\infty
+\frac{g(x)}x e^{-Ux},dx
+
+
+\sum_{j\ge1}
+b_j\frac{(j-1)!}{U^j}.
+]
+
+
+Thus the local Taylor jet of g, combined with Euler–Maclaurin corrections, generates the joint-scaling transport ladder.
+
+
+The desired abstract result is schematically
+
+
+[
+\boxed{
+\text{Taylor jet of }g
++
+\text{Euler--Maclaurin data}
+\Longrightarrow
+\text{joint-scaling asymptotic ladder}.
+}
+]
+
+
+The \delta^{3/2} cancellation in WU1 would then become an instance of a general coefficient theorem rather than an isolated calculation.
+
+
+Status
+
+
+[
+\boxed{\text{OPEN / CONJECTURAL GENERALIZATION}}
+]
+
+
+Priority
+
+
+P6
+
+
+
+19. P17 — WU1 NUMERICAL ADVERSARIAL CHECKS
+
+
+The current independent checks at
+
+
+[
+\lambda\in{1/2,1,2,3}
+]
+
+
+are consistent with
+
+
+[
+C_4(\lambda)
+
+
+\frac{\lambda^4}{2880}
++
+\frac1{40\lambda^4}.
+]
+
+
+This is evidence, not proof.
+
+
+Future checks should:
+
+
+
+
+increase precision;
+
+
+vary \delta over multiple scales;
+
+
+test values close to both ends of compact \lambda-intervals;
+
+
+explicitly test the predicted O(\delta^{5/2}) remainder;
+
+
+use exact or interval arithmetic where feasible.
+
+
+
+
+Status
+
+
+[
+\boxed{\text{COMPUTED / REPRODUCTION OPEN}}
+]
+
+
+
+20. P18 — 55-STATE MINIMALITY
+
+
+The claim that the 55-state representation is a minimal observable quotient remains quarantined.
+
+
+The safe statement is:
+
+
+
+
+55 is the exact number of states in the chosen 55-state representation.
+
+
+
+
+This is not equivalent to proving:
+
+
+
+
+55 is the minimal observable quotient.
+
+
+
+
+A valid minimality theorem requires an explicit distinguishability argument or an equivalent observable-separation theorem.
+
+
+Status
+
+
+[
+\boxed{\text{QUARANTINED}}
+]
+
+
+Priority
+
+
+P7
+
+
+
+21. P19 — KAPREKAR DEPTH TERMINOLOGY
+
+
+Depth, quotient size, semigroup size, nilpotent index, and lattice height must not be conflated.
+
+
+The repository previously mixed several quantities under “height” or “depth.”
+
+
+The current governance rule is:
+
+
+
+
+state-space depth must be defined from the actual transition graph;
+
+
+quotient refinement depth must be defined separately;
+
+
+nilpotent index must be defined from the operator;
+
+
+congruence-lattice height must be defined from the lattice;
+
+
+none may be substituted for another without proof.
+
+
+
+
+Status
+
+
+[
+\boxed{\text{GOVERNANCE CONSTRAINT}}
+]
+
+
+
+22. P20 — CONGRUENCE LATTICE
+
+
+An exhibited congruence chain of length six is evidence of a chain.
+
+
+It is not a classification of the entire congruence lattice.
+
+
+Open questions:
+
+
+
+
+Is the exhibited chain maximal?
+
+
+What is the exact lattice height?
+
+
+How many congruences exist?
+
+
+Is the lattice distributive/modular?
+
+
+Can the lattice be computed recursively from the rooted functional graph?
+
+
+
+
+Preferred route
+
+
+Exploit the functional-graph structure recursively rather than enumerate all partitions of 54 states.
+
+
+Status
+
+
+[
+\boxed{\text{QUARANTINED / OPEN}}
+]
+
+
+Priority
+
+
+P8
+
+
+
+23. P21 — SLACK HISTOGRAM
+
+
+Historical repository artifacts contain conflicting tight/slack counts.
+
+
+Examples include different reported totals for tight cases.
+
+
+Therefore no historical histogram is promoted until a fresh exact replay is generated from a single pinned implementation.
+
+
+Required certificate
+
+
+The replay must specify:
+
+
+
+
+state space;
+
+
+partition;
+
+
+exact inequality;
+
+
+all parameter ranges;
+
+
+arithmetic type;
+
+
+total cases;
+
+
+tight cases;
+
+
+non-tight cases;
+
+
+SHA-256 of the generating source;
+
+
+SHA-256 of the output artifact.
+
+
+
+
+Status
+
+
+[
+\boxed{\text{OPEN / REPLAY REQUIRED}}
+]
+
+
+Priority
+
+
+P9
+
+
+
+24. P22 — C3: GLOBAL \Gamma_T INEQUALITY
+
+
+Target:
+
+
+[
+s_0=1,\qquad m_T=0
+\quad\Longrightarrow\quad
+\Gamma_T\ge1.
+]
+
+
+The global statement remains open.
+
+
+The preferred route is structural rather than another blind large-n census.
+
+
+Proposed proof architecture
+
+
+[
+\text{unique incidence cycle}
+\Longrightarrow
+\text{linear dependence}
+\Longrightarrow
+\text{closure-compatible dependence}
+\Longrightarrow
+\text{nontrivial cycle image}
+\Longrightarrow
+\Gamma_T\ge1.
+]
+
+
+Status
+
+
+[
+\boxed{\text{OPEN}}
+]
+
+
+Priority
+
+
+P10
+
+
+
+25. P23 — THM-BIP EXHAUSTIVE REPLAY
+
+
+The independent n\le5 census establishes the identity over the enumerated finite scope.
+
+
+The remaining formalization question is not whether the small census passes, but whether the exact general theorem is correctly specified and formally proved.
+
+
+Therefore:
+
+
+[
+\boxed{
+\text{finite exhaustive evidence}
+\neq
+\text{general Lean theorem}.
+}
+]
+
+
+Status
+
+
+[
+\boxed{\text{COMPUTED / FORMAL-OPEN}}
+]
+
+
+
+26. P24 — RO-CRATE CERTIFICATION
+
+
+An AQARION RO-Crate extension/profile exists as an experimental research-object architecture.
+
+
+Its intended fields include:
+
+
+
+
+claims;
+
+
+evidence;
+
+
+provenance;
+
+
+certificates;
+
+
+revisions;
+
+
+machine-readable status.
+
+
+
+
+However, schema existence does not itself establish theorem certification.
+
+
+Illustrative hashes or example claims must never be interpreted as cryptographic certificates for mathematical results.
+
+
+Required closure
+
+
+A certified RO-Crate pipeline must demonstrate:
+
+
+
+
+generation from actual theorem artifacts;
+
+
+deterministic serialization;
+
+
+cryptographic hashing;
+
+
+independent validation;
+
+
+claim-to-artifact provenance;
+
+
+tamper detection;
+
+
+successful end-to-end replay.
+
+
+
+
+Status
+
+
+[
+\boxed{\text{EXPERIMENTAL / REPRO-OPEN}}
+]
+
+
+Priority
+
+
+P11
+
+
+
+27. P25 — AQARION EVIDENCE TUPLE
+
+
+The recommended claim object is
+
+
+[
+\boxed{
+E=(S,H,P,V,R)
+}
+]
+
+
+where:
+
+
+
+
+S = precise statement;
+
+
+H = hypotheses;
+
+
+P = symbolic/mathematical proof;
+
+
+V = independent verification;
+
+
+R = reproduction recipe.
+
+
+
+
+A claim should advance through
+
+
+[
+\boxed{
+\text{CONJECTURE}
+\rightarrow
+\text{COMPUTED}
+\rightarrow
+\text{DERIVED}
+\rightarrow
+\text{FORMALIZED}
+\rightarrow
+\text{REPRODUCED}.
+}
+]
+
+
+No state may be skipped merely because an informal proof appears convincing.
+
+
+Status
+
+
+[
+\boxed{\text{METHODOLOGICAL TARGET}}
+]
+
+
+
+28. P26 — CRYPTOGRAPHIC CLAIM MANIFEST
+
+
+The proposed canonical manifest should contain:
+
+
+claim_id
+statement_sha256
+hypothesis_sha256
+proof_sha256
+lean_commit
+mathlib_version
+compiler_version
+data_sha256
+test_command
+test_count
+independent_replay_count
+status
+
+
+
+The manifest is useful only if every field is generated from actual observed artifacts.
+
+
+Placeholder values are prohibited in certification manifests.
+
+
+Status
+
+
+[
+\boxed{\text{OPEN / INFRASTRUCTURE TASK}}
+]
+
+
+
+29. P27 — AQARION-FDS-BENCH
+
+
+A formalization/adversarial benchmark should be developed around instances
+
+
+[
+(T,\Pi,K,P,D,G).
+]
+
+
+Candidate tasks:
+
+
+
+
+compute D;
+
+
+decide whether D=0;
+
+
+compute \operatorname{rank}D;
+
+
+predict c(G);
+
+
+produce a kernel proof;
+
+
+produce a rank proof;
+
+
+generate Lean;
+
+
+detect malformed theorem statements;
+
+
+survive adversarial mutations.
+
+
+
+
+Adversarial mutations should include
+
+
+
+
+transpose convention;
+
+
+pushforward/pullback reversal;
+
+
+non-idempotent P;
+
+
+empty blocks;
+
+
+nondeterministic K;
+
+
+reversed graph orientation;
+
+
+dimension mismatch;
+
+
+arbitrary-D substitution;
+
+
+incorrect rank identity;
+
+
+false D(KP)=D identity.
+
+
+
+
+Proposed metrics
+
+
+[
+\text{SpecFaith}
+]
+
+
+Does the formal statement encode the intended theorem?
+
+
+[
+\text{CounterexampleResistance}
+]
+
+
+Does the system reject false/weakened variants?
+
+
+[
+\text{CertificateRepro}
+]
+
+
+Can an independent process reproduce the result?
+
+
+[
+\text{KillRate}
+]
+
+
+Does the system identify planted false claims?
+
+
+Status
+
+
+[
+\boxed{\text{OPEN / RESEARCH DIRECTION}}
+]
+
+
+Priority
+
+
+P12
+
+
+
+30. P28 — AI/FORMAL-MATH REPRODUCIBILITY
+
+
+AQARION should distinguish:
+
+
+[
+\boxed{
+\text{LLM-generated proof}
+\neq
+\text{formal proof}
+\neq
+\text{reproduced formal proof}.
+}
+]
+
+
+The project should retain adversarial records of:
+
+
+
+
+failed proof attempts;
+
+
+false theorem statements;
+
+
+specification mismatches;
+
+
+compilation failures;
+
+
+counterexamples;
+
+
+repaired proofs;
+
+
+independent replays.
+
+
+
+
+The goal is not merely to obtain a Lean script but to establish a reproducible chain from mathematical claim to independently checkable artifact.
+
+
+Status
+
+
+[
+\boxed{\text{OPEN / METHODOLOGICAL}}
+]
+
+
+
+31. P29 — LITERATURE BOUNDARY
+
+
+AQARION must not claim novelty for classical machinery merely because it is used in the project.
+
+
+In particular, the following are established mathematical territories:
+
+
+
+
+lumpability;
+
+
+equitable partitions;
+
+
+quotient transition systems;
+
+
+graph connected-component rank;
+
+
+partition refinement;
+
+
+Abel summation;
+
+
+Euler–Maclaurin summation;
+
+
+Mellin-transform asymptotics;
+
+
+Laplace asymptotics;
+
+
+coalgebraic behavioral equivalence.
+
+
+
+
+The potentially distinctive AQARION contribution must instead be stated narrowly.
+
+
+Safe positioning
+
+
+A defensible research claim is:
+
+
+
+
+AQARION organizes an exact linear defect
+
+
+
+D_\Pi=(I-P_\Pi)K_TP_\Pi
+
+
+
+for deterministic finite observable quotients and relates its rank/kernel structure to connectivity of the associated bipartite block-transition graph.
+
+
+
+
+No claim should be made that AQARION invented quotient theory, equitable partitions, lumpability, or classical asymptotic summation.
+
+
+Status
+
+
+[
+\boxed{\text{GOVERNANCE CONSTRAINT}}
+]
+
+
+
+32. P30 — PUBLICATION GATE
+
+
+Publication remains blocked until the following are closed:
+
+
+Formal gate
+
+
+
+
+[ ] compiler baseline pinned;
+
+
+[ ] Mathlib revision pinned;
+
+
+[ ] THM-BIP theorem specification repaired;
+
+
+[ ] concrete kernel theorem formally proved;
+
+
+[ ] component-indicator basis formally proved;
+
+
+[ ] rank-nullity theorem formally connected;
+
+
+[ ] required axiom audit completed.
+
+
+
+
+Analytic gate
+
+
+
+
+[ ] WU1 explicit uniform remainder constant;
+
+
+[ ] independent reproduction of the final asymptotic bound;
+
+
+[ ] no unresolved coefficient discrepancy.
+
+
+
+
+Computational gate
+
+
+
+
+[ ] corrected census provenance frozen;
+
+
+[ ] stale conflicting counts removed or explicitly quarantined;
+
+
+[ ] slack histogram replayed;
+
+
+[ ] all published numerical claims linked to exact artifacts.
+
+
+
+
+Provenance gate
+
+
+
+
+[ ] RO-Crate validator operational;
+
+
+[ ] actual certificates generated;
+
+
+[ ] no placeholder hashes;
+
+
+[ ] end-to-end independent validation.
+
+
+
+
+Governance gate
+
+
+
+
+[ ] C3 resolved or explicitly removed from publication claims;
+
+
+[ ] 55-state minimality either proved or permanently quarantined;
+
+
+[ ] congruence-lattice claims correctly bounded;
+
+
+[ ] all refuted identities removed from active theorem paths.
+
+
+
+
+Current status
+
+
+[
+\boxed{\text{PUBLICATION BLOCKED}}
+]
+
+
+
+33. CURRENT PRIORITY ORDER
+
+
+The recommended order is:
+
+
+[
+\boxed{
+\begin{array}{rcl}
+P0 &:& \text{compiler/toolchain certificate}\
+P1 &:& \text{repair concrete THM-BIP Lean statement}\
+P2 &:& \text{formal kernel/component theorem}\
+P3 &:& \text{formal rank-nullity theorem}\
+P4 &:& \text{cycle-rank corollary}\
+P5 &:& \text{WU1 explicit uniform remainder}\
+P6 &:& \text{general Abel-transport coefficient theorem}\
+P7 &:& \text{55-state minimality}\
+P8 &:& \text{congruence-lattice classification}\
+P9 &:& \text{fresh slack-histogram replay}\
+P10&:& \text{C3 structural proof}\
+P11&:& \text{RO-Crate certification}\
+P12&:& \text{AQARION-FDS-Bench}.
+\end{array}
+}
+]
+
+
+This ordering deliberately puts formal specification correctness before formal proof optimization.
+
+
+
+34. THINGS NOT TO DO
+
+
+The following are explicitly frozen unless new evidence changes the situation.
+
+
+34.1 Do not revive WU1-B original
+
+
+The original transport/power law is refuted.
+
+
+34.2 Do not return to contour shifting as the primary WU1 route
+
+
+The Abel decomposition now provides the cleaner route.
+
+
+34.3 Do not search indefinitely for another \lambda=2 anomaly
+
+
+The former discrepancy has a concrete \delta^2 explanation.
+
+
+34.4 Do not run the full n=9 computational hammer merely to replace the missing C3 proof
+
+
+The current structural route is preferable.
+
+
+34.5 Do not formalize Matrix.rank first
+
+
+Formalize the kernel/component structure first.
+
+
+34.6 Do not treat a comment as a theorem hypothesis
+
+
+The concrete operator definition must occur in the Lean type.
+
+
+34.7 Do not treat a passing finite census as a general proof
+
+
+Finite computation validates a finite scope.
+
+
+34.8 Do not call an uncompiled public Lean fork a compiler certificate
+
+
+The toolchain must actually be pinned and observed.
+
+
+34.9 Do not call an experimental RO-Crate profile a certified theorem
+
+
+The complete validation chain must exist.
+
+
+34.10 Do not promote quarantined claims
+
+
+Especially:
+
+
+
+
+55-state minimality;
+
+
+complete congruence-lattice classification;
+
+
+conflicting slack histograms;
+
+
+C3;
+
+
+publication readiness.
+
+
+
+
+
+35. CANONICAL STATUS LEDGER
+
+
+
+
+Claim / Object
+Current status
+
+
+
+
+D^2=0
+PROVED
+
+
+PD=0
+PROVED
+
+
+D(I-P)=0
+PROVED
+
+
+DP=D
+PROVED
+
+
+D(KP)=D
+REFUTED
+
+
+Two-block Frobenius norm formula
+PROVED/DERIVED
+
+
+\lambda_2=p_{BB}
+PROVED
+
+
+THM-BIP mathematics
+PROVED
+
+
+THM-BIP Lean statement
+FORMAL-OPEN
+
+
+THM-BIP Lean proof
+OPEN
+
+
+Kernel/component theorem
+MATHEMATICS PROVED / LEAN OPEN
+
+
+Rank =m-c(G)
+MATHEMATICS PROVED / LEAN OPEN
+
+
+e-m-\beta identity
+DERIVED
+
+
+D=0\iff\beta=0 in pinned setting
+DERIVED/PROVED
+
+
+Independent n\le5 census
+166479 / REPRODUCED
+
+
+Historical 166483 total
+REFUTED AS EXACT TOTAL
+
+
+55-state minimality
+QUARANTINED
+
+
+Congruence-chain length 6
+EXHIBITED / NOT CLASSIFICATION
+
+
+Full congruence-lattice height
+OPEN
+
+
+Slack histogram
+OPEN / REPLAY REQUIRED
+
+
+C3 \Gamma_T\ge1
+OPEN
+
+
+WU1 c_k ladder
+LOCKED
+
+
+WU1-B original
+REFUTED
+
+
+WU1-B revised through O(\delta)
+DERIVED
+
+
+\delta^{3/2} coefficient
+EXACTLY ZERO
+
+
+C_4(\lambda)
+DERIVED + NUMERICALLY CONSISTENT
+
+
+WU1 explicit uniform remainder
+OPEN
+
+
+General Abel-transport theorem
+OPEN
+
+
+Public Lean 4.33.1 certificate
+OPEN
+
+
+Public Mathlib/AQARION build certificate
+OPEN
+
+
+RO-Crate profile
+EXPERIMENTAL
+
+
+RO-Crate theorem certification
+OPEN
+
+
+AQARION-FDS-Bench
+OPEN
+
+
+C4
+BLOCKED
+
+
+Publication
+BLOCKED
+
+
+
+
+
+36. C4 GATE
+
+
+The current gate is:
+
+
+[
+\boxed{
+C4=
+\text{FORMAL}
+\cap
+\text{REPRODUCIBLE}
+\cap
+\text{PROVENANCE-CERTIFIED}
+\cap
+\text{GOVERNANCE-CLEAN}.
+}
+]
+
+
+Current state:
+
+
+[
+\boxed{
+C4=\text{BLOCKED}.
+}
+]
+
+
+The blockage is not caused by lack of mathematical progress.
+
+
+It is caused by unresolved formal specification, compiler-baseline, remainder-certification, provenance, and governance requirements.
+
+
+
+37. FINAL RESEARCH POSITION
+
+
+The strongest current conclusion is:
+
+
+[
+\boxed{
+\text{MATHEMATICS ADVANCED}
+}
+]
+
+
+but not
+
+
+[
+\boxed{
+\text{FORMALLY CERTIFIED}.
+}
+]
+
+
+The WU1 development has moved from a numerical anomaly to an analytic mechanism:
+
+
+[
+\boxed{
+\delta^{3/2}\text{ cancels exactly}
+}
+]
+
+
+and
+
+
+[
+\boxed{
+C_4(\lambda)
+
+
+\frac{\lambda^4}{2880}
++
+\frac1{40\lambda^4}.
+}
+]
+
+
+The THM-BIP development has moved from a rank observation to a clean structural proof architecture:
+
+
+[
+\boxed{
+\text{concrete defect}
+\rightarrow
+\text{pointwise kernel}
+\rightarrow
+\text{graph components}
+\rightarrow
+\text{component basis}
+\rightarrow
+\text{rank-nullity}.
+}
+]
+
+
+The remaining work is therefore not to manufacture additional positive claims.
+
+
+It is to close the certification boundary honestly.
+
+
+[
+\boxed{
+\textbf{NO PROMOTION}
+}
+]
+
+
+[
+\boxed{
+\textbf{C4 BLOCKED}
+}
+]
+
+
+[
+\boxed{
+\textbf{PUBLICATION BLOCKED}
+}
+]
+
+
+
+CHANGE CONTROL
+
+
+This document supersedes the previous June-2026 v17.4-PUBLICATION-READY open-problems document.
+
+
+Historical claims remain available through Git history.
+
+
+Future updates should modify this document only when:
+
+
+
+
+a new proof is actually established;
+
+
+a counterexample is found;
+
+
+an independent exact replay changes the evidence;
+
+
+a formal theorem compiles under a pinned environment;
+
+
+a provenance/certificate artifact is independently validated; or
+
+
+governance explicitly changes the promotion state.
+
+
+
+
+No status should be upgraded merely because a new draft, numerical fit, LLM proof, or uncompiled Lean source exists.
