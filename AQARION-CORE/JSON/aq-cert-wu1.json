@@ -1,0 +1,22 @@
+{
+  "claim_id": "WU1-C16",
+  "claim": "...",
+  "formal_statement": "...",
+  "mathematical_dependencies": [],
+  "source_commit": "...",
+  "source_files": [],
+  "input_hashes": [],
+  "algorithm_id": "...",
+  "implementation_language": "...",
+  "toolchain": "...",
+  "precision": "...",
+  "rounding_mode": "...",
+  "execution_command": "...",
+  "output_hash": "...",
+  "independent_route": "...",
+  "independent_result": "...",
+  "formal_status": "OPEN",
+  "semantic_audit": "OPEN",
+  "reproduction_level": "R0-R7",
+  "promotion_status": "BLOCKED"
+}
