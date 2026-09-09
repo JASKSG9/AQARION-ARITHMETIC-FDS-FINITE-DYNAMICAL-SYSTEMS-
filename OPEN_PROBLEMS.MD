@@ -2696,3 +2696,425 @@ governance explicitly changes the promotion state.
 
 
 No status should be upgraded merely because a new draft, numerical fit, LLM proof, or uncompiled Lean source exists.
+
+# AQARION-ARITHMETIC — OPEN PROBLEMS
+
+Version: v18.1-CURRENT-RESEARCH-BOUNDARY
+Date: 2026-09-09
+Status: FROZEN RESEARCH LEDGER · C4 BLOCKED · PUBLICATION BLOCKED · NO PROMOTION
+
+---
+
+## 0. GOVERNANCE
+
+This ledger is adversarial and frozen.
+
+Rules:
+
+- mathematical plausibility is not formal certification;
+- execution is not proof;
+- numerical agreement is not proof;
+- a Lean source file is not a compiler receipt;
+- a repository commit is not a formal verification receipt;
+- a successful computational census is not a universal theorem;
+- no unresolved item may be silently promoted;
+- no `sorry`, `axiom`, `opaque`, or equivalent escape hatch counts as a closed theorem;
+- C4 remains BLOCKED until all required mathematical, formal, computational, provenance, and governance gates are independently satisfied.
+
+Publication remains BLOCKED.
+
+---
+
+# 1. CURRENT CERTIFICATION BOUNDARY
+
+## 1.1 Mathematical results
+
+The following mathematical results are presently regarded as established at the mathematical level:
+
+- THM-BIP mathematical theorem.
+- Kernel/component structural theorem.
+- rank = m - c(G).
+- defect identities:
+  - D² = 0,
+  - PD = 0,
+  - D(I-P) = 0,
+  - DP = D,
+  - QD = D,
+  - DQ = 0.
+- corrected subtractive transport identity.
+- corrected m = 0 specialization.
+- n <= 5 exact census: 166479.
+- historical 166483 value refuted.
+- n = 8 exact 3-cycle audit:
+  - B8 = 4140,
+  - unordered distinct pairs = 8,567,730,
+  - s0 = 1 cases = 2,405,613,
+  - m = 0 cases = 198,630,
+  - sT = 1 cases = 197,550,
+  - sT = 2 cases = 1,080,
+  - violations = 0.
+- WU1 revised asymptotic structure:
+  - exact delta^(3/2) cancellation,
+  - lambda = 2 residual explained by the delta^2 contribution,
+  - C4(lambda) = lambda^4 / 2880 + 1 / (40 lambda^4) at the retained order.
+
+These statements do not imply Lean certification or C4 closure.
+
+---
+
+# 2. S9 FORMALIZATION UPDATE
+
+## S9-A — DEFECT ALGEBRA
+
+### Status
+
+MATHEMATICS: CLOSED.
+
+SOURCE FORMALIZATION: PRESENT.
+
+COMPILER CERTIFICATION: OPEN.
+
+The defect file now contains the complete elementary identity family:
+
+    P Q = 0
+    Q P = 0
+    P D = 0
+    D² = 0
+    D P = D
+    Q D = D
+    D Q = 0
+
+where
+
+    Q = 1 - P
+    D = Q K P
+
+under
+
+    P² = P.
+
+The new source-level theorem is:
+
+    D Q = 0.
+
+This follows immediately from
+
+    D Q
+      = Q K P Q
+      = Q K (P Q)
+      = 0.
+
+No promotion to compiler-certified status occurs until an actual
+Lean 4.33.1 receipt is attached to the canonical artifact.
+
+---
+
+# 3. S9-B — RANK-PAIR FORMALIZATION
+
+## Mathematical status
+
+CLOSED AT THE MATHEMATICAL LEVEL.
+
+For idempotent P:
+
+    rank [P | KP]
+      =
+    rank P + rank ((1-P)KP).
+
+Reason:
+
+    KP = PKP + (1-P)KP,
+
+with
+
+    im(PKP) subset im(P),
+
+    im((1-P)KP) subset ker(P),
+
+and
+
+    im(P) intersection ker(P) = {0}.
+
+Hence the image is a direct sum.
+
+The vertical identity is:
+
+    rank [P
+          KP]
+      =
+    rank P,
+
+because
+
+    ker [P; KP] = ker P.
+
+---
+
+## Lean status
+
+FORMAL-OPEN.
+
+`AQ-S9-RANKPAIR.LEAN` retains explicit theorem targets but does not
+pretend that the proof is compiler-certified.
+
+The remaining work is:
+
+1. select the exact Mathlib representation for the block-column map;
+2. establish the range decomposition;
+3. establish zero intersection;
+4. invoke the exact dimension/rank additivity theorem available in
+   the target Mathlib version;
+5. establish the vertical kernel equality;
+6. transport kernel equality through rank-nullity;
+7. compile under the canonical Lean 4.33.1 environment;
+8. record the compiler receipt;
+9. only then promote the formal status.
+
+IMPORTANT:
+
+Do not replace the open proofs by axioms, opaque constants, or
+unverified theorem names.
+
+---
+
+# 4. S9-C — TRANSPORT IDENTITY
+
+The corrected identity is SUBTRACTIVE.
+
+The exact identity is:
+
+    rJP + rJQ - rMeet - rJU
+
+      =
+
+    (rP + rQ - rM - rU)
+    + (rJP - rP)
+    + (rJQ - rQ)
+    - (rJM - rM)
+    - (rJU - rU)
+    - (rMeet - rJM).
+
+When
+
+    rMeet = rJM,
+
+the final term vanishes.
+
+The formerly proposed additive `+m` variant is formally refuted by
+an explicit Lean `norm_num` counterexample in `AQ-S9-ATK.LEAN`.
+
+Status:
+
+    MATHEMATICS CLOSED
+    LEAN SOURCE PRESENT
+    COMPILER RECEIPT REQUIRED FOR PROMOTION
+
+---
+
+# 5. C3 GLOBAL BOUNDARY
+
+## C3 — Global Gamma lower bound
+
+Status:
+
+    OPEN.
+
+Target:
+
+    Gamma_T >= 1
+
+globally.
+
+The exact n = 8 three-cycle audit gives zero observed violations for
+the tested condition, but this is not a proof of the universal C3
+statement.
+
+The independent n = 9 replay remains NONCANONICAL and must not be
+promoted.
+
+The historical incompatible n = 9 histogram remains frozen as a
+provenance/governance discrepancy.
+
+No full n = 9 computational hammer is to be treated as a substitute
+for the C3 proof.
+
+---
+
+# 6. REJECTED / KILLED CLAIMS
+
+The following are permanently non-promotable:
+
+- support-ratio <= n/2 theorem;
+- strict support-ratio variant;
+- Type-A / Type-B decomposition;
+- false additive `+m` transport identity;
+- false D(KP) = D identity;
+- historical n <= 5 census value 166483;
+- incompatible old n = 9 histogram.
+
+These remain useful only as adversarial counterexamples or provenance
+records.
+
+---
+
+# 7. COMPUTATIONAL STATUS
+
+## n <= 5
+
+Exact census reproduced:
+
+    166479.
+
+Historical:
+
+    166483
+
+is refuted.
+
+## n = 6
+
+Cycle audit:
+
+- 4-cycle: 168 blockers;
+- 2+2: 16 blockers;
+- 3-cycle: 57 critical cases, 0 blockers.
+
+## n = 8
+
+Exact 3-cycle audit:
+
+    B8 = 4140
+    unordered pairs = 8,567,730
+    s0 = 1 = 2,405,613
+    m = 0 = 198,630
+    sT = 1 = 197,550
+    sT = 2 = 1,080
+    violations = 0.
+
+Source/output hashes are frozen in the corresponding audit
+artifacts.
+
+## n = 9
+
+Independent replay exists but is explicitly NONCANONICAL.
+
+It must not be used as a canonical certification artifact.
+
+---
+
+# 8. WU1 REVISED ASYMPTOTICS
+
+The revised asymptotic analysis established:
+
+- the apparent fractional-order contribution cancels exactly at the
+  relevant stage;
+- the lambda = 2 residual is explained by the delta^2 contribution;
+- retained-order expression:
+
+      C4(lambda)
+        =
+      lambda^4 / 2880
+      +
+      1 / (40 lambda^4).
+
+The remainder/error control remains OPEN where applicable.
+
+This asymptotic result does not by itself establish C4.
+
+---
+
+# 9. NEXT FORMALIZATION ORDER
+
+The mandated order remains:
+
+1. defect algebra closure;
+2. pointwise/kernel characterization;
+3. graph-component theorem;
+4. component basis;
+5. rank-nullity;
+6. rank-pair formalization;
+7. exact C3 proof;
+8. independent computational reconciliation;
+9. provenance closure;
+10. final Lean 4.33.1 compiler receipt;
+11. C4 review.
+
+Do NOT begin with `Matrix.rank` as the primary abstraction.
+
+The preferred proof architecture remains:
+
+    concrete defect
+        ->
+    pointwise kernel
+        ->
+    graph components
+        ->
+    component basis
+        ->
+    rank-nullity.
+
+---
+
+# 10. C4 GATE
+
+Current status:
+
+    C4 BLOCKED.
+
+Blocking classes:
+
+- Lean compiler certification incomplete;
+- rank-pair formalization incomplete;
+- global C3 theorem incomplete;
+- provenance discrepancy unresolved;
+- computational artifacts require canonical reconciliation;
+- WU1 remainder control remains incomplete where required.
+
+No publication claim is authorized.
+
+No theorem may be labeled "formally proved" solely because its source
+file contains a theorem declaration.
+
+---
+
+# 11. PROMOTION RULE
+
+A result may move from:
+
+    MATHEMATICS CLOSED
+
+to:
+
+    FORMALLY CERTIFIED
+
+only after:
+
+- exact source is frozen;
+- exact Lean version is frozen;
+- actual compiler invocation succeeds;
+- complete output is preserved;
+- source hash is preserved;
+- dependency state is preserved;
+- no `sorry`/axiom/opaque escape hatch is present;
+- the receipt is linked to the canonical root.
+
+Until then:
+
+    FORMAL-OPEN.
+
+---
+
+# 12. CURRENT BOTTOM LINE
+
+The S9 update materially strengthens the formal boundary:
+
+- defect algebra is now source-complete through DQ = 0;
+- the transport sign correction is formally represented;
+- the false +m identity is formally refuted;
+- rank-pair mathematics is closed;
+- rank-pair Lean formalization remains open;
+- C3 remains open;
+- C4 remains blocked;
+- publication remains blocked.
+
+No promotion is authorized by this update.
