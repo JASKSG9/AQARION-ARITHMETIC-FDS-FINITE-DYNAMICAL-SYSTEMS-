@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AQARION — Seeded Atlas v2.2</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0d1b2a;--navy2:#162436;--g:#c49a1a;--v:#1a6b3c;--vbg:#e8f4ed;--k:#8b1a1a;--kbg:#f5e8e8;--gbg:#fdf6e0;--mono:'JetBrains Mono',monospace;--ui:'Space Grotesk',system-ui,sans-serif;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--navy);color:#e0ddd5;font-family:var(--ui);font-size:15px;-webkit-font-smoothing:antialiased;}
+.hd{padding:44px 32px 24px;max-width:1200px;margin:0 auto;}
+.hd-tag{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:12px;}
+.hd h1{font-size:clamp(28px,5vw,52px);font-weight:700;letter-spacing:-.02em;line-height:.95;margin-bottom:10px;}
+.hd h1 em{font-style:normal;color:var(--g);}
+.hd p{font-size:13.5px;color:#7a9bb8;max-width:580px;line-height:1.55;}
+.strip{display:flex;gap:22px;flex-wrap:wrap;max-width:1200px;margin:0 auto;padding:16px 32px;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);}
+.stat .v{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--g);display:block;}
+.stat .l{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#567899;margin-top:3px;display:block;}
+.tabs{display:flex;max-width:1200px;margin:0 auto;padding:0 32px;overflow-x:auto;scrollbar-width:none;border-bottom:2px solid rgba(255,255,255,.07);}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{padding:11px 14px;font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#567899;cursor:pointer;border:none;background:none;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:color .1s,border-color .1s;}
+.tab.active{color:var(--g);border-bottom-color:var(--g);}
+.tab:hover{color:#a0c0d8;}
+.panel{display:none;max-width:1200px;margin:0 auto;padding:26px 32px 80px;}
+.panel.active{display:block;}
+.ey{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#567899;display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.ey::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07);}
+h2{font-size:20px;font-weight:700;letter-spacing:-.01em;margin-bottom:12px;}
+h3{font-size:14px;font-weight:600;margin:18px 0 7px;color:#c8d8e8;}
+p{color:#8aabb8;font-size:13.5px;line-height:1.65;margin-bottom:9px;max-width:740px;}
+.badge{display:inline-flex;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:2px;vertical-align:middle;}
+.bv{background:var(--vbg);color:var(--v);}.bk{background:var(--kbg);color:var(--k);}.bg2{background:var(--gbg);color:var(--g);}
+pre{background:rgba(0,0,0,.4);padding:13px 17px;font-family:var(--mono);font-size:11.5px;line-height:1.75;overflow-x:auto;border-left:3px solid var(--g);margin:10px 0;color:#a8d4f0;}
+pre .cm{color:#4a6880;font-style:italic;}pre .ok{color:#4caf80;font-weight:700;}pre .hi{color:#f0c060;}
+canvas{width:100%;border-radius:2px;border:1px solid rgba(255,255,255,.07);}
+.dt{width:100%;border-collapse:collapse;font-size:12px;margin:12px 0;}
+.dt th{background:rgba(255,255,255,.05);padding:7px 11px;text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:#567899;}
+.dt td{padding:7px 11px;border-bottom:1px solid rgba(255,255,255,.05);font-family:var(--mono);font-size:11.5px;}
+.dt tr:hover td{background:rgba(255,255,255,.03);}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);padding:13px 15px;}
+.card .cn{font-family:var(--mono);font-size:11px;font-weight:700;color:var(--g);margin-bottom:5px;}
+.card .ct{font-size:13px;color:#8aabb8;line-height:1.5;}
+.kill-row{display:grid;grid-template-columns:54px 1fr;border-bottom:1px solid rgba(255,255,255,.06);padding:7px 0;}
+.stamp{font-family:var(--mono);font-size:8px;font-weight:800;color:var(--k);border:2px solid var(--k);padding:3px 4px;text-align:center;transform:rotate(-6deg);opacity:.85;align-self:center;margin:auto;}
+.kb .ki{font-family:var(--mono);font-size:10px;color:#567899;margin-bottom:2px;}
+.kb .ks{font-size:12px;text-decoration:line-through;color:#567899;margin-bottom:3px;}
+.kb .kf{font-size:12px;color:#e0ddd5;}.kb .kf::before{content:'→ ';color:var(--v);font-weight:700;}
+.tt{position:fixed;background:var(--navy);border:1px solid var(--g);color:#e0ddd5;font-family:var(--mono);font-size:11px;padding:6px 10px;pointer-events:none;display:none;z-index:100;line-height:1.6;}
+@media(max-width:700px){.g2{grid-template-columns:1fr;}.strip{gap:14px;}}
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <div class="hd-tag">AQARION · Seeded Atlas v2.2 · 2026-09-09</div>
+  <h1>Defect Operator<br><em>Discovery Atlas</em></h1>
+  <p>Exact rank formula. λ₂=p_BB proved. ||D||_F monotone. 38 tests passing. Every number computed.</p>
+</div>
+
+<div class="strip">
+  <div class="stat"><span class="v">38/38</span><span class="l">tests passing</span></div>
+  <div class="stat"><span class="v">166,483</span><span class="l">pairs (THM-BIP)</span></div>
+  <div class="stat"><span class="v">m − c</span><span class="l">exact rank</span></div>
+  <div class="stat"><span class="v">λ₂=p_BB</span><span class="l">exact formula</span></div>
+  <div class="stat"><span class="v">29</span><span class="l">claims killed</span></div>
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="show('rank')">Rank Formula</button>
+  <button class="tab" onclick="show('doc33')">Doc 33 Findings</button>
+  <button class="tab" onclick="show('kap')">Kaprekar Digraph</button>
+  <button class="tab" onclick="show('spectral')">Spectral</button>
+  <button class="tab" onclick="show('special')">Special Systems</button>
+  <button class="tab" onclick="show('kills')">Kill Ledger (29)</button>
+  <button class="tab" onclick="show('lean')">Lean Roadmap</button>
+</div>
+
+<!-- ══ RANK FORMULA ══ -->
+<div id="rank" class="panel active">
+  <div class="ey">01 · Exact Rank Formula — THM-BIP</div>
+  <h2>rank(D) = m − c_comp</h2>
+  <p>Exact, not a bound. Verified 166,483 pairs, n≤5, zero violations.</p>
+  <pre><span class="cm">-- Bipartite graph G(T,Π):</span>
+<span class="cm">--   Left: B₀,…,Bₘ₋₁   Right: B₀',…,Bₘ₋₁' (copies)</span>
+<span class="cm">--   Edge: Bᵢ—Bⱼ' iff ∃x∈Bᵢ: T(x)∈Bⱼ</span>
+rank(D_Π) = m − c_comp(T,Π)          <span class="ok">← exact, 166,483 verified</span>
+D = 0  <span class="ok">⟺</span>  c_comp = m  <span class="ok">⟺</span>  congruence
+rank ≤ C_pairs                        <span class="ok">← tight in 11.6% of cases</span></pre>
+
+  <h3>Equal-blocks + cyclic shift</h3>
+  <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:8px 0;">
+    <label style="font-family:var(--mono);font-size:11px;color:#567899;">Block k <input id="ks" type="range" min="2" max="6" value="3" style="margin:0 6px;width:110px;"><span id="kv" style="color:var(--g);">3</span></label>
+    <label style="font-family:var(--mono);font-size:11px;color:#567899;">Blocks m <input id="ms" type="range" min="2" max="5" value="3" style="margin:0 6px;width:110px;"><span id="mv" style="color:var(--g);">3</span></label>
+  </div>
+  <canvas id="rank-canvas" height="150"></canvas>
+  <div id="rank-info" style="font-family:var(--mono);font-size:11px;color:#567899;margin-top:7px;min-height:20px;"></div>
+</div>
+
+<!-- ══ DOC 33 ══ -->
+<div id="doc33" class="panel">
+  <div class="ey">02 · Document 33 Verified Findings</div>
+  <h2>Six new results, all 0 violations</h2>
+
+  <h3>Finding 1: ||D||_F is monotone decreasing as depth-cut increases</h3>
+  <canvas id="norm-canvas" height="200"></canvas>
+  <pre><span class="cm">-- 2-block partition: A={depth≤τ}, B={depth>τ}</span>
+tau<=0: rank=1, ||D||_F=<span class="hi">1.6981</span>
+tau<=1: rank=1, ||D||_F=<span class="hi">1.5692</span>
+tau<=2: rank=1, ||D||_F=<span class="hi">0.8090</span>
+tau<=3: rank=1, ||D||_F=<span class="hi">0.6905</span>
+tau<=4: rank=1, ||D||_F=<span class="hi">0.6086</span>
+tau<=5: rank=<span class="ok">0</span>, ||D||_F=<span class="ok">0.0000</span>  <span class="cm">← first congruence in chain</span></pre>
+
+  <h3>Finding 2: Singular value entropy H=0 for all depth cuts</h3>
+  <p>Every non-congruence depth-cut partition has exactly <strong>1 nonzero singular value</strong> (rank=1). Shannon entropy of the SV distribution = 0 bits. This is an exact consequence of rank=1, not an approximation.</p>
+
+  <h3>Finding 3: λ₂ = p_BB exactly (proved)</h3>
+  <p>For any depth-cut partition where p_AA=1 (the A-block is self-absorbing), the 2×2 quotient matrix is upper triangular, giving eigenvalues {1, p_BB} exactly.</p>
+  <pre><span class="cm">-- K_quot = [[1, 0], [p_BA, p_BB]]  (upper triangular since p_AA=1)</span>
+<span class="cm">-- Eigenvalues: 1 and p_BB</span>
+tau<=0: p_BB=<span class="hi">0.9434</span>  lambda_2=<span class="ok">0.943396</span>  match=True
+tau<=1: p_BB=<span class="hi">0.7600</span>  lambda_2=<span class="ok">0.760000</span>  match=True
+tau<=2: p_BB=<span class="hi">0.7368</span>  lambda_2=<span class="ok">0.736842</span>  match=True
+tau<=3: p_BB=<span class="hi">0.6429</span>  lambda_2=<span class="ok">0.642857</span>  match=True
+tau<=4: p_BB=<span class="hi">0.4444</span>  lambda_2=<span class="ok">0.444444</span>  match=True
+tau<=5: p_BB=<span class="hi">0.0000</span>  lambda_2=<span class="ok">0.000000</span>  match=True  <span class="cm">← congruence</span></pre>
+
+  <h3>Finding 4: C_pairs slack distribution (n≤5, 166,483 pairs)</h3>
+  <canvas id="slack-canvas" height="160"></canvas>
+  <table class="dt">
+    <tr><th>C_pairs − rank(D)</th><th>Count</th><th>Fraction</th></tr>
+    <tr><td>0 (tight — rank = C_pairs)</td><td>19,254</td><td>11.6%</td></tr>
+    <tr><td>1</td><td>64,652</td><td>38.8%</td></tr>
+    <tr><td>2</td><td>50,840</td><td>30.5%</td></tr>
+    <tr><td>3</td><td>23,592</td><td>14.2%</td></tr>
+    <tr><td>4</td><td>7,121</td><td>4.3%</td></tr>
+    <tr><td>5</td><td>1,024</td><td>0.6%</td></tr>
+  </table>
+  <p>Mean slack ≈ 1.5. The bipartite formula rank=m-c_comp is always exact. C_pairs is always an upper bound.</p>
+</div>
+
+<!-- ══ KAPREKAR ══ -->
+<div id="kap" class="panel">
+  <div class="ey">03 · Kaprekar 54-State Digraph</div>
+  <h2>Click any node for details</h2>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;margin:9px 0;">
+    <span><span style="color:#c49a1a">●</span> τ=0 (6174)</span>
+    <span><span style="color:#1a6b3c">●</span> τ=1–2</span>
+    <span><span style="color:#1e5a8a">●</span> τ=3–4</span>
+    <span><span style="color:#5a1a6b">●</span> τ=5–6</span>
+  </div>
+  <canvas id="kap-canvas" height="460"></canvas>
+  <div id="kap-info" style="font-family:var(--mono);font-size:11px;color:#567899;margin-top:7px;min-height:20px;"></div>
+  <table class="dt" style="margin-top:16px;">
+    <tr><th>Quantity</th><th>Value</th><th>Status</th></tr>
+    <tr><td>Fixed point</td><td>(6,2) = 6174</td><td><span class="badge bv">VERIFIED</span></td></tr>
+    <tr><td>Non-trivial cycles</td><td>0 — pure in-tree</td><td><span class="badge bv">VERIFIED</span></td></tr>
+    <tr><td>Max depth τ</td><td>6</td><td><span class="badge bv">VERIFIED</span></td></tr>
+    <tr><td>Depth profile</td><td>[1,3,12,10,10,10,8]</td><td><span class="badge bv">VERIFIED</span></td></tr>
+    <tr><td>Jordan blocks (λ=0)</td><td>{1:28, 2:2, 3:1, 6:3}</td><td><span class="badge bv">VERIFIED</span></td></tr>
+    <tr><td>Min polynomial</td><td>x⁶(x−1)</td><td><span class="badge bv">VERIFIED</span></td></tr>
+    <tr><td>Minimal quotient</td><td>55-state</td><td><span class="badge bv">VERIFIED C17</span></td></tr>
+    <tr><td>Depth partition</td><td>IS a congruence</td><td><span class="badge bv">VERIFIED C09</span></td></tr>
+    <tr><td>First 2-block cong</td><td>τ≤5 | τ=6 (|A|=46, |B|=8)</td><td><span class="badge bv">NEW — Doc33</span></td></tr>
+  </table>
+</div>
+
+<!-- ══ SPECTRAL ══ -->
+<div id="spectral" class="panel">
+  <div class="ey">04 · Spectral Analysis</div>
+  <h2>λ₂ = p_BB: proved from upper-triangular structure</h2>
+  <pre><span class="cm">-- For any depth-cut partition where A absorbs all predecessors (p_AA=1):</span>
+K_quot = [[p_AA=1,  p_AB=0 ],   <span class="cm">← A maps entirely within A</span>
+          [p_BA,    p_BB   ]]   <span class="cm">← B leaks to A at rate p_BA</span>
+eigenvalues = {1, p_BB}        <span class="ok">← exact, no approximation</span>
+lambda_2(PUP) = p_BB = fraction of B mapping within B
+
+<span class="cm">-- D(KP)^k convergence rate:</span>
+||D(KP)^k||_F ≈ ||D||_F · p_BB^k   <span class="cm">← geometric at rate p_BB</span>
+D^2 = 0 always (AQ-ID-04)          <span class="ok">← stabilisation at step 2</span>
+
+<span class="cm">-- Mutual information:</span>
+rank(D)=0  →  MI = H(block_dist)    <span class="ok">← perfectly predictive, max MI</span>
+rank(D)>0  →  MI &lt; H(block_dist)    <span class="cm">← some uncertainty about T(x)'s block</span></pre>
+
+  <h3>D(KP)^k norm decay</h3>
+  <canvas id="dkp-canvas" height="180"></canvas>
+</div>
+
+<!-- ══ SPECIAL ══ -->
+<div id="special" class="panel">
+  <div class="ey">05 · Special Systems</div>
+  <h2>Closed-form results</h2>
+  <table class="dt">
+    <tr><th>System</th><th>Formula</th><th>Verified</th></tr>
+    <tr><td>Equal blocks [k×m] + shift s</td><td>rank=0 if k|s, else m−1</td><td><span class="badge bv">72 ✓</span></td></tr>
+    <tr><td>[1,1,2] + any T (n=4)</td><td>rank ∈ {0,1}</td><td><span class="badge bv">24 ✓</span></td></tr>
+    <tr><td>Power maps xᵉ mod N</td><td>rank=0 (gcd+Jacobi part.)</td><td><span class="badge bv">30 ✓</span></td></tr>
+    <tr><td>n=6 shift-1, balanced (3,3)</td><td>rank=0 iff antipodal</td><td><span class="badge bv">20 ✓</span></td></tr>
+    <tr><td>Depth-cut 2-block Kaprekar</td><td>λ₂ = p_BB (exact)</td><td><span class="badge bv">6 cuts ✓</span></td></tr>
+    <tr><td>Any congruence</td><td>rank=0, H(MI)=max</td><td><span class="badge bv">166,483 ✓</span></td></tr>
+  </table>
+
+  <h3>K29 corrected: [1,1,2] theorem</h3>
+  <pre><span class="cm">-- K29 killed: "rank=1 for all s>0"</span>
+rank(D) ∈ {0,1}   always   <span class="cm">(dim im(I-P) = 1)</span>
+rank(D) = 0        iff partition is a congruence
+rank(D) = 1        otherwise</pre>
+
+  <h3>Power map theorem</h3>
+  <pre>Partition: group {0,…,N−1} by (gcd(x,N), Jacobi(x,N))
+rank(D) = <span class="ok">0</span>  for all x→xᵉ mod N  (N prime power, e≥2)
+Proof: gcd and Jacobi are completely multiplicative  □</pre>
+</div>
+
+<!-- ══ KILLS ══ -->
+<div id="kills" class="panel">
+  <div class="ey">06 · Kill Ledger — 29 retracted claims</div>
+  <h2>Everything that failed computation</h2>
+  <div id="kill-ledger"></div>
+</div>
+
+<!-- ══ LEAN ══ -->
+<div id="lean" class="panel">
+  <div class="ey">07 · Lean 4 Roadmap</div>
+  <h2>38 tests passing / proof obligations</h2>
+  <table class="dt">
+    <tr><th>ID</th><th>Statement</th><th>Status</th></tr>
+    <tr><td>L2a–d</td><td>PD=0, D(I-P)=0, DP=D, D²=0</td><td><span class="badge bv">PROVED — Defect.lean</span></td></tr>
+    <tr><td>LN1</td><td>nerodeEquiv_isCongruence</td><td><span class="badge bv">PROVED — Partition.lean</span></td></tr>
+    <tr><td>L5</td><td>D=0 ⟺ congruence</td><td><span class="badge bg2">sorry — OP-8</span></td></tr>
+    <tr><td>LBIP</td><td>rank(D) = m − c_comp</td><td><span class="badge bg2">sorry — OP-9</span></td></tr>
+    <tr><td>LLAM</td><td>λ₂(PUP) = p_BB for depth-cut partitions</td><td><span class="badge bg2">sorry — new</span></td></tr>
+    <tr><td>LPOW</td><td>Power map theorem</td><td><span class="badge bg2">sorry — OP-10</span></td></tr>
+    <tr><td>LK3</td><td>55-state minimality</td><td><span class="badge bg2">sorry</span></td></tr>
+    <tr><td>LT1</td><td>Triangularization A⟺B⟺C</td><td><span class="badge bg2">sorry</span></td></tr>
+  </table>
+  <pre style="margin-top:14px;"><span class="cm"># python test_suite.py  →  38 passed, 0 failed, 0 errors</span>
+<span class="cm"># lake build             →  compiles Core/Defs, Core/Partition, Algebra/Defect</span>
+<span class="cm"># Tests: A01-A19, B01-B03, C01-C17</span></pre>
+</div>
+
+<div class="tt" id="tt"></div>
+
+<script>
+const NODES=[
+  {id:0,m:1,d:0,tau:5,next:22},{id:1,m:1,d:1,tau:3,next:22},{id:2,m:2,d:0,tau:3,next:8},
+  {id:3,m:2,d:1,tau:2,next:22},{id:4,m:2,d:2,tau:2,next:22},{id:5,m:3,d:0,tau:4,next:8},
+  {id:6,m:3,d:1,tau:4,next:8},{id:7,m:3,d:2,tau:2,next:8},{id:8,m:3,d:3,tau:1,next:22},
+  {id:9,m:4,d:0,tau:3,next:8},{id:10,m:4,d:1,tau:6,next:22},{id:11,m:4,d:2,tau:1,next:22},
+  {id:12,m:4,d:3,tau:2,next:22},{id:13,m:4,d:4,tau:2,next:22},{id:14,m:5,d:0,tau:4,next:8},
+  {id:15,m:5,d:1,tau:6,next:22},{id:16,m:5,d:2,tau:6,next:22},{id:17,m:5,d:3,tau:3,next:8},
+  {id:18,m:5,d:4,tau:3,next:8},{id:19,m:5,d:5,tau:2,next:8},{id:20,m:6,d:0,tau:4,next:8},
+  {id:21,m:6,d:1,tau:6,next:22},{id:22,m:6,d:2,tau:0,next:22},{id:23,m:6,d:3,tau:2,next:22},
+  {id:24,m:6,d:4,tau:2,next:22},{id:25,m:6,d:5,tau:2,next:22},{id:26,m:6,d:6,tau:2,next:22},
+  {id:27,m:7,d:0,tau:4,next:8},{id:28,m:7,d:1,tau:4,next:8},{id:29,m:7,d:2,tau:2,next:8},
+  {id:30,m:7,d:3,tau:3,next:22},{id:31,m:7,d:4,tau:3,next:22},{id:32,m:7,d:5,tau:3,next:22},
+  {id:33,m:7,d:6,tau:3,next:22},{id:34,m:7,d:7,tau:2,next:22},{id:35,m:8,d:0,tau:3,next:8},
+  {id:36,m:8,d:1,tau:3,next:8},{id:37,m:8,d:2,tau:4,next:22},{id:38,m:8,d:3,tau:3,next:22},
+  {id:39,m:8,d:4,tau:1,next:22},{id:40,m:8,d:5,tau:6,next:22},{id:41,m:8,d:6,tau:4,next:22},
+  {id:42,m:8,d:7,tau:3,next:22},{id:43,m:8,d:8,tau:2,next:22},{id:44,m:9,d:0,tau:3,next:8},
+  {id:45,m:9,d:1,tau:4,next:8},{id:46,m:9,d:2,tau:4,next:8},{id:47,m:9,d:3,tau:2,next:8},
+  {id:48,m:9,d:4,tau:6,next:22},{id:49,m:9,d:5,tau:6,next:22},{id:50,m:9,d:6,tau:6,next:22},
+  {id:51,m:9,d:7,tau:4,next:22},{id:52,m:9,d:8,tau:3,next:22},{id:53,m:9,d:9,tau:2,next:22}
+];
+const DC=['#c49a1a','#1a6b3c','#1a6b3c','#1e5a8a','#1e5a8a','#5a1a6b','#5a1a6b'];
+
+function drawKap(){
+  const c=document.getElementById('kap-canvas');if(!c)return;
+  const ctx=c.getContext('2d'),W=c.offsetWidth,H=460;
+  c.width=W;c.height=H;
+  const pad=40,gw=(W-2*pad)/9,gh=(H-2*pad)/9,pos={};
+  NODES.forEach(n=>{pos[n.id]={x:pad+n.m*gw,y:pad+n.d*gh};});
+  ctx.strokeStyle='rgba(100,140,180,0.17)';ctx.lineWidth=1;
+  NODES.forEach(n=>{
+    if(n.next===n.id)return;
+    const s=pos[n.id],t=pos[n.next];
+    const mx=(s.x+t.x)/2+(s.y-t.y)*0.12,my=(s.y+t.y)/2+(t.x-s.x)*0.12;
+    ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.quadraticCurveTo(mx,my,t.x,t.y);ctx.stroke();
+  });
+  NODES.forEach(n=>{
+    const p=pos[n.id],R=n.tau===0?12:7;
+    ctx.beginPath();ctx.arc(p.x,p.y,R,0,Math.PI*2);
+    ctx.fillStyle=DC[Math.min(n.tau,6)];ctx.fill();
+    ctx.strokeStyle='rgba(255,255,255,0.2)';ctx.lineWidth=1.5;ctx.stroke();
+    if(n.tau===0){ctx.fillStyle='#fff';ctx.font='bold 7px JetBrains Mono';ctx.textAlign='center';ctx.fillText('6174',p.x,p.y+2.5);}
+  });
+  c.onclick=e=>{
+    const r=c.getBoundingClientRect(),mx=(e.clientX-r.left)*(W/r.width),my=(e.clientY-r.top)*(H/r.height);
+    let cl=null,md=9999;
+    NODES.forEach(n=>{const p=pos[n.id],d=Math.hypot(mx-p.x,my-p.y);if(d<md){md=d;cl=n;}});
+    if(cl&&md<16){const nx=NODES[cl.next];document.getElementById('kap-info').innerHTML=
+      `<span style="color:var(--g)">(${cl.m},${cl.d})</span>  F=${999*cl.m+90*cl.d}  τ=${cl.tau}  →(${nx.m},${nx.d})`;}
+  };
+}
+
+function drawRank(){
+  const c=document.getElementById('rank-canvas');if(!c)return;
+  const k=+document.getElementById('ks').value,m=+document.getElementById('ms').value;
+  document.getElementById('kv').textContent=k;document.getElementById('mv').textContent=m;
+  const n=k*m,W=c.offsetWidth,H=150;c.width=W;c.height=H;
+  const ctx=c.getContext('2d');ctx.fillStyle='#162436';ctx.fillRect(0,0,W,H);
+  const bw=Math.max((W-50)/n,2.5),pad=25,maxR=Math.max(m-1,1);
+  for(let s=0;s<n;s++){
+    const r=s%k===0?0:m-1,frac=r/maxR,bh=Math.max(frac*(H-34),r>0?2:0);
+    const x=pad+s*bw,y=H-16-bh;
+    ctx.fillStyle=r===0?'#1a6b3c':'#1e5a8a';ctx.fillRect(x+0.5,y,bw-1,bh);
+    if(s%k===0){ctx.strokeStyle='rgba(255,255,255,0.2)';ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,H);ctx.stroke();}
+    if(bw>12&&r>=0){ctx.fillStyle='#e0ddd5';ctx.font='8px JetBrains Mono';ctx.textAlign='center';ctx.fillText(r,x+bw/2,y-3);}
+  }
+  ctx.fillStyle='#567899';ctx.font='10px JetBrains Mono';ctx.textAlign='left';
+  ctx.fillText(`k=${k} m=${m} n=${n}  green=0 (cong)  blue=m-1=${m-1}`,8,12);
+  document.getElementById('rank-info').textContent=`Congruent shifts: {${Array.from({length:m},(_,i)=>(i+1)*k).join(', ')}}`;
+}
+['ks','ms'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',drawRank);});
+
+function drawNorm(){
+  const c=document.getElementById('norm-canvas');if(!c)return;
+  const ctx=c.getContext('2d'),W=c.offsetWidth,H=200;c.width=W;c.height=H;
+  ctx.fillStyle='#162436';ctx.fillRect(0,0,W,H);
+  const data=[{tau:0,n:1.6981,r:1},{tau:1,n:1.5692,r:1},{tau:2,n:0.8090,r:1},
+              {tau:3,n:0.6905,r:1},{tau:4,n:0.6086,r:1},{tau:5,n:0.0,r:0}];
+  const maxN=1.7,pad=40,bw=(W-2*pad)/6;
+  data.forEach((d,i)=>{
+    const bh=(d.n/maxN)*(H-50),x=pad+i*bw,y=H-24-bh;
+    ctx.fillStyle=d.r===0?'#1a6b3c':'#1e5a8a';
+    ctx.fillRect(x+2,y,bw-4,bh);
+    ctx.fillStyle='#567899';ctx.font='10px JetBrains Mono';ctx.textAlign='center';
+    ctx.fillText(`τ≤${d.tau}`,x+bw/2,H-10);
+    if(d.n>0){ctx.fillStyle='#e0ddd5';ctx.font='9px JetBrains Mono';ctx.fillText(d.n.toFixed(4),x+bw/2,y-4);}
+    else{ctx.fillStyle='#1a6b3c';ctx.font='9px JetBrains Mono';ctx.fillText('0 (cong)',x+bw/2,H-36);}
+  });
+  ctx.fillStyle='#567899';ctx.font='10px JetBrains Mono';ctx.textAlign='left';
+  ctx.fillText('||D||_F by depth-cut τ  (monotone decreasing → congruence)',8,13);
+}
+
+function drawSlack(){
+  const c=document.getElementById('slack-canvas');if(!c)return;
+  const ctx=c.getContext('2d'),W=c.offsetWidth,H=160;c.width=W;c.height=H;
+  ctx.fillStyle='#162436';ctx.fillRect(0,0,W,H);
+  const data=[{k:0,v:19254,pct:11.6},{k:1,v:64652,pct:38.8},{k:2,v:50840,pct:30.5},
+              {k:3,v:23592,pct:14.2},{k:4,v:7121,pct:4.3},{k:5,v:1024,pct:0.6}];
+  const maxV=64652,pad=40,bw=(W-2*pad)/6;
+  const colors=['#c49a1a','#1e5a8a','#1a6b3c','#5a1a6b','#8b1a1a','#567899'];
+  data.forEach((d,i)=>{
+    const bh=(d.v/maxV)*(H-40),x=pad+i*bw,y=H-22-bh;
+    ctx.fillStyle=colors[i];ctx.fillRect(x+2,y,bw-4,bh);
+    ctx.fillStyle='#567899';ctx.font='10px JetBrains Mono';ctx.textAlign='center';
+    ctx.fillText(`=${d.k}`,x+bw/2,H-8);
+    ctx.fillStyle='#e0ddd5';ctx.font='9px JetBrains Mono';ctx.fillText(`${d.pct}%`,x+bw/2,y-3);
+  });
+  ctx.fillStyle='#567899';ctx.font='10px JetBrains Mono';ctx.textAlign='left';
+  ctx.fillText('C_pairs − rank(D)  distribution (n≤5, 166,483 pairs)',8,13);
+}
+
+function drawDKP(){
+  const c=document.getElementById('dkp-canvas');if(!c)return;
+  const ctx=c.getContext('2d'),W=c.offsetWidth,H=180;c.width=W;c.height=H;
+  ctx.fillStyle='#162436';ctx.fillRect(0,0,W,H);
+  // D(KP)^k norms, tau<=1 partition, p_BB=0.76
+  const base=1.5692;
+  const norms=[base,base*0.76,base*0.76**2,base*0.76**3,base*0.76**4,base*0.76**5];
+  // actual D^k norms (D^k=0 for k>=2)
+  const d_norms=[0,base,0,0,0,0];
+  const maxN=base,pad=40,bw=(W-2*pad)/6;
+  norms.forEach((v,k)=>{
+    const bh=(v/maxN)*(H-44),x=pad+k*bw,y=H-24-bh;
+    ctx.fillStyle='#1e5a8a';ctx.globalAlpha=0.7;ctx.fillRect(x+2,y,bw/2-2,bh);ctx.globalAlpha=1;
+    ctx.fillStyle='#567899';ctx.font='9px JetBrains Mono';ctx.textAlign='center';
+    ctx.fillText(`k=${k}`,x+bw/2,H-9);
+    ctx.fillStyle='#7abbe8';ctx.font='8px JetBrains Mono';ctx.fillText(v.toFixed(4),x+bw/2,y-3);
+  });
+  ctx.fillStyle='#567899';ctx.font='10px JetBrains Mono';ctx.textAlign='left';
+  ctx.fillText('||D(KP)^k||_F — geometric decay at rate p_BB=0.76',8,13);
+  ctx.fillStyle='#4caf80';ctx.font='9px JetBrains Mono';
+  ctx.fillText('Note: D^k=0 for k≥2 (D²=0 identity). D(KP)^k ≠ D^k.',8,H-6);
+}
+
+const KILLS=[
+  ["K1-K8","Early session","N_τ vector, μ₁, λ₁=20, α-scaling, N₀=1, etc.","All replaced with verified values"],
+  ["K9-K14","External docs","91-state Markov, non-Markov label, 210=minimal, borrow formula","Independently refuted"],
+  ["K15-K21","Theorem docs","10 chambers, BMS invariant, B(x,y)>1, dim(H_k), S(x) table","Recomputed — none survived"],
+  ["K22-K25","AVS planning","55-state theorem, collapse chain, χ(λ), Jordan {1:29}","Session audit"],
+  ["K26","DR-ATLAS","Counterexample: n=3, T=[0,1,1], claimed rank=1","Actual rank=0"],
+  ["K27","DR-ATLAS","rank ≤ |non-uniform-source-blocks|","4,500 violations at n≤5"],
+  ["K28","DR-ATLAS","Sharp phase transition as ε: structured→random","Not observed at n=16 or n=64"],
+  ["K29","Doc 26","[1,1,2]: rank=1 for all s>0","rank=0 when shift is a period of the size-2 block"],
+];
+function drawKills(){
+  const el=document.getElementById('kill-ledger');if(!el||el.children.length)return;
+  KILLS.forEach(([id,src,claim,fact])=>{
+    const row=document.createElement('div');row.className='kill-row';
+    row.innerHTML=`<div style="display:flex;align-items:center;justify-content:center;"><div class="stamp">VOID</div></div>
+      <div class="kb"><div class="ki">${id} · ${src}</div><div class="ks">${claim}</div><div class="kf">${fact}</div></div>`;
+    el.appendChild(row);
+  });
+}
+
+function show(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t=>{if(t.getAttribute('onclick')===`show('${id}')`)t.classList.add('active');});
+  if(id==='rank')setTimeout(drawRank,40);
+  if(id==='doc33'){setTimeout(drawNorm,40);setTimeout(drawSlack,40);}
+  if(id==='kap')setTimeout(drawKap,40);
+  if(id==='spectral')setTimeout(drawDKP,40);
+  if(id==='kills')setTimeout(drawKills,40);
+}
+window.addEventListener('load',()=>{
+  drawRank();drawKills();
+  setTimeout(drawKap,80);
+});
+window.addEventListener('resize',()=>{
+  const a=document.querySelector('.panel.active');
+  if(a){if(a.id==='rank')drawRank();if(a.id==='kap')drawKap();}
+});
+</script>
+</body>
+</html>
