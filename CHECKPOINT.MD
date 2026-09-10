@@ -1,5 +1,1324 @@
 "AQARION complements existing Koopman approaches by providing exact certification for finite deterministic systems, focusing on observable quotient verification rather than approximation or data-driven discovery of invariant subspaces."
 
+AQARION — Transport-Safety Continuation Audit
+
+
+September 10, 2026
+
+
+Mode: FROZEN · EXACT · ADVERSARIAL · NO PROMOTION
+
+
+Root:
+
+
+020a9110088010116075e1812c98bcd2bcc4905367fa8943a68c8cd224cf284e
+
+
+Governance:
+
+
+C4 BLOCKED · Publication BLOCKED · Lean OPEN · SDS-002 FROZEN/QUARANTINED · EK-001 QUARANTINED
+
+
+Doctrine:
+
+
+EXECUTION ≠ EVIDENCE ≠ PROOF
+
+
+Frozen mathematical result
+
+
+The adversarial continuation confirms the surviving transport identity:
+
+
+[
+m_T=0
+\Longrightarrow
+\Delta=\kappa_S
+]
+
+
+and the exact marked-support bound gives
+
+
+[
+0\le\kappa_S\le2.
+]
+
+
+Therefore
+
+
+[
+\boxed{
+m_T=0
+\Longrightarrow
+0\le\Delta\le2
+}
+]
+
+
+and, using
+
+
+[
+s_T=s_0+\Delta+m_T,
+]
+
+
+[
+\boxed{
+m_T=0
+\Longrightarrow
+s_T-s_0=\kappa_S\in{0,1,2}.
+}
+]
+
+
+Consequently
+
+
+[
+\boxed{
+m_T=0\Longrightarrow s_T\ge s_0.
+}
+]
+
+
+The previous strengthening attempts are permanently rejected:
+
+
+[
+m_T=0\Rightarrow\Delta=0
+]
+
+
+is false,
+
+
+[
+m_T=0\Rightarrow\Delta\le1
+]
+
+
+is false, and
+
+
+[
+\kappa_S=2\Rightarrow m_T>0
+]
+
+
+is false.
+
+
+The latter is now witnessed by the independently reconstructed n=14 fixture.
+
+
+Independent reconstruction of the upper fixture
+
+
+Take
+
+
+[
+X={0,\ldots,13},
+\qquad T=(012).
+]
+
+
+Use
+
+
+[
+P=
+{
+{0,7,10},
+{1,3,6},
+{2,8,9},
+{4,5,11,12,13}
+}
+]
+
+
+and
+
+
+[
+Q=
+{
+{0,4,10},
+{1,3},
+{2,9},
+{5,6},
+{7,11},
+{8,12,13}
+}.
+]
+
+
+The independently reconstructed meet is
+
+
+[
+M=P\wedge Q
+
+
+{
+{0,10},
+{1,3},
+{2,9},
+{4},
+{5},
+{6},
+{7},
+{8},
+{11},
+{12,13}
+}
+]
+
+
+and
+
+
+[
+U=P\vee Q=X.
+]
+
+
+Thus
+
+
+[
+|P|=4,\qquad |Q|=6,\qquad |M|=10,\qquad |U|=1.
+]
+
+
+The correct slack is therefore
+
+
+[
+s_0=|M|+|U|-|P|-|Q|
+=10+1-4-6
+=1.
+]
+
+
+The raw expression
+
+
+[
+|P|+|Q|-|M|-|U|
+]
+
+
+is instead -1 and must never be used as s_0.
+
+
+The closures independently reconstruct as
+
+
+[
+J_T(P)=
+{
+{0,1,2,3,6,7,8,9,10},
+{4,5,11,12,13}
+},
+]
+
+
+[
+J_T(Q)=
+{
+{0,1,2,3,4,9,10},
+{5,6},
+{7,11},
+{8,12,13}
+},
+]
+
+
+[
+J_T(M)=
+{
+{0,1,2,3,9,10},
+{4},
+{5},
+{6},
+{7},
+{8},
+{11},
+{12,13}
+},
+]
+
+
+and
+
+
+[
+J_T(U)=U.
+]
+
+
+Hence
+
+
+[
+|J_T(P)|=2,\quad
+|J_T(Q)|=4,\quad
+|J_T(M)|=8,\quad
+|J_T(U)|=1.
+]
+
+
+The meet comparison gives
+
+
+[
+J_T(M)=J_T(P)\wedge J_T(Q),
+]
+
+
+so
+
+
+[
+m_T=0.
+]
+
+
+The closure losses are
+
+
+[
+(d_P,d_Q,d_M,d_U)
+
+
+(2,2,2,0).
+]
+
+
+Therefore
+
+
+[
+\Delta
+
+
+d_P+d_Q-d_M-d_U
+
+
+2+2-2-0
+
+
+
+
+
+
+
+
+
+]
+
+
+The marked-block counts are
+
+
+[
+q_S(P)=3,\qquad
+q_S(Q)=3,\qquad
+q_S(M)=3,\qquad
+q_S(U)=1,
+]
+
+
+so
+
+
+[
+\kappa_S=3+3-3-1=2.
+]
+
+
+Finally,
+
+
+[
+s_T
+
+
+|J_T(M)|+|J_T(U)|
+-|J_T(P)|-|J_T(Q)|
+]
+
+
+gives
+
+
+[
+s_T=8+1-2-4=3.
+]
+
+
+Thus the independently reconstructed fixture is
+
+
+[
+\boxed{
+s_0=1,\quad
+m_T=0,\quad
+\kappa_S=2,\quad
+\Delta=2,\quad
+s_T=3.
+}
+]
+
+
+This is a valid sharpness fixture.
+
+
+The closure-loss lemma
+
+
+Let
+
+
+[
+S={0,1,2}
+]
+
+
+and
+
+
+[
+q_S(R)
+
+
+#{B\in R:B\cap S\neq\varnothing}.
+]
+
+
+Since T=(012) fixes every element outside S, the only blocks affected by
+
+
+[
+J_T(R)=R\vee T(R)\vee T^2(R)
+]
+
+
+are blocks meeting S.
+
+
+Blocks disjoint from S remain unchanged. Therefore the reduction in the number of blocks is exactly the reduction in the number of marked blocks:
+
+
+[
+\boxed{
+d_T(R)=|R|-|J_T(R)|
+
+
+q_S(R)-q_S(J_T(R)).
+}
+]
+
+
+This is the first substantive lemma.
+
+
+Substitution into
+
+
+[
+\Delta=d_T(P)+d_T(Q)-d_T(M)-d_T(U)
+]
+
+
+gives
+
+
+[
+\Delta
+
+
+\kappa_S(P,Q)
+
+
+\kappa_S(J_T(P),J_T(Q))
+]
+
+
+provided the meet/join transport equalities are available.
+
+
+The invariant marked-block lemma
+
+
+If R is T-invariant, a block meeting S has only two possible forms.
+
+
+Either all three marked points lie in one block:
+
+
+[
+S\subseteq B,
+]
+
+
+giving
+
+
+[
+q_S(R)=1,
+]
+
+
+or all three marked points are singleton blocks:
+
+
+[
+{0},{1},{2},
+]
+
+
+giving
+
+
+[
+q_S(R)=3.
+]
+
+
+There is no invariant configuration containing exactly two marked points in one block.
+
+
+There is also no invariant configuration containing one marked point together with an outside point while keeping the other marked points separate: applying T would create overlapping translated blocks through the fixed outside point, forcing them to coincide and hence forcing all three marked points into one block.
+
+
+For two invariant partitions, only four combinations remain:
+
+
+[
+(1,1),\quad(1,3),\quad(3,1),\quad(3,3).
+]
+
+
+Directly evaluating the marked meet/join counts in these four cases gives
+
+
+[
+\boxed{
+R,W\text{ (T)-invariant}
+\Longrightarrow
+\kappa_S(R,W)=0.
+}
+]
+
+
+This is the second substantive lemma.
+
+
+The meet-transport lemma
+
+
+Let
+
+
+[
+M=P\wedge Q.
+]
+
+
+Monotonicity of J_T gives
+
+
+[
+J_T(M)
+\preceq
+J_T(P)\wedge J_T(Q).
+]
+
+
+The meet defect is
+
+
+[
+m_T
+
+
+r_{J_T(M)}
+
+
+r_{J_T(P)\wedge J_T(Q)}.
+]
+
+
+If
+
+
+[
+m_T=0,
+]
+
+
+the two finite partitions have equal rank and one refines the other, hence they are equal:
+
+
+[
+\boxed{
+m_T=0
+\Longrightarrow
+J_T(M)=J_T(P)\wedge J_T(Q).
+}
+]
+
+
+The closure operator preserves joins:
+
+
+[
+\boxed{
+J_T(P\vee Q)
+
+
+J_T(P)\vee J_T(Q).
+}
+]
+
+
+Consequently,
+
+
+[
+J_T(U)=J_T(P)\vee J_T(Q).
+]
+
+
+Under m_T=0,
+
+
+[
+\Delta
+
+
+\kappa_S(P,Q)
+
+
+\kappa_S(J_T(P),J_T(Q)).
+]
+
+
+Both J_T(P) and J_T(Q) are T-invariant, so the invariant marked-block lemma gives
+
+
+[
+\kappa_S(J_T(P),J_T(Q))=0.
+]
+
+
+Therefore
+
+
+[
+\boxed{
+m_T=0
+\Longrightarrow
+\Delta=\kappa_S(P,Q).
+}
+]
+
+
+This is the central transport theorem.
+
+
+The marked-incidence bound
+
+
+Construct the incidence graph from the three marked elements of S.
+
+
+Each marked element supplies one incidence edge between its P-block and its Q-block.
+
+
+Therefore
+
+
+[
+|E(H_S)|\le3.
+]
+
+
+The incidence graph is bipartite and simple. A nontrivial cycle in a simple bipartite graph requires at least four edges.
+
+
+Hence
+
+
+[
+\beta(H_S)=0.
+]
+
+
+Using
+
+
+[
+\kappa_S
+
+
+c(H_S)-c_G^{\mathrm{touched}}-\beta(H_S),
+]
+
+
+we obtain
+
+
+[
+\kappa_S
+
+
+c(H_S)-c_G^{\mathrm{touched}}.
+]
+
+
+Since
+
+
+[
+1\le c_G^{\mathrm{touched}}
+\le c(H_S)
+\le3,
+]
+
+
+it follows that
+
+
+[
+\boxed{
+0\le\kappa_S\le2.
+}
+]
+
+
+Combining this with the transport theorem gives
+
+
+[
+\boxed{
+m_T=0
+\Longrightarrow
+0\le\Delta=\kappa_S\le2.
+}
+]
+
+
+The bound is therefore structurally local: it comes from the three-point support, not from a large finite census.
+
+
+Exact transport interpretation
+
+
+Under meet preservation,
+
+
+[
+m_T=0,
+]
+
+
+the transport increase is not merely bounded:
+
+
+[
+\boxed{
+s_T-s_0=\kappa_S.
+}
+]
+
+
+Thus the three possible transport levels are exactly
+
+
+[
+\kappa_S=0,\quad1,\quad2.
+]
+
+
+They correspond to
+
+
+[
+s_T-s_0=0,\quad1,\quad2.
+]
+
+
+The n=8 fixture realizes
+
+
+[
+\kappa_S=\Delta=1.
+]
+
+
+The n=14 fixture realizes
+
+
+[
+\kappa_S=\Delta=2.
+]
+
+
+Therefore the nonzero spectrum is experimentally realized at both levels.
+
+
+Computational evidence
+
+
+The following results remain supporting evidence rather than proof.
+
+
+Local closure-loss classification through n=9:
+
+
+[
+\text{zero failures}.
+]
+
+
+Distinct m_T=0 pairs:
+
+
+[
+n=6:\quad 8{,}008\text{ cases},\qquad E=\Delta-\kappa_S=0
+]
+
+
+and
+
+
+[
+n=7:\quad 124{,}143\text{ cases},\qquad E=0.
+]
+
+
+The independently reconstructed n=8 fixture gives
+
+
+[
+(s_0,m_T,\kappa_S,\Delta,s_T)
+
+
+(1,0,1,1,2).
+]
+
+
+The independently reconstructed n=14 fixture gives
+
+
+[
+(s_0,m_T,\kappa_S,\Delta,s_T)
+
+
+(1,0,2,2,3).
+]
+
+
+No new exhaustive census is required to establish the mathematical target.
+
+
+Frozen regression assertions
+
+
+Every implementation must explicitly assert
+
+
+[
+r(R)=n-|R|,
+]
+
+
+[
+s_0
+
+
+r(P)+r(Q)-r(M)-r(U)
+
+
+|M|+|U|-|P|-|Q|,
+]
+
+
+[
+d_T(R)
+
+
+r(J_T(R))-r(R)
+
+
+|R|-|J_T(R)|,
+]
+
+
+[
+s_T
+
+
+r(J_T(P))+r(J_T(Q))
+-r(J_T(M))-r(J_T(U)),
+]
+
+
+[
+\Delta
+
+
+d_P+d_Q-d_M-d_U,
+]
+
+
+[
+m_T
+
+
+r(J_T(M))
+-r(J_T(P)\wedge J_T(Q)),
+]
+
+
+and
+
+
+[
+\boxed{
+s_T=s_0+\Delta+m_T.
+}
+]
+
+
+The sign convention is now a mandatory machine-level invariant.
+
+
+Regression fixture N8
+
+
+{
+  "fixture": "C3-TRANSPORT-N8",
+  "n": 8,
+  "T": [0, 1, 2],
+  "s0": 1,
+  "mT": 0,
+  "kappaS": 1,
+  "d": [1, 1, 1, 0],
+  "Delta": 1,
+  "sT": 2,
+  "E": 0,
+  "status": "VERIFIED",
+  "purpose": "rejects_Delta_zero"
+}
+
+
+
+Regression fixture N14
+
+
+{
+  "fixture": "C3-TRANSPORT-N14",
+  "n": 14,
+  "T": [0, 1, 2],
+  "P": [
+    [0, 7, 10],
+    [1, 3, 6],
+    [2, 8, 9],
+    [4, 5, 11, 12, 13]
+  ],
+  "Q": [
+    [0, 4, 10],
+    [1, 3],
+    [2, 9],
+    [5, 6],
+    [7, 11],
+    [8, 12, 13]
+  ],
+  "M": [
+    [0, 10],
+    [1, 3],
+    [2, 9],
+    [4],
+    [5],
+    [6],
+    [7],
+    [8],
+    [11],
+    [12, 13]
+  ],
+  "U": [
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+  ],
+  "JP": [
+    [0, 1, 2, 3, 6, 7, 8, 9, 10],
+    [4, 5, 11, 12, 13]
+  ],
+  "JQ": [
+    [0, 1, 2, 3, 4, 9, 10],
+    [5, 6],
+    [7, 11],
+    [8, 12, 13]
+  ],
+  "JM": [
+    [0, 1, 2, 3, 9, 10],
+    [4],
+    [5],
+    [6],
+    [7],
+    [8],
+    [11],
+    [12, 13]
+  ],
+  "JU": [
+    [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+  ],
+  "s0": 1,
+  "mT": 0,
+  "kappaS": 2,
+  "d": [2, 2, 2, 0],
+  "Delta": 2,
+  "sT": 3,
+  "E": 0,
+  "status": "VERIFIED",
+  "purpose": "rejects_Delta_le_one",
+  "reconstruction": "independent_exact_partition_reconstruction"
+}
+
+
+
+The N14 full object should be committed as a new audit artifact. The currently linked public N14 JSON contains only the scalar summary, so it should not be described as a self-contained reconstruction certificate until the full arrays are added.
+
+
+Formalization target
+
+
+The Lean development should not begin with the entire historical C3 architecture.
+
+
+The minimal dependency order is:
+
+
+[
+\text{partition lattice}
+\rightarrow
+J_T
+\rightarrow
+\text{closure loss}
+]
+
+
+[
+\text{partition lattice}
+\rightarrow
+\text{marked invariant classification}
+]
+
+
+then
+
+
+[
+m_T=0
+\rightarrow
+J_T(M)=J_T(P)\wedge J_T(Q)
+]
+
+
+then
+
+
+[
+\Delta=\kappa_S
+]
+
+
+and finally
+
+
+[
+0\le\kappa_S\le2.
+]
+
+
+The first high-value theorem should be the transport identity:
+
+
+transport_delta_eq_kappa
+
+
+
+with the hypotheses made explicit rather than hidden in a large structure.
+
+
+The graph lemma should remain separate.
+
+
+Formal status
+
+
+The mathematical argument is now reduced to a finite collection of explicit elementary lemmas.
+
+
+However:
+
+
+Lean definitions: OPEN
+
+
+Lean compilation receipt: ABSENT
+
+
+#print axioms receipt: ABSENT
+
+
+zero-sorryAx audit: ABSENT
+
+
+nanoda receipt: ABSENT
+
+
+Lean SHA-256 certificate: ABSENT
+
+
+Therefore the theorem must remain formally OPEN.
+
+
+The phrase “mathematically proved” should be reserved in the frozen ledger for the handwritten mathematical derivation, while the formal-verification status remains OPEN.
+
+
+Evidence status
+
+
+
+
+Component
+Status
+
+
+
+
+Transport identity derivation
+MATHEMATICALLY DERIVED
+
+
+Upper bound 0\le\Delta\le2
+MATHEMATICALLY DERIVED
+
+
+N8 sharpness
+VERIFIED FIXTURE
+
+
+N14 sharpness
+INDEPENDENTLY RECONSTRUCTED / VERIFIED
+
+
+m_T=0\Rightarrow\Delta=\kappa_S
+FORMALLY OPEN
+
+
+Three-edge graph bound
+FORMALLY OPEN
+
+
+Sign convention
+LOCKED / REGRESSION REQUIRED
+
+
+Public N8 scalar JSON
+PRESENT
+
+
+Public N14 scalar JSON
+PRESENT
+
+
+Public N14 full reconstruction artifact
+NOT YET PRESENT
+
+
+Lean receipt
+ABSENT
+
+
+#print axioms
+ABSENT
+
+
+zero-sorry audit
+ABSENT
+
+
+EK-001
+QUARANTINED
+
+
+SDS-002
+FROZEN / QUARANTINED
+
+
+C4
+BLOCKED
+
+
+Publication
+BLOCKED
+
+
+
+
+Literature positioning
+
+
+The invariant-partition literature supports the background statement that invariant partitions under a finite transitive permutation group form a sublattice. It does not establish the AQARION-specific identity
+
+
+[
+J_T(P\wedge Q)
+
+
+J_T(P)\wedge J_T(Q)
+]
+
+
+for arbitrary P,Q. The latter remains a pair-specific meet-preservation condition represented here by m_T=0.
+
+
+Partition-refinement literature supports the broader interpretation of partitions as computationally refined behavioral structures, but does not provide evidence for the transport theorem.
+
+
+Recent Koopman-validation literature supports the methodological distinction between a computed finite-dimensional representation and a certified invariant structural object. It is contextual support only.
+
+
+Provenance Run Crate supports the architectural separation of executions, intermediate outputs, and provenance records. It does not certify mathematical correctness.
+
+
+None of these external sources changes the C3 mathematical status.
+
+
+Frozen conclusion
+
+
+The transport route survives.
+
+
+The old numerical strengthening route does not.
+
+
+The strongest supported statement is
+
+
+[
+\boxed{
+m_T=0
+\Longrightarrow
+\Delta=\kappa_S
+\in{0,1,2}.
+}
+]
+
+
+Equivalently,
+
+
+[
+\boxed{
+m_T=0
+\Longrightarrow
+s_T-s_0=\kappa_S.
+}
+]
+
+
+The endpoint values are realized:
+
+
+[
+\boxed{\Delta=1\text{ at }n=8}
+]
+
+
+and
+
+
+[
+\boxed{\Delta=2\text{ at }n=14}.
+]
+
+
+The N14 witness is independently reconstructed and survives exact evaluation.
+
+
+The next mathematical bottleneck is therefore no longer discovery of a bound. It is formal certification of:
+
+
+[
+d_T(R)=q_S(R)-q_S(J_T(R)),
+]
+
+
+[
+T\text{-Invariant}(R,W)
+\Rightarrow
+\kappa_S(R,W)=0,
+]
+
+
+[
+m_T=0
+\Rightarrow
+J_T(M)=J_T(P)\wedge J_T(Q),
+]
+
+
+followed by
+
+
+[
+\Delta=\kappa_S.
+]
+
+
+The graph bound
+
+
+[
+0\le\kappa_S\le2
+]
+
+
+should then be certified independently.
+
+
+No C4.
+
+
+No publication promotion.
+
+
+No invented Lean receipt.
+
+
+No resurrection of \Delta\le1.
+
+
+No further search for an upper witness.
+
+
+The only immediate artifact correction is to make the N14 public regression record self-contained by committing the complete partition arrays above.
+
+---
+
 # 
 AQARION WU1 — Public Research Checkpoint
 
@@ -45894,3 +47213,4 @@ https://huggingface.co/spaces/Quantarion9/AQARION-ACADEMY/resolve/main/DOCS/CHEC
 
 https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-/blob/main/LIBRARY/AUGUST/A29_WU1-SUPPORT.TEX/
 
+https://huggingface.co/spaces/Quantarion9/AQARION-ACADEMY/resolve/main/CHECKPOINT.MD/
