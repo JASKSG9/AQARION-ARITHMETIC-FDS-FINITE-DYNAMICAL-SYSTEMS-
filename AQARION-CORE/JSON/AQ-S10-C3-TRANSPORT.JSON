@@ -1,0 +1,13 @@
+{
+  "fixture": "C3-TRANSPORT-N14",
+  "n": 14,
+  "T": [0,1,2],
+  "s0": 1,
+  "mT": 0,
+  "kappaS": 2,
+  "d": [2,2,2,0],
+  "Delta": 2,
+  "sT": 3,
+  "status": "VERIFIED",
+  "purpose": "rejects_Delta_le_one"
+}
