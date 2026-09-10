@@ -1,0 +1,20 @@
+{
+  "fixture_id": "TRANSPORT-N14-UPPER",
+  "historical_id": "AQ-S10-C3-TRANSPORT-N14",
+  "version": "1.0",
+  "universe": [0,1,2,3,4,5,6,7,8,9,10,11,12,13],
+  "permutation_T": [1,2,0,3,4,5,6,7,8,9,10,11,12,13],
+  "support_S": [0,1,2],
+  "P": [[0,7,10],[1,3,6],[2,8,9],[4,5,11,12,13]],
+  "Q": [[0,4,10],[1,3],[2,9],[5,6],[7,11],[8,12,13]],
+  "M": [[0,10],[1,3],[2,9],[4],[5],[6],[7],[8],[11],[12,13]],
+  "U": [[0,1,2,3,4,5,6,7,8,9,10,11,12,13]],
+  "JP": [[0,1,2,3,6,7,8,9,10],[4,5,11,12,13]],
+  "JQ": [[0,1,2,3,4,9,10],[5,6],[7,11],[8,12,13]],
+  "JM": [[0,1,2,3,9,10],[4],[5],[6],[7],[8],[11],[12,13]],
+  "JU": [[0,1,2,3,4,5,6,7,8,9,10,11,12,13]],
+  "expected": {"n":14,"s0":1,"mT":0,"dP":2,"dQ":2,"dM":2,"dU":0,"kappaS":2,"kappaS_J":0,"Delta":2,"sT":3,"E":0,"cHS":3,"cG_touched":1,"betaHS":0},
+  "label_correction": {"historical_label":"n=12","correct_label":"n=14","reason":"|X|=14","previous_scalar_json_status":"QUARANTINED_INCOMPLETE"},
+  "status": "INDEPENDENTLY_VERIFIED",
+  "purpose": "rejects_Delta_le_one, sharpness_upper_|S|-1"
+}
