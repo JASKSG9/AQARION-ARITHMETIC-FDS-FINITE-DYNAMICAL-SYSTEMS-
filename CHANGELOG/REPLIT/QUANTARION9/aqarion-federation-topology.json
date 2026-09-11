@@ -1,0 +1,71 @@
+{
+  "schema_version": "AQARION-FEDERATION-TOPOLOGY-1.0",
+
+  "applications": {
+    "app_a": {
+      "role": "PUBLIC_FEDERATION_DISCOVERY",
+      "url": "https://aqarion-federation-hub--quantarion9.replit.app",
+      "responsibilities": [
+        "public discovery",
+        "federation overview",
+        "human-facing presentation",
+        "routing to certificate infrastructure"
+      ]
+    },
+
+    "app_b": {
+      "role": "CERTIFICATE_EVIDENCE_API",
+      "url": "https://quantarion-federation-hub--aqarionaaron.replit.app",
+      "responsibilities": [
+        "evidence API",
+        "certificate API",
+        "manifest API",
+        "machine-readable certificate retrieval"
+      ]
+    }
+  },
+
+  "repository": {
+    "role": "SOURCE_AND_VERIFICATION",
+    "url": "https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-"
+  },
+
+  "artifact_registry": {
+    "role": "ARCHIVAL_ARTIFACTS",
+    "url": "https://huggingface.co/Quantarion9/"
+  },
+
+  "api_contract": {
+    "discovery": [
+      "GET /api/overview"
+    ],
+
+    "general_evidence": [
+      "GET /api/evidence"
+    ],
+
+    "certificate_manifest": [
+      "GET /api/certificates/manifest.json"
+    ],
+
+    "k2r": [
+      "GET /api/certificates/AQ-K2R-CLOSURE-STAB/manifest.json",
+      "GET /api/certificates/AQ-K2R-CLOSURE-STAB/AQ-K2R-R2.json",
+      "GET /api/certificates/AQ-K2R-CLOSURE-STAB/AQ-K2R-R3.json",
+      "GET /api/certificates/AQ-K2R-CLOSURE-STAB/AQ-K2R-R5.json",
+      "GET /api/certificates/AQ-K2R-CLOSURE-STAB/AQ-K2R-R15.json"
+    ]
+  },
+
+  "provenance_rules": [
+    "App A must explicitly identify App B by role.",
+    "App B must explicitly identify App A as the public discovery surface.",
+    "Certificate records must identify their certificate API origin.",
+    "Repository origin must be recorded independently.",
+    "Artifact-registry origin must be recorded independently.",
+    "A certificate must never be promoted merely because it appears in /api/evidence.",
+    "Each certificate must carry its own evidence status."
+  ]
+}
+
+
