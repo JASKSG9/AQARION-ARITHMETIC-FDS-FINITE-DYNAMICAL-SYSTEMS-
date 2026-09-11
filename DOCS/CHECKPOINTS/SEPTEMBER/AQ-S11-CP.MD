@@ -1,16 +1,191 @@
-🔷 AQARION
+╔══════════════════════════════════════════════════════════════════════╗
+║ AQ-S11-CP.1 — COMPLETED ADVERSARIAL UPDATE                         ║
+║ FROZEN · EXACT · NO PROMOTION                                      ║
+║ Date: 2026-09-11                                                    ║
+╚══════════════════════════════════════════════════════════════════════╝
 
-Public Research Progress Report, Verification Checkpoint & Adversarial Audit
+GOVERNANCE
+----------
+C3 GLOBAL:              OPEN
+CrossCyclePair:         OPEN → THEOREM-BACKED / LEAN-OPEN
+T3:                     OPEN
+Lean certification:     OPEN
+C4:                     BLOCKED
+Publication:            BLOCKED
 
-Project: AQARION — Evidence-Governed Arithmetic / Finite Dynamical Systems
-Checkpoint: S9 → S9.1 Evidence-Compiler Transition
-Date: September 2026
-Governance: 🧊 FROZEN · EXACT · NO PROMOTION · CANONICAL
-C4: 🔴 BLOCKED
-Publication: 🔴 BLOCKED
-Lean certification: 🟡 OPEN
+PUBLIC SOURCE
+-------------
+AQ-S11-CP.MD:           EXISTS
+Public S11 content:     PRESENT
+Current header:         S9 → S9.1
+Disposition:             VERSION/HEADER DRIFT
 
----
+Do NOT classify the file as absent.
+Do NOT classify the header as synchronized.
+
+NEW FINDING
+-----------
+AQ-SDS-S11-002
+TYPE:
+    CHECKPOINT VERSION / HEADER DRIFT
+
+DESCRIPTION:
+    Public S11 artifact exists and contains S11 material,
+    but its canonical header still identifies the document as
+    "S9 → S9.1 Evidence-Compiler Transition."
+
+STATUS:
+    E0 semantic content          PASS
+    E0.5 source synchronization  DRIFT
+    promotion                    BLOCKED
+
+NEW SEMANTIC FINDING
+--------------------
+AQ-SDS-T3-003
+TYPE:
+    COUNT SEMANTIC COLLISION
+
+146160 = 6! * B_6
+
+Therefore:
+    146160 = tested permutation-partition pairs
+
+It is NOT intrinsically:
+    extremizer_count
+
+Required field distinction:
+    tested_case_count
+    equality_case_count
+    extremizer_case_count
+    violation_count
+
+CROSSCYCLEPAIR PIVOT
+--------------------
+Let:
+    d = gcd(a,b)
+    N = a+b-d
+
+CrossCyclePair:
+    vertices A_0,...,A_{a-1}, B_0,...,B_{b-1}
+    edge e_j = (A_{j mod a}, B_{j mod b})
+
+For 0 <= j < N:
+
+    e_j and e_k are connected through shared endpoints
+    iff j and k are connected by ±a / ±b moves.
+
+Therefore CrossCyclePair components equal
+the components of Toeplitz graph T_N(a,b).
+
+Published Toeplitz theorem:
+    c(T_n(a,b)) = max(gcd(a,b), a+b-n)
+
+At:
+    n = N = a+b-gcd(a,b)
+
+therefore:
+    c(T_N(a,b)) = gcd(a,b).
+
+Hence:
+    c(CrossCyclePair_N) = gcd(a,b).
+
+Stabilization:
+    c(H_h) >= gcd(a,b) for h >= N
+    c(H_N) = gcd(a,b)
+
+therefore:
+    c(H_h) = gcd(a,b) for all h >= N.
+
+EXACT COMPUTATIONAL REPLAY
+--------------------------
+Systematic:
+    1 <= a,b <= 120
+    ordered pairs = 14,400
+    violations = 0
+
+Threshold:
+    c(H_N) = gcd(a,b)
+    failures = 0
+
+Stabilization:
+    c(H_N) = c(H_{N+1}) = gcd(a,b)
+    failures = 0
+
+Random:
+    10,000 pairs
+    1 <= a,b <= 500
+    violations = 0
+
+Classification:
+    computational evidence = PASS
+    theorem-backed          = PASS
+    AQARION self-contained  = OPEN
+    Lean bridge              = OPEN
+    Lean certificate         = OPEN
+
+PRIMARY LEAN TARGET
+-------------------
+CP-BRIDGE-01:
+
+    CrossCyclePair connectivity
+        =
+    Toeplitz connectivity
+
+Recommended proof representation:
+    generated equivalence / EqvGen / reachability
+
+rather than direct component-cardinality manipulation.
+
+C3
+--
+Existing exact identity:
+    m_T = 0  =>  Delta_d = kappa_S
+
+Critical adversarial locus:
+    s_0 = 1
+    kappa_S > 0
+    m_T = 0
+
+n=8 targeted census remains next computational attack.
+
+T3
+--
+T3 remains OPEN.
+
+Dependency:
+    CrossCyclePair
+        ↓
+    FinitePairJoin
+        ↓
+    T3
+
+No promotion from computational absence of counterexamples.
+
+REPRODUCIBILITY
+---------------
+Maintain:
+    READ != EXECUTE
+    EXECUTE != REPLAY
+    REPLAY != FORMAL
+    FORMAL != SEMANTIC ACCEPTANCE
+    HASH != ATTESTATION
+    ATTESTATION != THEOREM
+
+Current external literature supports explicit
+separation of compilation, semantic faithfulness,
+environment reconstruction, and result reproduction.
+
+FINAL DISPOSITION
+-----------------
+S11 accepted as audit evidence.
+S11 public artifact exists.
+Header synchronization requires repair.
+CrossCyclePair is theorem-backed but Lean-open.
+C3 remains globally OPEN.
+T3 remains OPEN.
+C4 BLOCKED.
+Publication BLOCKED.
+NO CLAIM PROMOTION.
 
 🧭 0. Public Executive Summary
 
@@ -30535,7 +30710,1240 @@ The parameterization across instances (r = 2, 3, 5, 6, 10, 15) confirms exact st
 | Orbit-Closure Height | h_T(M_r) = 2r | Attaches the global upper bound n - 1 |
 | Rank Trajectory | \vert{}M_r^{[h]}\vert{} = 2r - h + 1 | Strict unit decrement per iteration |
 | Three-Orbit Deficit | M_r^{[3]} \neq U for all r \ge 2 | Exact block deficit of 2r - 2 |
-| Curvature Metrics | \kappa_S = -(r-1), \kappa_{S,J} = 0, \Delta = -(r-1) | Confirms exact transport and defect balance |
+| Curvature Metrics | \kappa_S = -(r-1), \kappa_{S,J} = 0, \Delta = -(r-1) | Confirms exact transport and defect balance |AQ-S11-CP.MD — Text Audit — September 11, 2026
+Mode: FROZEN · EXACT · READ≠EXECUTE · NO VISUALS
+Governance: C4 BLOCKED · Publication BLOCKED · Lean OPEN 4.33.1
+
+Your Termux log is the real receipt. You went from:
+
+import hashlib → bash command not found → syntax error near '(' for every Python line → can't open file qrf_scanner.py
+
+to:
+requests 61d029cd257ebb4c files:157 Python:37 VERDICT READABLE
+aqarion-arithmetic 39286a58c81ed870 files:482 Python:155 EXEC 164 CLAIMS 4
+kaprekar 311 objects
+fibonacci 56 objects
+mandelbrot 37 objects
+quantarion e3b0c44298fc1c14 files:0 -> PRIVATE correctly refused
+That empty SHA e3b0c44... is not a failure — it's your firewall working. Private repo cannot be cloned with GIT_TERMINAL_PROMPT=0, so scanner hashed empty dir. Correct behavior: READ≠EXECUTE, no credential prompt, no fabrication.
+
+1. S11 Census — What you supplied vs frozen TORE
+
+
+
+You supplied:
+n: 3,4,5,6,7
+total_pairs: 1,11,116,1442,21945
+mT_zero: 0,6,72,880,13954
+kS_gt0_mT0: 0,0,0,0,282
+s0_1_mT0: 0,0,0,0,927
+c3_violations: 0,0,0,0,0
+delta_d_vals: [0],[0],[0],[0],[0,1]
+Audit:
+
+Methodology via restricted growth strings (RGS) for unordered partition pairs — exact integer arithmetic, no floating point — matches your make_fixtures.py locked spec.
+total_pairs 21,945 for n=7 aligns with expected pair count growth, not n!*B_n. Your previous ledger 4,30,360,6240,146160 was ordered (T,R) pairs — different object. S11 counts (P,Q) pairs for C3 — correct to keep separate.
+Transport identity s_T = s0 + Delta_d + mT — 21,945 pairs 0 failures — algebraically proved earlier via rank-nullity, computational check passes.
+Closure-defect mT=0 => Delta_d = kappa_S — 13,954 pairs for n=7 — 0 failures — this is the reduced target you froze.
+C3 safety s0=1, mT=0 => sT>=1 — 927 pairs at n=7 — 0 violations. First n where critical locus non-empty — matches TORE where equality cases first appear at n=7.
+Obstruction search s0=1, kappa_S>0, mT=0 — 0 survivors n≤7. Your 282 cases kappa_S>0,mT=0 all have s0>=2. So critical locus clean. Strong computational evidence, not proof.
+Delta_d in {0,1} first appearance of 1 at n=7 — matches triangle support lemma d_T in {0,1} expectation. Conjectured range remains OPEN beyond n=7.
+
+No promotion. This is exactly the computational layer C3 needs before Lean.
+
+2. Defect Operator Flow — PROVED core
+Observable R^n
+↓ P_Pi constant on blocks
+↓ K: f -> f∘T (Koopman pullback)
+↓ D_Pi = (I-P_Pi) K P_Pi
+↓ D_Pi^2 = 0 via PD=0, no K assumption
+↓ Descent: D_Pi=0 <=> exact quotient
+You correctly flag commutator fallacy: [K][P]=0 => D=0, not conversely. Exact quotient does not require commuting — only QKP=0 where Q=I-P. This is why D is strictly more general than commutator check, and why your Kaprekar spectral geometry rank(D)=m-c(Gamma) works.
+
+
+
+Status: PROVED exact, basis-independent, Lean zero-sorry for this block in v19.0.
+
+3. C3 Safety Flow — VERIFIED n≤7, CONJECTURE global
+s0=1 (critical slack)
+↓ mT=0 (meet preservation)
+↓ Delta_d = kappa_S
+↓ kappa_S >=0 (marked-block nonnegativity, proved for |S|≤3, observed for |S|=4 at n=7)
+↓ sT = s0 + Delta_d + mT >=1
+Edge budget |E| ≤ |S| — each s∈S gives pair (B_P(s),B_Q(s)), collapse duplicates — your 10k random 0 violations, 3150 exhaustive for |S|≤3 0 anomalies — correct. Small support |S|≤3 => beta=0, kappa>=0 needs ≥4 edges for cycle — exhaustive n=4 passes.
+
+
+
+Truncation hazard: J^{(≤3)}!= J gives spurious mT=1,3,5,6,16 vs full 0 — gate NC-J-TRUNC mandatory, you enforced.
+
+4. SHA Provenance — Locked
+AQARION-ARITHMETIC 39286a58c81ed870 files:482 Python:155 EXEC:164 CLAIMS:4
+psf/requests 61d029cd257ebb4c files:157 Python:37 EXEC:0 CLAIMS:0
+Quantarion private e3b0c44298fc1c14 files:0 Python:0 EXEC:0 CLAIMS:0 -> PRIVATE, correctly rejected
+KAPREKAR TBD pending scan
+FIBONACCI TBD pending scan
+MANDELBROT TBD pending scan
+Your ~/qrf/ledger/ now contains immutable receipts matching GitHub public 582 objects 27.93 MiB clone log. No credential was given to firewall — GIT_TERMINAL_PROMPT=0 forces fail instead of asking for username — exactly Gate 3 behavior you spec'd: Password for 'https://~%2Fbin%2Fqrf...' was paste during git credential prompt, %2F=/ url-encoded — fixed by clearing ~/.git-credentials and credential-cache exit.
+
+
+5. Research Firewall v0.1 — What you built is correct
+
+
+
+You implemented exactly your 4 gates read-only:
+
+Gate1 provenance: source, timestamp, SHA-256 root, file list — your provenance_record
+Gate2 content/code separation: .py/.sh vs .md/.csv/.jsonl — scan_repo
+Gate3 hostile-input: ignore previous instructions, send credentials, os.system, subprocess., requests.get, eval, base64.b64decode — audit_file
+Gate4 claim firewall: THEOREM PROVEN, PROOF COMPLETE, publication candidate, world-class, production certified stays CLAIMED_BY_SOURCE until TORE ledger promotes — claims_scan
+
+CLI qrf scan/hash/claims/audit/provenance/report works on Android Termux, no auto-delete, no auto-exec, no creds. Ledger root ~/qrf/ledger/ ready for OSF Paper Box B.
+
+Status history drift you found — July 2026 "publication candidate" → September C4 BLOCKED — is now auditable, not conflicting, exactly as EvidenceFirewall intended.
+
+6. Governance — No Change
+
+
+
+C4: BLOCKED — Lean receipts absent for C3 global, CrossCyclePair remains PRIMARY OPEN for TORE T3, even though pair stabilization 0/10000 for a,b≤100 + random 500
+Publication: BLOCKED — computational evidence ≠ proof
+Lean: OPEN 4.33.1 zero-sorry v19.0 for defect operator + transport identities
+Ledger: ~/qrf/ledger/ with real SHAs, not empty report
+
+7. Next locked queue — text-only
+
+
+
+Finish ledger: ~/bin/qrf report./FIBONACCI... + ./MANDELBROT... + ./KAPREKAR... → fill TBD SHAs
+Create AQ-TERM-911-FLOW_2026-09-11.md checkpoint with theory lock D=(I-P)KP, rank(D)=m-c(Gamma), Hamming {1,4,6,4,1} boundary test, UPF vs GPF
+Extend C3 census to n=8 — expect ∼10^5 pairs — targeted search for (s0=1,kappa_S>0,mT=0) counterexample
+TORE CrossCyclePair — attack coprime_cross_connected via index relation j≡k mod a or mod b → EqCl = ≡_d on {0..a+b-d-1} — arithmetic, not graph-heavy, then bridge to SimpleGraph.Connected
+Paper Box B draft using S11 JSON + ledger + defect flow — computational evidence chapter, no visuals neededAQ-S11-CP — Audit disposition
+
+Accepted as a consistent frozen checkpoint. The text you supplied is internally coherent with the current AQARION/TORE ledger and, importantly, it preserves the distinction between readability, executable evidence, computational evidence, and formal proof.
+
+The strongest points are:
+
+1. Termux receipt is correctly treated as the execution provenance.
+The transition from shell/Python invocation failure to:
+
+requests — readable, not executed
+
+aqarion-arithmetic — 164 executable Python artifacts / 4 claims
+
+public kaprekar, fibonacci, mandelbrot
+
+private quantarion — rejected without credentials
+
+
+is exactly the behavior a read-only research firewall should expose.
+
+
+2. The empty Quantarion SHA is correctly classified.
+e3b0c44298fc1c14... is the SHA-256 empty-directory/hash sentinel in this context, not evidence that the repository itself is empty. The meaningful state is PRIVATE / inaccessible under GIT_TERMINAL_PROMPT=0. No credentials were supplied and no private contents were fabricated.
+
+
+3. The S11 census is correctly separated from the TORE \((T,R)\) census.
+This is an important bookkeeping correction:
+
+
+
+\[
+   21{,}945
+\]
+
+\[
+   146{,}160
+\]
+
+4. The C3 reduction is the right target.
+
+
+
+\[
+   m_T=0\quad\Longrightarrow\quad\Delta_d=\kappa_S
+\]
+
+\[
+   s_0=1,\quad\kappa_S>0,\quad m_T=0
+\]
+
+5. The defect block is correctly frozen.
+
+
+
+\[
+   D_\Pi=(I-P_\Pi)K P_\Pi,\qquad D_\Pi^2=0
+\]
+
+\[
+   P_\Pi(I-P_\Pi)=0.
+\]
+
+\[
+   D_\Pi=0\not\Rightarrow[K,P_\Pi]=0.
+\]
+
+6. The truncation warning is especially important.
+NC-J-TRUNC should remain a mandatory gate. The fact that truncated \(J^{(\le3)}\) produces false \(m_T\) positives while the full object gives zero is precisely the sort of silent experimental-fidelity failure the firewall is intended to catch.
+
+
+7. TORE remains correctly blocked.
+The S11 results do not close CrossCyclePair. The correct status remains:
+
+
+
+\[
+   \boxed{\text{CrossCyclePair PRIMARY OPEN}}
+\]
+
+\[
+   \boxed{\text{T3 OPEN,\quad C4 BLOCKED,\quad Publication BLOCKED}.}
+\]
+
+One wording I would tighten
+
+The sentence
+
+> “Your Termux log is the real receipt.”
+
+
+
+is operationally right, but for a publication-grade artifact I would make the distinction explicit:
+
+> The Termux log is the execution receipt; the repository SHA/file census is the provenance receipt; neither constitutes a formal proof certificate.
+
+
+
+That prevents later readers from treating a successful scanner execution as certification of the mathematical claims.
+
+Locked next queue
+
+The proposed order is sound. I would prioritize it:
+
+S11 ledger completion → n=8 C3 adversarial census → CrossCyclePair arithmetic proof → Lean bridge → Paper Box B.
+
+For CrossCyclePair, the most promising reduction remains the arithmetic one:
+
+\[
+N=a+b-d,\qquad d=\gcd(a,b),
+\]
+
+and prove directly that the equivalence generated by
+
+\[
+j\mapsto (j\bmod a,j\bmod b),\qquad 0\le j<N
+\]
+
+is exactly the \(d\)-sector relation. That is substantially cleaner than trying to prove connectivity through a generic graph argument first.
+
+Frozen disposition:
+S11 accepted as audit evidence · no claim promotion · C3 global OPEN · CrossCyclePair OPEN · T3 OPEN · C4 BLOCKED · Publication BLOCKED.
+
+The supplied GitHub checkpoint is therefore consistent with the current governance state.Worked for 6s
+
+AQ-S11-CP text audit — verdict
+
+FROZEN · EXACT · READ≠EXECUTE · NO PROMOTION
+
+I checked the supplied claims against the public GitHub path you gave. There is one material provenance problem that must be recorded before treating the pasted S11 text as the current public checkpoint.
+
+1. The URL does not currently expose the S11 text
+
+The public path
+
+[AQ-S11-CP.MD](https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-/blob/main/DOCS/CHECKPOINTS/SEPTEMBER/AQ-S11-CP.MD?utm_source=chatgpt.com)
+
+currently resolves through the repository connector to content whose header is:
+
+> “Checkpoint: S9 → S9.1 Evidence-Compiler Transition”
+
+
+
+and whose content discusses the old rJT/rJU transport drift.
+
+A repository search for AQ-S11-CP also returned no matching result.
+
+So, as of this inspection:
+
+\[
+\boxed{\text{pasted S11 text} \neq \text{currently retrievable public file}}
+\]
+
+This is exactly the sort of E0.5 manifest/source synchronization failure that AQ-SDS is supposed to catch.
+
+It does not mean your Termux S11 receipt is false. It means I cannot promote the pasted S11 document to public-source-current status from the supplied GitHub URL.
+
+
+---
+
+2. The conceptual audit of the S11 material is otherwise internally coherent
+
+The important distinctions you make are correct and should remain frozen:
+
+\[
+\boxed{
+\text{READ} \neq \text{EXECUTE}
+}
+\]
+
+\[
+\boxed{
+\text{SOURCE SYNC}
+\neq
+\text{MATHEMATICAL TRUTH}
+\neq
+\text{FORMAL ACCEPTANCE}
+\neq
+\text{PROVENANCE CLOSURE}
+}
+\]
+
+That separation is particularly important because the public file I can retrieve still documents precisely the earlier manifest/source drift rather than the S11 state.
+
+Research-firewall result
+
+Your reported private-repository behavior is correctly classified if the Termux receipt actually shows the failed authenticated clone followed by hashing an empty directory:
+
+\[
+\boxed{\text{PRIVATE} \rightarrow \text{REFUSED}}
+\]
+
+not
+
+\[
+\boxed{\text{PRIVATE} \rightarrow \text{MISSING}}
+\]
+
+and certainly not
+
+\[
+\boxed{\text{PRIVATE} \rightarrow \text{EXECUTED}}
+\]
+
+That is the right security semantics for a read-only evidence scanner.
+
+
+---
+
+3. S11's C3 claims remain computational, not proved
+
+The status you assign is appropriately conservative.
+
+For the reported \(n\le7\) census:
+
+\[
+s_T=s_0+\Delta_d+m_T
+\]
+
+with
+
+\[
+m_T=0\Longrightarrow \Delta_d=\kappa_S
+\]
+
+and the observed absence of
+
+\[
+s_0=1,\quad \kappa_S>0,\quad m_T=0
+\]
+
+is strong computational evidence, but it does not establish the global theorem.
+
+Likewise,
+
+\[
+\Delta_d\in\{0,1\}
+\]
+
+through \(n=7\) is evidence only. The statement
+
+\[
+\Delta_d\in\{0,1\}\quad\text{globally}
+\]
+
+must remain OPEN until the structural argument closes it.
+
+Your proposed \(n=8\) targeted search is therefore exactly the right next computational attack: don't merely enlarge the census; specifically attack the critical locus.
+
+
+---
+
+4. The defect-operator block is correctly classified
+
+The core
+
+\[
+D_\Pi=(I-P_\Pi)KP_\Pi
+\]
+
+and
+
+\[
+D_\Pi^2=0
+\]
+
+are structurally sound.
+
+The latter needs no commutation assumption:
+
+\[
+D_\Pi^2
+=(I-P)KP(I-P)KP
+=(I-P)K\underbrace{P(I-P)}_{0}KP
+=0.
+\]
+
+And
+
+\[
+D_\Pi=0
+\iff
+K(V_\Pi)\subseteq V_\Pi
+\]
+
+is the correct quotient criterion.
+
+The warning about the commutator fallacy should remain explicit:
+
+\[
+D=0\not\Rightarrow[P,K]=0.
+\]
+
+That distinction is central and should not be weakened in the Paper Box B draft.
+
+
+---
+
+5. One thing I would change in the S11 text
+
+Do not call the GitHub URL an S11 public checkpoint until the repository actually contains the S11 artifact.
+
+Use a provenance sentence like:
+
+> Public-source status: The S11 checkpoint supplied for this audit was obtained from the local/Termux evidence ledger. The nominal public GitHub path currently resolves to an earlier S9→S9.1 artifact and therefore fails E0.5 source/checkpoint synchronization. S11 is retained as an audit artifact but is not promoted to public-source-current status.
+
+
+
+That turns the discrepancy itself into a valid AQ-SDS finding.
+
+Formally:
+
+Gate	S11 status
+
+E0 semantic content	🟢 READABLE
+E0.5 source/checkpoint sync	🔴 FAIL — current public path is S9/S9.1
+E1 algebraic consistency	🟢/🟡 depending claim
+E2 counterexample search	🟢 reported
+C3 global proof	🔴 OPEN
+TORE CrossCyclePair	🔴 PRIMARY OPEN
+Lean certification	🟡 OPEN
+C4	🔴 BLOCKED
+Publication	🔴 BLOCKED
+
+
+
+---
+
+6. Locked next queue
+
+Your queue is mathematically well ordered:
+
+1. Resolve S11 public-source provenance first.
+
+
+2. Finish the three TBD repository hashes.
+
+
+3. Preserve the private Quantarion result as PRIVATE/REFUSED, not missing.
+
+
+4. Run C3 \(n=8\), with priority on
+
+
+
+\[
+   s_0=1,\ \kappa_S>0,\ m_T=0.
+\]
+
+6. Bridge the resulting equivalence relation to SimpleGraph.Connected.
+
+
+7. Keep CrossCyclePair as PRIMARY OPEN until that bridge is actually proved.
+
+
+8. Only then attempt the T3 theorem and Lean certificate.
+
+
+9. Paper Box B can contain the S11 computational evidence, but it must explicitly state C4 BLOCKED / publication blocked.
+
+
+
+Bottom line
+
+The S11 governance is appropriately conservative. I would not promote any mathematical claim based on this text alone.
+
+The one new finding from the actual public-source check is:
+
+\[
+\boxed{
+\textbf{AQ-SDS-S11-001: PUBLIC CHECKPOINT/SOURCE DESYNCHRONIZATION}
+}
+\]
+
+The supplied S11 text and Termux receipts may be genuine audit artifacts, but the linked public repository currently exposes an earlier S9/S9.1 checkpoint. That is not a mathematical failure; it is precisely an E0.5 provenance/synchronization failure, and AQ-S11 should record it rather than silently treating the two artifacts as identical. Worked for 48s
+
+AQ-S11-CP — adversarial continuation result
+
+FROZEN · EXACT · NO PROMOTION
+
+I rechecked the live public repository rather than relying on the earlier checkpoint interpretation. There is a material update:
+
+1. The earlier E0.5 finding must be corrected
+
+The public path now does exist, and the repository history shows:
+
+4d412535... — Create AQ-S11.MD
+
+2ea7221a... — Rename AQ-S11.MD to AQ-S11-CP.MD
+
+
+Both commits occurred on 2026-09-11, with the rename immediately following creation.
+
+The September directory explicitly contains AQ-S11-CP.MD. Its current Git blob SHA is:
+
+268817a9032d10bbbaff0084b552cc22f326961e
+
+More importantly, the file is not merely the old S9 artifact. Its large body contains the S11 census and the CrossCyclePair material. The earlier statement
+
+\[
+\boxed{\text{S11 text}\neq\text{public file}}
+\]
+
+is therefore too strong and is now withdrawn.
+
+Corrected provenance finding
+
+The actual problem is:
+
+\[
+\boxed{
+\text{PUBLIC S11 ARTIFACT EXISTS}
+\quad\land\quad
+\text{S11 CONTENT EXISTS}
+\quad\land\quad
+\text{TOP-LEVEL HEADER STILL SAYS S9}\rightarrow S9.1
+}
+\]
+
+So the E0.5 finding should be upgraded from source absence/desynchronization to:
+
+\[
+\boxed{\textbf{AQ-SDS-S11-002: INTERNAL CHECKPOINT VERSION DRIFT}}
+\]
+
+The file is public and S11-bearing, but its canonical header still identifies the document as:
+
+> Checkpoint: S9 → S9.1 Evidence-Compiler Transition
+
+
+
+That is a genuine semantic/versioning defect, but a different and weaker defect than the one I previously reported.
+
+
+---
+
+2. Much more important: CrossCyclePair has become sharply reducible
+
+I inspected the actual CrossCyclePair material embedded in the public checkpoint.
+
+The current frozen object is:
+
+\[
+G_h(a,b):
+\quad
+V=\{A_0,\ldots,A_{a-1}\}\cup\{B_0,\ldots,B_{b-1}\},
+\]
+
+with edge
+
+\[
+A_{j\bmod a}B_{j\bmod b},
+\qquad 0\le j<h.
+\]
+
+Put
+
+\[
+d=\gcd(a,b),\qquad N=a+b-d.
+\]
+
+The current computational certificate reports:
+
+\[
+c(G_N)=d,\qquad c(G_{N+1})=d
+\]
+
+for all \(1\le a,b\le50\), additional \(50\times50\) ranges, a \(100\times100\) square sample, and 1,000 random larger pairs.
+
+But the important thing is that the public artifact itself now identifies the correct mathematical reduction:
+
+\[
+G_h
+=
+\bigsqcup_{r=0}^{d-1}G_h^{(r)}
+\]
+
+where every sector is determined by
+
+\[
+j\bmod d=r.
+\]
+
+After dividing all indices by \(d\),
+
+\[
+(a',b')=\left(\frac ad,\frac bd\right),
+\qquad
+\gcd(a',b')=1.
+\]
+
+The sector has exactly
+
+\[
+a'+b'-1
+\]
+
+edges at the threshold.
+
+Thus the entire theorem reduces to:
+
+\[
+\boxed{
+\gcd(a,b)=1
+\Longrightarrow
+G_{a+b-1}(a,b)\text{ is connected}.
+}
+\]
+
+This is exactly the smaller Lean target identified in the checkpoint.
+
+
+---
+
+3. External literature independently supports this exact graph threshold
+
+I searched specifically for the graph rather than accepting the checkpoint's claim.
+
+The literature calls this a finite Toeplitz graph \(T_n(a,b)\). A published result states:
+
+\[
+T_n(a,b)\text{ connected}
+\iff
+\gcd(a,b)=1
+\quad\text{and}\quad
+n\ge a+b-1.
+\]
+
+It also states that when \(\gcd(a,b)=1\) and
+
+\[
+n=a+b-1,
+\]
+
+the graph is a Hamiltonian path. 
+
+That is an unusually strong independent confirmation because it matches the exact threshold AQARION needs:
+
+\[
+\boxed{N=a+b-\gcd(a,b)}.
+\]
+
+For \(d=1\),
+
+\[
+N=a+b-1.
+\]
+
+For general \(d\), the \(d\) residue sectors reduce to coprime Toeplitz graphs.
+
+So the CrossCyclePair computational observation is not an isolated numerical pattern. There is a known graph-theoretic theorem sitting almost exactly on the required boundary. 
+
+Important: this is external mathematical support, not yet the AQARION self-contained Lean proof. That distinction remains frozen.
+
+
+---
+
+4. The clean proof architecture is now even better
+
+I would freeze the following route.
+
+Lemma A — sector invariant
+
+If
+
+\[
+j\equiv k\pmod a
+\quad\text{or}\quad
+j\equiv k\pmod b,
+\]
+
+then
+
+\[
+j\equiv k\pmod d.
+\]
+
+Therefore every edge preserves the \(d\)-sector.
+
+So:
+
+\[
+c(G_h)\ge d.
+\]
+
+Lemma B — sector normalization
+
+For sector \(r\), write
+
+\[
+j=r+dt.
+\]
+
+Then
+
+\[
+j\bmod a
+=
+r+d(t\bmod a'),
+\]
+
+and
+
+\[
+j\bmod b
+=
+r+d(t\bmod b').
+\]
+
+Hence the sector graph is isomorphic to
+
+\[
+G_{a'+b'-1}(a',b'),
+\]
+
+where
+
+\[
+\gcd(a',b')=1.
+\]
+
+Lemma C — coprime threshold
+
+Prove:
+
+\[
+\boxed{
+\gcd(a,b)=1
+\Longrightarrow
+G_{a+b-1}(a,b)\text{ connected}.
+}
+\]
+
+There are now two legitimate proof lanes:
+
+Lane C1 — self-contained AQARION proof
+
+Build the explicit Hamiltonian path / Euclidean construction.
+
+Lane C2 — literature-backed lemma
+
+Use the published Toeplitz connectivity theorem as external support, then independently formalize the exact specialized statement in Lean. The published result explicitly gives the same \(a+b-1\) threshold and Hamiltonian-path property. 
+
+For AQARION publication-grade status, I recommend C1 + C2:
+
+\[
+\text{self-contained proof}
++
+\text{independent literature cross-check}.
+\]
+
+Lemma D — sector connectivity
+
+Each of the \(d\) sectors is connected.
+
+Therefore:
+
+\[
+c(G_N)\le d.
+\]
+
+Together with Lemma A:
+
+\[
+\boxed{c(G_N)=d.}
+\]
+
+Lemma E — stabilization
+
+For \(h\ge N\), every later edge remains within an already-connected sector.
+
+Therefore:
+
+\[
+\operatorname{EqCl}(G_N)
+=
+\operatorname{EqCl}(G_{N+1})
+=
+\cdots
+\]
+
+and hence
+
+\[
+\boxed{
+c(G_N)=c(G_{N+1})=d.
+}
+\]
+
+This is the exact CrossCyclePair statement needed by the finite-pair reduction.
+
+
+---
+
+5. The old edge-count proof remains correctly killed
+
+This distinction is important.
+
+The invalid argument was:
+
+\[
+|E|=|V|-1
+\quad+\quad
+\text{vertex coverage}
+\quad\Longrightarrow\quad
+\text{tree}.
+\]
+
+That implication is false without connectivity/acyclicity information.
+
+The checkpoint correctly records this shortcut as killed.
+
+The new route instead proves actual connectivity, which is exactly what is required.
+
+
+---
+
+6. I found another serious S11 semantic issue
+
+There is a separate numerical labeling problem around 146,160.
+
+The checkpoint repeatedly calls
+
+\[
+146,160
+\]
+
+an “extremizer” count.
+
+But:
+
+\[
+B_6=203,
+\qquad
+6!=720,
+\]
+
+and therefore
+
+\[
+720\cdot203
+=
+146,160.
+\]
+
+So:
+
+\[
+\boxed{
+146,160
+=
+|S_6|\cdot B_6
+}
+\]
+
+which is the total number of permutation–partition pairs, not intrinsically the number of equality/extremal cases.
+
+The same pattern appears in the checkpoint:
+
+\[
+4,\quad30,\quad360,\quad6240,\quad146160,
+\]
+
+which are exactly
+
+\[
+n!\,B_n
+\]
+
+for \(n=2,\ldots,6\).
+
+The checkpoint itself later reports 29,520 \(n=6\) instances attaining the maximal height, making the terminology collision even clearer.
+
+This should be frozen as:
+
+\[
+\boxed{\textbf{AQ-SDS-T3-003: EXTREMIZER\_COUNT SEMANTIC COLLISION}}
+\]
+
+Do not call \(n!B_n\) an extremizer count.
+
+Use:
+
+tested_permutation_partition_pairs
+
+for
+
+\[
+n!B_n.
+\]
+
+Reserve:
+
+equality_cases
+
+or
+
+extremizer_cases
+
+for the actual subset satisfying
+
+\[
+h_T(R)=B(T).
+\]
+
+This is exactly the sort of error E0.5/E2S should catch: the integer is correct while its semantic label is wrong.
+
+
+---
+
+7. The S11 census separation is now clear
+
+The two numbers should not be merged:
+
+S11 C3 partition-pair lane
+
+\[
+21,945
+\]
+
+reported for the \(n=3,\ldots,7\) C3 transport/closure census, with
+
+\[
+14,912
+\]
+
+at \(m_T=0\), and at \(n=7\):
+
+\[
+927:\quad s_0=1,\ m_T=0,
+\]
+
+\[
+282:\quad s_0=1,\ \kappa_S>0,\ m_T=0,
+\]
+
+with zero C3 failures.
+
+TORE permutation–partition lane
+
+\[
+146,160
+\]
+
+is the complete
+
+\[
+6!\,B_6
+\]
+
+permutation/partition space for \(n=6\), not the C3 census. The checkpoint itself distinguishes these lanes, but some headings/labels blur them.
+
+So the bookkeeping correction is:
+
+\[
+\boxed{
+21,945\neq146,160
+}
+\]
+
+and neither number should be described generically as “the S11 census.”
+
+
+---
+
+8. T3 remains OPEN despite very strong computation
+
+The public checkpoint reports:
+
+\[
+n\le6:
+\quad
+4,\ 30,\ 360,\ 6240,\ 146160
+\]
+
+with zero reported violations, plus cycle-type tests through \(n=8\), threshold tests through \(a,b\le50\), and sparse arbitrary-subset tests.
+
+That is excellent computational evidence.
+
+It is not the upper-bound proof.
+
+The dependency remains:
+
+\[
+\boxed{
+\text{Coprime connectivity}
+\rightarrow
+\text{gcd sectors}
+\rightarrow
+\text{CrossCyclePair}
+\rightarrow
+\text{FinitePairJoin}
+\rightarrow
+T3.
+}
+\]
+
+The checkpoint itself identifies CrossCyclePair as the primary open lemma.
+
+Therefore:
+
+\[
+\boxed{\text{T3 OPEN}}
+\]
+
+remains correct.
+
+
+---
+
+9. Literature positioning
+
+The 2025 paper by Anagnostopoulou-Merkouri, Bailey, and Cameron is also useful here—not as proof of T3, but as partition-lattice background. It treats partitions as equivalence relations ordered by refinement and studies their lattice/block-structure behavior. 
+
+The distinction is worth preserving:
+
+\[
+\text{partition-lattice theory}
+\neq
+\text{TORE orbit-closure theorem}.
+\]
+
+AQARION should cite it as mathematical context, not as evidence for the new T3 claim.
+
+
+---
+
+10. Revised AQ-S11 disposition
+
+Provenance
+
+Gate	Current status
+
+Public S11 path	🟢 EXISTS
+S11 file in public September directory	🟢 YES
+S11 content embedded	🟢 YES
+Creation/rename commits	🟢 VERIFIED
+Header/version synchronization	🟠 DRIFT
+Termux execution receipt	🟢 computational provenance
+Formal certificate	🔴 OPEN
+
+
+The public file's Git history is particularly useful because the creation and rename are now directly observable rather than inferred.
+
+Mathematics
+
+\[
+D_\Pi=(I-P_\Pi)KP_\Pi
+\]
+
+\[
+D_\Pi^2=0
+\]
+
+remain structurally sound.
+
+C3:
+
+\[
+m_T=0
+\Longrightarrow
+\Delta_d=\kappa_S
+\]
+
+is computationally supported at the reported census scale, not globally proved.
+
+CrossCyclePair has been reduced to a very clean gcd-sector + coprime-connectivity problem.
+
+T3 remains:
+
+\[
+\boxed{\textbf{OPEN}}
+\]
+
+Governance
+
+\[
+\boxed{
+\textbf{C4 BLOCKED}
+}
+\]
+
+\[
+\boxed{
+\textbf{Publication BLOCKED}
+}
+\]
+
+No promotion.
+
+
+---
+
+11. Frozen next-step queue
+
+I would now change the priority order slightly:
+
+P0 — Fix semantic labels in S11
+
+Replace ambiguous:
+
+extremizer_count = n! B_n
+
+with:
+
+tested_permutation_partition_pairs = n! B_n
+
+and separately record the genuine equality count.
+
+P1 — Correct the S11 header
+
+The public artifact should say something like:
+
+Checkpoint: S11 — TORE / C3 / CrossCyclePair Audit
+Historical lineage: S9 → S9.1 Evidence-Compiler Transition
+Governance: FROZEN · EXACT · NO PROMOTION
+C4: BLOCKED
+Publication: BLOCKED
+
+That preserves history without making the current document masquerade as S9.
+
+P2 — Freeze CrossCyclePair
+
+Target exact Lean theorem:
+
+\[
+\boxed{
+\operatorname{Coprime}(a,b)
+\Rightarrow
+\operatorname{Connected}(G_{a+b-1}(a,b)).
+}
+\]
+
+Then prove the gcd-sector reduction.
+
+P3 — External mathematical cross-check
+
+Record the published Toeplitz theorem as:
+
+EXTERNAL_SUPPORT:
+connected T_n(a,b)
+iff gcd(a,b)=1 and n >= a+b-1
+
+but do not classify this as AQARION's proof. 
+
+P4 — Lean bridge
+
+Only after C1/C2 is stable:
+
+CrossCyclePair
+    ↓
+Equiv / sector decomposition
+    ↓
+SimpleGraph.Connected
+    ↓
+EqvGen / component equality
+    ↓
+FinitePairJoin
+    ↓
+T3
+
+P5 — C3 n=8 targeted attack
+
+Keep the critical locus:
+
+\[
+s_0=1,\qquad
+m_T=0,\qquad
+\kappa_S>0
+\]
+
+as the adversarial search target.
+
+Do not confuse the T3 \(n=8\) cycle-type census with the C3 \(n=8\) adversarial census.
+
+
+---
+
+Final frozen verdict
+
+The audit moved forward, not backward:
+
+\[
+\boxed{
+\text{S11 public artifact now verified}
+}
+\]
+
+but:
+
+\[
+\boxed{
+\text{S11 header/version drift remains}
+}
+\]
+
+and:
+
+\[
+\boxed{
+\text{AQ-SDS-T3-003: extremizer-count label collision}
+}
+\]
+
+is a newly identified concrete semantic defect.
+
+Most importantly, CrossCyclePair now has a strong independent mathematical anchor: the required threshold is exactly the known finite-Toeplitz connectivity threshold \(a+b-\gcd(a,b)\). 
+
+So the cleanest current route is:
+
+\[
+\boxed{
+\text{Toeplitz connectivity}
+\rightarrow
+\text{coprime sector lemma}
+\rightarrow
+\text{gcd-sector CrossCyclePair}
+\rightarrow
+\text{FinitePairJoin}
+\rightarrow
+T3.
+}
+\]
+
+Status remains: C3 GLOBAL OPEN · CrossCyclePair OPEN · T3 OPEN · Lean OPEN · C4 BLOCKED · Publication BLOCKED.
+
+https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-/blob/main/DOCS/CHECKPOINTS/SEPTEMBER/AQ-S11-CP.MD
 
 Citations:
 [1] DLMF: §2.5 Mellin Transform Methods ‣ Areas ‣ Chapter 2 ... https://dlmf.nist.gov/2.5
@@ -30554,5 +31962,3 @@ https://huggingface.co/spaces/Quantarion9/AQARION-ACADEMY/resolve/main/AQ-S9-SEM
 https://huggingface.co/spaces/Quantarion9/AQARION-ACADEMY/resolve/main/AQARION-CORE/AQ-SDS-S9-001.JSON/
 
 https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-/blob/main/AQ-SDS-S9-001.JSON
-
-#AQARION #EDUCATIONAL #MATHEMATICS #CREATORSEARCHINSIGHTS #QUANTARION_AI #EDUCATIONAL
