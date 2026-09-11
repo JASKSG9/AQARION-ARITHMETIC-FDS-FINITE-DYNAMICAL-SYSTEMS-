@@ -1,0 +1,60 @@
+{
+  "schema_version": "AQARION-EVIDENCE-STATUS-1.0",
+
+  "states": {
+    "D": {
+      "label": "DISCLOSED",
+      "meaning": "Artifact or claim is publicly disclosed."
+    },
+
+    "X": {
+      "label": "EXECUTABLE",
+      "meaning": "Artifact has been successfully executed in a declared environment."
+    },
+
+    "V": {
+      "label": "REPRODUCED",
+      "meaning": "An independent route reproduced the declared result."
+    },
+
+    "S": {
+      "label": "SEMANTICALLY_VERIFIED",
+      "meaning": "Independent verification checks the mathematical or semantic specification, not merely execution."
+    },
+
+    "PV": {
+      "label": "FORMALLY_VERIFIED",
+      "meaning": "The declared theorem has been checked by the formal proof system."
+    },
+
+    "C": {
+      "label": "CONJECTURE",
+      "meaning": "A mathematically motivated claim not yet established."
+    },
+
+    "K": {
+      "label": "KILLED",
+      "meaning": "The claim has a verified counterexample or contradiction."
+    }
+  },
+
+  "ordering_warning": {
+    "rule": "These states are not one universal linear ladder.",
+    "reason": "Disclosure, execution, reproduction, semantic verification and formal verification are different dimensions."
+  },
+
+  "minimum_certificate_fields": [
+    "claim_id",
+    "status",
+    "source",
+    "source_hash",
+    "verifier",
+    "verifier_hash",
+    "environment",
+    "execution_id",
+    "result_hash",
+    "dependencies",
+    "negative_controls",
+    "timestamp"
+  ]
+}
