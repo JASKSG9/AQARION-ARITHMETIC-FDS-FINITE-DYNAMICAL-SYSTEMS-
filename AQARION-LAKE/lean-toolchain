@@ -1,1 +1,2 @@
-leanprover/lean4:v4.21.0
+leanprover/lean4:v4.34.0-rc1 or newer
+Mathlib: commit that builds on v4.34.0-rc1
