@@ -1,0 +1,13 @@
+{
+  "schema_version": "AQ-K2R-CLOSURE-STAB-1.0",
+  "canonicalization": "RFC8785-JCS",
+  "hash": "SHA-256",
+  "fixtures": {
+    "AQ-K2R-R2.json": "c8337c89df3c404e7d0819fb7af0fad8f0f88436feab080f538c0013839f7f1b",
+    "AQ-K2R-R3.json": "93898762b00e69f1000912f2fd12f1a71426e4bb34ca6160ab83ce2e0e01971f",
+    "AQ-K2R-R5.json": "a86f3b5378962c432f8c799e9512bf624fae84cc20c4b064aa50a069bd6af2e7",
+    "AQ-K2R-R15.json": "43e50da5571747888c9cc98289fc3601b0682b4a77ed8076d6b242e06e6c7e1e2"
+  },
+  "verifier": "verify.py",
+  "verifier_import_policy": "must_not_import_project_source"
+}
