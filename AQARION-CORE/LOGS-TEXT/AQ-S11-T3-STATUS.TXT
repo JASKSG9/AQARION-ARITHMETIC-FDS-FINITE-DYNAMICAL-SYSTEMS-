@@ -1,0 +1,53 @@
+T3 STATUS
+
+GENERIC_MAX:
+    rho(union) <= max rho_i
+    KILLED
+    exact orbit counterexample
+    minimal V=3
+
+UNIVERSAL_SUM:
+    rho(union) <= sum rho_i
+    DERIVED / PASS
+
+MARGINAL_BRIDGE:
+    sum_i Delta_i = d_T(R)
+    DERIVED
+
+GRAPHIC-PARTITION BRIDGE:
+    rho_graphic(F_h) = r(R_h)
+    DERIVED
+
+SATURATION:
+    rho_orbit = rho_static
+      iff J_T(R)=R
+      iff T(CC(M_R))=CC(M_R)
+    NEW PRIMARY THEOREM TARGET
+
+CURRENT EMPIRICAL CHECK:
+    n=2..5: 122880 / 122880
+    failures: 0
+
+EXTREMIZER SWEEP:
+    n=5, 2640
+    NEXT
+
+Rmax_raw:
+    4/3 observed
+    concentration REFUTED
+
+Rmax_B:
+    1.0 observed
+    B-bound SUPPORTED
+
+C3:
+    GLOBAL OPEN
+
+LEAN:
+    OPEN
+
+C4:
+    BLOCKED
+
+PUBLICATION:
+    BLOCKED
