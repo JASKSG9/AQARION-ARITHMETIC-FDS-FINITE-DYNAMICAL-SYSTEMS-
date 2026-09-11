@@ -1,0 +1,98 @@
+{
+ "session": "2026-09-10 orbit-closure height classification pass",
+ "definitions": {
+  "h_T": "min number h of orbit terms R\u2228T(R)\u2228...\u2228T^{h-1}(R) equal to J_T(R)",
+  "oc_T": "max over partitions R of h_T(R)",
+  "equality_case": "h_T(R) = |R| (forces unit block-loss at every step and J_T(R)={Omega})"
+ },
+ "audits": {
+  "closures_total": 257025,
+  "h_le_b_violations": 0,
+  "full_enumeration": "n=3,4,5,6 all permutations x all partitions",
+  "cycle_type_reps": "n=7 (15 types), n=8 (22 types) x all partitions"
+ },
+ "theorems": {
+  "T1_bound": "h_T(R) <= |R|  (zero violations in 257,025 closures)",
+  "T2_equality": "h_T(R)=|R|  <=>  every strict step merges exactly two blocks and J_T(R)={Omega} (automatic by counting; 32,340 equality cases, all unit-loss)",
+  "T3_oc_formula": "oc(T) = max over pairs of distinct cycles (a+b-gcd(a,b)); single cycle: length-1. Holds on ALL 52 cycle types n<=8.",
+  "T4_straddle": "straddle pair across cycles of lengths a>=b realizes h=a+b-gcd(a,b); verified directly for all 2<=b<=a, a+b<=12",
+  "T5_caterpillar": "FALSE as stated: every merge touches a largest block fails in 240/32340 cases (e.g. non-largest equal-pair merges)",
+  "T5_caterpillar_refined": "REFINED: in all equality cases, every merge touches a largest block or merges exactly two singletons (violations=0 of 32340). Strict caterpillar (largest-only) fails 240/32340."
+ },
+ "k2r_connection": "K2R M_r: T has type (2r,1): oc = 2r+1-gcd(2r,1) = 2r = h_T(M_r): the K2R meet partition is an orbit-closure EXTREMIZER for its permutation",
+ "oc_tables": {
+  "5": {
+   "(1, 1, 1, 1, 1)": 1,
+   "(2, 1, 1, 1)": 2,
+   "(3, 1, 1)": 3,
+   "(2, 2, 1)": 2,
+   "(4, 1)": 4,
+   "(3, 2)": 4,
+   "(5,)": 4
+  },
+  "6": {
+   "(1, 1, 1, 1, 1, 1)": 1,
+   "(2, 1, 1, 1, 1)": 2,
+   "(3, 1, 1, 1)": 3,
+   "(2, 2, 1, 1)": 2,
+   "(4, 1, 1)": 4,
+   "(3, 2, 1)": 4,
+   "(5, 1)": 5,
+   "(2, 2, 2)": 2,
+   "(4, 2)": 4,
+   "(3, 3)": 3,
+   "(6,)": 5
+  },
+  "7": {
+   "(1, 1, 1, 1, 1, 1, 1)": 1,
+   "(2, 1, 1, 1, 1, 1)": 2,
+   "(3, 1, 1, 1, 1)": 3,
+   "(2, 2, 1, 1, 1)": 2,
+   "(4, 1, 1, 1)": 4,
+   "(3, 2, 1, 1)": 4,
+   "(5, 1, 1)": 5,
+   "(2, 2, 2, 1)": 2,
+   "(4, 2, 1)": 4,
+   "(3, 3, 1)": 3,
+   "(6, 1)": 6,
+   "(3, 2, 2)": 4,
+   "(5, 2)": 6,
+   "(4, 3)": 6,
+   "(7,)": 6
+  },
+  "8": {
+   "(1, 1, 1, 1, 1, 1, 1, 1)": 1,
+   "(2, 1, 1, 1, 1, 1, 1)": 2,
+   "(3, 1, 1, 1, 1, 1)": 3,
+   "(2, 2, 1, 1, 1, 1)": 2,
+   "(4, 1, 1, 1, 1)": 4,
+   "(3, 2, 1, 1, 1)": 4,
+   "(5, 1, 1, 1)": 5,
+   "(2, 2, 2, 1, 1)": 2,
+   "(4, 2, 1, 1)": 4,
+   "(3, 3, 1, 1)": 3,
+   "(6, 1, 1)": 6,
+   "(3, 2, 2, 1)": 4,
+   "(5, 2, 1)": 6,
+   "(4, 3, 1)": 6,
+   "(7, 1)": 7,
+   "(2, 2, 2, 2)": 2,
+   "(4, 2, 2)": 4,
+   "(3, 3, 2)": 4,
+   "(6, 2)": 6,
+   "(5, 3)": 7,
+   "(4, 4)": 4,
+   "(8,)": 7
+  }
+ },
+ "literature": {
+  "cerny": "Orbit-closure height is conceptually adjacent to synchronizing-automata reset thresholds but distinct: cumulative joins under ONE permutation vs adaptive reset words. Cerny conjecture open; best general upper bound ~0.1654 n^3 (Shitov), surveyed arXiv:2508.15655 (Sep 2025). Class C (strongly semisimple) attains n-1, the same cap as our h<=|R|<=n-1 but for a different model.",
+  "novelty": "Direct search for 'equivalence relation join orbit permutation closure' returned NO matching literature; oc(T) formula appears unrecorded. Honest status: no direct source found."
+ },
+ "still_open": [
+  "upper-bound PROOF of T3 (verified to n=8; lower bound via straddle construction is proved)",
+  "characterization of ALL equality cases (caterpillar-refined taxonomy)",
+  "oc_obs for restricted observable sublattices",
+  "Lean formalization of T1-T4"
+ ]
+}
