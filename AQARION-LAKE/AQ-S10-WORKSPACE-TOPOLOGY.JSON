@@ -1,0 +1,183 @@
+AQARION WORKSPACE & EVIDENCE PROMOTION MANIFEST
+
+
+{
+  "schema_version": "AQARION-WORKSPACE-EVIDENCE-TOPOLOGY-1.0",
+
+  "governance": {
+    "principle": "Continuous research work does not require continuous repository or public-status updates.",
+    "anti_churn_rule": "Do not create a repository update, public certificate, manifest revision, or evidence promotion for every intermediate computational or formalization step.",
+    "promotion_rule": "Status changes occur only at material evidence boundaries."
+  },
+
+  "workspaces": {
+    "AQARION_LAKE": {
+      "role": "ACTIVE_RESEARCH_AND_FORMALIZATION_WORKSPACE",
+      "state": "IN_PROGRESS",
+      "description": "AQARION Lake is an unfinished multi-file Lean and mathematical research workspace. Its internal files may evolve continuously without requiring individual public filing or certification events.",
+      "expected_scale": {
+        "lean_files": "approximately 50",
+        "status": "unfinished"
+      },
+      "allowed_activity": [
+        "mathematical derivation",
+        "Lean experimentation",
+        "dependency analysis",
+        "proof repair",
+        "counterexample search",
+        "specification audit",
+        "independent computation",
+        "experimental theorem development"
+      ],
+      "prohibited_inference": [
+        "unfinished files imply public certification",
+        "local compilation implies theorem certification",
+        "repository presence implies independent verification",
+        "intermediate research output requires public promotion"
+      ]
+    }
+  },
+
+  "evidence_boundaries": {
+    "RESEARCH": {
+      "meaning": "Active derivation, experimentation, computation, or formalization.",
+      "repository_update_required": false,
+      "public_update_required": false
+    },
+
+    "MATERIAL_CHECKPOINT": {
+      "meaning": "A meaningful mathematical or structural milestone has been reached.",
+      "repository_update_required": false,
+      "public_update_required": false,
+      "recording": "optional consolidated checkpoint"
+    },
+
+    "FROZEN_AUDIT": {
+      "meaning": "A defined artifact is frozen for reproducible verification.",
+      "repository_update_required": "one consolidated update if desired",
+      "public_update_required": false
+    },
+
+    "INDEPENDENT_REPRODUCTION": {
+      "meaning": "A genuinely independent implementation or verification route reproduces the result.",
+      "repository_update_required": "consolidated evidence event",
+      "public_update_required": false
+    },
+
+    "FORMAL_CLOSURE": {
+      "meaning": "The declared formal theorem closes under the required proof policy.",
+      "repository_update_required": "material promotion event",
+      "public_update_required": "only if intentionally promoted"
+    },
+
+    "PUBLIC_CERTIFICATION": {
+      "meaning": "A deliberately frozen and published certificate has passed the project's required evidence gates.",
+      "repository_update_required": "material release event",
+      "public_update_required": true
+    }
+  },
+
+  "update_policy": {
+    "default_mode": "WORK_CONTINUOUSLY",
+    "repository_mode": "CONSOLIDATED_MILESTONES_ONLY",
+    "manifest_mode": "STABLE_UNTIL_MATERIAL_STATE_CHANGE",
+    "certificate_mode": "FREEZE_THEN_VERIFY",
+    "public_api_mode": "PROMOTION_ONLY"
+  },
+
+  "negative_rule": {
+    "statement": "Intermediate discoveries do not create mandatory filing obligations.",
+    "examples": [
+      "one more successful r-value does not require an update",
+      "one repaired Lean lemma does not require a release",
+      "one changed hash does not require public promotion",
+      "one exploratory computation does not require a certificate",
+      "one dependency repair does not require a manifest revision"
+    ]
+  },
+
+  "current_priority": {
+    "primary": "Continue mathematical and Lean work inside AQARION Lake.",
+    "secondary": "Identify dependency and proof bottlenecks.",
+    "parallel": "Continue independent K2R theoretical development where it produces structural results.",
+    "not_priority": [
+      "constant repository churn",
+      "constant manifest revisions",
+      "premature public certification",
+      "filing every intermediate result"
+    ]
+  }
+}
+
+
+
+Locked interpretation
+
+
+AQARION Lake is the laboratory.
+
+
+The repository is not a laboratory notebook that must be rewritten every few minutes.
+
+
+The manifest is not a live ticker of every thought, computation, or repaired lemma.
+
+
+The correct workflow is:
+
+
+[
+\boxed{
+\text{WORK CONTINUOUSLY}
+;\longrightarrow;
+\text{REACH MATERIAL BOUNDARY}
+;\longrightarrow;
+\text{CONSOLIDATE ONCE}
+}
+]
+
+
+not:
+
+
+[
+\text{every computation}
+\rightarrow
+\text{manifest update}
+\rightarrow
+\text{repo update}
+\rightarrow
+\text{certificate update}.
+]
+
+
+Specific correction to my previous behavior
+
+
+My proposed Lake dependency atlas is a research task inside the active workspace.
+
+
+It is not a reason to:
+
+
+
+
+create 50 manifests;
+
+
+file 50 repository updates;
+
+
+promote each file;
+
+
+generate a certificate per theorem;
+
+
+repeatedly modify the public architecture.
+
+
+
+
+We work through the Lake, find the actual mathematical closure frontier, and only consolidate when a meaningful boundary has been crossed.
+
