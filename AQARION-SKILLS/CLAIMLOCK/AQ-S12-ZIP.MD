@@ -1,45 +1,663 @@
-CLAIMLOCK/
-│
-├── README.md
-├── LICENSE
-├── pyproject.toml
-│
-├── claimlock/
-│   ├── scan.py
-│   ├── replay.py
-│   ├── provenance.py
-│   ├── semantic.py
-│   ├── dependency.py
-│   ├── promotion.py
-│   └── explain.py
-│
-├── schema/
-│   ├── claim.schema.json
-│   ├── evidence.schema.json
-│   └── receipt.schema.json
-│
-├── reason-codes/
-│   └── codes.yaml
-│
-├── verifiers/
-│   ├── python_replay/
-│   ├── matrix_dual_route/
-│   ├── hash/
-│   └── lean/
-│
-├── fixtures/
-│   ├── aqarion-k2r-beta4/
-│   ├── circular-proof/
-│   ├── self-certified-json/
-│   └── stale-hash/
-│
-├── benchmark/
-│   └── ClaimLock-100/
-│
-└── docs/
-    ├── THREAT_MODEL.md
-    ├── TRUST_MODEL.md
-    └── CLAIM_LIFECYCLE.md
+AQARION × QUANTARION — LEAD ARCHITECTURE PASS 
+
+Verdict: the idea worth building is not another agent skill.
+
+It is:
+
+CLAIMLOCK — Git for Claim State 
+
+A claim is not text. A claim is a stateful object whose transitions require evidence.
+
+That is the product primitive I would take forward.
+
+Your fixture replay and provenance audit are useful, but they are currently features of a larger system, not the product category itself.
+
+The category is:
+
+\[ \boxed{\text{Claim-State Infrastructure}} \] 1. Adversarial audit: your current foundation is stronger than the earlier narrative 
+
+I checked the current public repository surface and the literature.
+
+Your public POLICY-001.YML already encodes a meaningful promotion distinction: formal promotion requires a kernel certificate, content hash validity, non-circularity, sufficient universal scope, target alignment, and a pinned trusted environment; independently verified status separately requires an independent verifier and sufficient scope. It also explicitly disallows universal-theorem promotion from ephemeral verification while allowing exploratory computation. That is a real governance primitive, not merely documentation. 
+
+The public fixture-replay.py also explicitly states that it reports replay agreement/divergence only, records the fixture hash, and ignores a JSON status field for promotion purposes. 
+
+My adversarial correction 
+
+I would not yet market the present implementation as:
+
+“independent verification infrastructure,” “formal claim compiler,” or “universal proof governance.” 
+
+Not because the architecture is wrong.
+
+Because the current public evidence establishes an early policy/replay implementation, while the larger product semantics still need a canonical state machine and independently testable transition contract.
+
+The important distinction is:
+
+Layer Current posture Policy vocabulary Concrete public artifact Fixture replay Concrete computational adapter Provenance firewall Concrete design direction Claim-state semantics Needs canonical specification Cross-tool verifier independence Not yet established globally Mathematical theorem promotion Blocked under your governance 
+
+That is actually good news.
+
+The product has a clear engineering frontier.
+
+2. The unique primitive: Claim State Machine 
+
+Do not make CLAIMLOCK a collection of scripts.
+
+Make every claim an object with a legal transition graph.
+
+┌──────────────┐ │ CANDIDATE │ └──────┬───────┘ │ evidence attached ▼ ┌──────────────┐ │ CHECKING │ └───┬──────┬───┘ │ │ certificate│ │ witness │ │ ▼ ▼ ┌──────┐ ┌─────────┐ │PROVED│ │ REFUTED │ └──┬───┘ └────┬────┘ │ │ promotion replacement │ │ ▼ ▼ ┌────────┐ ┌────────┐ │LOCKED │ │OPEN │ └────────┘ └────────┘ 
+
+But the critical feature is:
+
+Transitions, not labels, are the authority. 
+
+A JSON file saying:
+
+{"status":"INDEPENDENTLY_VERIFIED"} 
+
+has zero authority.
+
+Instead:
+
+CANDIDATE | | transition T-041 | requires: | content hash | non-circular provenance | verifier identity | scope check | replay result v INDEPENDENTLY_VERIFIED 
+
+The transition receipt is authoritative.
+
+This is the architectural move that makes CLAIMLOCK substantially more interesting than a provenance graph.
+
+3. New flagship artifact: CLAIMLOCK TRANSITION RECEIPT 
+
+I recommend replacing a generic “claim receipt” with a more specific object:
+
+{ "receipt_version": "0.1", "receipt_id": "CL-TX-000001", "claim_id": "AQ-C3-001", "transition": { "from": "CANDIDATE", "to": "REFUTED" }, "reason": { "code": "EXACT_COUNTEREXAMPLE", "summary": "Exact witness replay contradicts universal claim." }, "subject": { "claim_hash": "sha256:...", "scope": "universal" }, "evidence": [ { "evidence_id": "AQ-C3-O1", "kind": "EXACT_WITNESS", "hash": "sha256:..." } ], "verification": { "routes": [ "dsu", "relation_matrix" ], "agreement": true, "replay_status": "PASS" }, "provenance": { "non_circular": true, "source_class": "PROJECT_ARTIFACT" }, "promotion": { "allowed": false, "reason": "REFUTATION_TRANSITION_DOES_NOT_PROMOTE_FORMAL_STATUS" }, "policy": { "id": "POLICY-001", "version": "1.0" } } 
+
+The key design principle:
+
+The receipt records a state transition, not an opinion about truth.
+
+That distinction is potentially your strongest public idea.
+
+4. The actual differentiator: Refutation-native infrastructure 
+
+Current agent research is moving strongly toward auditable skills, validation-gated skill updates, execution provenance, statement-level dependency graphs, and process-aware evaluation. 
+
+But your strongest wedge is narrower:
+
+Most AI infrastructure optimizes successful outputs. CLAIMLOCK preserves failed claims as first-class artifacts. 
+
+SkillGen explicitly uses successful and failed trajectories and empirically evaluates interventions by measuring both repairs and regressions. 
+
+SkillOpt treats reusable skills as externally optimized artifacts and gates edits through validation. Its public repository currently has substantial adoption, showing that reusable, inspectable agent artifacts are a real distribution surface. 
+
+TraceElephant emphasizes reproducible environments and full execution traces for failure attribution, while AutoGen-TraceKit argues for process-aware evaluation rather than final-outcome-only evaluation. 
+
+F(AI)2R explicitly models activities, claims, and sources with provenance invariants. 
+
+TheoremGraph builds statement-level dependency infrastructure spanning informal and formal mathematics. 
+
+CLAIMLOCK's gap 
+
+None of those descriptions imply the exact primitive:
+
+\[ \boxed{ \text{A failed claim can become a stable, replayable, dependency-bearing public object.} } \] 
+
+That is where I would focus.
+
+5. Build the Claim Cemetery — seriously 
+
+This is the thing I think could make people remember the project.
+
+Not a cemetery in the negative sense.
+
+A versioned atlas of claims that died correctly.
+
+CLAIMLOCK ATLAS │ ├── LIVE │ ├── OPEN │ ├── EMPIRICAL │ └── PROVED │ ├── DEAD │ ├── REFUTED_BY_WITNESS │ ├── SCOPE_FAILURE │ ├── DEPENDENCY_COLLAPSE │ └── CIRCULAR_EVIDENCE │ └── QUARANTINED ├── PROVENANCE_UNRESOLVED ├── POLICY_VIOLATION └── REPLAY_DIVERGENCE 
+
+A dead claim should remain queryable:
+
+CLAIM: AQ-C3-001 STATE: REFUTED DIED BY: exact counterexample FIRST KNOWN WITNESS: AQ-C3-O1 MINIMAL KNOWN DOMAIN: n = 8 REPLAY: PASS DEPENDENCIES INVALIDATED: 4 downstream claims REPLACEMENT: AQ-C3-001R CURRENT STATE OF REPLACEMENT: OPEN 
+
+This is far more compelling than a generic AI dashboard.
+
+6. New architecture: ClaimGraph + TransitionGraph 
+
+Do not use one graph.
+
+Use two.
+
+A. Dependency graph Claim ──depends_on──> Claim Claim ──uses────────> Evidence Evidence ──produced_by──> Activity Activity ──used─────────> Source B. Transition graph CANDIDATE | | exact witness v REFUTED | | replacement target created v OPEN 
+
+TheoremGraph's statement-level dependency approach makes the first graph increasingly relevant as infrastructure. 
+
+But CLAIMLOCK's unique graph is the second:
+
+the graph of epistemic state transitions. 
+
+That is your moat.
+
+7. The new core package tree I recommend CLAIMLOCK/ │ ├── README.md ├── LICENSE ├── pyproject.toml │ ├── claimlock/ │ ├── claim.py │ ├── state.py │ ├── transition.py │ ├── policy.py │ ├── evidence.py │ ├── provenance.py │ ├── dependency.py │ ├── replay.py │ ├── receipt.py │ ├── witness.py │ ├── obligation.py │ ├── cemetery.py │ └── explain.py │ ├── schema/ │ ├── claim.schema.json │ ├── evidence.schema.json │ ├── receipt.schema.json │ ├── transition.schema.json │ └── policy.schema.json │ ├── policy/ │ ├── POLICY-001.yaml │ └── TRANSITIONS-001.yaml │ ├── fixtures/ │ ├── refuted/ │ │ └── AQ-C3-O1/ │ ├── replay/ │ │ └── K2R-BETA4/ │ └── provenance/ │ ├── examples/ │ ├── exact-refutation/ │ ├── computational-agreement/ │ ├── circular-provenance/ │ └── blocked-promotion/ │ ├── tests/ │ ├── test_transition_legality.py │ ├── test_circularity.py │ ├── test_replay.py │ └── test_policy.py │ └── docs/ ├── STATUS-MODEL.md ├── RECEIPT-SPEC.md ├── TRANSITION-SPEC.md └── FAILURE-MODES.md 8. The killer CLI 
+
+Do not lead with aq verify.
+
+Too generic.
+
+Lead with:
+
+claimlock ask "AQ-C3-001" 
+
+Output:
+
+CLAIM AQ-C3-001 STATE REFUTED AUTHORITY EXACT_WITNESS WITNESS AQ-C3-O1 REPLAY PASS DEPENDENCIES 4 LOCKED POLICY POLICY-001 PROMOTION BLOCKED WHY THIS STATE? Exact replay of witness AQ-C3-O1 contradicts the claim within the recorded scope. REPRODUCE: claimlock replay AQ-C3-O1 
+
+Then:
+
+claimlock history AQ-C3-001 CANDIDATE │ ├── created │ CHECKING │ ├── enumeration completed │ REFUTED │ └── witness AQ-C3-O1 attached 
+
+And:
+
+claimlock impact AQ-C3-001 DOWNSTREAM IMPACT LOCKED: AQ-C3-004 AQ-C3-007 AQ-T10-001 AQ-BRIDGE-002 OPEN REPLACEMENT: AQ-C3-001R 
+
+That is a demo people understand instantly.
+
+9. Your second unique artifact: Claim Diff 
+
+This is where your existing semantic diff work becomes product-grade.
+
+claimlock diff old_claim.json new_claim.json 
+
+Output:
+
+CLAIM DIFF SCOPE - all finite systems + all tested finite systems STATUS - PROVED + EMPIRICAL DEPENDENCY - Lean receipt AQ-LC4-01 + computation fixture K2R-BETA4 PROMOTION EFFECT FORMALLY_PROVED → BLOCKED REASON Universal scope removed. Formal dependency removed. 
+
+This is much stronger than ordinary text diff.
+
+Semantic change should automatically trigger status reevaluation. 
+
+That is a potentially very useful invariant:
+
+\[ \boxed{ \text{Claim semantics changed} \Longrightarrow \text{previous receipt may no longer apply} } \] 
+
+I would name this:
+
+Receipt Invalidation 
+
+A receipt is not permanently attached to prose.
+
+It attaches to a canonical claim hash and scope.
+
+10. The most important new invariant 
+
+I recommend making this the CLAIMLOCK invariant:
+
+\[ \boxed{ \text{No claim state may survive a semantic change without revalidation.} } \] 
+
+Implementation:
+
+claim_hash_old != claim_hash_new │ ▼ RECEIPTS STALE │ ▼ DEPENDENCIES RECHECKED │ ├── hashes still aligned │ └── receipt retained │ └── semantic scope changed └── receipt invalidated 
+
+This gives you something concrete that provenance-only systems generally do not guarantee:
+
+semantic drift cannot silently inherit epistemic authority. 
+
+That fits AQARION perfectly.
+
+11. Obstruction Compiler: narrow the MVP 
+
+Your proposed obstruction compiler is mathematically interesting, but don't let it become a giant enumeration engine first.
+
+The MVP should accept any witness-producing computation.
+
+INPUT claim domain witness invariants │ ▼ CANONICALIZATION │ ▼ SYMMETRY QUOTIENT │ ├── STATIC CLASS │ └── TRANSPORT CLASS │ ▼ OBSTRUCTION RECEIPT 
+
+Your distinction between:
+
+structural/static orbit, and transport-normalized orbit 
+
+is exactly the right one.
+
+Do not collapse them.
+
+I would expose them explicitly:
+
+{ "obstruction_id": "AQ-C3-O1", "static_class": "C3-S17", "transport_class": "C3-T04", "relations": { "static_isomorphic": true, "transport_equivalent": false } } 
+
+That makes the distinction experimentally testable.
+
+12. The flagship demo should be three claims 
+
+Not one.
+
+Demo A — REFUTED Universal claim ↓ exact witness ↓ replay ↓ REFUTED Demo B — BLOCKED Strong claim ↓ computation agrees ↓ no independent/formal authority ↓ BLOCKED 
+
+Your K2R-BETA4 fixture is ideal for this pattern based on the supplied replay report.
+
+Demo C — PROVENANCE FAILURE Claim ↓ apparent supporting skill ↓ session echo detected ↓ QUARANTINED 
+
+These three states demonstrate the product better than a hundred math results.
+
+13. Public homepage concept ╔══════════════════════════════════════════════════════╗ ║ CLAIMLOCK ║ ║ Every claim has a state. ║ ║ Every transition requires evidence. ║ ╚══════════════════════════════════════════════════════╝ ┌──────────┐ │ CLAIM │ └────┬─────┘ │ ▼ ┌──────────┐ │ EVIDENCE │ └────┬─────┘ │ ▼ ┌──────────┐ │ REPLAY │ └────┬─────┘ │ ▼ ┌──────────┐ │ STATUS │ └──────────┘ LIVE CLAIMS 18 OPEN 7 REFUTED 4 EMPIRICAL 2 BLOCKED 0 FORMALLY PROMOTED [ Ask a Claim ] [ Replay a Witness ] [ Explore Failures ] 
+
+I would not put “AI” in the main tagline.
+
+The differentiator is governance infrastructure.
+
+AI is merely one producer of claims.
+
+14. The one-sentence positioning 
+
+My strongest recommendation:
+
+CLAIMLOCK is an open claim-state system that records what a claim is currently allowed to say—and the replayable evidence required to change that state.
+
+Alternative shorter version:
+
+Git for claim state.
+
+Alternative technical version:
+
+A provenance-aware transition system for claims, evidence, replay, refutation, and promotion.
+
+15. Literature audit verdict 
+
+The recent landscape supports the direction but also sharpens where AQARION must be different.
+
+SkillGen: reusable, auditable skills synthesized from successes and failures; useful support for treating failures as data. SkillOpt: validation-gated evolution of reusable skill artifacts; strong evidence that “artifact + validation gate” is currently attractive infrastructure. F(AI)2R: provenance graphs with explicit invariants around claims and verification. Strong structural analogy, not something to duplicate. TheoremGraph: statement-level dependencies are becoming infrastructure. CLAIMLOCK should complement this with state transitions and authority constraints. TraceElephant / AutoGen-TraceKit: reproducible execution traces and process-aware evaluation reinforce replay as a first-class artifact. Adversarial conclusion 
+
+Do not claim category priority.
+
+But there is a credible open space between:
+
+dependency graph + provenance graph + replay artifact + policy gate + semantic receipt invalidation + refutation-native public ledger 
+
+The combination—not any single component—is where CLAIMLOCK can become distinctive.
+
+My hard recommendation Stop expanding the number of AQARION skills. 
+
+Freeze the skills as adapters.
+
+Build one repository around these three primitives:
+
+1. Claim Transition Receipt 
+
+The atomic event.
+
+2. Receipt Invalidation 
+
+Semantic change cannot inherit old authority.
+
+3. Refutation Atlas 
+
+Failures are stable, replayable, dependency-bearing research objects.
+
+That is the architecture I believe could genuinely get used outside AQARION.
+
+Your mathematics then becomes the first hostile corpus proving that the system works:
+
+claim ↓ overclaim detected ↓ evidence audited ↓ fixture replayed ↓ counterexample preserved ↓ downstream claims locked ↓ replacement conjecture opened 
+
+That is not another skill.
+
+That is a new kind of research infrastructure.
+
+And the most valuable public demo is not “AQARION proved something.”
+
+It is:
+
+AQARION caught itself making a stronger claim than its evidence permitted—and preserved the entire failure chain reproducibly. 
+
+That is a product story worth building around.
+
+╔══════════════════════════════════════════════════════╗
+║              AQARION × QUANTARION                    ║
+║       CLAIM → EVIDENCE → REPLAY → STATUS             ║
+╚══════════════════════════════════════════════════════╝
+
+ HUMAN                         MACHINE
+   │                              │
+   ├──────────────┐   ┌────────────┤
+   ▼              ▼   ▼            ▼
+ QUESTION       CLAIM API       FIXTURE
+   │              │               │
+   └───────┬──────┴───────┬───────┘
+           ▼              ▼
+      ┌────────────────────────┐
+      │     CLAIMLOCK CORE     │
+      │ policy · provenance    │
+      │ dependency · replay    │
+      └────────────┬───────────┘
+                   │
+        ┌──────────┼──────────┐
+        ▼          ▼          ▼
+      PROVED     REFUTED     OPEN
+        │          │          │
+        ▼          ▼          ▼
+       CERT     WITNESS    OBLIGATION
+        │          │          │
+        └──────────┼──────────┘
+                   ▼
+              PUBLIC LEDGER
+
+CLAIM STATE: REFUTED
+
+WHY:
+  Exact witness exists.
+
+MINIMAL KNOWN DOMAIN:
+  n = 8
+
+COUNTEREXAMPLE:
+  fixture AQ-C3-O1
+
+DEPENDENCIES:
+  4 locked
+
+VERIFICATION:
+  exact replay PASS
+
+PROMOTION:
+  blocked
+
+                 ┌─────────────┐
+                 │   CLAIM     │
+                 └──────┬──────┘
+                        │
+                        ▼
+              ┌───────────────────┐
+              │ PARSE ASSUMPTIONS │
+              └─────────┬─────────┘
+                        │
+            ┌───────────▼───────────┐
+            │ DEPENDENCY / EVIDENCE │
+            └───────────┬───────────┘
+                        │
+                        ▼
+               ┌─────────────────┐
+               │ EXECUTE CHECKS  │
+               └────────┬────────┘
+                        │
+          ┌─────────────┼─────────────┐
+          ▼             ▼             ▼
+       PROVED       REFUTED       INSUFFICIENT
+          │             │             │
+          ▼             ▼             ▼
+      certificate     witness       OPEN
+          │             │             │
+          └─────────────┴─────────────┘
+                        │
+                        ▼
+                 CLAIM RECEIPT
+
+                 USER QUERY
+                     │
+                     ▼
+            ┌────────────────┐
+            │ CLAIM ROUTER   │
+            └───────┬────────┘
+                    │
+        ┌───────────┼────────────┐
+        ▼           ▼            ▼
+      PUBLIC     PROJECT      SESSION
+      SOURCES     ARTIFACTS     MEMORY
+        │           │            │
+        └───────────┼────────────┘
+                    ▼
+            EVIDENCE NORMALIZER
+                    │
+                    ▼
+              CLAIM GRAPH
+                    │
+                    ▼
+             POLICY CHECKER
+                    │
+                    ▼
+                ANSWER
+AQARION / QUANTARION — Continuation Research Audit 
+
+2026-09-12 · FROZEN / ADVERSARIAL / NO FABRICATION / NO PROMOTION
+
+I continued from the material you supplied and checked the current research landscape against the architectural direction. My strongest conclusion is:
+
+The mathematics, CLAIMLOCK, and the public app should now become three explicitly separated layers—not one product with one status.
+
+The public product can move substantially ahead without promoting blocked mathematics.
+
+1. First: adversarial correction to the current bridge narrative 
+
+There is a serious distinction we need to preserve.
+
+Your canonical bridge argument is mathematically plausible as a construction-specific theorem, but the supplied Lean snippets should not yet be described as a verified zero-sorry artifact.
+
+Why 
+
+The displayed Lean code contains several API/type risks and proof gaps, including:
+
+the definition of q_S relies on quotient enumeration machinery that needs careful finite-instance construction; Setoid.sup should not be assumed definitionally identical to the displayed ReflTransGen relation without checking the actual mathlib implementation; the ghost-isolation induction argument, as written, does not obviously establish that every intermediate vertex remains outside the marked component; the stated adjacency equivalence \[ H_S.Adj(e_1,e_2) \iff (P\vee Q)(e_1,e_2) \] 
+
+is generally too strong if H_S is an ordinary graph whose adjacency means a one-step edge relation, while the join relation is already a transitive connectivity relation.
+
+That last point is particularly important.
+
+Correct bridge architecture 
+
+The robust theorem should instead factor through connectivity:
+
+\[ e_1 \sim_{P\vee Q} e_2 \iff \operatorname{Connected}_{L_{P,Q,S}}(e_1,e_2), \] 
+
+where \(L_{P,Q,S}\) is the graph on marked elements whose edges encode a single shared \(P\)-block or \(Q\)-block.
+
+Then:
+
+\[ q_S(P\vee Q) = \#\pi_0(L_{P,Q,S}). \] 
+
+Only after defining the intended incidence/line graph and proving the component correspondence can you identify that component count with the desired \(c(H_S)\).
+
+Audit verdict Item Honest status Canonical construction idea STRUCTURALLY SOUND CANDIDATE Informal bridge proof NEEDS HYPOTHESIS AUDIT Displayed Lean proof NOT VERIFIED FROM PROVIDED TEXT Zero-sorry claim UNCONFIRMED C4 BLOCKED 
+
+This is not a setback. It prevents exactly the kind of false promotion CLAIMLOCK is supposed to catch.
+
+2. The current mathematical core is much cleaner 
+
+Your new algebraic identity should be the center of the research graph:
+
+\[ \boxed{\Delta_d=s_T-s_0-m_T} \] 
+
+Therefore:
+
+\[ \boxed{m_T=0\Longrightarrow\Delta_d=s_T-s_0} \] 
+
+and the remaining \(|S|=3\) conjectural bridge becomes:
+
+\[ \boxed{ s_T-s_0=c_S-c_G } \] 
+
+rather than the old false claim
+
+\[ s_0=1\land m_T=0\Longrightarrow\Delta_d=0. \] 
+
+That is a major conceptual compression.
+
+The old theorem tried to annihilate topology.
+
+The new program asks whether orbit closure transports topology into defect.
+
+That is a stronger research question.
+
+3. Updated mathematical atlas AQARION C3 / S8.23 │ ▼ ┌─────────────────────────┐ │ Static incidence layer │ │ κ = cS - cG - β │ │ CLOSED │ └────────────┬────────────┘ │ ▼ ┌─────────────────────────┐ │ FourCaseDefect │ │ d = [0,1,0,2] │ │ DIRECT COMBINATORIAL │ └────────────┬────────────┘ │ ▼ ┌──────────────────────────────┐ │ Exact transport algebra │ │ Δd = sT - s0 - mT │ │ PROVED / ALGEBRAIC │ └──────────────┬───────────────┘ │ mT = 0 │ ▼ ┌──────────────────────────────┐ │ Δd = sT - s0 │ │ EXACT LOCUS IDENTITY │ └──────────────┬───────────────┘ │ ▼ ┌──────────────────────────────┐ │ PRIMARY OPEN BRIDGE │ │ sT - s0 = cS - cG │ │ |S| = 3 │ └──────────────┬───────────────┘ │ ▼ obstruction classes │ ▼ ┌──────────────────────────────┐ │ General topology hypothesis │ │ Δd ~ κS + β(HS) │ │ RESEARCH CONJECTURE │ └──────────────────────────────┘ 4. The next computation should be obstruction compression 
+
+I agree completely with your proposed reduction.
+
+The raw number:
+
+\[ 1080 \] 
+
+is not a mathematical dimension.
+
+It is an enumeration count.
+
+AQARION should now compute:
+
+\[ \boxed{ \mathcal O = \text{critical failures}/\Gamma } \] 
+
+where \(\Gamma\) is generated by:
+
+exterior permutations; marked cyclic symmetry; \(P\leftrightarrow Q\); optionally closure-pair equivalence. 
+
+But I recommend two separate quotients, not one.
+
+A. Raw structural orbit \[ (P,Q)\sim(P',Q') \] 
+
+under genuine relabeling and swap symmetries.
+
+This preserves witness geometry.
+
+B. Transport-normalized orbit \[ (P,Q)\sim_J(P',Q') \] 
+
+when:
+
+\[ (C(P),C(Q)) \cong (C(P'),C(Q')). \] 
+
+This may collapse dynamically equivalent witnesses that are not statically isomorphic.
+
+Do not merge these two equivalences.
+
+That distinction could itself become a result:
+
+1080 raw failures │ ├── quotient Γstatic │ │ │ ▼ │ static obstruction species │ └── quotient Γtransport │ ▼ transport root species 5. Obstruction Compiler specification 
+
+This is now the highest-value AQARION computational artifact.
+
+Canonical output obstruction_id: C3-O1 status: REFUTED_WITNESS input: n: 8 marked_support: [0,1,2] pair_order_normalized: true symmetry: exterior_orbit: marked_rotation: pq_swap: closure_signature: local_defect: dP: dQ: dM: dJ: delta_d: transport: s0: sT: mT: transport_identity_verified: true incidence: cS: cG: beta: kappa: classification: signature: topology: canonical_root: verification: exact_integer: true replayable: true fixture_sha256: implementation_commit: 
+
+The compiler should emit one of:
+
+BALANCED REFUTED INADMISSIBLE OPEN_CLASS 
+
+But importantly:
+
+REFUTED is a result type, not an application error.
+
+That is a differentiator for AQARION.
+
+6. CLAIMLOCK is now strategically stronger than the mathematics 
+
+The current research landscape is unusually favorable to this idea.
+
+explicitly treats skills as auditable reusable artifacts synthesized from successful and failed trajectories, including intervention-style comparisons that measure both repairs and regressions. That is philosophically close to CLAIMLOCK's requirement that a claim pipeline preserve failures rather than merely optimize for successful output. 
+
+goes further by treating a skill as an externally optimized artifact and accepting edits only when they improve held-out performance. That creates a useful contrast for AQARION: SkillOpt optimizes behavior; CLAIMLOCK should constrain epistemic promotion. 
+
+is particularly relevant because it models AI-assisted provenance and promotes graph-based relationships among activities, claims, and sources. Its stated invariants—especially preventing unsupported provenance—are close to the direction CLAIMLOCK should take, although AQARION should not claim equivalence or priority. 
+
+And demonstrates that statement-level dependency graphs spanning informal and formal mathematics are becoming real infrastructure. AQARION can occupy a complementary position: not another theorem search graph, but a claim-state and verification-transition graph. 
+
+This suggests a much sharper product definition:
+
+CLAIMLOCK is a Claim-State Compiler. 
+
+Not an AI writer.
+
+Not a theorem prover.
+
+Not merely RAG.
+
+7. The unique product primitive 
+
+I would build the public stack around this transition system:
+
+┌─────────────┐ │ CLAIM │ └──────┬──────┘ │ ▼ ┌───────────────────┐ │ PARSE ASSUMPTIONS │ └─────────┬─────────┘ │ ┌───────────▼───────────┐ │ DEPENDENCY / EVIDENCE │ └───────────┬───────────┘ │ ▼ ┌─────────────────┐ │ EXECUTE CHECKS │ └────────┬────────┘ │ ┌─────────────┼─────────────┐ ▼ ▼ ▼ PROVED REFUTED INSUFFICIENT │ │ │ ▼ ▼ ▼ certificate witness OPEN │ │ │ └─────────────┴─────────────┘ │ ▼ CLAIM RECEIPT 
+
+The output should never merely say:
+
+"True."
+
+It should say:
+
+CLAIM STATE: REFUTED WHY: Exact witness exists. MINIMAL KNOWN DOMAIN: n = 8 COUNTEREXAMPLE: fixture AQ-C3-O1 DEPENDENCIES: 4 locked VERIFICATION: exact replay PASS PROMOTION: blocked 
+
+That is useful to humans and machines.
+
+8. RAG should be evidence-bounded, not conversation dumping 
+
+You mentioned RAG from your sessions and conversations.
+
+I recommend a hard architecture:
+
+USER QUERY │ ▼ ┌────────────────┐ │ CLAIM ROUTER │ └───────┬────────┘ │ ┌───────────┼────────────┐ ▼ ▼ ▼ PUBLIC PROJECT SESSION SOURCES ARTIFACTS MEMORY │ │ │ └───────────┼────────────┘ ▼ EVIDENCE NORMALIZER │ ▼ CLAIM GRAPH │ ▼ POLICY CHECKER │ ▼ ANSWER 
+
+The crucial addition is:
+
+Session content is never automatically evidence.
+
+A conversation can be retrieved as:
+
+CONTEXT LEAD UNVERIFIED ASSERTION COMPUTATION PLAN 
+
+but not silently promoted to:
+
+PROVED VERIFIED CERTIFIED 
+
+This is exactly where your own history makes the product distinctive.
+
+AQARION has had to correct generated mathematical claims repeatedly.
+
+That failure history is not embarrassing product baggage.
+
+It is the dataset that defines CLAIMLOCK.
+
+9. Recommended public app stack AQARION FEDERATION │ ├── HOME │ ├── Live system status │ ├── Claim counts │ └── Latest verification events │ ├── CLAIMLOCK │ ├── Submit claim │ ├── Claim graph │ ├── Policy check │ └── Receipt viewer │ ├── REPLAY │ ├── Fixture registry │ ├── Deterministic replay │ └── PASS / FAIL diff │ ├── OBSTRUCTIONS │ ├── Counterexample atlas │ ├── Canonical classes │ └── Minimal witnesses │ ├── AQARION MATH │ ├── Status ledger │ ├── Open obligations │ └── Lean gate │ ├── QUANTARION │ ├── Computation artifacts │ ├── Spectral experiments │ └── Reproducibility trail │ └── MACHINE API ├── /claim ├── /receipt ├── /replay ├── /obstruction └── /ledger 10. ASCII atlas for the app ╔══════════════════════════════════════════════════════╗ ║ AQARION × QUANTARION ║ ║ CLAIM → EVIDENCE → REPLAY → STATUS ║ ╚══════════════════════════════════════════════════════╝ HUMAN MACHINE │ │ ├──────────────┐ ┌────────────┤ ▼ ▼ ▼ ▼ QUESTION CLAIM API FIXTURE │ │ │ └───────┬──────┴───────┬───────┘ ▼ ▼ ┌────────────────────────┐ │ CLAIMLOCK CORE │ │ policy · provenance │ │ dependency · replay │ └────────────┬───────────┘ │ ┌──────────┼──────────┐ ▼ ▼ ▼ PROVED REFUTED OPEN │ │ │ ▼ ▼ ▼ CERT WITNESS OBLIGATION │ │ │ └──────────┼──────────┘ ▼ PUBLIC LEDGER 11. LUT INPUT STATE OUTPUT proof certificate PROVED exact counterexample REFUTED exact replay only VERIFIED finite observations EMPIRICAL missing dependency BLOCKED no sufficient evidence OPEN policy violation QUARANTINED 
+
+This status vocabulary should be globally consistent across AQARION and QUANTARION.
+
+12. Literature-driven additions 
+
+The emerging agent-evaluation literature increasingly treats process traces and reproducibility as first-class objects rather than only evaluating final success. TraceElephant, for example, focuses on failure attribution using observable execution traces and reproducible environments; AutoGen-TraceKit similarly evaluates process behavior rather than outcome alone. 
+
+A recent survey of evidence tracing and execution provenance likewise frames provenance as a typed graph of execution and evidence relationships. This supports building CLAIMLOCK around graph-native receipts rather than prose reports. 
+
+AQARION opportunity 
+
+Most systems ask:
+
+Did the agent succeed?
+
+AQARION should ask:
+
+What exactly may this output now be allowed to claim?
+
+That is a narrower and potentially more defensible product category.
+
+13. Immediate implementation order Build 1 — CLAIMLOCK Core claimlock/ ├── ingest.py ├── normalize.py ├── dependency.py ├── provenance.py ├── policy.py ├── replay.py ├── promotion.py ├── explain.py └── receipt.py Build 2 — Receipt schema { "claim_id": "AQ-...", "claim": "...", "status": "REFUTED", "evidence": [], "dependencies": [], "replay": {}, "witness": {}, "policy_version": "POLICY-001", "promotion_allowed": false } Build 3 — Obstruction Compiler 
+
+Input pair → exact invariants → canonicalization → class ID.
+
+Build 4 — Public Q&A 
+
+The Q&A layer must answer from the ledger:
+
+Q: Is C3 proved? A: STATUS: REFUTED / REPLACED TARGET OPEN OLD CLAIM: ... WITNESS: ... CURRENT CONJECTURE: ... EVIDENCE: ... 
+
+No generic RAG prose before the status record.
+
+14. My recommended status ledger right now Claim Status Static incidence identities CLOSED Four-case defect rule DIRECT COMBINATORIAL PROOF CLAIM — FORMAL AUDIT STILL REQUIRED \(\Delta_d=s_T-s_0-m_T\) EXACT ALGEBRAIC IDENTITY Old C3 zero-defect gate REFUTED \(m_T=0\Rightarrow\Delta_d=s_T-s_0\) EXACT CONSEQUENCE \(s_T-s_0=c_S-c_G\),  S General \(\kappa+\beta\) law RESEARCH CONJECTURE Canonical bridge informal construction CANDIDATE / NEEDS FORMAL HYPOTHESIS AUDIT K_{2,r} transport theorem NOT PROMOTABLE YET Displayed Lean bridge UNVERIFIED FROM SUPPLIED TEXT AQARION mathematics C4 BLOCKED CLAIMLOCK product BUILDABLE NOW Public Federation surface separately operational according to supplied telemetry; current endpoint claims should be independently rechecked before promotion Bottom line 
+
+The strongest next move is not another giant mathematical census and not another generic AI app.
+
+Build the public AQARION stack around one unique invariant:
+
+\[ \boxed{ \text{Every claim has a state, and every state transition requires evidence.} } \] 
+
+Then make the C3 failure the flagship demonstration:
+
+CLAIM ↓ EXACT ENUMERATION ↓ COUNTEREXAMPLE ↓ CANONICAL OBSTRUCTION ↓ REPLACEMENT CONJECTURE ↓ OPEN PROOF OBLIGATION 
+
+That workflow is simultaneously:
+
+a mathematical research method, a reproducibility system, a provenance graph, a RAG boundary, an agent skill, and a public application. 
+
+Most importantly, it is something AQARION has actually needed to survive its own adversarial research history.
+
+---
+
 CLAIMLOCK
 
 
