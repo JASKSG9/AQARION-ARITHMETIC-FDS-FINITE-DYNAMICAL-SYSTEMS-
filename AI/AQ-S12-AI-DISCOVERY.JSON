@@ -1,0 +1,40 @@
+{
+  "record_type": "AI_DISCOVERY_RECORD",
+  "record_id": "AQ-AIGATE-002-000001",
+
+  "claim_id": "AQ-T10-001",
+
+  "source": {
+    "kind": "model",
+    "model": "<declared-model-id>",
+    "conversation_hash": "<sha256>",
+    "prompt_hash": "<sha256>",
+    "response_hash": "<sha256>"
+  },
+
+  "discovery": {
+    "statement": "<canonical mathematical statement>",
+    "informal_derivation_hash": "<sha256>",
+    "external_candidates": []
+  },
+
+  "formalization": {
+    "lean_file": null,
+    "declaration": null,
+    "source_hash": null
+  },
+
+  "verification": {
+    "computation": "UNVERIFIED",
+    "lean": "UNVERIFIED",
+    "kernel": "UNVERIFIED",
+    "independent_checker": "UNVERIFIED"
+  },
+
+  "status": "CANDIDATE",
+
+  "human_review": {
+    "reviewed": false,
+    "review_record": null
+  }
+}
