@@ -1,1 +1,3 @@
 mkdir -p /home/workdir/artifacts/aqarion/{aq,claimgraph,semantic_diff,fixtures,skills/aqarion-claim-audit,skills/aqarion-semantic-diff,skills/aqarion-debt}
+
+cd /home/workdir/artifacts/aqarion && python3 aq/semantic_diff.py fixtures/cp009_canonical.json fixtures/cp009_reconstructed_overclaim.json; echo EXIT:$?; echo '===='; python3 aq/semantic_diff.py fixtures/k2r_true_canonical.json fixtures/k2r_true_reconstructed.json; echo EXIT:$?; echo '===='; python3 aq/compile.py fixtures/k2r_transport_claim.json; echo '===='; python3 aq/debt.py fixtures/k2r_transport_claim.json; echo '===='; python3 aq/k2r.py; echo '===='; python3 aq/beta_envelope.py
