@@ -1,0 +1,61 @@
+replay(fixture, environment) -> normalized result
+
+input fixture
+  → deterministic invariant extraction
+  → canonicalization
+  → static symmetry class
+  → transport-normalized class
+  → obstruction receipt
+
+$ claimlock ask AQ-C3-001
+
+CLAIM        AQ-C3-001
+STATE        REFUTED
+AUTHORITY    EXACT_WITNESS
+SCOPE        Universal claim, version 1.2.0
+WHY          Exact witness AQ-C3-O1 contradicts the claim within scope.
+REPLAY       PASS
+ROUTES       dsu, relation_matrix — agreement confirmed
+POLICY       POLICY-001 v1.0
+IMPACT       4 downstream claims require review or are locked
+REPLACEMENT  AQ-C3-001R — OPEN
+
+REPRODUCE
+  claimlock replay AQ-C3-O1
+
+$ claimlock diff AQ-C3-001@1.2.0 AQ-C3-001@1.3.0
+
+SEMANTIC CHANGE DETECTED
+
+SCOPE
+  - all finite systems
+  + all tested finite systems
+
+CONCLUSION
+  - universal theorem
+  + empirical observation
+
+RECEIPT EFFECT
+  CL-TX-000001: STALE
+  Reason: canonical scope hash changed.
+
+AUTHORITY RECOMPUTATION
+  FORMALLY_PROVED → NOT APPLICABLE
+  REFUTED_UNIVERSAL → NOT APPLICABLE
+  EMPIRICAL → ELIGIBLE PENDING POLICY CHECK
+
+$ claimlock impact AQ-C3-001
+
+DOWNSTREAM IMPACT
+
+LOCKED
+  AQ-C3-004
+  AQ-C3-007
+
+REVIEW REQUIRED
+  AQ-T10-001
+  AQ-BRIDGE-002
+
+REPLACEMENT TARGET
+  AQ-C3-001R
+  STATE: OPEN
