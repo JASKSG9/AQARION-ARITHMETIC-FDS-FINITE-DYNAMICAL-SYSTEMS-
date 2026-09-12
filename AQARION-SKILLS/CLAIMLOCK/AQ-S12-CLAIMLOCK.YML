@@ -1,0 +1,33 @@
+claim_id: AQ-T10-001
+
+statement:
+  text: "Delta equals kappa_S"
+
+status:
+  asserted: DERIVED
+  effective: BLOCKED
+
+requires:
+  - TRANSPORT_THEOREM
+  - KERNEL_CERTIFICATE
+
+evidence:
+  - type: COMPUTATIONAL_REPLAY
+    artifact: fixtures/K2R-BETA4.JSON
+    sha256: 33eb2dc9de2781267c450ec86d7ac57585ab4309c5fa0b22a1e63e233524a1b7
+    verifier: aq.fixture_replay
+    result: PASS
+
+non_authoritative:
+  - type: SELF_REPORTED_STATUS
+    source: fixture.status
+
+dependencies:
+  - AQ-INC-IDENTITY
+  - AQ-TRANSPORT
+
+promotion:
+  state: BLOCKED
+  reason_codes:
+    - CL008
+    - CL009
