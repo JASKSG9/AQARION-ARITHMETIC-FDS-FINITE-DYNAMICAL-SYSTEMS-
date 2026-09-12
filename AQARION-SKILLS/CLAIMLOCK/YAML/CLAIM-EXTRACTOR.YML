@@ -1,0 +1,11 @@
+input:
+  artifact: path to paper/code/transcript
+  extraction_mode: [theorem, empirical, software_property, benchmark]
+output:
+  claims:
+    - id: auto-generated
+      text: normalized statement
+      scope: INSTANCE | FINITE_FAMILY | PARAMETERIZED | UNIVERSAL
+      evidence_references: [list of artifact locations]
+      extraction_confidence: 0.0-1.0
+      raw_quote: exact text span
