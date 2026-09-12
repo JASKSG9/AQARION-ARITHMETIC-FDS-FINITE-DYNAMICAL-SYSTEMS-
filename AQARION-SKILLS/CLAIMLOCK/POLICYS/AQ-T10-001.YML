@@ -1,0 +1,27 @@
+policy:
+  id: universal-theorem-research
+  version: "1.0"
+
+  promotion:
+    FORMALLY_PROVED:
+      require_all:
+        - FORMAL_KERNEL_CERTIFICATE
+        - CONTENT_HASH_VALID
+        - NON_CIRCULAR
+        - SCOPE_SUFFICIENT_UNIVERSAL
+        - FORMAL_TARGET_ALIGNED
+        - TRUSTED_ENVIRONMENT_PINNED
+
+    INDEPENDENTLY_VERIFIED:
+      require_all:
+        - INDEPENDENT_VERIFIER
+        - CONTENT_HASH_VALID
+        - NON_CIRCULAR
+        - SCOPE_SUFFICIENT
+
+  verifier_rules:
+    ephemeral:
+      universal_theorem:
+        allowed: false
+      exploratory_computation:
+        allowed: true
