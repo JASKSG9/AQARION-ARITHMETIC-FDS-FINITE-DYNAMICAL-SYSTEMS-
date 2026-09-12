@@ -1,12 +1,21 @@
+name: aqarion-claim-extractor
+description: Extract typed claims from research artifacts without promotion authority.
+version: 0.2
+
 input:
-  claim:
-    text: string
-    declared_scope: INSTANCE | FINITE_FAMILY | PARAMETERIZED | UNIVERSAL
-  evidence:
-    - type: COMPUTATION | REPLAY | FORMAL | LITERATURE
-      scope_established: INSTANCE | FINITE_FAMILY | PARAMETERIZED | UNIVERSAL
-      artifacts: [hashes]
+  artifact: path to paper/code/transcript
+  extraction_mode: [theorem, empirical, software_property, benchmark]
+
 output:
-  scope_sufficient: boolean
-  gap: null | { required: UNIVERSAL, established: INSTANCE }
-  reason_code: CL008 | null
+  claims:
+    - id: auto-generated (content-addressed)
+      text: normalized statement (decontextualized)
+      scope: INSTANCE | FINITE_FAMILY | PARAMETERIZED | UNIVERSAL
+      evidence_references: [list of artifact locations]
+      extraction_confidence: 0.0-1.0
+      raw_quote: exact text span
+      extraction_warnings: [list]
+
+non_authority_clause: |
+  This skill CANNOT assign status. It can only extract and classify.
+  Promotion requires a separate policy engine.
