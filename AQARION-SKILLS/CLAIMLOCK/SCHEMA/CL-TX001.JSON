@@ -1,0 +1,46 @@
+{
+  "receipt_version": "0.1",
+  "receipt_id": "CL-TX-000001",
+  "issued_at": "2026-09-12T18:23:00-04:00",
+  "claim": {
+    "claim_id": "AQ-C3-001",
+    "claim_version": "1.2.0",
+    "canonical_claim_hash": "sha256:...",
+    "canonical_scope_hash": "sha256:...",
+    "semantic_schema_version": "0.1"
+  },
+  "transition": {
+    "from": { "epistemic": "OPEN", "operational": "CHECKING" },
+    "to": { "epistemic": "REFUTED", "operational": "LOCKED" },
+    "transition_code": "EXACT_COUNTEREXAMPLE",
+    "reason_summary": "Exact witness contradicts the universal claim within scope."
+  },
+  "evidence": [{
+    "evidence_id": "AQ-C3-O1",
+    "kind": "EXACT_WITNESS",
+    "content_hash": "sha256:...",
+    "scope_relation": "WITHIN_SCOPE"
+  }],
+  "verification": {
+    "required_routes": ["dsu", "relation_matrix"],
+    "completed_routes": ["dsu", "relation_matrix"],
+    "route_agreement": true,
+    "replay_status": "PASS"
+  },
+  "provenance": {
+    "source_class": "PROJECT_ARTIFACT",
+    "non_circular": true,
+    "provenance_graph_hash": "sha256:..."
+  },
+  "impact": {
+    "locks_downstream_claims": ["AQ-C3-004", "AQ-C3-007"],
+    "replacement_claims": ["AQ-C3-001R"]
+  },
+  "policy": {
+    "policy_id": "POLICY-001",
+    "policy_version": "1.0",
+    "transition_allowed": true,
+    "promotion_allowed": false,
+    "promotion_reason": "Refutation does not create formal certification of replacement."
+  }
+}
