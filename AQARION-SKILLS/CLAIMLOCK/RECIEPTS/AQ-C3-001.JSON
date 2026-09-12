@@ -1,0 +1,53 @@
+{
+  "receipt_version": "0.1",
+  "receipt_id": "CL-TX-000001",
+
+  "claim_id": "AQ-C3-001",
+
+  "transition": {
+    "from": "CANDIDATE",
+    "to": "REFUTED"
+  },
+
+  "reason": {
+    "code": "EXACT_COUNTEREXAMPLE",
+    "summary": "Exact witness replay contradicts universal claim."
+  },
+
+  "subject": {
+    "claim_hash": "sha256:...",
+    "scope": "universal"
+  },
+
+  "evidence": [
+    {
+      "evidence_id": "AQ-C3-O1",
+      "kind": "EXACT_WITNESS",
+      "hash": "sha256:..."
+    }
+  ],
+
+  "verification": {
+    "routes": [
+      "dsu",
+      "relation_matrix"
+    ],
+    "agreement": true,
+    "replay_status": "PASS"
+  },
+
+  "provenance": {
+    "non_circular": true,
+    "source_class": "PROJECT_ARTIFACT"
+  },
+
+  "promotion": {
+    "allowed": false,
+    "reason": "REFUTATION_TRANSITION_DOES_NOT_PROMOTE_FORMAL_STATUS"
+  },
+
+  "policy": {
+    "id": "POLICY-001",
+    "version": "1.0"
+  }
+}
