@@ -1,0 +1,43 @@
+obstruction_id: C3-O1
+status: REFUTED_WITNESS
+
+input:
+  n: 8
+  marked_support: [0,1,2]
+  pair_order_normalized: true
+
+symmetry:
+  exterior_orbit:
+  marked_rotation:
+  pq_swap:
+  closure_signature:
+
+local_defect:
+  dP:
+  dQ:
+  dM:
+  dJ:
+  delta_d:
+
+transport:
+  s0:
+  sT:
+  mT:
+  transport_identity_verified: true
+
+incidence:
+  cS:
+  cG:
+  beta:
+  kappa:
+
+classification:
+  signature:
+  topology:
+  canonical_root:
+
+verification:
+  exact_integer: true
+  replayable: true
+  fixture_sha256:
+  implementation_commit:
