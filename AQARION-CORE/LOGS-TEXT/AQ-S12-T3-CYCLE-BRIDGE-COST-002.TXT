@@ -1,0 +1,412 @@
+T3-CYCLE-BRIDGE-COST-002
+
+
+STATUS: MATHEMATICALLY DERIVED WITH CORRECTION
+GOVERNANCE: FROZEN
+PROMOTION: BLOCKED
+C3: GLOBAL OPEN
+C4: BLOCKED
+PUBLICATION: BLOCKED
+LEAN: OPEN
+
+
+AUDIT RESULT
+
+
+The previously stated identity
+
+
+c(G_R) = c(H_T(R))
+
+
+
+is FALSE.
+
+
+Counterexample:
+
+
+T = (01)
+R = {{0},{1}}
+
+
+
+Then
+
+
+c(G_R) = 1
+c(H_T) = 2.
+
+
+
+The correct relation is
+
+
+c(G_R) <= c(H_T(R)).
+
+
+
+This weaker inequality is sufficient for the bridge-cost theorem.
+
+
+CORRECTED BRIDGE-COST PROOF
+
+
+Let G_R have one vertex for each nontrivial cycle and one vertex for each support-meeting partition block.
+
+
+Join C_j to B iff B ∩ C_j is nonempty.
+
+
+For each support block B let
+
+
+t_B = number of nontrivial cycles meeting B.
+
+
+
+Then
+
+
+t_B <= |B ∩ S|,
+
+
+
+so
+
+
+sum_B (t_B - 1) <= b.
+
+
+
+Also
+
+
+|E(G_R)| - q = sum_B (t_B - 1).
+
+
+
+Every H_T hyperedge lies inside a single connected component of G_R, hence
+
+
+c(G_R) <= c(H_T).
+
+
+
+Since G_R has q+r vertices,
+
+
+|E(G_R)| >= q+r-c(G_R).
+
+
+
+Therefore
+
+
+b >= r-c(G_R)
+  >= r-c(H_T),
+
+
+
+and hence
+
+
+BOXED:
+b + c(H_T) >= r.
+
+
+
+Consequently
+
+
+BOXED:
+d_T(R) <= s-r.
+
+
+
+Thus the universal multi-cycle bound survives, but the component-count proof must use an inequality rather than equality.
+
+
+INDEPENDENT EXACT ENUMERATION
+
+
+An independent exact enumeration was performed for all set partitions for all cycle types and fixed-point counts with n <= 9.
+
+
+64 cycle-type/fixed-point cases were checked.
+
+
+No case violated the following candidate extremal law:
+
+
+max_R d_T(R)
+  = s-r
+    if f > 0 or gcd(ell_1,...,ell_r)=1,
+
+  = s-r-1
+    if f = 0 and gcd(ell_1,...,ell_r)>1.
+
+
+
+This is computational evidence only; the second branch remains OPEN as a proof target.
+
+
+CRITICAL NUMERICAL CORRECTION
+
+
+For
+
+
+T = (012)(345),
+
+
+
+the previous status claim
+
+
+n=6: max d_T = 2
+
+
+
+is FALSE.
+
+
+Exact exhaustive enumeration gives
+
+
+n=6: max d_T = 3.
+
+
+
+Witness:
+
+
+R = {{0,1,3},{2},{4},{5}}
+
+
+
+with
+
+
+s=6,
+r=2,
+q=4,
+b=2,
+c(H_T)=1,
+
+
+
+hence
+
+
+d_T = 4-1 = 3
+    = 6-2-1.
+
+
+
+With one fixed point:
+
+
+n=7: max d_T = 4,
+
+
+
+not 3.
+
+
+Witness:
+
+
+R = {{0,3,6},{1},{2},{4},{5}}
+
+
+
+where 6 is fixed.
+
+
+Then
+
+
+b=1,
+c(H_T)=1,
+
+
+
+so
+
+
+d_T=6-1-1=4=s-r.
+
+
+
+GCD COUNTEREXAMPLE WITHDRAWN
+
+
+The previous purported counterexample
+
+
+T=(012)(345)
+R={{0,1,3,4},{2},{5}}
+
+
+
+has
+
+
+b=3,
+c(H_T)=1,
+
+
+
+and therefore
+
+
+d_T=6-3-1=2.
+
+
+
+Since
+
+
+s-r=4,
+
+
+
+this does NOT attain equality.
+
+
+Therefore the statement
+
+
+gcd(ell_1,...,ell_r)>1 does not imply a gap
+
+
+
+is NOT established and should be removed.
+
+
+CURRENT GCD STATUS
+
+
+Constructive result:
+
+
+gcd(ell_1,...,ell_r)=1
+=> equality d_T=s-r is achievable
+   in the pure-support case.
+
+
+
+With a fixed point:
+
+
+f>0
+=> equality d_T=s-r is constructively achievable
+   for every cycle type, using a fixed-point hub.
+
+
+
+New exact conjecture:
+
+
+f=0 and gcd(ell_1,...,ell_r)>1
+=> max_R d_T(R)=s-r-1.
+
+
+
+This conjecture passed all exact cycle-type cases through n=9 but remains unproved.
+
+
+PRIMARY OPEN THEOREM
+
+
+Pure-support strictness lemma:
+
+
+f=0,
+gcd(ell_1,...,ell_r)>1
+
+==> b(R)+c(H_T(R)) >= r+1.
+
+
+
+Together with the explicit construction attaining r+1, this would establish
+
+
+max_R d_T(R)=s-r-1.
+
+
+
+GRAPH INTERPRETATION
+
+
+The cycle-block incidence graph is a connectivity quotient:
+
+
+c(G_R) <= c(H_T).
+
+
+
+When every support block meets every nontrivial cycle in at most one point,
+
+
+b+c(G_R)-r
+
+
+
+is the cyclomatic number
+
+
+beta(G_R)=|E|-|V|+c.
+
+
+
+Therefore graph-forest structure remains relevant, but equality with H_T requires the additional condition
+
+
+c(G_R)=c(H_T).
+
+
+
+LEAN DAG
+
+
+
+
+Define cycle-block incidence graph.
+
+
+Prove every H_T hyperedge lies inside one G_R component.
+
+
+Deduce c(G_R) <= c(H_T).
+
+
+Apply finite-graph edge lower bound.
+
+
+Prove b+c(H_T) >= r.
+
+
+Deduce d_T <= s-r.
+
+
+Formalize fixed-point hub equality construction.
+
+
+Formalize pure-support gcd=1 construction.
+
+
+Attack the pure-support gcd>1 strictness lemma.
+
+
+
+
+FORMAL STATUS
+
+
+No Lean compilation receipt.
+No zero-sorry receipt.
+C4 remains BLOCKED.
+Publication remains BLOCKED.
+
