@@ -1,0 +1,19 @@
+{
+  "receipt_version": "1.0",
+  "claim_id": "AQ-T10-001",
+  "verifier": {
+    "id": "matrix_dual_route",
+    "version": "0.3.1",
+    "digest": "sha256:..."
+  },
+  "inputs": [
+    {
+      "path": "fixtures/K2R-BETA4.JSON",
+      "sha256": "33eb..."
+    }
+  ],
+  "result": "PASS",
+  "scope": "INSTANCE",
+  "timestamp": "...",
+  "output_sha256": "..."
+}
