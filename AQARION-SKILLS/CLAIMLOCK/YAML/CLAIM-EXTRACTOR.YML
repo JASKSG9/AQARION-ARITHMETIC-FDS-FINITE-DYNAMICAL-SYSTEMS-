@@ -1,11 +1,22 @@
-input:
-  artifact: path to paper/code/transcript
-  extraction_mode: [theorem, empirical, software_property, benchmark]
+name: aqarion-scope-checker
+description: Determine whether evidence scope is sufficient for claim scope.
+version: 0.2
+
+scope_lattice:
+  INSTANCE: 0
+  FINITE_FAMILY: 1
+  PARAMETERIZED_FAMILY: 2
+  UNIVERSAL: 3
+
+algorithm:
+  1. Normalize claim.declared_scope to lattice index
+  2. Normalize each evidence.scope_established to lattice index
+  3. For each required evidence type, check if any evidence item
+     has scope_index >= required_scope_index
+  4. If gap exists, emit CL008 with {required, established, deficit}
+
 output:
-  claims:
-    - id: auto-generated
-      text: normalized statement
-      scope: INSTANCE | FINITE_FAMILY | PARAMETERIZED | UNIVERSAL
-      evidence_references: [list of artifact locations]
-      extraction_confidence: 0.0-1.0
-      raw_quote: exact text span
+  scope_sufficient: boolean
+  gap: null | { required: UNIVERSAL, established: INSTANCE, deficit: 3 }
+  reason_code: CL008 | null
+  lattice_used: true
