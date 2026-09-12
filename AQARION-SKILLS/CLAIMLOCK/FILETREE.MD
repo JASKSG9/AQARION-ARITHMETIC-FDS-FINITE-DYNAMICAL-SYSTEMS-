@@ -5,52 +5,52 @@ CLAIMLOCK/
 ├── pyproject.toml
 │
 ├── claimlock/
-│   ├── scan.py
-│   ├── replay.py
+│   ├── claim.py
+│   ├── state.py
+│   ├── transition.py
+│   ├── policy.py
+│   ├── evidence.py
 │   ├── provenance.py
-│   ├── semantic.py
 │   ├── dependency.py
-│   ├── promotion.py
-│   ├── explain.py
-│   ├── policy.py          # NEW
-│   ├── admissibility.py   # NEW
-│   └── receipts.py        # NEW
+│   ├── replay.py
+│   ├── receipt.py
+│   ├── witness.py
+│   ├── obligation.py
+│   ├── cemetery.py
+│   └── explain.py
 │
 ├── schema/
 │   ├── claim.schema.json
 │   ├── evidence.schema.json
 │   ├── receipt.schema.json
-│   └── policy.schema.json # NEW
+│   ├── transition.schema.json
+│   └── policy.schema.json
 │
-├── reason-codes/
-│   └── codes.yaml
-│
-├── policies/
-│   ├── research.yaml
-│   ├── software.yaml
-│   └── agent.yaml
-│
-├── verifiers/
-│   ├── python_replay/
-│   ├── matrix_dual_route/
-│   ├── hash/
-│   └── lean/
+├── policy/
+│   ├── POLICY-001.yaml
+│   └── TRANSITIONS-001.yaml
 │
 ├── fixtures/
-│   ├── aqarion-k2r-beta4/
-│   ├── circular-proof/
-│   ├── self-certified-json/
-│   ├── stale-hash/
-│   ├── wrong-scope-replay/      
-│   ├── verifier-self-certifies/ 
-│   └── dependency-cycle/        
+│   ├── refuted/
+│   │   └── AQ-C3-O1/
+│   ├── replay/
+│   │   └── K2R-BETA4/
+│   └── provenance/
 │
-├── benchmark/
-│   └── ClaimLock-100/
+├── examples/
+│   ├── exact-refutation/
+│   ├── computational-agreement/
+│   ├── circular-provenance/
+│   └── blocked-promotion/
+│
+├── tests/
+│   ├── test_transition_legality.py
+│   ├── test_circularity.py
+│   ├── test_replay.py
+│   └── test_policy.py
 │
 └── docs/
-    ├── THREAT_MODEL.md
-    ├── TRUST_MODEL.md
-    ├── CLAIM_LIFECYCLE.md
-    ├── PROMOTION_SPEC.md        
-    └── ADVERSARIAL_CASES.md     
+    ├── STATUS-MODEL.md
+    ├── RECEIPT-SPEC.md
+    ├── TRANSITION-SPEC.md
+    └── FAILURE-MODES.md
