@@ -1,0 +1,283 @@
+T3-CYCLE-BRIDGE-COST-001
+
+
+STATUS: MATHEMATICALLY DERIVED
+GOVERNANCE: FROZEN
+PROMOTION: BLOCKED
+C3: GLOBAL OPEN
+C4: BLOCKED
+PUBLICATION: BLOCKED
+LEAN: OPEN
+
+
+SETTING
+
+
+Let T have r nontrivial cycles C_1,...,C_r with support S and |S|=s.
+
+
+For a partition R define
+
+
+B_S(R) = {B in R : B ∩ S != empty},
+q = |B_S(R)|,
+
+
+b(R) = s-q
+= sum_{B in B_S(R)} (|B ∩ S|-1).
+
+
+Let H_T(R) be the support transition hypergraph used in HYPERGRAPH-001, and let c(H_T(R)) denote its number of connected components.
+
+
+STRUCTURAL DEFECT IDENTITY
+
+
+d_T(R) = q - c(H_T(R))
+= s - b(R) - c(H_T(R)).
+
+
+NEW CYCLE-BLOCK INCIDENCE GRAPH
+
+
+Construct G_R with:
+
+
+
+
+one vertex for each nontrivial cycle C_j;
+
+
+one vertex for each support-meeting partition block B;
+
+
+an edge C_j--B iff B ∩ C_j is nonempty.
+
+
+
+
+Every collection of original blocks meeting the same cycle lies in one connected component of H_T(R), because successive T-translates connect the blocks containing successive points of that cycle.
+
+
+Conversely, every H_T hyperedge connects blocks through cycle labels already present in the transported source block.
+
+
+Therefore
+
+
+c(G_R) = c(H_T(R)).
+
+
+EDGE COUNT
+
+
+If t_B is the number of distinct nontrivial cycles meeting B, then
+
+
+t_B <= |B ∩ S|,
+
+
+hence
+
+
+sum_B (t_B-1) <= sum_B (|B ∩ S|-1) = b.
+
+
+But
+
+
+|E(G_R)| - q = sum_B(t_B-1).
+
+
+Since G_R has q+r vertices and c(H_T(R)) components,
+
+
+|E(G_R)| >= q+r-c(H_T(R)).
+
+
+Therefore
+
+
+b >= r-c(H_T(R)),
+
+
+so
+
+
+BOXED:
+b + c(H_T(R)) >= r.
+
+
+UNIVERSAL MULTI-CYCLE BOUND
+
+
+Using d_T = s-b-c,
+
+
+BOXED:
+d_T(R) <= s-r.
+
+
+This is a paper-level mathematical derivation, not merely a computational conjecture.
+
+
+COMPUTATIONAL AUDIT
+
+
+Independent random testing:
+20,000 random cycle-type/partition cases;
+0 violations of b+c >= r.
+
+
+Exhaustive no-fixed-point audit:
+all nontrivial cycle types with support size s <= 9;
+all set partitions for each type;
+0 violations.
+
+
+IMPORTANT CORRECTION
+
+
+Cycle-type maxima cannot be recorded without specifying n.
+
+
+For T=(012)(345):
+
+
+
+
+n=6 gives max d_T = 2;
+
+
+n=7 gives max d_T = 3.
+
+
+
+
+Thus fixed-point count f=n-s materially affects the extremal value.
+
+
+IMPORTANT GCD CORRECTION
+
+
+gcd(ell_1,...,ell_r)=1 is sufficient for equality via the single r-ary bridge construction, but it is NOT necessary.
+
+
+Counterexample:
+
+
+T=(012)(345), n=6,
+
+
+R = {{0,1,3,4},{2},{5}}.
+
+
+Here
+
+
+s=6,
+r=2,
+b=3,
+c(H_T)=1,
+
+
+so
+
+
+d_T = 6-3-1 = 2 = s-r.
+
+
+Thus gcd(3,3)=3 does not prevent equality.
+
+
+CONCEPTUAL INTERPRETATION
+
+
+The correct extremal optimization is
+
+
+max_R d_T(R)
+
+
+s - min_R (b(R)+c(H_T(R))).
+
+
+The universal lower bound is
+
+
+b+c >= r.
+
+
+Equality is therefore equivalent to
+
+
+b+c=r.
+
+
+In the regime where each support block meets each nontrivial cycle in at most one point,
+
+
+b+c-r equals the cyclomatic number of the cycle-block incidence graph.
+
+
+Hence forest structure is a promising equality criterion in that regime.
+
+
+OPEN TARGET
+
+
+Classify exactly when
+
+
+min_R(b+c)=r,
+
+
+as a function of:
+
+
+
+
+cycle lengths (ell_1,...,ell_r);
+
+
+fixed-point count f=n-s;
+
+
+allowable bridge architecture.
+
+
+
+
+No claim is made that gcd conditions alone classify equality.
+
+
+LEAN
+
+
+Primary formalization targets:
+
+
+
+
+cycle-block incidence graph;
+
+
+equality of its component count with H_T;
+
+
+finite-graph edge lower bound |E| >= |V|-c;
+
+
+b+c >= r;
+
+
+d_T <= s-r.
+
+
+
+
+No Lean compilation receipt exists.
+No zero-sorry receipt exists.
+C4 remains BLOCKED.
+Publication remains BLOCKED.
+
