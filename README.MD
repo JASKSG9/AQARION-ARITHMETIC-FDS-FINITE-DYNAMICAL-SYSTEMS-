@@ -1,20 +1,19 @@
-⚖️ AQARION ARITHMETIC 
+# ⚖️ AQARION ARITHMETIC
 
-Certified Observable Invariance Across Dynamical Systems
+**Certified Observable Invariance Across Dynamical Systems**
 
-"Status" (https://img.shields.io/badge/status-research_framework-blue)
-"Core" (https://img.shields.io/badge/core-AQARION_Defect_Operator-green)
-"Mathematics" (https://img.shields.io/badge/math-invariant_subspaces-purple)
-"Validation" (https://img.shields.io/badge/validation-finite_state_certification-orange)
-"License" (https://img.shields.io/badge/reproducibility-open_science-brightgreen)
-
+![Status](https://img.shields.io/badge/status-research_framework-blue)
+![Core](https://img.shields.io/badge/core-AQARION_Defect_Operator-green)
+![Mathematics](https://img.shields.io/badge/math-invariant_subspaces-purple)
+![Validation](https://img.shields.io/badge/validation-finite_state_certification-orange)
+![License](https://img.shields.io/badge/reproducibility-open_science-brightgreen)
 ---
 
 🌐 Abstract
 
 A Certification Framework for Observable Invariance in Finite and Reduced Dynamical Systems
 
-J27 introduces a unified computational framework for measuring whether a proposed observable space remains dynamically closed under an evolution operator.
+Aqarion & Quantarion introduces a unified computational framework for measuring whether a proposed observable space remains dynamically closed under an evolution operator.
 
 The central object is the defect operator:
 
@@ -19182,10 +19181,3 @@ C3 defect supermodularity| OPEN
 Lean| OPEN
 C4| BLOCKED
 Publication| BLOCKED
-
-The immediate priority is therefore the certified n=9 critical-locus sweep.
-
-
-https://huggingface.co/spaces/Quantarion9/AQARION-ACADEMY/resolve/main/README-LITE.MD/
-
-https://github.com/JASKSG9/AQARION-ARITHMETIC-FDS-FINITE-DYNAMICAL-SYSTEMS-/blob/main/UNDERVIEW.MD/
