@@ -1,0 +1,64 @@
+{
+  "fixture_id": "TRANSPORT-K2R-BETA4",
+  "family": "K2r_extremal",
+  "r": 5,
+  "n": 11,
+  "support_S": [0,1,2,3,4,5,6,7,8,9],
+  "permutation_T": [1,2,3,4,5,6,7,8,9,0,10],
+  "P": [
+    [0,2,4,5,7,10],
+    [1,3,6,8,9]
+  ],
+  "Q": [
+    [0,8,10],
+    [1,2],
+    [3,5],
+    [4,6],
+    [7,9]
+  ],
+  "M": [
+    [0,10],
+    [1],
+    [2],
+    [3],
+    [4],
+    [5],
+    [6],
+    [7],
+    [8],
+    [9]
+  ],
+  "U": [
+    [0,1,2,3,4,5,6,7,8,9,10]
+  ],
+  "expected": {
+    "block_P": 2,
+    "block_Q": 5,
+    "block_M": 10,
+    "block_U": 1,
+    "s0": 4,
+    "dP": 1,
+    "dQ": 4,
+    "dM": 9,
+    "dU": 0,
+    "mT": 0,
+    "kappaS": -4,
+    "kappaS_J": 0,
+    "delta": -4,
+    "sT": 0,
+    "betaHS": 4
+  },
+  "marked_graph": {
+    "type": "K2,5",
+    "vertices": 7,
+    "edges": 10,
+    "components": 1,
+    "beta": 4
+  },
+  "status": "INDEPENDENTLY_VERIFIED",
+  "verification_routes": [
+    "partition-block/DSU",
+    "equivalence-relation-matrix"
+  ],
+  "hash_status": "NOT_COMPUTED"
+}
