@@ -1,0 +1,12 @@
+input:
+  claim:
+    text: string
+    declared_scope: INSTANCE | FINITE_FAMILY | PARAMETERIZED | UNIVERSAL
+  evidence:
+    - type: COMPUTATION | REPLAY | FORMAL | LITERATURE
+      scope_established: INSTANCE | FINITE_FAMILY | PARAMETERIZED | UNIVERSAL
+      artifacts: [hashes]
+output:
+  scope_sufficient: boolean
+  gap: null | { required: UNIVERSAL, established: INSTANCE }
+  reason_code: CL008 | null
