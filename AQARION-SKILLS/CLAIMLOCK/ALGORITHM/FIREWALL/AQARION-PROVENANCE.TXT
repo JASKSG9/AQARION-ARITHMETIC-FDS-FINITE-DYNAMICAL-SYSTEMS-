@@ -1,0 +1,5 @@
+1. Build provenance graph: Claim → Evidence → Artifact → Producer → Inputs
+2. Detect cycles: if Evidence depends on Claim (directly or transitively)
+3. Detect session-echo: if producer fingerprint matches current session
+4. Detect ephemeral verifier: if verifier was generated in same session as claim
+5. Output: PROVENANCE_CLEAN | SESSION_ECHO_SUSPECT | CYCLE_DETECTED
