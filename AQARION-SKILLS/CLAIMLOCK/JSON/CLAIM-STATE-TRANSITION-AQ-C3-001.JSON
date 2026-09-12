@@ -1,0 +1,51 @@
+{
+  "transaction_type": "CLAIM_STATE_TRANSITION",
+  "transaction_version": "0.1",
+
+  "claim": {
+    "id": "AQ-C3-001",
+    "canonical_hash": "sha256:..."
+  },
+
+  "input_state": {
+    "epistemic": "OPEN",
+    "operational": "CHECKING"
+  },
+
+  "evidence_bundle": {
+    "bundle_id": "EV-AQ-C3-O1",
+    "items": ["AQ-C3-O1"],
+    "provenance_clean": true,
+    "scope_sufficient": true,
+    "circularity": false
+  },
+
+  "transition_attempt": {
+    "code": "EXACT_COUNTEREXAMPLE",
+    "requested_state": "REFUTED"
+  },
+
+  "verification": {
+    "required_routes": [
+      "dsu",
+      "relation_matrix"
+    ],
+    "completed_routes": [
+      "dsu",
+      "relation_matrix"
+    ],
+    "agreement": true,
+    "replay": "PASS"
+  },
+
+  "policy": {
+    "id": "POLICY-001",
+    "version": "1.0"
+  },
+
+  "decision": {
+    "transition_allowed": true,
+    "new_state": "REFUTED",
+    "promotion_allowed": false
+  }
+}
