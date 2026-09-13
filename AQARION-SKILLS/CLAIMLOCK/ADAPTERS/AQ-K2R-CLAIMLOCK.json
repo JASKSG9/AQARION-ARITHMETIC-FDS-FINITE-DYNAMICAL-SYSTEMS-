@@ -1,0 +1,37 @@
+{
+  "adapter_id": "AQ-K2R-CLAIMLOCK",
+  "adapter_version": "0.1.0",
+  "claim_family": "AQ-K2R-CLOSURE-STAB",
+  "evidence_state": "RECONSTRUCTED_INDEPENDENT_COMPUTATION",
+  "promotion_state": "BLOCKED",
+  "mathematical_scope": {
+    "family_parameter": "r",
+    "minimum_r": 2,
+    "tested_r": [
+      2,
+      3,
+      5,
+      6,
+      10,
+      15
+    ]
+  },
+  "predicates": {
+    "fixture_reconstruction": "COMPUTED",
+    "partition_normalization": "COMPUTED",
+    "meet": "COMPUTED",
+    "join": "COMPUTED",
+    "closure": "COMPUTED",
+    "incidence_graph": "COMPUTED",
+    "cycle_rank": "COMPUTED",
+    "negative_three_orbit_terms": "COMPUTED",
+    "infinite_family_theorem": "OPEN"
+  },
+  "claims": {
+    "H_S_is_K2r": "EMPIRICAL_UNTIL_FORMALIZED",
+    "beta_equals_r_minus_one": "EMPIRICAL_UNTIL_FORMALIZED",
+    "kappa_equals_negative_r_minus_one": "EMPIRICAL_UNTIL_FORMALIZED",
+    "h_min_M_equals_2r": "EMPIRICAL_UNTIL_FORMALIZED",
+    "sup_h_min_is_infinite": "OPEN"
+  }
+}
