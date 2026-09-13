@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AQARION SV-001 Test Receipt",
+  "type": "object",
+  "required": [
+    "receipt_schema",
+    "claim_id",
+    "timestamp_utc",
+    "operator_convention",
+    "tolerance",
+    "cases_executed",
+    "nondegenerate_cases",
+    "degenerate_cases",
+    "gram_failures",
+    "spectrum_failures",
+    "zero_defect_failures",
+    "max_gram_error",
+    "max_spectrum_error",
+    "max_zero_defect_error"
+  ],
+  "properties": {
+    "receipt_schema": {
+      "const": "aqarion.sv001.test-receipt.v1"
+    },
+    "claim_id": {
+      "const": "SV001-EXH-001"
+    },
+    "timestamp_utc": {
+      "type": "string"
+    },
+    "source_sha256": {
+      "type": "string"
+    },
+    "binary_sha256": {
+      "type": "string"
+    },
+    "compiler": {
+      "type": "string"
+    },
+    "operator_convention": {
+      "const": "K_s[x,(x+s) mod n]=1; D=(I-P)K_sP; L=2I-S-S^{-1}"
+    },
+    "tolerance": {
+      "type": "number",
+      "exclusiveMinimum": 0
+    },
+    "cases_executed": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "nondegenerate_cases": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "degenerate_cases": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "gram_failures": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "spectrum_failures": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "zero_defect_failures": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "max_gram_error": {
+      "type": "number",
+      "minimum": 0
+    },
+    "max_spectrum_error": {
+      "type": "number",
+      "minimum": 0
+    },
+    "max_zero_defect_error": {
+      "type": "number",
+      "minimum": 0
+    },
+    "result": {
+      "enum": ["PASS", "FAIL"]
+    }
+  },
+  "additionalProperties": true
+}
