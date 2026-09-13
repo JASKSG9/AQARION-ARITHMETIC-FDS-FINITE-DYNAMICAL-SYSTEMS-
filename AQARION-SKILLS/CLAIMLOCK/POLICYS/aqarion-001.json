@@ -1,0 +1,38 @@
+{
+  "id": "POLICY-001",
+  "version": "1.0.0",
+  "rules": [
+    {
+      "id": "TR-ALLOW-001",
+      "outcome": "ALLOW"
+    },
+    {
+      "id": "TR-SCOPE-001",
+      "outcome": "DENY"
+    },
+    {
+      "id": "TR-REPLAY-001",
+      "outcome": "DENY"
+    },
+    {
+      "id": "TR-PROVENANCE-001",
+      "outcome": "QUARANTINE"
+    },
+    {
+      "id": "TR-ROUTES-001",
+      "outcome": "QUARANTINE"
+    },
+    {
+      "id": "TR-AUTHORITY-001",
+      "outcome": "QUARANTINE"
+    },
+    {
+      "id": "TR-INDET-001",
+      "outcome": "INDETERMINATE"
+    },
+    {
+      "id": "TR-MALFORMED-001",
+      "outcome": "INDETERMINATE"
+    }
+  ]
+}
