@@ -1,0 +1,309 @@
+policies/POLICY-001-v1.2.0.json
+
+
+{
+  "id": "POLICY-001",
+  "version": "1.2.0",
+  "schema_version": "claimlock.policy.v1",
+  "canonicalization": "RFC8785-JCS",
+  "required_predicates": [
+    "scope",
+    "provenance",
+    "replay",
+    "routes",
+    "authority",
+    "impact"
+  ],
+  "conflict_mode": "deny_on_ambiguity",
+  "default_outcome": "INDETERMINATE",
+  "rules": [
+    {
+      "id": "TR-SCOPE-001",
+      "priority": 20,
+      "when": {
+        "predicate": "scope",
+        "equals": "FAIL"
+      },
+      "outcome": "DENY",
+      "reason_codes": [
+        "CL002"
+      ]
+    },
+    {
+      "id": "TR-REPLAY-001",
+      "priority": 30,
+      "when": {
+        "predicate": "replay",
+        "equals": "FAIL"
+      },
+      "outcome": "DENY",
+      "reason_codes": [
+        "CL101"
+      ]
+    },
+    {
+      "id": "TR-PROVENANCE-001",
+      "priority": 40,
+      "when": {
+        "predicate": "provenance",
+        "equals": "FAIL"
+      },
+      "outcome": "QUARANTINE",
+      "reason_codes": [
+        "CL201"
+      ]
+    },
+    {
+      "id": "TR-ROUTES-001",
+      "priority": 50,
+      "when": {
+        "predicate": "routes",
+        "equals": "FAIL"
+      },
+      "outcome": "QUARANTINE",
+      "reason_codes": [
+        "CL301"
+      ]
+    },
+    {
+      "id": "TR-AUTHORITY-001",
+      "priority": 60,
+      "when": {
+        "predicate": "authority",
+        "equals": "FAIL"
+      },
+      "outcome": "QUARANTINE",
+      "reason_codes": [
+        "CL401"
+      ]
+    },
+    {
+      "id": "TR-IMPACT-001",
+      "priority": 70,
+      "when": {
+        "predicate": "impact",
+        "equals": "FAIL"
+      },
+      "outcome": "QUARANTINE",
+      "reason_codes": [
+        "CL501"
+      ]
+    },
+    {
+      "id": "TR-INDET-001",
+      "priority": 80,
+      "when": {
+        "any_predicate": "INDETERMINATE"
+      },
+      "outcome": "INDETERMINATE",
+      "reason_codes": [
+        "CL999"
+      ]
+    },
+    {
+      "id": "TR-ALLOW-001",
+      "priority": 100,
+      "when": {
+        "all": {
+          "scope": "PASS",
+          "provenance": "PASS",
+          "replay": "PASS",
+          "routes": "PASS",
+          "authority": "PASS",
+          "impact": "PASS"
+        }
+      },
+      "outcome": "ALLOW",
+      "reason_codes": []
+    }
+  ]
+}
+
+
+
+Frozen semantic rule
+
+
+ALLOW is impossible unless:
+
+scope       = PASS
+provenance  = PASS
+replay      = PASS
+routes      = PASS
+authority   = PASS
+impact      = PASS
+
+
+
+No missing predicate can reach ALLOW.
+
+
+No caller-supplied PASS is sufficient.
+
+
+No stale impact closure can reach ALLOW.
+
+
+No policy default can be ALLOW.
+
+
+No equal-priority ambiguity can reach ALLOW.
+
+
+:::
+
+That is a substantive correction to the previous architecture.
+
+---
+
+# 5. Deliverable: deterministic receipt construction
+
+The receipt must be generated **after** predicate derivation and policy evaluation.
+
+:::writing{variant="document" id="31684" title="CLAIMLOCK Offline Receipt Contract"}
+### `claimlock/receipt_kernel.py`
+
+```python
+"""
+CLAIMLOCK receipt construction.
+
+A receipt is NOT authoritative merely because it contains a hash.
+
+The verifier must recompute:
+
+    claim digest
+    evidence digest
+    policy digest
+    predicate reports
+    policy decision
+    impact result
+    final receipt hash
+"""
+
+from __future__ import annotations
+
+from typing import Any
+
+from .cl2_predicates import jcs_hash
+
+
+def build_receipt(
+    *,
+    claim: dict[str, Any],
+    evidence: dict[str, Any],
+    policy: dict[str, Any],
+    predicate_reports: list[dict[str, Any]],
+    decision: dict[str, Any],
+    impact_result: dict[str, Any],
+) -> dict[str, Any]:
+
+    receipt_body = {
+        "claim": claim,
+        "evidence": evidence,
+        "policy": policy,
+        "predicate_reports": predicate_reports,
+        "decision": decision,
+        "impact": impact_result,
+    }
+
+    return {
+        "schema_version": "claimlock.receipt.v1",
+
+        "input_digests": {
+            "claim": jcs_hash(claim),
+            "evidence": jcs_hash(evidence),
+            "policy": jcs_hash(policy),
+        },
+
+        "predicate_report_digests": [
+            jcs_hash(report)
+            for report in predicate_reports
+        ],
+
+        "decision": decision,
+
+        "impact": impact_result,
+
+        "receipt_hash": jcs_hash(receipt_body),
+    }
+
+
+def verify_receipt_hash(
+    receipt: dict[str, Any],
+    *,
+    claim: dict[str, Any],
+    evidence: dict[str, Any],
+    policy: dict[str, Any],
+    predicate_reports: list[dict[str, Any]],
+    decision: dict[str, Any],
+    impact_result: dict[str, Any],
+) -> tuple[bool, str]:
+
+    expected_inputs = {
+        "claim": jcs_hash(claim),
+        "evidence": jcs_hash(evidence),
+        "policy": jcs_hash(policy),
+    }
+
+    if receipt.get("input_digests") != expected_inputs:
+        return False, "INPUT_DIGEST_MISMATCH"
+
+    expected_predicates = [
+        jcs_hash(report)
+        for report in predicate_reports
+    ]
+
+    if receipt.get(
+        "predicate_report_digests"
+    ) != expected_predicates:
+        return False, "PREDICATE_DIGEST_MISMATCH"
+
+    body = {
+        "claim": claim,
+        "evidence": evidence,
+        "policy": policy,
+        "predicate_reports": predicate_reports,
+        "decision": decision,
+        "impact": impact_result,
+    }
+
+    expected_receipt_hash = jcs_hash(body)
+
+    if receipt.get("receipt_hash") != expected_receipt_hash:
+        return False, "RECEIPT_HASH_MISMATCH"
+
+    return True, "PASS"
+
+
+
+Verification direction
+
+
+receipt
+   │
+   ├── schema validation
+   │
+   ├── claim digest ─────────────┐
+   ├── evidence digest           │
+   ├── policy digest             │
+   │                             ▼
+   ├── predicate recomputation
+   │
+   ├── predicate admissibility
+   │
+   ├── policy interpretation
+   │
+   ├── impact recomputation
+   │
+   └── receipt reconstruction
+                 │
+                 ▼
+            PASS / FAIL
+
+
+
+The originating execution environment is therefore unnecessary.
+
+
+That is the point at which offline verification becomes a real property rather than a documentation claim.
+
