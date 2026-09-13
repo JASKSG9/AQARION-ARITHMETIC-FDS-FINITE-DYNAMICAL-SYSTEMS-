@@ -1,0 +1,24 @@
+{
+  "valid": {
+    "scope": {
+      "predicate": "SCOPE_SUFFICIENT",
+      "result": "PASS"
+    },
+    "provenance": {
+      "predicate": "PROVENANCE_ACYCLIC",
+      "result": "PASS"
+    },
+    "replay": {
+      "predicate": "REPLAY_PASS",
+      "result": "PASS"
+    },
+    "routes": {
+      "predicate": "ROUTES_AGREE",
+      "result": "PASS"
+    },
+    "authority": {
+      "predicate": "AUTHORITY_ACYCLIC",
+      "result": "PASS"
+    }
+  }
+}
