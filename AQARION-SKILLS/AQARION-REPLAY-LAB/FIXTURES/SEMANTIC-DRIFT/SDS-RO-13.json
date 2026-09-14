@@ -1,0 +1,18 @@
+cat > fixtures/semantic-drift/SDS-R013.json <<'EOF'
+{
+  "schema_version": "aqarion.regression.v0.1",
+  "regression_id": "SDS-R013",
+  "title": "Invariance is not identity",
+  "category": "SEMANTIC",
+  "invalid_inference": "D_Pi = 0 implies the induced action is identity.",
+  "valid_replacement": "Zero defect may establish partition invariance without pointwise identity.",
+  "firewall_rule": "INVARIANCE_IDENTITY_CONFUSION",
+  "status": "REFUTED",
+  "replayability": "CURATED_EXACT_FIXTURE",
+  "countermodel": {
+    "carrier": "Z/4Z",
+    "permutation": "(0 1 2 3)",
+    "partition": "{{0,2},{1,3}}"
+  }
+}
+EOF
