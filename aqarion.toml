@@ -1,26 +1,57 @@
 [project]
 name = "aqarion-arithmetic"
-version = "13.1"
-manifest-version = "0.1"
+version = "0.1.0-experiment"
+manifest_version = "0.2"
+status = "EXPERIMENTAL_NO_PROMOTION"
 
 [claim.SV-001-V2]
-statement = "trace=2m alpha^2, op-norm even 2alpha odd 2alpha cos(pi/2m)"
-expected_cases = 5720
-max_trace_err = 1e-12
-max_norm_err = 1e-12
+statement = """
+For the explicitly defined equal-block cyclic-shift model,
+the verifier tests the reduced-Gram identity
+U^T D^T D U = alpha^2 (2I - S - S^{-1}),
+where alpha^2 = r(k-r)/k^2 and r = s mod k.
+"""
+scope = "finite numerical regression only"
+formal_status = "OPEN"
+promotion_allowed = false
 
-[artifact.replay]
+[claim.SV-001-V2.domain]
+m_min = 2
+m_max = 8
+k_min = 2
+k_max = 8
+shift_rule = "1 <= s < m*k"
+
+[claim.SV-001-V2.conventions]
+koopman_matrix = "K[x,(x+s) mod n]=1"
+defect_operator = "D=(I-P)K_sP"
+reduced_gram = "G=U^T D^T D U"
+cycle_laplacian = "L=2I-S-S^{-1}"
+m2_rule = "For m=2, L=[[2,-2],[-2,2]]"
+
+[claim.SV-001-V2.tolerance]
+matrix_frobenius_absolute = 1.0e-12
+spectrum_l2_absolute = 1.0e-12
+require_finite_outputs = true
+require_solver_convergence = true
+
+[artifact.sv001_verifier]
 path = "VERIFICATION/sv001_v2_check.py"
-sha256 = "auto-computed"
+sha256 = ""
+sha256_status = "PENDING_GENERATION"
 
 [environment]
-python = ">=3.11"
-requires = ["numpy"]
+python_exact = ""
+numpy_exact = ""
+platform = "PENDING_OBSERVATION"
 
 [reproducibility]
-command = ["python3", "VERIFICATION/sv001_v2_check.py"]
-observed = null # honest null allowed = SPECIFICATION COMPLETE, NOT YET OBSERVED
+command = ["python3", "VERIFICATION/sv001_v2_check.py", "--json"]
+observed = null
+receipt_schema = "aqarion.sv001.receipt.v1"
 
 [governance]
 C4 = "BLOCKED"
+publication = "BLOCKED"
+lean = "OPEN"
 promotion = false
