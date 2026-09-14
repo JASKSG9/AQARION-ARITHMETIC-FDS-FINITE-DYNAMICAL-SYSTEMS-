@@ -3,17 +3,17 @@ on: [push, pull_request]
 jobs:
   replay:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: AQARION-LAKE
     steps:
       - uses: actions/checkout@v4
-      - uses: leanprover/lean4@v4.33.1
-        with:
-          toolchain: leanprover/lean4:v4.33.1
-      - name: py-compile gate
-        run: python -m py_compile $(git ls-files '*.py' | tr '\n' ' ')
-      - name: replay harness
-        run: python../VERIFICATION/replay_harness.py
-      - name: lake build
-        run: lake build
+      - name: Python compile gate — all .py must be valid
+        run: |
+          python3 -m py_compile $(git ls-files '*.py')
+          echo "py_compile PASS"
+      - name: Bell / K2,5 / F subadditivity / spectral replay
+        run: |
+          python3 VERIFICATION/replay_harness.py
+      - name: Lean build (from canonical subdir)
+        working-directory: AQARION-LAKE
+        run: |
+          ls lean-toolchain
+          lake build
