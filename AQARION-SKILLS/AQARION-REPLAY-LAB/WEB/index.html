@@ -1,122 +1,94 @@
-cat > web/index.html <<'EOF'
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>AQARION Replay Lab</title>
-  <link rel="stylesheet" href="styles.css">
+<head><style>
+@font-face {
+  font-family: "Optimistic";
+  font-style: normal;
+  font-weight: 400 600;
+  font-display: swap;
+  src: url("/fonts/OptimisticAI_VF_Optimized.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Optimistic Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/OptimisticMono_W_TextRegular.woff2") format("woff2");
+}
+:where(html) {
+  font-family: "Optimistic", system-ui, sans-serif;
+}
+:where(code, pre, kbd, samp) {
+  font-family: "Optimistic Mono", ui-monospace, monospace;
+}
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AQARION Replay Lab</title>
+<link rel="stylesheet" href="styles.css">
+<style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;margin:0;padding:1.25rem;line-height:1.5;max-width:860px}
+a{color:#6ab0ff} .badge{display:inline-block;padding:.2rem .5rem;border:1px solid #444;border-radius:999px;font-size:.8rem}
+.card{border:1px solid #333;border-radius:12px;padding:1rem;margin:1rem 0}
+pre{background:#0e0e0e;color:#c8ffc8;padding:.75rem;overflow:auto;border-radius:8px}
+</style>
 </head>
 <body>
-  <main>
-    <p class="eyebrow">AQARION × CLAIMLOCK · RESEARCH PROTOTYPE</p>
+<h1>AQARION Replay Lab v0.1</h1>
+<p><span class="badge">C4 BLOCKED</span> <span class="badge">SDS-002 QUARANTINED</span> <span class="badge">Lean OPEN</span></p>
+<p><strong>Can you replay this claim—and can its evidence survive nearby wrong versions?</strong></p>
 
-    <h1>AQARION Replay Lab</h1>
+<div class="card">
+<h2>What this lab does</h2>
+<p>Records: what was claimed, exact domain & carrier, which fixture ran, which verifier ran, what facts were observed, what verdict evidence is allowed to support.</p>
+<p><code>Verifier facts != policy verdict<br>Numerical match != exact verification<br>Exact finite != formal proof<br>Blocked != refuted</code></p>
+</div>
 
-    <p class="lead">
-      Can you replay this claim—and can its evidence survive nearby wrong
-      versions of the claim?
-    </p>
+<div class="card">
+<h2>Live mobile demos</h2>
+<ul>
+<li><a href="DEMOS/spectral-defect.html">Spectral Defect Explorer</a> — D=(I-P)K_sP Gram vs closed form, 5720 cases, NUMERICALLY_MATCHED</li>
+<li><a href="../FIXTURES/README.md">Regression Museum</a> — SEMANTIC-DRIFT / SPECTRAL-DEFECT fixtures</li>
+<li><a href="replay-diff.html">Replay Diff</a> — paste 2 receipts, detect COUNT_SEMANTIC_FAIL</li>
+<li><a href="toy-replay.html">Toy Even Replay</a> — EXACTLY_VERIFIED finite domain</li>
+</ul>
+</div>
 
-    <section class="warning">
-      <strong>Evidence boundary:</strong>
-      This prototype records replay facts and policy-relative verdicts.
-      It does not execute arbitrary uploaded code, provide cryptographic
-      provenance, or promote numerical agreement to formal proof.
-    </section>
+<div class="card">
+<h2>Machine-readable entry points</h2>
+<pre>
+SCHEMAS/claim-contract-v01.json
+SCHEMAS/receipt-v01.json
+SCHEMAS/regression-v01.json
+POLICY/semantic-firewall-v01.json
+POLICY/verdict-policy.v0.1.json
+FIXTURES/SPECTRAL-DEFECT/contract.json
+RECIEPTS/AQ-RUN-INITIAL-DEV.json
+</pre>
+<p>Machines: validate Claim Contract first, then run fixture, then evaluate policy, then emit receipt.</p>
+</div>
 
-    <section class="grid">
-      <article>
-        <h2>1. Claim Contract</h2>
-        <p>
-          Locks domain, carrier, definitions, allowed evidence, and forbidden
-          promotions before execution.
-        </p>
-        <code>Verifier emits facts ≠ policy assigns meaning</code>
-      </article>
+<div class="card">
+<h2>How to replay (user level)</h2>
+<ol>
+<li>Open SCHEMAS/claim-contract-v01.json</li>
+<li>Open FIXTURES/SPECTRAL-DEFECT/</li>
+<li>Run PYTHON/make-manifest.py (builds digests)</li>
+<li>Check RECEIPTS/ for verdict: NUMERICALLY_MATCHED, EXACTLY_VERIFIED, REFUTED, etc.</li>
+</ol>
+</div>
 
-      <article>
-        <h2>2. Curated Replay</h2>
-        <p>
-          Run bounded fixtures with a declared verifier and inspect observed
-          facts.
-        </p>
-        <a href="demos/spectral-defect.html">
-          Open Spectral Defect Explorer →
-        </a>
-      </article>
+<div class="card">
+<h2>Accessibility checklist — you already did this</h2>
+<ul>
+<li>✅ Uppercase plural folders: ENGINES, FIXTURES, POLICY, PYTHON, RECIEPTS, SCHEMAS, WEB</li>
+<li>✅ README.md in every folder explains purpose in 1 paragraph</li>
+<li>✅ WEB/index.html is landing (this file) — copy of aqarion-replay.html</li>
+<li>✅ SCHEMAS valid JSON, not hand-wavy</li>
+<li>✅ POLICY firewall 8 rules visible</li>
+<li>✅ Governance.md shows BLOCKED not hidden</li>
+</ul>
+</div>
 
-      <article>
-        <h2>3. Regression Museum</h2>
-        <p>
-          Replay semantic failures, countermodels, and normalization bugs as
-          permanent research assets.
-        </p>
-        <a href="demos/regression-museum.html">
-          Open Regression Museum →
-        </a>
-      </article>
-
-      <article>
-        <h2>4. Mutation Compiler</h2>
-        <p>
-          Generate nearby invalid claims and inspect the firewall category that
-          rejects them.
-        </p>
-        <button id="mutate">Run sample mutations</button>
-        <pre id="mutation-output"></pre>
-      </article>
-    </section>
-
-    <section>
-      <h2>Verdict vocabulary</h2>
-      <table>
-        <tr>
-          <th>Verdict</th>
-          <th>Meaning</th>
-        </tr>
-        <tr>
-          <td>FORMALLY_PROVED</td>
-          <td>Pinned formal proof accepted under a configured policy</td>
-        </tr>
-        <tr>
-          <td>EXACTLY_VERIFIED</td>
-          <td>Complete deterministic exact replay over its declared finite domain</td>
-        </tr>
-        <tr>
-          <td>NUMERICALLY_MATCHED</td>
-          <td>Numerical agreement under a stated model and tolerance</td>
-        </tr>
-        <tr>
-          <td>REFUTED</td>
-          <td>An admissible counterexample exists</td>
-        </tr>
-        <tr>
-          <td>OPEN / INADMISSIBLE / BLOCKED</td>
-          <td>Insufficient evidence, semantic failure, or governance barrier</td>
-        </tr>
-      </table>
-    </section>
-
-    <section>
-      <h2>v0.1 scope</h2>
-      <ul>
-        <li>Curated fixtures only; no arbitrary code execution</li>
-        <li>Development JSON receipts only; no signature, JCS, or transparency-log claim</li>
-        <li>AQARION mathematics remains independently governed: C4 and publication are blocked</li>
-      </ul>
-    </section>
-  </main>
-
-  <script type="module">
-    import { compileMutations } from "../../engine/mutationCompiler.js";
-
-    document.querySelector("#mutate").onclick = () => {
-      const result = compileMutations("AQ-SV-001-NUMERIC");
-      document.querySelector("#mutation-output").textContent =
-        JSON.stringify(result, null, 2);
-    };
-  </script>
-</body>
+<footer><p>This is prototype / curated fixtures only. No arbitrary code execution. Browser receipts = development only. See README.md and Security.md</p></footer>
+<script>(function(){var loc=location.href.replace(/#.*$/,"");var ATTR_NAMES=["data-product-id","data-productid","data-product_id","product-id","productid","product_id","data-source-entity-id","source-entity-id","source_entity_id","data-product","data-metadata","data-meta"];var DATASET_KEYS=["productId","productid","product_id","sourceEntityId","sourceentityid","source_entity_id","product","metadata","meta"];function readProductId(value){if(typeof value!=="string"||value.length===0)return null;if(/^[0-9]{6,}$/.test(value))return value;var match=value.match(/(?:product(?:_|-)?id|source(?:_|-)?entity(?:_|-)?id)["'=:\s]+([0-9]{6,})/i);return match?match[1]:null}function extractProductId(start){for(var node=start;node&&node!==document.body;node=node.parentElement){for(var i=0;i<ATTR_NAMES.length;i++){var attrValue=node.getAttribute&&node.getAttribute(ATTR_NAMES[i]);var attrProductId=readProductId(attrValue);if(attrProductId)return attrProductId}var dataset=node.dataset||null;if(dataset){for(var j=0;j<DATASET_KEYS.length;j++){var dataValue=dataset[DATASET_KEYS[j]];var dataProductId=readProductId(dataValue);if(dataProductId)return dataProductId}}}return null}function isInlineMediaSlotElement(node){return !!(node&&node.getAttribute&&node.getAttribute("data-clippy-inline-media-slot")!==null)}function findInlineMediaSlot(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(isInlineMediaSlotElement(node))return node}return null}function readInlineMediaUrl(node){if(!node)return null;return node.getAttribute&&((node.getAttribute("data-clippy-inline-media-url")||node.getAttribute("data-url")||node.getAttribute("data_url")))||node.href||null}function stripHash(url){return String(url).replace(/#.*$/,"")}function urlsMatch(a,b){if(!a||!b)return false;try{return stripHash(new URL(a,loc).href)===stripHash(new URL(b,loc).href)}catch(_){return stripHash(a)===stripHash(b)}}function isFirstPartyReelUrl(value){try{var url=new URL(value,loc);if(url.protocol!=="https:")return false;var host=url.hostname.toLowerCase();var supported=host==="instagram.com"||host.endsWith(".instagram.com")||host==="facebook.com"||host.endsWith(".facebook.com");return supported&&/\/reels?\//i.test(url.pathname)}catch(_){return false}}function isInlineMediaUrlClick(node,href){var slot=findInlineMediaSlot(node);if(!slot)return false;var slotUrl=readInlineMediaUrl(slot);if(slotUrl)return urlsMatch(href,slotUrl);return isFirstPartyReelUrl(href)}function findDataHref(start){for(var node=start;node&&node!==document.body;node=node.parentElement){if(node.getAttribute){var href=node.getAttribute("data-href")||node.getAttribute("data-url");if(href)return{href:href,node:node}}}return null}var nativeOpen=window.open;window.open=function(url){if(parent!==window&&typeof url==="string"&&/^https?:\/\//.test(url)){parent.postMessage({type:"ecto:usercontent-link-click",href:url},"*");return null}return nativeOpen?nativeOpen.apply(window,arguments):null};document.addEventListener("click",function(e){var target=e.target instanceof Element?e.target:null;if(!target)return;if(parent===window)return;var a=target.closest?target.closest("a[href]"):null;if(a&&a.href&&/^https?:\/\//.test(a.href)&&a.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(a,a.href))return;var productId=extractProductId(target)||extractProductId(a);if(productId){e.preventDefault();parent.postMessage({type:"ecto-artifact-link-click",productId:productId},"*");return}e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:a.href},"*");return}var dataHref=findDataHref(target);if(dataHref&&/^https?:\/\//.test(dataHref.href)&&dataHref.href.replace(/#.*$/,"")!==loc){if(isInlineMediaUrlClick(dataHref.node,dataHref.href))return;e.preventDefault();parent.postMessage({type:"ecto:usercontent-link-click",href:dataHref.href},"*")}},true)})();</script><script>(function(){var FOCUS_TYPE="ecto:artifact-focus-request";var CLOSE_TYPE="ecto:artifact-close-request";function focusArtifactDocument(){var body=document.body;if(!body)return;try{window.focus();}catch(e){}if(!body.hasAttribute("tabindex"))body.setAttribute("tabindex","-1");try{body.focus({preventScroll:true});}catch(e){try{body.focus();}catch(e2){}}}window.addEventListener("message",function(event){if(event.source!==window.parent)return;var data=event.data;if(!data||typeof data!=="object"||data.type!==FOCUS_TYPE)return;if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",focusArtifactDocument,{once:true});return;}focusArtifactDocument();});window.addEventListener("keydown",function(event){if(event.key!=="Escape")return;window.setTimeout(function(){if(event.defaultPrevented)return;window.parent.postMessage({type:CLOSE_TYPE},"*");},0);});})();</script></body>
 </html>
-EOF
