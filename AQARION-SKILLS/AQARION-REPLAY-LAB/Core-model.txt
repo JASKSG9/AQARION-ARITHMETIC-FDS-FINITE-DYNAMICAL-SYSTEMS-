@@ -1,0 +1,7 @@
+Claim Contract
+  -> Semantic Firewall
+  -> Fixture / Replay Plan
+  -> Pinned Verifier
+  -> Fact Record
+  -> Verdict Policy
+  -> Receipt + Replay Diff
