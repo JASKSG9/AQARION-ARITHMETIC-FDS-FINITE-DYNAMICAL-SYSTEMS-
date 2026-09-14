@@ -1,0 +1,42 @@
+cd ~/aqarion-replay-lab
+
+cat > receipts/AQ-RUN-INITIAL-DEV.json <<'EOF'
+{
+  "receipt_version": "aqarion.receipt.v0.1",
+  "receipt_id": "AQ-RUN-INITIAL-DEV",
+  "created_at": "2026-09-14T04:48:00-04:00",
+  "claim_contract": {
+    "claim_id": "AQ-SV-001-NUMERIC",
+    "contract_digest": "UNPINNED_DEVELOPMENT_DRAFT"
+  },
+  "fixture": {
+    "fixture_id": "AQ-SV-001-INTERACTIVE",
+    "input_digest": "BROWSER_SELECTED_INPUT"
+  },
+  "execution": {
+    "runner": "browser-js",
+    "verifier_id": "sv001-dense-gram-float64",
+    "determinism": "DECLARED",
+    "exit_status": "NOT_RUN_BY_THIS_RECEIPT"
+  },
+  "facts": {
+    "status": "PLACEHOLDER_DEVELOPMENT_RECEIPT"
+  },
+  "policy_evaluation": {
+    "semantic_firewall": "NOT_EVALUATED",
+    "verdict": "OPEN",
+    "promotion_allowed": false
+  },
+  "limitations": [
+    "Development-only receipt.",
+    "No RFC 8785/JCS canonicalization claim.",
+    "No signature claim.",
+    "No Sigstore/Rekor claim.",
+    "No Lean kernel certificate claim.",
+    "No publication authorization."
+  ]
+}
+EOF
+
+python3 make_manifest.py
+sha256sum MANIFEST.json receipts/AQ-RUN-INITIAL-DEV.json
