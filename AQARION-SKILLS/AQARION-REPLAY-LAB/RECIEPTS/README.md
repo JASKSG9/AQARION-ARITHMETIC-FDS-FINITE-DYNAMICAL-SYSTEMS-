@@ -1,1 +1,16 @@
 
+# RECEIPTS
+
+This directory stores generated replay records.
+
+## Receipt status
+
+All v0.1 receipts are:
+
+```text
+DEVELOPMENT_ONLY
+UNSIGNED
+NOT_RFC8785_CERTIFIED
+NOT_SIGSTORE_REKOR_INCLUDED
+NOT_FORMAL_PROOF_CERTIFICATES
+NOT_PUBLICATION_AUTHORIZATION
