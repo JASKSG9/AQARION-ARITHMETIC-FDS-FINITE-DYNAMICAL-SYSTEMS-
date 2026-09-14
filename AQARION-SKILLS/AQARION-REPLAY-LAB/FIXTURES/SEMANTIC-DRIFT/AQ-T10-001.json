@@ -1,0 +1,13 @@
+cat > fixtures/semantic-drift/AQ-T10-001.json <<'EOF'
+{
+  "schema_version": "aqarion.regression.v0.1",
+  "regression_id": "AQ-T10-001",
+  "title": "Instance replay is not universal authorization",
+  "category": "SEMANTIC",
+  "invalid_inference": "A passing fixture establishes a universal identity.",
+  "valid_replacement": "A fixture supports only its declared instance scope absent a general proof.",
+  "firewall_rule": "DOMAIN_VIOLATION",
+  "status": "REFUTED",
+  "replayability": "CURATED_POLICY_FIXTURE"
+}
+EOF
