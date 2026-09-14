@@ -1,0 +1,56 @@
+cat > schemas/regression.v0.1.schema.json <<'EOF'
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aqarion.example/schemas/regression.v0.1.schema.json",
+  "title": "AQARION Regression Museum Record v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "regression_id",
+    "title",
+    "category",
+    "invalid_inference",
+    "firewall_rule",
+    "status"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aqarion.regression.v0.1"
+    },
+    "regression_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "enum": [
+        "SEMANTIC",
+        "FORMAL",
+        "CARRIER",
+        "MATHEMATICAL",
+        "NUMERICAL"
+      ]
+    },
+    "invalid_inference": {
+      "type": "string"
+    },
+    "valid_replacement": {
+      "type": "string"
+    },
+    "firewall_rule": {
+      "type": "string"
+    },
+    "status": {
+      "const": "REFUTED"
+    },
+    "replayability": {
+      "type": "string"
+    },
+    "countermodel": {
+      "type": "object"
+    }
+  }
+}
+EOF
