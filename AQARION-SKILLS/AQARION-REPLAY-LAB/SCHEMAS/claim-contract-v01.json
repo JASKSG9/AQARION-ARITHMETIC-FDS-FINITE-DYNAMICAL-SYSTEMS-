@@ -1,0 +1,172 @@
+cat > schemas/claim-contract.v0.1.schema.json <<'EOF'
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aqarion.example/schemas/claim-contract.v0.1.schema.json",
+  "title": "AQARION Replay Lab Claim Contract v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "claim_id",
+    "title",
+    "claim_type",
+    "statement",
+    "domain",
+    "objects",
+    "evidence_policy",
+    "governance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aqarion.claim-contract.v0.1"
+    },
+    "claim_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]*$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claim_type": {
+      "enum": [
+        "FINITE_UNIVERSAL",
+        "FINITE_NUMERICAL_IDENTITY",
+        "NUMERICAL_EXPERIMENT",
+        "FORMAL_THEOREM",
+        "COUNTEREXAMPLE",
+        "MIXED"
+      ]
+    },
+    "statement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "formal_status"
+      ],
+      "properties": {
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "formal_status": {
+          "enum": [
+            "NOT_FORMALIZED",
+            "DRAFT",
+            "KERNEL_ACCEPTED"
+          ]
+        }
+      }
+    },
+    "domain": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "finite_grid",
+            "finite_enumeration",
+            "numeric",
+            "formal",
+            "mixed"
+          ]
+        },
+        "enumeration_complete": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": true
+    },
+    "objects": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "evidence_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "minimum_verifier",
+        "allowed_verdicts",
+        "forbidden_promotions"
+      ],
+      "properties": {
+        "minimum_verifier": {
+          "type": "string"
+        },
+        "allowed_verdicts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "forbidden_promotions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "publication_allowed",
+        "sds_002",
+        "lean_status"
+      ],
+      "properties": {
+        "publication_allowed": {
+          "type": "boolean"
+        },
+        "sds_002": {
+          "enum": [
+            "CLEAR",
+            "QUARANTINED",
+            "NOT_APPLICABLE"
+          ]
+        },
+        "lean_status": {
+          "enum": [
+            "OPEN",
+            "NOT_APPLICABLE",
+            "KERNEL_ACCEPTED"
+          ]
+        }
+      }
+    },
+    "source_artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "role",
+          "digest"
+        ],
+        "properties": {
+          "role": {
+            "type": "string"
+          },
+          "digest": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "known_counterexamples": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
+EOF
