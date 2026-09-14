@@ -1,4 +1,4 @@
-# ⚖️ AQARION ARITHMETIC
+# ⚖️ AQARION ARITHMETIC & CLAIMLOCK
 
 **Certified Observable Invariance Across Dynamical Systems**
 
@@ -19181,3 +19181,131 @@ C3 defect supermodularity| OPEN
 Lean| OPEN
 C4| BLOCKED
 Publication| BLOCKED
+AQARION CLAIMLOCK
+
+
+Claims are not evidence.
+
+
+AI can write a theorem, generate a verifier, run the verifier, and report PASS.
+
+
+That does not mean the claim is established.
+
+
+AQARION CLAIMLOCK is a fail-closed verification system for mathematical and AI-generated research artifacts.
+
+
+It separates:
+
+
+CLAIM
+→ SPECIFICATION
+→ IMPLEMENTATION
+→ EXECUTION
+→ RECEIPT
+→ PROMOTION
+
+
+Each transition can be checked independently.
+
+
+Why this exists
+
+
+Computer-assisted results can fail at the certificate boundary:
+
+
+
+
+the source code may execute a different domain than the reported result;
+
+
+displayed metrics may be hardcoded rather than computed;
+
+
+a process may fail while still writing a plausible receipt;
+
+
+a verifier and its test suite may share the same blind spot;
+
+
+an AI agent may mark its own work as correct.
+
+
+
+
+CLAIMLOCK is designed to make these contradictions visible.
+
+
+First reproducible contract
+
+
+SV-001-V2 verifies a finite Koopman-defect reduction:
+
+
+G
+
+
+alpha^2(2I-S-S^T)
+
+
+across a deterministic finite domain.
+
+
+The repository includes:
+
+
+
+
+a reference verifier;
+
+
+adversarial negative controls;
+
+
+receipt meta-verification;
+
+
+replay gates;
+
+
+promotion separation.
+
+
+
+
+Trust model
+
+
+A PASS is evidence for the contract that was actually executed.
+
+
+A PASS does not automatically prove a broader theorem.
+
+
+A mathematical derivation is not automatically a kernel-checked theorem.
+
+
+A Lean theorem is not automatically a publication result.
+
+
+AQARION records these boundaries explicitly.
+
+
+Quick start
+
+
+Run the reference verifier.
+
+
+Run the adversarial suite.
+
+
+Run the receipt meta-checker.
+
+
+Then inspect the promotion state.
+
+
+If any evidence layer contradicts another, the system fails closed.
