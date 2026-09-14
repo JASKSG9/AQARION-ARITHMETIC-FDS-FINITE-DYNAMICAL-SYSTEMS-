@@ -1,7 +1,7 @@
 [project]
 name = "aqarion-arithmetic"
 version = "13.1"
-manifest_version = "0.1"
+manifest-version = "0.1"
 
 [claim.SV-001-V2]
 statement = "trace=2m alpha^2, op-norm even 2alpha odd 2alpha cos(pi/2m)"
