@@ -1,17 +1,10 @@
 name: AQARION Replay
-on:
-  push:
-    branches: [main]
-  pull_request:
-  workflow_dispatch:
-permissions:
-  contents: read
+on: [push, pull_request, workflow_dispatch]
+permissions: {contents: read}
 jobs:
   replay:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Python compile gate
-        run: python3 -m py_compile VERIFICATION/replay_harness.py
-      - name: Bell / K2,5 / F subadd / beta / 5720 spectral / P0-T10 replay
-        run: python3 VERIFICATION/replay_harness.py
+      - run: python3 -m py_compile VERIFICATION/replay_harness.py
+      - run: python3 VERIFICATION/replay_harness.py
