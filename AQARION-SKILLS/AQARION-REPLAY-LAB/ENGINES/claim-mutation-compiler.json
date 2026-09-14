@@ -1,0 +1,52 @@
+cat > engine/mutationCompiler.js <<'EOF'
+export const MUTATIONS = Object.freeze([
+  [
+    "FINITE_TO_UNIVERSAL",
+    "DOMAIN_VIOLATION",
+    "A declared finite domain does not entail a universal theorem."
+  ],
+  [
+    "NUMERIC_MATCH_TO_EXACT_PROOF",
+    "EVIDENCE_PROMOTION_FAIL",
+    "Float64 agreement is not an exact symbolic proof."
+  ],
+  [
+    "GRAM_TO_OPERATOR",
+    "PROJECTION_OVERCLAIM",
+    "A Gram-operator identity does not assert the same identity for D."
+  ],
+  [
+    "SINGULAR_TO_EIGENVALUE",
+    "SEMANTIC_OPERATOR_MISMATCH",
+    "Singular values do not generally determine eigenvalues."
+  ],
+  [
+    "INVARIANCE_TO_IDENTITY",
+    "INVARIANCE_IDENTITY_CONFUSION",
+    "An invariant partition need not have trivial induced action."
+  ],
+  [
+    "TESTED_CASES_TO_EXTREMIZERS",
+    "COUNT_SEMANTIC_FAIL",
+    "The same integer cannot be relabeled as a different predicate."
+  ],
+  [
+    "BLOCKED_TO_REFUTED",
+    "STATUS_CATEGORY_ERROR",
+    "A governance block is not a mathematical refutation."
+  ]
+]);
+
+export function compileMutations(claimId) {
+  return {
+    mutation_run_id: `AQ-MUTATE-${claimId}`,
+    source_claim: claimId,
+    results: MUTATIONS.map(([mutation, firewall_rule, reason]) => ({
+      mutation,
+      mutated_claim_status: "INADMISSIBLE",
+      firewall_rule,
+      reason
+    }))
+  };
+}
+EOF
