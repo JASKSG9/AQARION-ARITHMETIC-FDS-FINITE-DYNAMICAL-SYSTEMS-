@@ -1,4 +1,4 @@
-🌟 AQARION × CLAIMLOCK — Public Checkpoint
+🌟 AQARION-CLAIMLOCK S13 — Public Checkpoint
 
 📅 2026-09-13 · Frozen · Exact · No Promotion
 
