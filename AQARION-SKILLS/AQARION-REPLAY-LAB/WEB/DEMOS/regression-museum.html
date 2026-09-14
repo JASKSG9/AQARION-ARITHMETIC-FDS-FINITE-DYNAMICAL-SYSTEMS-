@@ -1,0 +1,57 @@
+cat > web/demos/regression-museum.html <<'EOF'
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Regression Museum</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main>
+    <a href="../index.html">← Replay Lab</a>
+
+    <p class="eyebrow">CURATED REGRESSION FIXTURES</p>
+    <h1>Regression Museum</h1>
+
+    <p class="lead">
+      Failures are versioned assets. A rejected inference remains useful when
+      its semantic defect and countermodel can be replayed.
+    </p>
+
+    <div id="entries" class="grid"></div>
+  </main>
+
+  <script type="module">
+    const names = [
+      "SV001-NEG-001",
+      "SDS-R013",
+      "AQ-T10-001",
+      "CP-009"
+    ];
+
+    const output = document.querySelector("#entries");
+
+    for (const name of names) {
+      const response = await fetch(
+        `../../fixtures/semantic-drift/${name}.json`
+      );
+
+      const record = await response.json();
+
+      const article = document.createElement("article");
+
+      article.innerHTML = `
+        <h2>${record.regression_id}</h2>
+        <p><strong>${record.title}</strong></p>
+        <p>${record.invalid_inference}</p>
+        <code>${record.firewall_rule}</code>
+        <p>Status: ${record.status}</p>
+      `;
+
+      output.append(article);
+    }
+  </script>
+</body>
+</html>
+EOF
