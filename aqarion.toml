@@ -21,6 +21,9 @@ m_max = 8
 k_min = 2
 k_max = 8
 shift_rule = "1 <= s < m*k"
+nontrivial_rule = "r = s mod k != 0 gives 980 cases; inclusive gives 1176 cases"
+total_inclusive = 1176
+total_nontrivial = 980
 
 [claim.SV-001-V2.conventions]
 koopman_matrix = "K[x,(x+s) mod n]=1"
@@ -28,6 +31,8 @@ defect_operator = "D=(I-P)K_sP"
 reduced_gram = "G=U^T D^T D U"
 cycle_laplacian = "L=2I-S-S^{-1}"
 m2_rule = "For m=2, L=[[2,-2],[-2,2]]"
+orthonormal_basis = "U[b*k:(b+1)*k,b]=1/sqrt(k)"
+projector = "P[block,block]=1/k"
 
 [claim.SV-001-V2.tolerance]
 matrix_frobenius_absolute = 1.0e-12
@@ -37,21 +42,50 @@ require_solver_convergence = true
 
 [artifact.sv001_verifier]
 path = "VERIFICATION/sv001_v2_check.py"
-sha256 = ""
-sha256_status = "PENDING_GENERATION"
+sha256 = "66181bfea90c7f43c93a407043c17ef7e809e65ec07b5c4b508c73abcfd91347"
+sha256_status = "VERIFIED"
+executable = true
 
 [environment]
-python_exact = ""
-numpy_exact = ""
-platform = "PENDING_OBSERVATION"
+python_exact = "3.9.25"
+numpy_exact = "1.26.4"
+platform = "Linux-6.18.48-rFBS9c3683fc50680b-x86_64-with-glibc2.34"
+python_full = "3.9.25 (main, Jul 13 2026, 00:00:00) [GCC 11.5.0 20240719 (Red Hat 11.5.0-14)]"
+observed_at = "2026-09-14T00:00:00Z"
+executor = "sandbox-replay"
 
 [reproducibility]
 command = ["python3", "VERIFICATION/sv001_v2_check.py", "--json"]
-observed = null
 receipt_schema = "aqarion.sv001.receipt.v1"
+receipt_path = "receipts/SV-001-V2-experimental.json"
+
+[reproducibility.observed]
+contract = "SV-001-V2"
+status = "REPLAYED"
+failures = 0
+finite_ok = true
+max_frobenius_error = 5.768888059150692e-16
+max_spectrum_l2_error = 1.0041619540436972e-15
+
+[reproducibility.observed.counts]
+total_inclusive = 1176
+total_nontrivial = 980
+m_range = "2..8"
+k_range = "2..8"
+
+[reproducibility.observed.tolerance]
+matrix_frobenius_absolute = 1.0e-12
+spectrum_l2_absolute = 1.0e-12
+
+[reproducibility.observed.execution]
+python = "3.9.25"
+numpy = "1.26.4"
+platform = "Linux-6.18.48-rFBS9c3683fc50680b-x86_64-with-glibc2.34"
 
 [governance]
 C4 = "BLOCKED"
 publication = "BLOCKED"
 lean = "OPEN"
 promotion = false
+experimental = true
+
