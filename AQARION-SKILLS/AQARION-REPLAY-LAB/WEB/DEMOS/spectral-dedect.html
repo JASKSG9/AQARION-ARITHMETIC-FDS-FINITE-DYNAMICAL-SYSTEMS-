@@ -1,0 +1,238 @@
+cat > web/demos/spectral-defect.html <<'EOF'
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Spectral Defect Explorer</title>
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <main>
+    <a href="../index.html">← Replay Lab</a>
+
+    <p class="eyebrow">CURATED NUMERICAL REPLAY</p>
+    <h1>Spectral Defect Explorer</h1>
+
+    <p class="lead">
+      Rebuilds D = (I-P)K_sP in Float64 and compares the reduced Gram matrix
+      against the circulant closed form.
+    </p>
+
+    <section class="grid">
+      <article>
+        <label>
+          m
+          <input id="m" type="range" min="1" max="8" value="4">
+          <output id="mo"></output>
+        </label>
+
+        <label>
+          k
+          <input id="k" type="range" min="2" max="8" value="3">
+          <output id="ko"></output>
+        </label>
+
+        <label>
+          s
+          <input id="s" type="range" min="0" max="63" value="2">
+          <output id="so"></output>
+        </label>
+      </article>
+
+      <article>
+        <h2>Verdict</h2>
+        <div id="verdict"></div>
+        <p id="note"></p>
+      </article>
+    </section>
+
+    <section>
+      <h2>Independent comparison</h2>
+      <pre id="result"></pre>
+    </section>
+
+    <section>
+      <h2>Evidence boundary</h2>
+      <p>
+        A green result means <code>NUMERICALLY_MATCHED</code> under
+        IEEE-754 Float64 and the displayed tolerance. It is not a symbolic
+        proof and not a Lean certificate.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const tolerance = 1e-10;
+
+    function zeros(rows, cols) {
+      return Array.from({ length: rows }, () => Array(cols).fill(0));
+    }
+
+    function identity(n) {
+      const matrix = zeros(n, n);
+      for (let i = 0; i < n; i++) matrix[i][i] = 1;
+      return matrix;
+    }
+
+    function multiply(a, b) {
+      const result = zeros(a.length, b[0].length);
+
+      for (let i = 0; i < a.length; i++) {
+        for (let k = 0; k < b.length; k++) {
+          for (let j = 0; j < b[0].length; j++) {
+            result[i][j] += a[i][k] * b[k][j];
+          }
+        }
+      }
+
+      return result;
+    }
+
+    function transpose(a) {
+      const result = zeros(a[0].length, a.length);
+
+      for (let i = 0; i < a.length; i++) {
+        for (let j = 0; j < a[0].length; j++) {
+          result[j][i] = a[i][j];
+        }
+      }
+
+      return result;
+    }
+
+    function subtract(a, b) {
+      return a.map((row, i) => row.map((x, j) => x - b[i][j]));
+    }
+
+    function frobeniusNorm(a) {
+      let sum = 0;
+
+      for (const row of a) {
+        for (const x of row) sum += x * x;
+      }
+
+      return Math.sqrt(sum);
+    }
+
+    function run() {
+      const m = +$("m").value;
+      const k = +$("k").value;
+      let s = +$("s").value;
+
+      const n = m * k;
+
+      $("s").max = n - 1;
+
+      if (s >= n) {
+        s = n - 1;
+        $("s").value = s;
+      }
+
+      const r = s % k;
+
+      $("mo").value = m;
+      $("ko").value = k;
+      $("so").value = s;
+
+      const P = zeros(n, n);
+      const K = zeros(n, n);
+      const U = zeros(n, m);
+
+      for (let block = 0; block < m; block++) {
+        for (let x = block * k; x < (block + 1) * k; x++) {
+          U[x][block] = 1 / Math.sqrt(k);
+
+          for (let y = block * k; y < (block + 1) * k; y++) {
+            P[x][y] = 1 / k;
+          }
+        }
+      }
+
+      for (let x = 0; x < n; x++) {
+        K[x][(x + s) % n] = 1;
+      }
+
+      const D = multiply(multiply(subtract(identity(n), P), K), P);
+
+      const reducedGram = multiply(
+        multiply(
+          multiply(transpose(U), transpose(D)),
+          D
+        ),
+        U
+      );
+
+      const L = zeros(m, m);
+
+      for (let i = 0; i < m; i++) {
+        L[i][i] += 2;
+        L[i][(i + 1) % m] -= 1;
+        L[i][(i + m - 1) % m] -= 1;
+      }
+
+      const alphaSquared = r * (k - r) / (k * k);
+
+      const expected = L.map((row) =>
+        row.map((x) => alphaSquared * x)
+      );
+
+      const gramResidual = frobeniusNorm(subtract(reducedGram, expected));
+
+      const eigenvalues = [];
+
+      for (let ell = 0; ell < m; ell++) {
+        eigenvalues.push(
+          4 *
+          alphaSquared *
+          Math.sin(Math.PI * ell / m) *
+          Math.sin(Math.PI * ell / m)
+        );
+      }
+
+      const gap = m > 1
+        ? 4 * alphaSquared * Math.sin(Math.PI / m) ** 2
+        : 0;
+
+      const ok = gramResidual <= tolerance;
+
+      $("verdict").innerHTML = ok
+        ? "<code>✓ NUMERICALLY_MATCHED</code>"
+        : "<code>✗ MISMATCH</code>";
+
+      if (m === 2) {
+        $("note").textContent =
+          "m=2 uses the doubled-edge circulant Laplacian [[2,-2],[-2,2]].";
+      } else if (m === 1) {
+        $("note").textContent =
+          "m=1 gives zero defect under the circulant difference convention.";
+      } else if (r === 0) {
+        $("note").textContent =
+          "r=0 gives zero defect. Stable rank is not reported.";
+      } else {
+        $("note").textContent = "";
+      }
+
+      $("result").textContent = JSON.stringify({
+        m,
+        k,
+        s,
+        r,
+        alphaSquared,
+        gramFrobeniusResidual: gramResidual,
+        tolerance,
+        closedFormEigenvalues: eigenvalues,
+        smallestNonzeroGap: gap
+      }, null, 2);
+    }
+
+    ["m", "k", "s"].forEach((id) => {
+      $(id).oninput = run;
+    });
+
+    run();
+  </script>
+</body>
+</html>
+EOF
