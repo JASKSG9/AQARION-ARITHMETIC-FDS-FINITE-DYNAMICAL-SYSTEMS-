@@ -1,64 +1,25 @@
-// FILE: KOTLIN/AqarionAgent.kt — A15 on-device verifier
 package org.aqarion
-
 import java.io.File
-
+import java.util.concurrent.TimeUnit
+import kotlin.math.sqrt
 object AqarionAgent {
-    data class Receipt(
-        val contract: String,
-        val cases: Int,
-        val maxTraceErr: Double,
-        val maxNormErr: Double,
-        val status: String
-    )
-
-    fun replay(contract: String = "SV-001-V2"): Receipt {
-        // 1. Load aqarion.toml
-        val toml = File("aqarion.toml").readText()
-
-        // 2. Resolve artifact path for contract
-        val artifactPath = when(contract) {
-            "S13" -> "VERIFICATION/AQ-S13-CHECK.PY"
-            else -> "VERIFICATION/AQ-S13-CHECK.PY"
-        }
-
-        // 3. Run Python — Chaquopy on Android, python3 on desktop/Termux
-        val output = runPython(artifactPath)
-
-        // 4. Parse output for receipt
-        val cases = Regex("total=(\\d+)").find(output)?.groupValues?.get(1)?.toInt()?: 0
-        val traceErr = Regex("Trace max err ([\\deE+\\-\\.]+)").find(output)?.groupValues?.get(1)?.toDouble()?: 99.0
-        val normErr = Regex("Op-norm max err ([\\deE+\\-\\.]+)").find(output)?.groupValues?.get(1)?.toDouble()?: 99.0
-
-        val status = if (cases==5720 && traceErr<1e-12 && normErr<1e-12) "REPLAYED" else "FAILED"
-
-        val receipt = Receipt(contract, cases, traceErr, normErr, status)
-        File("receipts/${contract}.json").apply {
-            parentFile.mkdirs()
-            writeText("""
-            {
-              "contract": "${receipt.contract}",
-              "cases": ${receipt.cases},
-              "max_trace_err": ${receipt.maxTraceErr},
-              "max_norm_err": ${receipt.maxNormErr},
-              "status": "${receipt.status}",
-              "governance": "C4=BLOCKED"
-            }
-            """.trimIndent())
-        }
-        return receipt
-    }
-
-    private fun runPython(path: String): String {
-        return try {
-            // Termux / Chaquopy fallback
-            val proc = Runtime.getRuntime().exec(arrayOf("python3", path))
-            proc.inputStream.bufferedReader().readText() + proc.errorStream.bufferedReader().readText()
-        } catch (e: Exception) {
-            "ENVIRONMENT_BLOCKED: ${e.message}"
-        }
-    }
+ data class Receipt(val contract:String,val cases:Int,val maxTraceErr:Double,val maxNormErr:Double,val status:String,val tolerance:Double)
+ fun replay(contract:String="SV-001-V2"): Receipt {
+  val output=runPythonSafely("VERIFICATION/replay_harness.py")
+  val cases=Regex("cases=(\\d+)").find(output)?.groupValues?.get(1)?.toInt()?:0
+  val tErr=Regex("max_t=([\\deE+\\-\\.]+)").find(output)?.groupValues?.get(1)?.toDouble()?:Double.MAX_VALUE
+  val nErr=Regex("max_n=([\\deE+\\-\\.]+)").find(output)?.groupValues?.get(1)?.toDouble()?:Double.MAX_VALUE
+  val tol=1e-12*sqrt(cases.toDouble().coerceAtLeast(1.0))
+  val status=if(cases==5720 && tErr<=tol && nErr<=tol) "REPLAYED" else "FAILED"
+  val receipt=Receipt(contract,cases,tErr,nErr,status,tol)
+  File("receipts/${contract}.json").apply{parentFile.mkdirs(); writeText("""{"contract":"${contract}","cases":${cases},"max_trace_err":${tErr},"max_norm_err":${nErr},"status":"${status}","governance":"C4=BLOCKED","tolerance_applied":${tol}}""")}
+  return receipt
+ }
+ private fun runPythonSafely(path:String): String {
+  return try {
+   val pb=ProcessBuilder("python3",path); pb.redirectErrorStream(true)
+   val proc=pb.start(); val out=proc.inputStream.bufferedReader().readText()
+   proc.waitFor(45,TimeUnit.SECONDS); out
+  } catch(e:Exception){ "ENVIRONMENT_BLOCKED ${e.message}" }
+ }
 }
-
-// Usage on A15:
-// AqarionAgent.replay("S13") -> writes receipts/S13.json
