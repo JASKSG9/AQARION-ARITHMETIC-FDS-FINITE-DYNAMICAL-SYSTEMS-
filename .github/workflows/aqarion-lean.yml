@@ -1,0 +1,19 @@
+name: AQARION Lean CI
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: AQARION-LAKE
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan
+        run: curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
+      - name: Check toolchain exists
+        run: ls -l lean-toolchain lakefile.lean || lakefile.toml
+      - name: Build
+        run: lake build
+      - name: Zero sorry gate
+        run: |
+          ! grep -R "sorry" Aqarion --include="*.lean" || (echo "sorry found" && exit 1)
