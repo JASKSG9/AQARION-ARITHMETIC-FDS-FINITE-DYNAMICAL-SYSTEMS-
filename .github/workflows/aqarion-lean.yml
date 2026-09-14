@@ -1,12 +1,23 @@
-name: AQARION Lean CI
-on: [push, pull_request]
+name: AQARION Lean
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
 jobs:
-  build:
+  lean:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: AQARION-LAKE
     steps:
       - uses: actions/checkout@v4
-      - name: Build Lean
-        run: lake build
+      - name: Install Lean
+        uses: leanprover/lean-action@38fbc41a8c28c4cbaec22d7f7de508ec2e7c0dd9
+        with:
+          auto-config: true
+          use-mathlib-cache: true
+      - name: Build Lean project
+        working-directory: AQARION-LAKE
+        run: |
+          cat lean-toolchain
+          lake build
