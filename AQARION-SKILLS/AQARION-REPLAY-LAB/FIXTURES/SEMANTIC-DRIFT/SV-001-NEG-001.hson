@@ -1,0 +1,13 @@
+cat > fixtures/semantic-drift/SV001-NEG-001.json <<'EOF'
+{
+  "schema_version": "aqarion.regression.v0.1",
+  "regression_id": "SV001-NEG-001",
+  "title": "Wrong simple-edge normalization at m=2",
+  "category": "NUMERICAL",
+  "invalid_inference": "Use [[2,-1],[-1,2]] as 2I-S-S^-1 when m=2.",
+  "valid_replacement": "Use [[2,-2],[-2,2]] for the circulant difference Laplacian.",
+  "firewall_rule": "SEMANTIC_OPERATOR_MISMATCH",
+  "status": "REFUTED",
+  "replayability": "CURATED_NUMERICAL_FIXTURE"
+}
+EOF
