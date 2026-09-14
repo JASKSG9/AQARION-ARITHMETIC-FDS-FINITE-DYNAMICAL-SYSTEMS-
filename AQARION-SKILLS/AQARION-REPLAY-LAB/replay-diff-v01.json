@@ -1,0 +1,46 @@
+cat > schemas/replay-diff.v0.1.schema.json <<'EOF'
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aqarion.example/schemas/replay-diff.v0.1.schema.json",
+  "title": "AQARION Replay Diff v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "left_receipt",
+    "right_receipt",
+    "comparison",
+    "semantic_result"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aqarion.replay-diff.v0.1"
+    },
+    "left_receipt": {
+      "type": "string"
+    },
+    "right_receipt": {
+      "type": "string"
+    },
+    "comparison": {
+      "type": "object",
+      "additionalProperties": {
+        "enum": [
+          "MATCH",
+          "MISMATCH",
+          "MISSING"
+        ]
+      }
+    },
+    "semantic_result": {
+      "type": "string"
+    },
+    "blocking_differences": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}
+EOF
