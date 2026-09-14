@@ -1,0 +1,1117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+  <title>AQARION Replay Lab — Mobile Prototype</title>
+
+  <style>
+    :root {
+      --background: #0d1422;
+      --panel: #18243a;
+      --panel-2: #111b2e;
+      --line: #314565;
+      --text: #ebf2ff;
+      --muted: #b7c7df;
+      --mint: #74e0c3;
+      --yellow: #ffd166;
+      --red: #ff8491;
+      --blue: #9fc5ff;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(100%, 900px);
+      margin: 0 auto;
+      padding: 24px 16px 64px;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 10vw, 3.25rem);
+      line-height: 1;
+      margin: 8px 0 16px;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      margin: 0 0 12px;
+    }
+
+    h3 {
+      font-size: 1rem;
+      margin: 20px 0 8px;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    .eyebrow {
+      color: var(--mint);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    .warning {
+      border-left: 5px solid var(--yellow);
+      background: #2a2631;
+    }
+
+    .success {
+      border-left: 5px solid var(--mint);
+      background: #16342f;
+    }
+
+    .danger {
+      border-left: 5px solid var(--red);
+      background: #3b202a;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media (min-width: 680px) {
+      .grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    label {
+      display: block;
+      margin: 18px 0 4px;
+      font-weight: 750;
+    }
+
+    .label-help {
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 400;
+      margin: 3px 0 6px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--mint);
+    }
+
+    .value {
+      color: var(--mint);
+      font-family: var(--mono);
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    button {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      padding: 13px 16px;
+      margin-top: 12px;
+      background: var(--mint);
+      color: #0a1620;
+      font-size: 1rem;
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: var(--blue);
+    }
+
+    button.warning-button {
+      background: var(--yellow);
+    }
+
+    code,
+    pre {
+      display: block;
+      font-family: var(--mono);
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      background: #09111f;
+      color: #d4e4ff;
+      border-radius: 10px;
+      padding: 12px;
+      margin: 10px 0 0;
+      font-size: 0.82rem;
+    }
+
+    .status {
+      display: inline-block;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-weight: 900;
+    }
+
+    .status-match {
+      background: #1d594d;
+      color: #d7fff2;
+    }
+
+    .status-fail {
+      background: #6b2633;
+      color: #ffe2e6;
+    }
+
+    .status-open {
+      background: #574d22;
+      color: #fff4c5;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 9px 6px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--mint);
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .claim-card {
+      border: 1px solid var(--line);
+      background: var(--panel-2);
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 12px;
+    }
+
+    .claim-id {
+      color: var(--mint);
+      font-family: var(--mono);
+      font-weight: 850;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 3px 7px;
+      border-radius: 5px;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      margin: 2px 3px 2px 0;
+      background: #263754;
+      color: var(--blue);
+    }
+
+    .tag-red {
+      background: #5d2735;
+      color: #ffd5da;
+    }
+
+    .tag-yellow {
+      background: #594e20;
+      color: #fff0ae;
+    }
+
+    .tag-green {
+      background: #1f574b;
+      color: #d7fff2;
+    }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-top: 10px;
+      background: var(--panel-2);
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .math {
+      font-family: var(--mono);
+      color: var(--blue);
+      overflow-wrap: anywhere;
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <p class="eyebrow">AQARION × CLAIMLOCK · MOBILE RESEARCH PROTOTYPE</p>
+
+    <h1>AQARION Replay Lab</h1>
+
+    <p class="lead">
+      A phone-friendly demonstration of one disciplined rule:
+      replay the actual operator, compare it to the stated formula,
+      and label the evidence at the correct level.
+    </p>
+
+    <section class="panel warning">
+      <h2>Current governance status</h2>
+
+      <table>
+        <tr>
+          <th>Governance item</th>
+          <th>Exact status</th>
+        </tr>
+        <tr>
+          <td>AQARION C4</td>
+          <td><span class="tag tag-red">BLOCKED</span></td>
+        </tr>
+        <tr>
+          <td>AQARION mathematical publication</td>
+          <td><span class="tag tag-red">BLOCKED</span></td>
+        </tr>
+        <tr>
+          <td>Lean theorem receipt</td>
+          <td><span class="tag tag-yellow">OPEN</span></td>
+        </tr>
+        <tr>
+          <td>SDS-002</td>
+          <td><span class="tag tag-yellow">QUARANTINED</span></td>
+        </tr>
+        <tr>
+          <td>This browser demo</td>
+          <td><span class="tag tag-green">NUMERICAL DEVELOPMENT TOOL</span></td>
+        </tr>
+      </table>
+
+      <p class="small">
+        A green numerical comparison in this app does not clear any blocked
+        AQARION governance gate.
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2>1. Live Spectral Replay</h2>
+
+      <p>
+        This browser constructs the actual finite matrices:
+      </p>
+
+      <code>D = (I - P) K_s P</code>
+
+      <p>
+        It then computes the reduced Gram matrix:
+      </p>
+
+      <code>G_numeric = U^T D^T D U</code>
+
+      <p>
+        Separately, it constructs the closed-form target:
+      </p>
+
+      <code>G_closed = [r(k-r)/k^2] (2I - S - S^-1)</code>
+
+      <p class="small">
+        Here (r = s \bmod k). All computations are browser JavaScript
+        using IEEE-754 Float64 arithmetic.
+      </p>
+
+      <div class="grid">
+        <div>
+          <label for="m">
+            Number of quotient blocks: m
+          </label>
+
+          <div class="label-help">
+            Allowed values: 1 through 8.
+            The special m = 2 doubled-edge case is handled explicitly.
+          </div>
+
+          <input id="m" type="range" min="1" max="8" value="4">
+          <div class="value" id="m-value"></div>
+        </div>
+
+        <div>
+          <label for="k">
+            Size of each equal block: k
+          </label>
+
+          <div class="label-help">
+            Allowed values: 2 through 8.
+            Total carrier size is n = m × k.
+          </div>
+
+          <input id="k" type="range" min="2" max="8" value="3">
+          <div class="value" id="k-value"></div>
+        </div>
+
+        <div>
+          <label for="s">
+            Translation amount: s
+          </label>
+
+          <div class="label-help">
+            Allowed values automatically update to:
+            0 through n - 1.
+          </div>
+
+          <input id="s" type="range" min="0" max="11" value="2">
+          <div class="value" id="s-value"></div>
+        </div>
+
+        <div>
+          <label>
+            Derived remainder
+          </label>
+
+          <div class="label-help">
+            This is not user-editable.
+          </div>
+
+          <div class="value" id="r-value"></div>
+        </div>
+      </div>
+
+      <h3>Current numerical verdict</h3>
+      <div id="verdict"></div>
+
+      <p id="special-note" class="small"></p>
+
+      <h3>Current comparison record</h3>
+      <pre id="result"></pre>
+    </section>
+
+    <section class="panel">
+      <h2>2. Exact meaning of the green result</h2>
+
+      <div class="success">
+        <p>
+          <strong>Green means:</strong>
+        </p>
+
+        <code>
+NUMERICALLY_MATCHED
+
+The browser-built Float64 reduced Gram matrix agrees with
+the browser-built closed-form matrix within the displayed tolerance.
+        </code>
+      </div>
+
+      <div class="danger">
+        <p>
+          <strong>Green does not mean:</strong>
+        </p>
+
+        <code>
+NOT FORMALLY_PROVED
+NOT LEAN_KERNEL_ACCEPTED
+NOT RFC8785_CANONICALIZED
+NOT SIGNED
+NOT SIGSTORE_REKOR_INCLUDED
+NOT PUBLICATION_AUTHORIZED
+NOT SDS002_CLEARED
+        </code>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>3. The m = 2 regression control</h2>
+
+      <p>
+        The earlier bug was treating the two-block cycle as though it had one
+        edge in each direction but only one accumulated off-diagonal weight.
+      </p>
+
+      <p>
+        The correct circulant difference operator is:
+      </p>
+
+      <code>L_cyc = 2I - S - S^-1</code>
+
+      <p>
+        At (m=2), (S=S^{-1}), so:
+      </p>
+
+      <code>
+L_cyc(2) = 2I - 2S
+
+L_cyc(2) = [[2, -2],
+            [-2, 2]]
+      </code>
+
+      <p>
+        The incorrect simple-edge matrix is:
+      </p>
+
+      <code>
+WRONG = [[2, -1],
+         [-1, 2]]
+      </code>
+
+      <p class="small">
+        This app accumulates both cyclic neighbor contributions. It does not
+        overwrite one with the other.
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2>4. Regression Museum</h2>
+
+      <p class="small">
+        These are not embarrassing history. They are permanent negative
+        controls that prevent old semantic or numerical errors from returning.
+      </p>
+
+      <div class="claim-card">
+        <div class="claim-id">SV001-NEG-001</div>
+        <span class="tag tag-red">REFUTED</span>
+        <span class="tag">NUMERICAL NORMALIZATION</span>
+
+        <p>
+          <strong>Rejected inference:</strong>
+          Use ([[2,-1],[-1,2]]) as (2I-S-S^{-1}) at (m=2).
+        </p>
+
+        <p>
+          <strong>Correct replacement:</strong>
+          Use ([[2,-2],[-2,2]]).
+        </p>
+
+        <code>Firewall rule: SEMANTIC_OPERATOR_MISMATCH</code>
+      </div>
+
+      <div class="claim-card">
+        <div class="claim-id">SDS-R013</div>
+        <span class="tag tag-red">REFUTED</span>
+        <span class="tag">SEMANTIC</span>
+
+        <p>
+          <strong>Rejected inference:</strong>
+          Partition invariance implies the induced action is identity.
+        </p>
+
+        <p>
+          <strong>Correct replacement:</strong>
+          A partition can be invariant while the induced action is nontrivial.
+        </p>
+
+        <code>
+Countermodel:
+carrier = Z/4Z
+permutation = (0 1 2 3)
+partition = {{0,2},{1,3}}
+        </code>
+
+        <code>Firewall rule: INVARIANCE_IDENTITY_CONFUSION</code>
+      </div>
+
+      <div class="claim-card">
+        <div class="claim-id">AQ-T10-001</div>
+        <span class="tag tag-red">REFUTED</span>
+        <span class="tag">SCOPE</span>
+
+        <p>
+          <strong>Rejected inference:</strong>
+          A passing instance fixture establishes a universal theorem.
+        </p>
+
+        <p>
+          <strong>Correct replacement:</strong>
+          A fixture supports only its declared domain unless a general proof
+          exists.
+        </p>
+
+        <code>Firewall rule: DOMAIN_VIOLATION</code>
+      </div>
+
+      <div class="claim-card">
+        <div class="claim-id">CP-009</div>
+        <span class="tag tag-red">REFUTED</span>
+        <span class="tag">CARRIER</span>
+
+        <p>
+          <strong>Rejected inference:</strong>
+          Equal-looking expressions over different carriers define an identity.
+        </p>
+
+        <p>
+          <strong>Correct replacement:</strong>
+          Equality requires a common carrier or an explicit transport map.
+        </p>
+
+        <code>Firewall rule: CARRIER_MISALIGNMENT</code>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>5. Claim Mutation Check</h2>
+
+      <p>
+        This section shows the specific nearby false or unsupported claims
+        that the current numerical evidence must not authorize.
+      </p>
+
+      <button id="run-mutations" class="warning-button">
+        Show rejected claim mutations
+      </button>
+
+      <pre id="mutation-output"></pre>
+    </section>
+
+    <section class="panel">
+      <h2>6. Copyable development receipt</h2>
+
+      <p>
+        This generates a JSON record for the current slider settings.
+      </p>
+
+      <p class="small">
+        This is a development record only. It is not RFC 8785 canonical JSON,
+        not signed, not a Sigstore/Rekor artifact, and not a formal proof
+        receipt.
+      </p>
+
+      <button id="generate-receipt" class="secondary">
+        Generate current JSON receipt
+      </button>
+
+      <button id="copy-receipt">
+        Copy JSON receipt to clipboard
+      </button>
+
+      <pre id="receipt-output"></pre>
+    </section>
+
+    <section class="panel">
+      <h2>7. Product boundary</h2>
+
+      <details>
+        <summary>What this mobile prototype does</summary>
+        <ul>
+          <li>Builds a finite matrix operator from scratch in the browser</li>
+          <li>Computes a reduced Gram matrix numerically</li>
+          <li>Constructs the stated closed-form matrix separately</li>
+          <li>Displays a residual and a typed numerical verdict</li>
+          <li>Preserves known regression cases and invalid inference classes</li>
+          <li>Generates a copyable development JSON receipt</li>
+        </ul>
+      </details>
+
+      <details>
+        <summary>What this mobile prototype does not do</summary>
+        <ul>
+          <li>It does not execute arbitrary uploaded scripts</li>
+          <li>It does not prove the SV-001 theorem symbolically</li>
+          <li>It does not run Lean</li>
+          <li>It does not canonicalize using RFC 8785/JCS</li>
+          <li>It does not sign receipts</li>
+          <li>It does not submit anything to Sigstore or Rekor</li>
+          <li>It does not clear SDS-002 quarantine</li>
+          <li>It does not authorize C4 or publication</li>
+        </ul>
+      </details>
+    </section>
+  </main>
+
+  <script>
+    /*
+      AQARION Replay Lab — Mobile Prototype
+      Numerical model: IEEE-754 Float64 JavaScript
+      Operator:
+        D = (I - P) K_s P
+      Closed form:
+        U^T D^T D U = [r(k-r)/k^2] (2I - S - S^-1)
+      Important:
+        This is a numerical comparison tool, not a formal theorem prover.
+    */
+
+    const TOLERANCE = 1e-10;
+
+    const byId = (id) => document.getElementById(id);
+
+    function zeros(rows, columns) {
+      return Array.from(
+        { length: rows },
+        () => Array(columns).fill(0)
+      );
+    }
+
+    function identity(n) {
+      const output = zeros(n, n);
+
+      for (let i = 0; i < n; i++) {
+        output[i][i] = 1;
+      }
+
+      return output;
+    }
+
+    function transpose(matrix) {
+      const output = zeros(matrix[0].length, matrix.length);
+
+      for (let row = 0; row < matrix.length; row++) {
+        for (let col = 0; col < matrix[0].length; col++) {
+          output[col][row] = matrix[row][col];
+        }
+      }
+
+      return output;
+    }
+
+    function multiply(left, right) {
+      const output = zeros(left.length, right[0].length);
+
+      for (let i = 0; i < left.length; i++) {
+        for (let k = 0; k < right.length; k++) {
+          const leftEntry = left[i][k];
+
+          if (leftEntry === 0) {
+            continue;
+          }
+
+          for (let j = 0; j < right[0].length; j++) {
+            output[i][j] += leftEntry * right[k][j];
+          }
+        }
+      }
+
+      return output;
+    }
+
+    function subtract(left, right) {
+      return left.map(
+        (row, i) => row.map(
+          (entry, j) => entry - right[i][j]
+        )
+      );
+    }
+
+    function frobeniusNorm(matrix) {
+      let sum = 0;
+
+      for (const row of matrix) {
+        for (const entry of row) {
+          sum += entry * entry;
+        }
+      }
+
+      return Math.sqrt(sum);
+    }
+
+    function blockAverageProjection(m, k) {
+      const n = m * k;
+      const projection = zeros(n, n);
+
+      for (let block = 0; block < m; block++) {
+        for (let row = block * k; row < (block + 1) * k; row++) {
+          for (let col = block * k; col < (block + 1) * k; col++) {
+            projection[row][col] = 1 / k;
+          }
+        }
+      }
+
+      return projection;
+    }
+
+    function koopmanShift(n, s) {
+      const shift = zeros(n, n);
+
+      for (let x = 0; x < n; x++) {
+        shift[x][(x + s) % n] = 1;
+      }
+
+      return shift;
+    }
+
+    function normalizedBlockBasis(m, k) {
+      const n = m * k;
+      const basis = zeros(n, m);
+      const scale = 1 / Math.sqrt(k);
+
+      for (let block = 0; block < m; block++) {
+        for (let x = block * k; x < (block + 1) * k; x++) {
+          basis[x][block] = scale;
+        }
+      }
+
+      return basis;
+    }
+
+    function cycleDifferenceLaplacian(m) {
+      const laplacian = zeros(m, m);
+
+      for (let i = 0; i < m; i++) {
+        laplacian[i][i] += 2;
+        laplacian[i][(i + 1) % m] -= 1;
+        laplacian[i][(i + m - 1) % m] -= 1;
+      }
+
+      return laplacian;
+    }
+
+    function scaleMatrix(scale, matrix) {
+      return matrix.map(
+        (row) => row.map(
+          (entry) => scale * entry
+        )
+      );
+    }
+
+    function closedFormEigenvalues(m, alphaSquared) {
+      const values = [];
+
+      for (let ell = 0; ell < m; ell++) {
+        const sine = Math.sin(Math.PI * ell / m);
+
+        values.push(4 * alphaSquared * sine * sine);
+      }
+
+      return values;
+    }
+
+    function getCurrentParameters() {
+      const m = Number(byId("m").value);
+      const k = Number(byId("k").value);
+
+      const maxS = m * k - 1;
+
+      byId("s").max = maxS;
+
+      let s = Number(byId("s").value);
+
+      if (s > maxS) {
+        s = maxS;
+        byId("s").value = s;
+      }
+
+      const n = m * k;
+      const r = s % k;
+
+      return { m, k, s, n, r };
+    }
+
+    function calculateReplay() {
+      const { m, k, s, n, r } = getCurrentParameters();
+
+      const P = blockAverageProjection(m, k);
+      const K = koopmanShift(n, s);
+      const U = normalizedBlockBasis(m, k);
+
+      const D = multiply(
+        multiply(subtract(identity(n), P), K),
+        P
+      );
+
+      const numericGram = multiply(
+        multiply(
+          multiply(transpose(U), transpose(D)),
+          D
+        ),
+        U
+      );
+
+      const alphaSquared = r * (k - r) / (k * k);
+
+      const closedGram = scaleMatrix(
+        alphaSquared,
+        cycleDifferenceLaplacian(m)
+      );
+
+      const gramResidual = frobeniusNorm(
+        subtract(numericGram, closedGram)
+      );
+
+      const numericMatch = gramResidual <= TOLERANCE;
+
+      const eigenvalues = closedFormEigenvalues(m, alphaSquared);
+
+      const smallestNonzeroGap = m > 1
+        ? 4 * alphaSquared * Math.sin(Math.PI / m) ** 2
+        : 0;
+
+      return {
+        m,
+        k,
+        s,
+        n,
+        r,
+        alphaSquared,
+        gramResidual,
+        tolerance: TOLERANCE,
+        numericMatch,
+        closedFormEigenvalues: eigenvalues,
+        smallestNonzeroGap,
+        numericGram,
+        closedGram
+      };
+    }
+
+    function updatePage() {
+      const replay = calculateReplay();
+
+      byId("m-value").textContent =
+        `m = ${replay.m}`;
+
+      byId("k-value").textContent =
+        `k = ${replay.k}`;
+
+      byId("s-value").textContent =
+        `s = ${replay.s}`;
+
+      byId("r-value").textContent =
+        `r = s mod k = ${replay.r}`;
+
+      const verdict = byId("verdict");
+
+      if (replay.numericMatch) {
+        verdict.innerHTML =
+          `<span class="status status-match">
+            ✓ NUMERICALLY_MATCHED
+          </span>`;
+      } else {
+        verdict.innerHTML =
+          `<span class="status status-fail">
+            ✗ NUMERICAL_MISMATCH
+          </span>`;
+      }
+
+      const note = byId("special-note");
+
+      if (replay.m === 1) {
+        note.textContent =
+          "Special case m = 1: the circulant difference Laplacian is zero, so D is zero.";
+      } else if (replay.m === 2) {
+        note.textContent =
+          "Special case m = 2: the correct matrix is the doubled-edge circulant Laplacian [[2,-2],[-2,2]].";
+      } else if (replay.r === 0) {
+        note.textContent =
+          "Special case r = 0: the defect is zero. The stable-rank quotient is not reported.";
+      } else {
+        note.textContent =
+          "Nondegenerate numerical comparison: m > 1 and 0 < r < k.";
+      }
+
+      const compactRecord = {
+        claim_id: "AQ-SV-001-NUMERIC",
+        evidence_tier: "NUMERICAL_REPLAY",
+        verdict: replay.numericMatch
+          ? "NUMERICALLY_MATCHED"
+          : "NUMERICAL_MISMATCH",
+        m: replay.m,
+        k: replay.k,
+        s: replay.s,
+        n: replay.n,
+        r: replay.r,
+        alphaSquared: replay.alphaSquared,
+        gramFrobeniusResidual: replay.gramResidual,
+        tolerance: replay.tolerance,
+        smallestNonzeroGap: replay.smallestNonzeroGap,
+        closedFormEigenvalues: replay.closedFormEigenvalues,
+        promotion_allowed: false
+      };
+
+      byId("result").textContent =
+        JSON.stringify(compactRecord, null, 2);
+
+      return replay;
+    }
+
+    function mutationResults() {
+      return {
+        mutation_run_id: "AQ-MUTATE-AQ-SV-001-NUMERIC",
+        source_claim: "AQ-SV-001-NUMERIC",
+        source_evidence_tier: "NUMERICAL_REPLAY",
+        results: [
+          {
+            mutation: "FINITE_GRID_TO_UNIVERSAL_THEOREM",
+            result: "INADMISSIBLE",
+            firewall_rule: "DOMAIN_VIOLATION",
+            reason:
+              "A finite grid of slider inputs cannot establish every possible parameter value."
+          },
+          {
+            mutation: "NUMERICAL_MATCH_TO_FORMAL_PROOF",
+            result: "INADMISSIBLE",
+            firewall_rule: "EVIDENCE_PROMOTION_FAIL",
+            reason:
+              "Float64 numerical agreement is not a Lean kernel proof."
+          },
+          {
+            mutation: "D_STAR_D_IS_LAPLACIAN_TO_D_IS_LAPLACIAN",
+            result: "INADMISSIBLE",
+            firewall_rule: "PROJECTION_OVERCLAIM",
+            reason:
+              "The Gram operator D^T D has a cycle-Laplacian form; D itself is a defect/difference operator."
+          },
+          {
+            mutation: "SINGULAR_VALUES_TO_EIGENVALUES",
+            result: "INADMISSIBLE",
+            firewall_rule: "SEMANTIC_OPERATOR_MISMATCH",
+            reason:
+              "Singular values do not generally determine eigenvalues."
+          },
+          {
+            mutation: "BLOCKED_TO_REFUTED",
+            result: "INADMISSIBLE",
+            firewall_rule: "STATUS_CATEGORY_ERROR",
+            reason:
+              "A blocked governance state is not a mathematical refutation."
+          }
+        ]
+      };
+    }
+
+    function generateReceipt() {
+      const replay = calculateReplay();
+
+      const receipt = {
+        receipt_version: "aqarion.receipt.v0.1-development",
+        receipt_id: `AQ-MOBILE-SV001-m${replay.m}-k${replay.k}-s${replay.s}`,
+        created_at: new Date().toISOString(),
+        claim_contract: {
+          claim_id: "AQ-SV-001-NUMERIC",
+          claim_scope:
+            "Browser Float64 numerical comparison at current slider parameters",
+          contract_status: "DEVELOPMENT_DRAFT"
+        },
+        fixture: {
+          fixture_id: "AQ-SV-001-MOBILE-INTERACTIVE",
+          parameters: {
+            m: replay.m,
+            k: replay.k,
+            s: replay.s,
+            r: replay.r,
+            n: replay.n
+          }
+        },
+        execution: {
+          runner: "browser-javascript",
+          numeric_model: "IEEE-754 Float64",
+          verifier_id: "sv001-dense-gram-browser",
+          operator:
+            "D = (I-P) K_s P",
+          target:
+            "U^T D^T D U = [r(k-r)/k^2] (2I-S-S^-1)",
+          tolerance: replay.tolerance
+        },
+        facts: {
+          alpha_squared: replay.alphaSquared,
+          gram_frobenius_residual: replay.gramResidual,
+          closed_form_eigenvalues: replay.closedFormEigenvalues,
+          smallest_nonzero_gap: replay.smallestNonzeroGap,
+          m2_doubled_edge_convention:
+            replay.m === 2
+              ? "ACTIVE: [[2,-2],[-2,2]]"
+              : "NOT_ACTIVE"
+        },
+        policy_evaluation: {
+          semantic_firewall: "PASS_FOR_NUMERICAL_COMPARISON_ONLY",
+          evidence_tier: "NUMERICAL_REPLAY",
+          verdict:
+            replay.numericMatch
+              ? "NUMERICALLY_MATCHED"
+              : "NUMERICAL_MISMATCH",
+          promotion_allowed: false,
+          c4: "BLOCKED",
+          publication: "BLOCKED",
+          sds_002: "QUARANTINED",
+          lean: "OPEN"
+        },
+        limitations: [
+          "Development-only browser receipt.",
+          "No RFC 8785/JCS canonicalization claim.",
+          "No cryptographic signature claim.",
+          "No Sigstore/Rekor inclusion claim.",
+          "No exact symbolic proof claim.",
+          "No Lean kernel certificate claim.",
+          "No publication authorization.",
+          "No SDS-002 clearance."
+        ]
+      };
+
+      byId("receipt-output").textContent =
+        JSON.stringify(receipt, null, 2);
+
+      return receipt;
+    }
+
+    byId("m").addEventListener("input", updatePage);
+    byId("k").addEventListener("input", updatePage);
+    byId("s").addEventListener("input", updatePage);
+
+    byId("run-mutations").addEventListener("click", () => {
+      byId("mutation-output").textContent =
+        JSON.stringify(mutationResults(), null, 2);
+    });
+
+    byId("generate-receipt").addEventListener("click", () => {
+      generateReceipt();
+    });
+
+    byId("copy-receipt").addEventListener("click", async () => {
+      if (!byId("receipt-output").textContent.trim()) {
+        generateReceipt();
+      }
+
+      const text = byId("receipt-output").textContent;
+
+      try {
+        await navigator.clipboard.writeText(text);
+        byId("copy-receipt").textContent =
+          "Receipt copied to clipboard ✓";
+
+        setTimeout(() => {
+          byId("copy-receipt").textContent =
+            "Copy JSON receipt to clipboard";
+        }, 2200);
+      } catch (error) {
+        byId("copy-receipt").textContent =
+          "Copy failed — manually select the JSON below";
+
+        setTimeout(() => {
+          byId("copy-receipt").textContent =
+            "Copy JSON receipt to clipboard";
+        }, 3000);
+      }
+    });
+
+    updatePage();
+    generateReceipt();
+  </script>
+</body>
+          </html>
