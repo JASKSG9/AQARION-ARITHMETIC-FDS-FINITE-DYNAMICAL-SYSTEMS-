@@ -1,0 +1,53 @@
+cat > policy/semantic-firewall.v0.1.json <<'EOF'
+{
+  "policy_version": "aqarion.semantic-firewall.v0.1",
+  "default_verdict": "INADMISSIBLE",
+  "rules": [
+    {
+      "id": "DOMAIN_VIOLATION",
+      "when": "evidence scope exceeds declared claim domain",
+      "outcome": "INADMISSIBLE"
+    },
+    {
+      "id": "EVIDENCE_PROMOTION_FAIL",
+      "when": "requested verdict exceeds evidence tier",
+      "outcome": "INADMISSIBLE"
+    },
+    {
+      "id": "CARRIER_MISALIGNMENT",
+      "when": "compared objects have incompatible carriers",
+      "outcome": "INADMISSIBLE"
+    },
+    {
+      "id": "PROJECTION_OVERCLAIM",
+      "when": "projection or quotient fact is asserted as full identity",
+      "outcome": "INADMISSIBLE"
+    },
+    {
+      "id": "SEMANTIC_OPERATOR_MISMATCH",
+      "when": "operator, Gram operator, eigenvalues, and singular values are conflated",
+      "outcome": "INADMISSIBLE"
+    },
+    {
+      "id": "INVARIANCE_IDENTITY_CONFUSION",
+      "when": "invariance is asserted as pointwise identity",
+      "outcome": "INADMISSIBLE"
+    },
+    {
+      "id": "COUNT_SEMANTIC_FAIL",
+      "when": "a count is reused under a different predicate meaning",
+      "outcome": "INADMISSIBLE"
+    },
+    {
+      "id": "FORMAL_TARGET_MISMATCH",
+      "when": "formal artifact target differs from asserted claim",
+      "outcome": "INADMISSIBLE"
+    },
+    {
+      "id": "GOVERNANCE_BLOCK",
+      "when": "required dependency or governance gate is blocked or quarantined",
+      "outcome": "BLOCKED"
+    }
+  ]
+}
+EOF
