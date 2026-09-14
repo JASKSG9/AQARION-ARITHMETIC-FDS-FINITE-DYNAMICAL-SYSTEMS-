@@ -1,0 +1,23 @@
+cat > fixtures/spectral-defect/expected-controls.json <<'EOF'
+{
+  "m2_doubled_edge": {
+    "input": {
+      "m": 2
+    },
+    "expected_matrix": [
+      [2, -2],
+      [-2, 2]
+    ]
+  },
+  "r0_zero_defect": {
+    "rule": "s mod k = 0",
+    "expected": "D is zero"
+  },
+  "m1_zero_defect": {
+    "input": {
+      "m": 1
+    },
+    "expected": "D is zero; stable rank is undefined under the literal quotient definition"
+  }
+}
+EOF
