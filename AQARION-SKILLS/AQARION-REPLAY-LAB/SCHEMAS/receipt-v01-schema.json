@@ -1,0 +1,75 @@
+cat > schemas/receipt.v0.1.schema.json <<'EOF'
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aqarion.example/schemas/receipt.v0.1.schema.json",
+  "title": "AQARION Replay Lab Development Receipt v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "receipt_version",
+    "receipt_id",
+    "claim_contract",
+    "fixture",
+    "execution",
+    "facts",
+    "policy_evaluation",
+    "limitations"
+  ],
+  "properties": {
+    "receipt_version": {
+      "const": "aqarion.receipt.v0.1"
+    },
+    "receipt_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "claim_contract": {
+      "type": "object",
+      "required": [
+        "claim_id",
+        "contract_digest"
+      ],
+      "additionalProperties": true
+    },
+    "fixture": {
+      "type": "object",
+      "required": [
+        "fixture_id",
+        "input_digest"
+      ],
+      "additionalProperties": true
+    },
+    "execution": {
+      "type": "object",
+      "required": [
+        "runner",
+        "verifier_id",
+        "determinism",
+        "exit_status"
+      ],
+      "additionalProperties": true
+    },
+    "facts": {
+      "type": "object"
+    },
+    "policy_evaluation": {
+      "type": "object",
+      "required": [
+        "semantic_firewall",
+        "verdict",
+        "promotion_allowed"
+      ],
+      "additionalProperties": true
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}
+EOF
