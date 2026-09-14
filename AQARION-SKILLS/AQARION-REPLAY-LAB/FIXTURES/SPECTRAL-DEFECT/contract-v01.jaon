@@ -1,0 +1,56 @@
+cat > fixtures/spectral-defect/contract.json <<'EOF'
+{
+  "schema_version": "aqarion.claim-contract.v0.1",
+  "claim_id": "AQ-SV-001-NUMERIC",
+  "title": "Equal-block defect Gram identity: numeric regression",
+  "claim_type": "FINITE_NUMERICAL_IDENTITY",
+  "statement": {
+    "text": "For every declared Float64 grid case, the from-scratch reduced Gram matrix U^T D^T D U agrees within tolerance with r(k-r)/k^2 times (2I-S-S^-1).",
+    "formal_status": "NOT_FORMALIZED"
+  },
+  "domain": {
+    "kind": "finite_grid",
+    "parameters": {
+      "m": {
+        "min": 2,
+        "max": 8
+      },
+      "k": {
+        "min": 2,
+        "max": 8
+      },
+      "s": {
+        "rule": "1 <= s < m*k and s mod k != 0"
+      }
+    },
+    "enumeration_complete": false
+  },
+  "objects": {
+    "carrier": "X = Z/(m*k)Z",
+    "projection": "P = equal contiguous block-average projection",
+    "shift": "K_s[x,x+s mod n] = 1",
+    "defect": "D = (I-P)K_sP",
+    "target": "U^T D^T D U = r(k-r)/k^2 (2I-S-S^-1)"
+  },
+  "evidence_policy": {
+    "minimum_verifier": "NUMERIC_REPLAY",
+    "allowed_verdicts": {
+      "NUMERIC_REPLAY_PASS": "NUMERICALLY_MATCHED",
+      "FORMAL_PROOF_PASS": "FORMALLY_PROVED"
+    },
+    "forbidden_promotions": [
+      "NUMERIC_REPLAY_PASS_TO_FORMALLY_PROVED",
+      "FINITE_GRID_TO_UNIVERSAL_THEOREM",
+      "SINGULAR_VALUES_TO_EIGENVALUES"
+    ]
+  },
+  "governance": {
+    "publication_allowed": false,
+    "sds_002": "QUARANTINED",
+    "lean_status": "OPEN"
+  },
+  "known_counterexamples": [
+    "SV001-NEG-001: simple-edge C2 normalization is not the circulant difference Laplacian"
+  ]
+}
+EOF
