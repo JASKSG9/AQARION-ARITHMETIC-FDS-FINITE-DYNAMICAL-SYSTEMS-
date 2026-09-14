@@ -1,0 +1,32 @@
+{
+  "receipt_schema": "aqarion.sv001.verifier-result.v1",
+  "contract": "SV-001-V2",
+  "status": "PASS",
+  "operator_convention": "K[x,(x+s) mod n]=1; D=(I-P)K_sP; G=U^T D^T D U",
+  "target": "G=(r(k-r)/k^2)(2I-S-S^-1)",
+  "domain": {
+    "m_min": 2,
+    "m_max": 8,
+    "k_min": 2,
+    "k_max": 8,
+    "shift_rule": "1 <= s < m*k"
+  },
+  "cases_executed": 0,
+  "nonzero_r_cases": 0,
+  "zero_r_cases": 0,
+  "gram_failures": 0,
+  "norm_failures": 0,
+  "nonfinite_failures": 0,
+  "max_gram_error": 0.0,
+  "max_norm_error": 0.0,
+  "worst_gram_case": null,
+  "worst_norm_case": null,
+  "tolerance": {
+    "gram_absolute": 1e-12,
+    "norm_absolute": 1e-12
+  },
+  "environment": {
+    "python": "",
+    "numpy": ""
+  }
+}
