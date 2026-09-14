@@ -1,0 +1,50 @@
+cat > fixtures/toy-even/contract.json <<'EOF'
+{
+  "schema_version": "aqarion.claim-contract.v0.1",
+  "claim_id": "DEMO-EVEN-001",
+  "title": "Finite product-evenness replay",
+  "claim_type": "FINITE_UNIVERSAL",
+  "statement": {
+    "text": "For every integer n with 0 <= n <= 100, n(n+1) is even.",
+    "formal_status": "NOT_FORMALIZED"
+  },
+  "domain": {
+    "kind": "finite_enumeration",
+    "lower": 0,
+    "upper": 100,
+    "enumeration_complete": true
+  },
+  "objects": {
+    "carrier": "integers from 0 through 100",
+    "predicate": "n*(n+1) mod 2 = 0"
+  },
+  "evidence_policy": {
+    "minimum_verifier": "EXACT_REPLAY",
+    "allowed_verdicts": {
+      "EXACT_REPLAY_PASS": "EXACTLY_VERIFIED"
+    },
+    "forbidden_promotions": [
+      "FINITE_DOMAIN_TO_ALL_INTEGERS"
+    ]
+  },
+  "governance": {
+    "publication_allowed": false,
+    "sds_002": "NOT_APPLICABLE",
+    "lean_status": "NOT_APPLICABLE"
+  }
+}
+EOF
+
+cat > fixtures/toy-even/verify.py <<'EOF'
+import json
+
+failed = [n for n in range(101) if n * (n + 1) % 2 != 0]
+
+print(json.dumps({
+    "tested_cases": 101,
+    "counterexamples": failed,
+    "result": "PASS" if not failed else "FAIL"
+}, sort_keys=True))
+
+raise SystemExit(0 if not failed else 1)
+EOF
