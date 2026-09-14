@@ -56,7 +56,7 @@ rankEq(P)
 4. Transport Closure
 
 
-The exact definition of J_T must be given symbolically and implemented separately.
+The exact definition of J-T must be given symbolically and implemented separately.
 
 
 No theorem may depend on an informal description of "transport closure."
