@@ -1,0 +1,122 @@
+cat > web/index.html <<'EOF'
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AQARION Replay Lab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main>
+    <p class="eyebrow">AQARION × CLAIMLOCK · RESEARCH PROTOTYPE</p>
+
+    <h1>AQARION Replay Lab</h1>
+
+    <p class="lead">
+      Can you replay this claim—and can its evidence survive nearby wrong
+      versions of the claim?
+    </p>
+
+    <section class="warning">
+      <strong>Evidence boundary:</strong>
+      This prototype records replay facts and policy-relative verdicts.
+      It does not execute arbitrary uploaded code, provide cryptographic
+      provenance, or promote numerical agreement to formal proof.
+    </section>
+
+    <section class="grid">
+      <article>
+        <h2>1. Claim Contract</h2>
+        <p>
+          Locks domain, carrier, definitions, allowed evidence, and forbidden
+          promotions before execution.
+        </p>
+        <code>Verifier emits facts ≠ policy assigns meaning</code>
+      </article>
+
+      <article>
+        <h2>2. Curated Replay</h2>
+        <p>
+          Run bounded fixtures with a declared verifier and inspect observed
+          facts.
+        </p>
+        <a href="demos/spectral-defect.html">
+          Open Spectral Defect Explorer →
+        </a>
+      </article>
+
+      <article>
+        <h2>3. Regression Museum</h2>
+        <p>
+          Replay semantic failures, countermodels, and normalization bugs as
+          permanent research assets.
+        </p>
+        <a href="demos/regression-museum.html">
+          Open Regression Museum →
+        </a>
+      </article>
+
+      <article>
+        <h2>4. Mutation Compiler</h2>
+        <p>
+          Generate nearby invalid claims and inspect the firewall category that
+          rejects them.
+        </p>
+        <button id="mutate">Run sample mutations</button>
+        <pre id="mutation-output"></pre>
+      </article>
+    </section>
+
+    <section>
+      <h2>Verdict vocabulary</h2>
+      <table>
+        <tr>
+          <th>Verdict</th>
+          <th>Meaning</th>
+        </tr>
+        <tr>
+          <td>FORMALLY_PROVED</td>
+          <td>Pinned formal proof accepted under a configured policy</td>
+        </tr>
+        <tr>
+          <td>EXACTLY_VERIFIED</td>
+          <td>Complete deterministic exact replay over its declared finite domain</td>
+        </tr>
+        <tr>
+          <td>NUMERICALLY_MATCHED</td>
+          <td>Numerical agreement under a stated model and tolerance</td>
+        </tr>
+        <tr>
+          <td>REFUTED</td>
+          <td>An admissible counterexample exists</td>
+        </tr>
+        <tr>
+          <td>OPEN / INADMISSIBLE / BLOCKED</td>
+          <td>Insufficient evidence, semantic failure, or governance barrier</td>
+        </tr>
+      </table>
+    </section>
+
+    <section>
+      <h2>v0.1 scope</h2>
+      <ul>
+        <li>Curated fixtures only; no arbitrary code execution</li>
+        <li>Development JSON receipts only; no signature, JCS, or transparency-log claim</li>
+        <li>AQARION mathematics remains independently governed: C4 and publication are blocked</li>
+      </ul>
+    </section>
+  </main>
+
+  <script type="module">
+    import { compileMutations } from "../../engine/mutationCompiler.js";
+
+    document.querySelector("#mutate").onclick = () => {
+      const result = compileMutations("AQ-SV-001-NUMERIC");
+      document.querySelector("#mutation-output").textContent =
+        JSON.stringify(result, null, 2);
+    };
+  </script>
+</body>
+</html>
+EOF
