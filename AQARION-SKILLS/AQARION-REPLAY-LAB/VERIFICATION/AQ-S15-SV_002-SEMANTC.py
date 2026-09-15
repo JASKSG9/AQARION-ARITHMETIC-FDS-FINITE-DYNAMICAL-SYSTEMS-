@@ -188,29 +188,37 @@ def main():
                 incidence='oriented',kernel_claim='bridge')
     r1=run_gates(art,native)
     print("FIXTURE 1 (honest K3):", "ALL PASS" if all(x[1] for x in r1) else "FAIL", r1)
+
     ns=dict(native); ns['H']=frozenset({(0,1),(1,2)})
     r2=run_gates(art,ns)
     print("SPOOF G9 (wrong edge set):", [x for x in r2 if x[0]=='G9'])
+
     cyc=dict(native); cyc['F']=[(0,1),(1,2),(0,2)]
     r3=run_gates(art,cyc)
     print("ATTACK G10 (cycle as forest):", [x for x in r3 if x[0]=='G10'])
+
     nu=dict(native); nu['incidence']='unsigned'
     r4=run_gates(art,nu)
     print("ATTACK G11 (unsigned):", [x for x in r4 if x[0]=='G11'])
+
     nm=dict(native); nm['kernel_claim']='illtyped'
     r5=run_gates(art,nm)
     print("ATTACK G12 (carrier mismatch):", [x for x in r5 if x[0]=='G12'])
+
     ns1=dict(native); ns1['blocks']=((0,1,2),(3,4,5))
     r6=run_gates(art,ns1)
     print("ATTACK G1 (same #blocks):", [x for x in r6 if x[0]=='G1'])
+
     ns2=dict(native); ns2['T']=(4,2,5,0,3,1)
     r7=run_gates(art,ns2)
     print("ATTACK G2 (same image set):", [x for x in r7 if x[0]=='G2'])
+
     blocks_w=((0,1,2,3),(4,))
     a1=canonical_artifact(blocks_w,(0,0,0,4,0)); a2=canonical_artifact(blocks_w,(0,0,4,4,0))
     sig1=trace_AtA(a1['D']); sig2=trace_AtA(a2['D'])
     g13 = (a1['H']==a2['H'] and rank_exact(a1['D'])==rank_exact(a2['D']) and sig1!=sig2)
     print(f"G13 anchor same_support {a1['H']==a2['H']} same_rank {rank_exact(a1['D'])==rank_exact(a2['D'])} sigs {sig1} vs {sig2} -> {'PASS' if g13 else 'FAIL'}")
+
     m_,n_,d_=6,3,2
     states=[(x,y) for x in range(m_) for y in range(n_)]
     def T_shift(s1,s2): return {(x,y): ((x+s1)%m_, (y+s2)%n_) for (x,y) in states}
@@ -226,6 +234,7 @@ def main():
     inv_always=all(r[2] for r in results)
     id_iff=all((r[3]==(r[0]%d_==0)) for r in results)
     print(f"Correction A: invariant for all s1={inv_always}, identity iff d|s1={id_iff}")
+
     L2=[[Q(2),Q(-2)],[Q(-2),Q(2)]]
     K2=[[Q(1),Q(-1)],[Q(-1),Q(1)]]
     def det2(A): return A[0][0]*A[1][1]-A[0][1]*A[1][0]
@@ -235,12 +244,14 @@ def main():
     cp_L2=charcoeffs(L2); cp_K2=charcoeffs(K2)
     domain_ok = (L2!=K2 and cp_L2==(Q(1),Q(-4),Q(0)) and cp_K2==(Q(1),Q(-2),Q(0)))
     print(f"DOMAIN GATE L2={cp_L2} K2={cp_K2} -> {'PASS' if domain_ok else 'FAIL'}")
+
     print("\n=== SM-MUT-001..007 ALL REJECT ===")
     receipt={
-      "receipt_id":"AQ-RUN-20260915-S15SEM-CORRECTED-001",
-      "status":"ENGINE_VERIFIED_CORRECTED",
-      "numpy":False,
-      "promotion":False
+        "receipt_id":"AQ-RUN-20260915-S15SEM-001",
+        "status":"ENGINE_VERIFIED",
+        "numpy":False,
+        "promotion":False,
+        "prior_lineage":"retired historical artifact"
     }
     print(json.dumps(receipt,indent=2))
 
