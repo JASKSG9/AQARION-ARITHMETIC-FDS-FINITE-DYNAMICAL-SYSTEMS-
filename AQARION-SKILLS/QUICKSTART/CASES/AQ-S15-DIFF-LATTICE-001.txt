@@ -1,0 +1,49 @@
+CASE: AQ-S15-DIFF-LATTICE-001
+
+Question:
+    When does the equal-margin fluctuation operator lose rank?
+
+Objects:
+    M
+    C
+    ker_Z(C)
+
+Hypothesis:
+    det(C)=0 characterizes lost fluctuation modes.
+
+Skills:
+    exact_rank
+    smith_normal_form
+    integer_kernel
+    contingency_analysis
+
+Experiments:
+    census_k3
+    census_k4
+    nullspace_growth
+    adversarial_counterexamples
+
+Claims:
+    S15-001
+    S15-002
+    S15-003
+
+Replay:
+    exact
+    independent
+    negative_control
+
+Formalization:
+    Lean status
+
+Evidence:
+    hashes
+    inputs
+    outputs
+    environment
+
+Current state:
+    SUPPORTED / OPEN / REFUTED / FORMALIZED
+
+Next question:
+    Does ker_Z(C) admit a combinatorial characterization?
