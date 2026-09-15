@@ -1,0 +1,98 @@
+{
+  "receipt_id": "AQ-RUN-20260915-S15SEM-CORRECTED-001",
+  "status": "ENGINE_VERIFIED_CORRECTED",
+  "engine": "AQ-S15-SEMANTIC v1.1",
+  "exact_rational": true,
+  "uses_float": false,
+  "forbidden_imports_present": [],
+  "imports": [
+    "fractions.Fraction",
+    "itertools.product",
+    "json"
+  ],
+  "gates": {
+    "G1_scope": "PASS",
+    "G2_carrier": "PASS",
+    "G3_operator": "PASS",
+    "G4_idempotent": "PASS",
+    "G5_phi": "PASS",
+    "G6_A": "PASS",
+    "G7_D_squared_zero": "PASS",
+    "G8_support": "PASS",
+    "G9_edge_set": "PASS",
+    "G10_forest": {
+      "definition": "F subset H and forest_acyclic and connected and |F|=m-1",
+      "honest": "PASS",
+      "cycle_spoof_F_triangle": "REJECTED acyclic=False"
+    },
+    "G11_oriented_kernel": "PASS - unsigned REJECTED",
+    "G12_bridge_kernel": "PASS - illtyped REJECTED",
+    "G13_metric_separation": {
+      "result": "PASS",
+      "same_H": true,
+      "same_rank": true,
+      "sig1": "15/16",
+      "sig2": "5/4"
+    }
+  },
+  "attacks": {
+    "G1_same_block_count": "REJECTED",
+    "G2_same_image_set": "REJECTED",
+    "G9_wrong_edge_set": "REJECTED",
+    "G10_cycle_as_forest": "REJECTED",
+    "G11_unsigned_incidence": "REJECTED",
+    "G12_carrier_mismatch": "REJECTED"
+  },
+  "domain_gate": {
+    "L2": [
+      [
+        2,
+        -2
+      ],
+      [
+        -2,
+        2
+      ]
+    ],
+    "K2_simple": [
+      [
+        1,
+        -1
+      ],
+      [
+        -1,
+        1
+      ]
+    ],
+    "charpoly_L2": [
+      1,
+      -4,
+      0
+    ],
+    "charpoly_K2": [
+      1,
+      -2,
+      0
+    ],
+    "L2_spectrum": [
+      0,
+      4
+    ],
+    "K2_spectrum": [
+      0,
+      2
+    ],
+    "result": "PASS - SimpleGraph.Cycle m=2 REJECTED"
+  },
+  "promotion": false,
+  "c4_blocked": true,
+  "provenance": {
+    "active_identity": [
+      "AQ-S15-SEMANTIC",
+      "AQ-RUN-20260915-S15SEM-CORRECTED-001"
+    ],
+    "prior_lineage": "retired historical artifact - archived off-artifact",
+    "v_identifiers_in_active_artifact": 0
+  },
+  "date": "2026-09-15"
+}
