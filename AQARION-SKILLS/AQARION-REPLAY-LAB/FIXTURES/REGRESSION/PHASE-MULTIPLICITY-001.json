@@ -1,0 +1,49 @@
+{
+  "schema_version": "aqarion.regression.v0.1",
+  "regression_id": "PHASE-MULTIPLICITY-001",
+  "title": "Simple-tree acyclicity does not eliminate multigraph holonomy",
+  "category": "MATHEMATICAL",
+
+  "invalid_inference": "If the underlying simple incidence graph is a forest, then the voltage lift has |A| components per base component.",
+
+  "valid_replacement": "A forest theorem applies to the actual edge-indexed voltage graph. Parallel incidence edges can create a closed walk with nonzero voltage even when the collapsed simple graph is a tree.",
+
+  "firewall_rule": "MULTIPLICITY_HOLONOMY_MISMATCH",
+  "status": "REFUTED",
+  "replayability": "CURATED_EXACT_FINITE_FIXTURE",
+
+  "data": {
+    "gain_group": "ZMod 3",
+    "base_vertices": ["B0", "C0"],
+
+    "collapsed_simple_graph": {
+      "edges": [["B0", "C0"]],
+      "is_tree": true
+    },
+
+    "edge_indexed_multigraph": {
+      "edges": [
+        {
+          "edge_id": "e0",
+          "source": "B0",
+          "target": "C0",
+          "gain": 0
+        },
+        {
+          "edge_id": "e1",
+          "source": "B0",
+          "target": "C0",
+          "gain": 1
+        }
+      ]
+    },
+
+    "closed_walk": ["e0", "reverse(e1)"],
+    "closed_walk_voltage_mod_3": 2,
+
+    "holonomy_subgroup": "ZMod 3",
+    "derived_cover_component_count": 1,
+
+    "incorrect_simple_tree_prediction": 3
+  }
+}
