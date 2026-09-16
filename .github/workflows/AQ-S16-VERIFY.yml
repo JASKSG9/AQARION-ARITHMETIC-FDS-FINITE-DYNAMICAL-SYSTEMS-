@@ -1,6 +1,5 @@
 name: AQARION AQ-S16 CI (Invariant Enforcement)
 on: [push, pull_request]
-
 jobs:
   invariant-test-suite:
     runs-on: ubuntu-latest
@@ -12,14 +11,15 @@ jobs:
       - run: |
           python -m pip install --upgrade pip
           pip install numpy scipy sympy pytest
-      
-      # Run the master orchestrator
       - name: Run Complete Verification Suite
         run: python VERIFICATION/RUN-ALL.py
-      
-      # Or run individual verification modules
       - name: Verify Obstruction Operator
         run: python VERIFICATION/OBSTRUCTION.py
       - name: Verify Commutator Condition
         run: python VERIFICATION/COMMUTATOR.py
-      # ... etc
+      - name: Verify Projection
+        run: python VERIFICATION/PROJECTION.py
+      - name: Verify SCC
+        run: python VERIFICATION/SCC.py
+      - name: Verify Representative
+        run: python VERIFICATION/REPRESENTATIVE.py
