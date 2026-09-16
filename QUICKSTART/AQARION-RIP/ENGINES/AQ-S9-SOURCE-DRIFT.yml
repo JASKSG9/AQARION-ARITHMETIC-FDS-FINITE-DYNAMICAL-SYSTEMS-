@@ -1,0 +1,24 @@
+claim_id: AQ-S9-DRIFT
+statement: >
+  Source and manifest must agree on the transport residual variable name.
+  Manifest records rJU; if source uses rJT, residual is rJU - rJT and
+  automatic repair is denied until a semantic proof exists.
+status: OPEN
+engine: ENGINES/s9_drift_demo.py
+inputs:
+  - FIXTURES/s9_manifest.json
+  - FIXTURES/s9_source_clean.py
+  - FIXTURES/s9_source_drift.py
+expected:
+  clean_residual: "0"
+  drift_residual: "rJU - rJT"
+policy:
+  filesystem: workspace_only
+  network: false
+math_axis: NEGATIVE_EVIDENCE_FIXTURE
+replay_axis: NOT_YET_REPLAYED
+formal_axis: LEAN_OPEN
+promotion_allowed: false
+notes: |
+  Classic AQARION negative-evidence fixture.
+  Demonstrates residual as first-class object and denied auto-repair.
