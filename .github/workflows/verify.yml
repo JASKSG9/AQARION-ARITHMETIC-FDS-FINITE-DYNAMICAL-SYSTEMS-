@@ -1,10 +1,7 @@
-name: AQARION Replay
-on: [push, pull_request, workflow_dispatch]
-permissions: {contents: read}
+name: AQARION Legacy Verify - Disabled
+on: [push, pull_request]
 jobs:
-  replay:
+  legacy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: python3 -m py_compile VERIFICATION/replay_harness.py
-      - run: python3 VERIFICATION/replay_harness.py
+      - run: echo "Legacy verify.yml disabled - use AQ-S16-VERIFY.yml"
