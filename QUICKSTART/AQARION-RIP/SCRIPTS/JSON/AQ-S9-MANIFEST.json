@@ -1,0 +1,5 @@
+{
+  "variable": "rJU",
+  "role": "transport residual",
+  "expected_alignment": "source.variable == manifest.variable"
+}
