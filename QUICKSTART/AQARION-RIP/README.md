@@ -1,15 +1,45 @@
 AQARION RESEARCH INTELLIGENCE PROGRAM
-AQ-RIP-S15-README.md
 
-The thing I'd build is not simply RESEARCH ENGINE.
+# AQARION Replay Contract v0.1
 
+**Status**: FROZEN AUDIT · NO PROMOTION · C4 BLOCKED · Publication BLOCKED
 
-I'd make the top-level program:
+**Invariant**: `FAILED RUN ⇒ COMPLETE RECEIPT` (RPL-001)
 
+## Core equation
 
-                         AQARION
-                            │
-                 ┌──────────┴──────────┐
+```
+CLAIM → RUN → RECEIPT → REPLAY → VERDICT
+NO RECEIPT ⇒ NO REPLAY CLAIM
+REPLAY ≠ PROOF
+```
+
+## Quick start
+
+```bash
+cd /home/workdir/artifacts/AQARION-Replay-Contract-v0.1
+python -m pytest tests/ -q
+python aqreplay.py capture AQ-S16-SAT-001 RPL-SAT-001 -- python ENGINES/saturation_equal_margin.py
+python aqreplay.py verify RPL-SAT-001
+python aqreplay.py closure AQ-S16-SAT-001
+python aqreplay.py capture AQ-S9-DRIFT RPL-S9 -- python ENGINES/s9_drift_demo.py
+python aqreplay.py verify RPL-S9
+python aqreplay.py closure AQ-S9-DRIFT
+python aqreplay.py diff RPL-SAT-001 RPL-S9
+python aqreplay.py capture AQ-DEMO-FAIL RPL-FAIL -- python -c "import sys; sys.exit(3)"
+python aqreplay.py verify RPL-FAIL
+```
+
+## ARROs
+
+| Claim | Role |
+|-------|------|
+| AQ-S16-SAT-001 | Positive: λ_max(G)=1 ⇔ rank(M)<3 (equal-margin 3×3) |
+| AQ-S9-DRIFT | Negative: source/manifest residual rJU − rJT |
+
+## Status vocabulary (weak by design)
+
+OBSERVED | COMPUTED | FAILED | QUARANTINED | REPLAYED | INDEPENDENTLY_REPLAYED                                   ┌──────────┴──────────┐
                  │                     │
            KNOWLEDGE LAYER        RESEARCH LAYER
                  │                     │
