@@ -1,0 +1,89 @@
+{
+  "receipt_id": "AQ-S15-RPL-002-20260916-001",
+  "claim_id": "AQ-S15-SV002-CORRECTED",
+  "run_id": "AQ-S15-SV002-RUN-126-126",
+  "command": "python3 -m aq_s15.verify --m 2..50 exact rational",
+  "exit_code": 0,
+  "source_sha256": "sha256:19937125e96fa838212145399eccf554c9614c78a475f4d113500c7f36fcde13",
+  "verdict": "COMPUTED",
+  "promotion_allowed": false,
+  "governance": {
+    "mode": "FROZEN AUDIT",
+    "c4": "BLOCKED",
+    "publication": "BLOCKED",
+    "lean": "OPEN",
+    "promotable": false,
+    "v1_v2_onemillion": "OUT_OF_SCOPE"
+  },
+  "corrections": [
+    {
+      "id": "L_m domain",
+      "algebra": "m>=2 valid",
+      "simple_cycle": "m>=3 only, Mathlib three_le_length",
+      "m2": "[[2,-2],[-2,2]] multigraph, NOT [[1,-1],[-1,1]]"
+    },
+    {
+      "id": "||Omega||_F^2",
+      "old": "(m^4-1)/12 KILLED",
+      "new": "(m^4-1)/30 PASS",
+      "evidence": "m=2:1/2, m=4:8.5 exact rational"
+    },
+    {
+      "id": "tr Omega^3",
+      "old": "-(m^2-1)(m^2-4)(m^2-9)/90 KILLED",
+      "new": "(m^2-1)(m^2-4)(11m^2+13)/2520 PASS",
+      "evidence": "m=3:16/9 !=0"
+    }
+  ],
+  "verified_identities": [
+    {
+      "formula": "G_m = (m^2-1)/12m - d(m-d)/2m",
+      "check": "LG = I - J/m exact rational 2<=m<=50",
+      "fails": 0
+    },
+    {
+      "formula": "R_{C_m}=d(m-d)/m",
+      "check": "derived from Green"
+    },
+    {
+      "formula": "tr L+ = (m^2-1)/12",
+      "check": "first inverse moment"
+    },
+    {
+      "formula": "||L+||_F^2 = (m^4+10m^2-11)/720",
+      "check": "second inverse moment"
+    },
+    {
+      "formula": "||D+||_F^2 = (m^2-1)/(12 alpha^2)",
+      "check": "m=2..9 diff 0 to 8e-16"
+    },
+    {
+      "formula": "pdet L_m = m^2",
+      "check": "m=2..8: 4,9,16,25,36,49,64 exact"
+    }
+  ],
+  "literature_boundary": [
+    "2605.09229 Miezaki-Tamura I: Laplacian diff + Fourier -> resistance/trees — architecture match, does NOT prove D≅alpha(I-S)",
+    "2608.11734 Miezaki-Tamura II: Cartesian product C_N^k square G — same",
+    "Mathlib SimpleGraph.cycle requires m>=3"
+  ],
+  "semantic_identity": {
+    "claim_hash": "sha256:b16eaf0949947052b695bfe2da02b868c6da850e2218f21d5d18a77cfe36a6b0",
+    "definition_hash": "sha256:35b8590db2f8d0c70308c6401bd887a560dc0af2c2849057cf4ee053b88430b3",
+    "dependency_cone_hash": "sha256:e87f17fd5d1d80c921d3f67d1ce19c3d5dd213814cb162e376250fb7dec0cfce",
+    "checker_hash": "sha256:c272c0ef5e88dc590393d5be56d8edfad252ed658878e8600549443672796ab6",
+    "policy_hash": "sha256:4af282e057c9daa5c5015ebad1b1610c704abe017d07ee6fcb346d2a36e0ee29"
+  },
+  "replay": {
+    "status": "VALID_REPLAY",
+    "current_dependency_cone_hash": "sha256:e87f17fd5d1d80c921d3f67d1ce19c3d5dd213814cb162e376250fb7dec0cfce",
+    "stale": false
+  },
+  "verification": {
+    "receipt_complete": true,
+    "source_match": true,
+    "environment_match": true,
+    "checker_match": true,
+    "dependency_cone_match": true
+  }
+}
