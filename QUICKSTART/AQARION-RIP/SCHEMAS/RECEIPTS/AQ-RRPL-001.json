@@ -1,0 +1,52 @@
+{
+  "schema_version": "0.1",
+  "receipt_id": "sha256:...",
+  "run_id": "RPL-DEMO-001",
+  "claim_id": "AQ-RPL-001",
+
+  "execution_status": "SUCCEEDED",
+  "evidence_status": "COMPUTED",
+  "timestamp_utc": "2026-09-15T00:00:00Z",
+
+  "command": ["python3", "-c", "print('AQARION')"],
+  "working_directory": ".",
+  "exit_code": 0,
+
+  "source": {
+    "git_commit": "UNVERSIONED",
+    "git_dirty": null
+  },
+
+  "inputs": {
+    "artifacts": []
+  },
+
+  "outputs": {
+    "stdout": {
+      "path": "stdout.txt",
+      "sha256": "..."
+    },
+    "stderr": {
+      "path": "stderr.txt",
+      "sha256": "..."
+    }
+  },
+
+  "environment": {
+    "platform": "...",
+    "python": "3.12.0",
+    "python_implementation": "CPython",
+    "locale": "..."
+  },
+
+  "result": {
+    "kind": "process_exit",
+    "value": 0
+  },
+
+  "integrity": {
+    "algorithm": "sha256",
+    "canonicalization": "json-sort-keys-compact-utf8-without-integrity.receipt_sha256",
+    "receipt_sha256": "..."
+  }
+}
