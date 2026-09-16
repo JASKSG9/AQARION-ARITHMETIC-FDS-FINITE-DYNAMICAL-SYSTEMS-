@@ -1,0 +1,23 @@
+claim_id: AQ-S16-SAT-001
+statement: >
+  For equal-margin non-negative integer 3x3 multiplicity matrices M
+  (all row and column sums equal to n), the reduced residual Gram G_M
+  satisfies lambda_max(G_M)=1 if and only if rank(M)<3.
+status: OPEN
+engine: ENGINES/saturation_equal_margin.py
+inputs: []
+expected:
+  residual: "0"
+  mismatches: 0
+  domain: "n=1..5 exhaustive transportation polytope"
+policy:
+  filesystem: workspace_only
+  network: false
+math_axis: STRUCTURALLY_DERIVED
+replay_axis: NOT_YET_REPLAYED
+formal_axis: LEAN_OPEN
+promotion_allowed: false
+notes: |
+  Algebraic reason: A=M/n doubly stochastic => G=I-A^T A;
+  lambda_max(G)=1 on 1^perp iff ker(A) nonzero iff rank(M)<3
+  (since 1 not in ker A).
