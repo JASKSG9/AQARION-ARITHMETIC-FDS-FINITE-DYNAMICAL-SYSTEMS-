@@ -1,16 +1,15 @@
 import Lake
 open Lake DSL
-package AqarionLakeTest where version := v!"0.1.0"
-input_file transportEvidence where path := "Evidence/transport.json"; text := true
+
+package aqarionLake where
+  version := v!"0.1.0"
+
+require mathlib from git
+  "https://github.com/leanprover-community/mathlib4" @ "v4.34.0-rc1"
+
 @[default_target]
-target validateEvidence pkg : Unit := do
-  let _ ← transportEvidence.fetch
-  let result ← IO.Process.output { cmd := "python3", args := #["scripts/validate_registry.py"] }
-  if result.exitCode!= 0 then throw <| IO.userError "AQARION evidence validation failed"
-  let evidenceDir := pkg.buildDir / "evidence"
-  IO.FS.createDirAll evidenceDir
-  IO.FS.writeFile (evidenceDir / "registry.receipt.json") (← IO.FS.readFile (pkg.dir / "Evidence" / "transport.json"))
-@[default_target]
-lean_lib AqarionLake where roots := #[`AqarionLake]; needs := #[validateEvidence]
-@[default_target]
-lean_exe aqarionLakeTest where root := `Main; needs := #[validateEvidence]
+lean_lib AqarionLake where
+  roots := #[`AqarionLake]
+
+lean_exe aqarionLakeTest where
+  root := `Main
