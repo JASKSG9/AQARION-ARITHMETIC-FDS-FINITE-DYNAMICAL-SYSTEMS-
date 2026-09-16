@@ -1,0 +1,30 @@
+{
+  "artifact_id": "AQ-LUMEN-COLLISION-EXACT-001",
+  "status": "FROZEN",
+  "promotion": false,
+  "partition_lambda": [3,3,3,3,3,3,2,1,1,1,1,1],
+  "partition_mu": [4,3,2,2,2,2,2,2,2,2,2],
+  "partition_size": 25,
+  "perimeter": 30,
+  "boundary_convention": {
+    "basepoint": [0,0],
+    "orientation": "counterclockwise",
+    "initial_direction": "E",
+    "parameter": "unit_arclength_mod_30"
+  },
+  "lambda_turn_positions": [0,1,6,7,8,9,15,18],
+  "mu_turn_positions": [0,2,11,12,13,14,15,19],
+  "collision": {
+    "object": "cyclic_tangent_jump_autocorrelation",
+    "coordinates_equal": 30,
+    "coordinates_tested": 30,
+    "exact": true
+  },
+  "fourier": {
+    "power_spectrum_equal": true,
+    "complex_fourier_identical": false
+  },
+  "lean": "OPEN",
+  "independent_reproduction": "REPLAYED_IN_SESSION",
+  "publication": "BLOCKED"
+}
