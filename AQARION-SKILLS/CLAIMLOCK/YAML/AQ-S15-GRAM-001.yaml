@@ -1,0 +1,45 @@
+schema: AQ-EVC-001
+
+claim:
+  id: AQ-S15-GRAM-001
+  statement: >
+    UᵀDᵀDU = UᵀKᵀKU - AᵀA
+  status: DERIVED
+
+objects:
+  U: column-orthonormal embedding
+  P: U Uᵀ
+  K: ambient operator
+  D: (I-P) K P
+  A: Uᵀ K U
+
+assumptions:
+  - UᵀU = I
+
+specialization:
+  isometry:
+    condition: KᵀK = I
+    consequence: >
+      UᵀDᵀDU = I - AᵀA
+
+evidence:
+  executable: sv001_isometry_check.py
+  reported_cases: 3
+  result: PASS
+
+counterexample:
+  model: "T = [0,0,1]"
+  observation: "KᵀK = diag(2,1,0)"
+  old_claim: FAIL
+  corrected_claim: PASS
+
+formalization:
+  file: AQARION/SV001/GenericProjector.lean
+  status: OPEN
+
+governance:
+  C4: BLOCKED
+  publication: BLOCKED
+  Lean: OPEN
+  SDS-002: QUARANTINED
+  promotion_allowed: false
