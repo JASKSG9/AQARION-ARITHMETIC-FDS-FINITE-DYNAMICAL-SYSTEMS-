@@ -1,32 +1,20 @@
 [project]
-name="aqarion-arithmetic"
-version="13.1"
-manifest_version="0.1"
+name = "aqarion-arithmetic"
+version = "13.2"
+manifest_version = "ARC-1.0"
 
 [claim.SV-001-V2]
-statement="trace=2m alpha^2, op-norm even 2alpha odd 2alpha cos(pi/2m)"
-expected_cases=5720
-max_trace_err=1e-12
-max_norm_err=1e-12
-
-[artifact.replay]
-path="VERIFICATION/sv001_v2_check.py"
-sha256="auto-computed at runtime by AqarionAgent.sha256OfFile()"
-
-[artifact.S13]
-path="VERIFICATION/AQ-S13-CHECK.PY"
-sha256="auto-computed"
+contract = "VERIFICATION/SV-001-V2/contract.json"
+verifier = "VERIFICATION/SV-001-V2/sv001_v2_check.py"
+oracle = "VERIFICATION/SV-001-V2/oracle.py"
+adversary = "VERIFICATION/SV-001-V2/adversary.py"
+replay = "VERIFICATION/SV-001-V2/replay.py"
+receipt_schema = "VERIFICATION/SV-001-V2/receipt.schema.json"
 
 [environment]
-python=">=3.11"
-requires=["numpy"]
-
-[reproducibility]
-command=["python3","VERIFICATION/sv001_v2_check.py"]
-observed=null
-rule="honest null allowed = SPECIFICATION COMPLETE, NOT YET OBSERVED!= ALL CHECKS PASS"
+python = ">=3.11"
+requires = ["numpy"]
 
 [governance]
-C4="BLOCKED"
-promotion=false
-SDS-002="QUARANTINED"
+C4 = "BLOCKED"
+promotion = false
