@@ -1,4 +1,4 @@
-# ⚖️ AQARION ARITHMETIC & CLAIMLOCK
+# ⚖️ AQARION ARITHMETIC
 
 **Certified Observable Invariance Across Dynamical Systems**
 
