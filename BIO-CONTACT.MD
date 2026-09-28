@@ -1,16 +1,13 @@
-AQARION Research
+AQARION development has moved to @quantarion369-arch.
 
 
-James A. Skaggs
+For current AQARION / Quantarion-AI research, mathematical kernels, JOIN-STABILITY, verification, and reconstruction work, please use:
 
 
-Independent Computational Mathematics Researcher
+https://github.com/quantarion369-arch/AQARION
 
 
-Founder — AQARION Research
-
-
-Creator — AQARION-ARITHMETIC
+This account remains part of the historical AQARION research lineage and provenance record.
 
 
 
